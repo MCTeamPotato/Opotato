@@ -7,5 +7,7 @@
   },
   "minVersion": "0.8.2",
   "mixins": [
+    "RedStoneWireBlockMixin",
+    "ServerLevelMixin"
   ]
 }
