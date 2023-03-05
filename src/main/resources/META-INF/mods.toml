@@ -1,12 +1,13 @@
 modLoader = "javafml"
 loaderVersion = "[36,)"
-license = "LGPLv3"
-issueTrackerURL = ""
+license = "MIT"
+issueTrackerURL = "https://github.com/MCTeamPotato/PotatOptimize/issues"
 
 [[mods]]
 modId = "potatoptimize"
 version = "${version}"
 displayName = "PotatOptimize"
+authors="Space Walker, Team Potato"
 description = '''
-Yea another optimization mod.
+n efficient and non-locational redstone dust implementation.
 '''
