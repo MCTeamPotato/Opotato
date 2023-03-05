@@ -1,0 +1,12 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+license = "LGPLv3"
+issueTrackerURL = ""
+
+[[mods]]
+modId = "potatoptimize"
+version = "${version}"
+displayName = "PotatOptimize"
+description = '''
+Yea another optimization mod.
+'''
