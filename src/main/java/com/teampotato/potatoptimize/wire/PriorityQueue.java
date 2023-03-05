@@ -1,7 +1,5 @@
 package com.teampotato.potatoptimize.wire;
 
-import net.minecraft.world.level.block.RedstoneTorchBlock;
-
 import java.util.AbstractQueue;
 import java.util.Arrays;
 import java.util.Iterator;

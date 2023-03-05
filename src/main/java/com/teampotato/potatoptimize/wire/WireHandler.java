@@ -358,9 +358,7 @@ public class WireHandler {
         Node[] oldCache = nodeCache;
         nodeCache = new Node[oldCache.length << 1];
 
-        for (int index = 0; index < oldCache.length; index++) {
-            nodeCache[index] = oldCache[index];
-        }
+        System.arraycopy(oldCache, 0, nodeCache, 0, oldCache.length);
 
         fillNodeCache(oldCache.length, nodeCache.length);
     }
@@ -824,13 +822,7 @@ public class WireHandler {
      * Queue the given wire for the breadth-first search as a root.
      */
     private void searchRoot(WireNode wire) {
-        int iBackupFlowDir;
-
-        if (wire.connections.iFlowDir < 0) {
-            iBackupFlowDir = 0;
-        } else {
-            iBackupFlowDir = wire.connections.iFlowDir;
-        }
+        int iBackupFlowDir = Math.max(wire.connections.iFlowDir, 0);
 
         search(wire, true, iBackupFlowDir);
     }
@@ -1103,9 +1095,7 @@ public class WireHandler {
      * Queue block updates to nodes around the given wire.
      */
     private void queueNeighbors(WireNode wire) {
-        forEachNeighbor(wire, neighbor -> {
-            queueNeighbor(neighbor, wire);
-        });
+        forEachNeighbor(wire, neighbor -> queueNeighbor(neighbor, wire));
     }
 
     /**
@@ -1155,9 +1145,9 @@ public class WireHandler {
     }
 
     @FunctionalInterface
-    public static interface NodeProvider {
+    public interface NodeProvider {
 
-        public Node getNeighbor(Node node, int iDir);
+        Node getNeighbor(Node node, int iDir);
 
     }
 }

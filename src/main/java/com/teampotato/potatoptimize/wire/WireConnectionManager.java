@@ -95,11 +95,10 @@ public class WireConnectionManager {
 	private void add(WireConnection connection) {
 		if (head == null) {
 			head = connection;
-			tail = connection;
 		} else {
 			tail.next = connection;
-			tail = connection;
 		}
+		tail = connection;
 
 		total++;
 
