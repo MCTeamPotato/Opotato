@@ -13,12 +13,13 @@ loom {
     silentMojangMappingsLicense()
     forge {
         mixinConfigs = [
-                "roadrunner.mixins.json"
+                "opotato.mixins.json"
         ]
         dataGen {
             mod project.mod_id
         }
     }
+    mixin.defaultRefmapName = "opotato.refmap.json"
 
     launches {
         data {
