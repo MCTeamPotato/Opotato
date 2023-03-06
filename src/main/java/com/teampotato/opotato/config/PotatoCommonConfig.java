@@ -3,8 +3,8 @@ package com.teampotato.opotato.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class PotatoCommonConfig {
-    public static ForgeConfigSpec COMMON_CONFIG;
-    public static ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE;
+    public static final ForgeConfigSpec COMMON_CONFIG;
+    public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE;
 
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();

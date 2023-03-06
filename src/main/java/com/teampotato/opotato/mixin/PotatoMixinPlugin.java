@@ -1,5 +1,6 @@
 package com.teampotato.opotato.mixin;
 
+import com.teampotato.opotato.config.Option;
 import com.teampotato.opotato.config.PotatoMixinConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,7 +50,7 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
         }
 
         String mixin = mixinClassName.substring(MIXIN_PACKAGE_ROOT.length());
-        PotatoMixinConfig.Option option = config.getEffectiveOptionForMixin(mixin);
+        Option option = config.getEffectiveOptionForMixin(mixin);
         if (option == null) {
             this.logger.error("No rules matched mixin '{}', treating as foreign and disabling!", mixin);
             return false;
