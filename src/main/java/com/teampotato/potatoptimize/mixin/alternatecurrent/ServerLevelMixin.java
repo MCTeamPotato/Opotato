@@ -1,6 +1,6 @@
-package com.teampotato.potatoptimize.mixin;
+package com.teampotato.potatoptimize.mixin.alternatecurrent;
 
-import com.teampotato.potatoptimize.interfaces.IServerLevel;
+import com.teampotato.potatoptimize.access.IServerLevel;
 import com.teampotato.potatoptimize.wire.WireHandler;
 import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;

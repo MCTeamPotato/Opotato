@@ -5,9 +5,13 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "minVersion": "0.8.2",
+  "minVersion": "0.8",
   "mixins": [
-    "RedStoneWireBlockMixin",
-    "ServerLevelMixin"
+    "alternatecurrent.RedStoneWireBlockMixin",
+    "alternatecurrent.ServerLevelMixin",
+    "mixintrace.MixinCrashReportSection",
+    "mixintrace.MixinCrashReport",
+    "schwarz.MixinCommandManager",
+    "smoothmenu.SmoothMenuMixin"
   ]
 }

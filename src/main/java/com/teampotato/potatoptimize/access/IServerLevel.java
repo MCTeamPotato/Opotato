@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.interfaces;
+package com.teampotato.potatoptimize.access;
 
 import com.teampotato.potatoptimize.wire.WireHandler;
 

@@ -3,29 +3,32 @@ package com.teampotato.potatoptimize;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.teampotato.potatoptimize.chunk.ChunkCommandHandler;
 import com.teampotato.potatoptimize.profiler.ProfilerResults;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
+
+import static net.minecraft.commands.Commands.literal;
 
 
 public class PotatOptimizeCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        LiteralArgumentBuilder<CommandSourceStack> builder = Commands.
+        LiteralArgumentBuilder<CommandSourceStack> builder =
                 literal("alternatecurrent").
                 requires(source -> source.hasPermission(2)).
                 executes(context -> query(context.getSource())).
-                then(Commands.
-                        literal("on").
+                then(literal("on").
                         executes(context -> set(context.getSource(), true))).
-                then(Commands.
-                        literal("off").
+                then(literal("off").
                         executes(context -> set(context.getSource(), false))).
-                then(Commands.
-                        literal("resetProfiler").
+                then(literal("resetProfiler").
                         requires(source -> PotatOptimize.DEBUG).
                         executes(context -> resetProfiler(context.getSource())));
 
+                literal("schwarz").
+                then(literal("chunkanalyse")).
+                executes(PotatOptimizeCommand::ChunkAnalyse);
         dispatcher.register(builder);
     }
 
@@ -52,5 +55,11 @@ public class PotatOptimizeCommand {
         ProfilerResults.clear();
 
         return Command.SINGLE_SUCCESS;
+    }
+
+    public static int ChunkAnalyse(CommandContext<CommandSourceStack> ctx) {
+        CommandSourceStack commandSourceStack = ctx.getSource();
+        ChunkCommandHandler.AnalyseChunk(commandSourceStack);
+        return 1;
     }
 }

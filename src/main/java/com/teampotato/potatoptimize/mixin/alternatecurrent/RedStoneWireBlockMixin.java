@@ -1,7 +1,7 @@
-package com.teampotato.potatoptimize.mixin;
+package com.teampotato.potatoptimize.mixin.alternatecurrent;
 
 import com.teampotato.potatoptimize.PotatOptimize;
-import com.teampotato.potatoptimize.interfaces.IServerLevel;
+import com.teampotato.potatoptimize.access.IServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.At.Shift;

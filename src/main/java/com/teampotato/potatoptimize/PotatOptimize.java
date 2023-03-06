@@ -1,17 +1,27 @@
 package com.teampotato.potatoptimize;
 
+import com.mojang.blaze3d.pipeline.RenderTarget;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.teampotato.potatoptimize.profiler.ACProfiler;
 import com.teampotato.potatoptimize.profiler.Profiler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static com.teampotato.potatoptimize.Config.COMMON_CONFIG;
 
 @Mod(PotatOptimize.ID)
 public class PotatOptimize {
     public PotatOptimize() {
-        System.out.println("Yea another optimization mod.");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     public static final String ID = "potatoptimize";
