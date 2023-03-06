@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = CrashReport.class)
 public abstract class MixinCrashReport {
     @Shadow
-    private StackTraceElement[] stackTrace;
+    private StackTraceElement[] uncategorizedStackTrace;
 
-    @Inject(method = "addStackTrace", at = @At(value = "FIELD", target = "Lnet/minecraft/util/crash/CrashReport;otherSections:Ljava/util/List;"))
+    @Inject(method = "getDetails", at = @At(value = "FIELD"))
     private void mixintrace_addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
         int trailingNewlineCount = 0;
         // Remove trailing \n
@@ -25,7 +25,7 @@ public abstract class MixinCrashReport {
             crashReportBuilder.deleteCharAt(crashReportBuilder.length() - 1);
             trailingNewlineCount++;
         }
-        TraceUtils.printTrace(stackTrace, crashReportBuilder);
+        TraceUtils.printTrace(uncategorizedStackTrace, crashReportBuilder);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < trailingNewlineCount; i++) {
             sb.append("\n");

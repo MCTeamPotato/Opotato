@@ -13,7 +13,7 @@ public abstract class MixinCrashReportSection {
     @Shadow
     private StackTraceElement[] stackTrace;
 
-    @Inject(method = "addStackTrace", at = @At("TAIL"))
+    @Inject(method = "getDetails", at = @At("TAIL"))
     private void mixintrace_addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
         TraceUtils.printTrace(stackTrace, crashReportBuilder);
     }

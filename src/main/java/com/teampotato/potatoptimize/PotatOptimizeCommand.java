@@ -7,6 +7,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.teampotato.potatoptimize.chunk.ChunkCommandHandler;
 import com.teampotato.potatoptimize.profiler.ProfilerResults;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
 import static net.minecraft.commands.Commands.literal;
@@ -14,20 +15,26 @@ import static net.minecraft.commands.Commands.literal;
 
 public class PotatOptimizeCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        LiteralArgumentBuilder<CommandSourceStack> builder = literal("alternatecurrent").
+        LiteralArgumentBuilder<CommandSourceStack> builder = Commands.
+                literal("alternatecurrent").
                 requires(source -> source.hasPermission(2)).
                 executes(context -> query(context.getSource())).
-                then(literal("on").
+                then(Commands.
+                        literal("on").
                         executes(context -> set(context.getSource(), true))).
-                then(literal("off").
+                then(Commands.
+                        literal("off").
                         executes(context -> set(context.getSource(), false))).
-                then(literal("resetProfiler").
+                then(Commands.
+                        literal("resetProfiler").
                         requires(source -> PotatOptimize.DEBUG).
                         executes(context -> resetProfiler(context.getSource())));
 
-        LiteralArgumentBuilder<CommandSourceStack> builder2 = literal("schwarz").
-                then(literal("chunkanalyse")).
-                executes(PotatOptimizeCommand::ChunkAnalyse);
+        LiteralArgumentBuilder<CommandSourceStack> builder2 = Commands.
+                literal("schwarz").
+                then(Commands.
+                        literal("chunkanalyse").
+                        executes(PotatOptimizeCommand::ChunkAnalyse));
         dispatcher.register(builder);
         dispatcher.register(builder2);
     }
