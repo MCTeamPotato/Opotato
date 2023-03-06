@@ -1,7 +1,9 @@
-package com.teampotato.potatoptimize.wire;
+package com.teampotato.potatoptimize.util.wire;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.IntStream;
 
 public class WireConnectionManager {
 
@@ -37,9 +39,7 @@ public class WireConnectionManager {
 	}
 
 	void set(WireHandler.NodeProvider nodes) {
-		if (total > 0) {
-			clear();
-		}
+		if (total > 0) clear();
 
 		boolean belowIsConductor = nodes.getNeighbor(owner, WireHandler.Directions.DOWN).isConductor();
 		boolean aboveIsConductor = nodes.getNeighbor(owner, WireHandler.Directions.UP).isConductor();
@@ -58,22 +58,16 @@ public class WireConnectionManager {
 			if (!sideIsConductor) {
 				Node node = nodes.getNeighbor(neighbor, WireHandler.Directions.DOWN);
 
-				if (node.isWire()) {
-					add(node.asWire(), iDir, belowIsConductor, true);
-				}
+				if (node.isWire()) add(node.asWire(), iDir, belowIsConductor, true);
 			}
 			if (!aboveIsConductor) {
 				Node node = nodes.getNeighbor(neighbor, WireHandler.Directions.UP);
 
-				if (node.isWire()) {
-					add(node.asWire(), iDir, true, sideIsConductor);
-				}
+				if (node.isWire()) add(node.asWire(), iDir, true, sideIsConductor);
+
 			}
 		}
-
-		if (total > 0) {
-			iFlowDir = WireHandler.FLOW_IN_TO_FLOW_OUT[flowTotal];
-		}
+		if (total > 0) iFlowDir = WireHandler.FLOW_IN_TO_FLOW_OUT[flowTotal];
 	}
 
 	private void clear() {
@@ -108,6 +102,7 @@ public class WireConnectionManager {
 		}
 	}
 
+
 	/**
 	 * Iterate over all connections. Use this method if the iteration order is not
 	 * important.
@@ -123,10 +118,9 @@ public class WireConnectionManager {
 	 * important.
 	 */
 	void forEach(Consumer<WireConnection> consumer, int iFlowDir) {
-		for (int iDir : WireHandler.CARDINAL_UPDATE_ORDERS[iFlowDir]) {
-			for (WireConnection c = heads[iDir]; c != null && c.iDir == iDir; c = c.next) {
-				consumer.accept(c);
-			}
-		}
+		IntStream.of(WireHandler.CARDINAL_UPDATE_ORDERS[iFlowDir])
+				.mapToObj(iDir -> heads[iDir])
+				.filter(Objects::nonNull)
+				.forEach(consumer);
 	}
 }

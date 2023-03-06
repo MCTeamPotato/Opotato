@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.wire;
+package com.teampotato.potatoptimize.util.wire;
 
 import java.util.Arrays;
 
@@ -44,13 +44,8 @@ public class Node {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Node)) {
-            return false;
-        }
-
+        if (this == obj) return true;
+        if (!(obj instanceof Node)) return false;
         Node node = (Node)obj;
 
         return level == node.level && pos.equals(node.pos);
@@ -62,13 +57,11 @@ public class Node {
     }
 
     Node set(BlockPos pos, BlockState state, boolean clearNeighbors) {
-        if (state.is(Blocks.REDSTONE_WIRE)) {
-            throw new IllegalStateException("Cannot update a regular Node to a WireNode!");
-        }
+        if (state.is(Blocks.REDSTONE_WIRE)) throw new IllegalStateException("Cannot update a regular Node to a WireNode!");
 
-        if (clearNeighbors) {
-            Arrays.fill(neighbors, null);
-        }
+
+        if (clearNeighbors) Arrays.fill(neighbors, null);
+
 
         this.pos = pos.immutable();
         this.state = state;
@@ -76,12 +69,9 @@ public class Node {
 
         this.flags = 0;
 
-        if (this.state.isRedstoneConductor(this.level, this.pos)) {
-            this.flags |= CONDUCTOR;
-        }
-        if (this.state.isSignalSource()) {
-            this.flags |= SOURCE;
-        }
+        if (this.state.isRedstoneConductor(this.level, this.pos)) this.flags |= CONDUCTOR;
+
+        if (this.state.isSignalSource()) this.flags |= SOURCE;
 
         return this;
     }

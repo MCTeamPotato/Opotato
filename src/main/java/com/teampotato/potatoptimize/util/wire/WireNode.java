@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.wire;
+package com.teampotato.potatoptimize.util.wire;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -97,15 +97,13 @@ public class WireNode extends Node {
 	}
 
 	boolean setPower() {
-		if (removed) {
-			return true;
-		}
+		if (removed) return true;
+
 
 		state = level.getBlockState(pos);
 
-		if (!state.is(Blocks.REDSTONE_WIRE)) {
-			return false; // we should never get here
-		}
+		if (!state.is(Blocks.REDSTONE_WIRE)) return false; // we should never get here
+
 
 		if (shouldBreak) {
 			Block.dropResources(state, level, pos);

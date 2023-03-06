@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.mixin.schwarz;
+package com.teampotato.potatoptimize.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.teampotato.potatoptimize.PotatOptimizeCommand;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
+//Just for mod commands' registry.
 @Mixin(Commands.class)
 public class MixinCommandManager {
     @Shadow

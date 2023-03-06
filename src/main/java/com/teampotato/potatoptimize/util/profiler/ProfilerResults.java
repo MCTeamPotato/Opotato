@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.profiler;
+package com.teampotato.potatoptimize.util.profiler;
 
 import java.util.LinkedHashMap;
 import java.util.List;

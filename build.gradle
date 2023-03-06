@@ -28,13 +28,21 @@ loom {
 }
 
 repositories {
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
     forge "net.minecraftforge:forge:${project.forge_version}"
-
+/*
+    modCompileOnly("curse.maven:rubidium-574856:4397474")
+    modRuntimeOnly("curse.maven:rubidium-574856:4397474")*/
 }
 
 processResources {

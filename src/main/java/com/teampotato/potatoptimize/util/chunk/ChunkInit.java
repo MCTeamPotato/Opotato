@@ -1,5 +1,6 @@
-package com.teampotato.potatoptimize.chunk;
+package com.teampotato.potatoptimize.util.chunk;
 
+import com.teampotato.potatoptimize.PotatOptimize;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,13 +13,13 @@ public class ChunkInit {
 
     @SubscribeEvent
     public static void onChunkLoad(ChunkEvent.Load event) {
-        ChunkData.loadedChunks.add((LevelChunk) event.getChunk());
+        PotatOptimize.loadedChunks.add((LevelChunk) event.getChunk());
     }
 
     @SubscribeEvent
     public static void onChunkUnload(ChunkEvent.Unload event) {
-        List<LevelChunk> loadedChunks = ChunkData.loadedChunks;
+        List<LevelChunk> loadedChunks = PotatOptimize.loadedChunks;
         loadedChunks.removeIf(loadedchunk -> loadedchunk.getPos().equals(event.getChunk().getPos()));
-        ChunkData.loadedChunks = loadedChunks;
+        PotatOptimize.loadedChunks = loadedChunks;
     }
 }

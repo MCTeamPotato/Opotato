@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.wire;
+package com.teampotato.potatoptimize.util.wire;
 
 /**
  * This class represents a connection between some WireNode (the 'owner') and a

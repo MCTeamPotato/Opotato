@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.wire;
+package com.teampotato.potatoptimize.util.wire;
 import java.util.Iterator;
 import java.util.Queue;
 import java.util.function.Consumer;
@@ -305,9 +305,7 @@ public class WireHandler {
                 // update one from the cache.
                 return getNextNode(pos);
             }
-            if (node.invalid) {
-                return revalidateNode(node);
-            }
+            if (node.invalid) return revalidateNode(node);
 
             return node;
         });
@@ -344,9 +342,7 @@ public class WireHandler {
      * use, increase it in size first.
      */
     private Node getNextNode() {
-        if (nodeCount == nodeCache.length) {
-            increaseNodeCache();
-        }
+        if (nodeCount == nodeCache.length) increaseNodeCache();
 
         return nodeCache[nodeCount++];
     }
@@ -379,9 +375,7 @@ public class WireHandler {
         boolean wasWire = node.isWire();
         boolean isWire = state.is(Blocks.REDSTONE_WIRE);
 
-        if (wasWire != isWire) {
-            return getNextNode(pos, state);
-        }
+        if (wasWire != isWire) return getNextNode(pos, state);
 
         node.invalid = false;
 
@@ -515,9 +509,7 @@ public class WireHandler {
     public void onWireAdded(BlockPos pos) {
         Node node = getOrAddNode(pos);
 
-        if (!node.isWire()) {
-            return; // we should never get here
-        }
+        if (!node.isWire()) return; // we should never get here
 
         WireNode wire = node.asWire();
         wire.added = true;
@@ -546,9 +538,8 @@ public class WireHandler {
 
         // If these fields are set to 'true', the removal of this wire was part of
         // already ongoing power changes, so we can exit early here.
-        if (updating && wire.shouldBreak) {
-            return;
-        }
+        if (updating && wire.shouldBreak) return;
+
 
         invalidate();
         revalidateNode(wire);
@@ -566,7 +557,6 @@ public class WireHandler {
     private void invalidate() {
         if (updating && !nodes.isEmpty()) {
             Iterator<Entry<Node>> it = Long2ObjectMaps.fastIterator(nodes);
-
             while (it.hasNext()) {
                 Entry<Node> entry = it.next();
                 Node node = entry.getValue();
@@ -606,25 +596,20 @@ public class WireHandler {
     private void findRoots(BlockPos pos) {
         Node node = getOrAddNode(pos);
 
-        if (!node.isWire()) {
-            return; // we should never get here
-        }
+        if (!node.isWire()) return; // we should never get here
 
         WireNode wire = node.asWire();
         findRoot(wire);
 
         // If the wire at the given position is not in an invalid state
         // we can exit early.
-        if (!wire.searched) {
-            return;
-        }
+        if (!wire.searched) return;
+
 
         for (int iDir : FULL_UPDATE_ORDERS[wire.iFlowDir]) {
             Node neighbor = getNeighbor(wire, iDir);
 
-            if (neighbor.isConductor() || neighbor.isSignalSource()) {
-                findRootsAround(neighbor, Directions.iOpposite(iDir));
-            }
+            if (neighbor.isConductor() || neighbor.isSignalSource()) findRootsAround(neighbor, Directions.iOpposite(iDir));
         }
     }
 
@@ -635,9 +620,7 @@ public class WireHandler {
         for (int iDir : Directions.I_EXCEPT_CARDINAL[except]) {
             Node neighbor = getNeighbor(node, iDir);
 
-            if (neighbor.isWire()) {
-                findRoot(neighbor.asWire());
-            }
+            if (neighbor.isWire()) findRoot(neighbor.asWire());
         }
     }
 
@@ -647,17 +630,14 @@ public class WireHandler {
      */
     private void findRoot(WireNode wire) {
         // Each wire only needs to be checked once.
-        if (wire.discovered) {
-            return;
-        }
+        if (wire.discovered) return;
+
 
         discover(wire);
         findExternalPower(wire);
         findPower(wire, false);
 
-        if (needsUpdate(wire)) {
-            searchRoot(wire);
-        }
+        if (needsUpdate(wire)) searchRoot(wire);
     }
 
     /**
@@ -671,16 +651,14 @@ public class WireHandler {
      * - Find connections to neighboring wires.
      */
     private void discover(WireNode wire) {
-        if (wire.discovered) {
-            return;
-        }
+        if (wire.discovered) return;
+
 
         wire.discovered = true;
         wire.searched = false;
 
-        if (!wire.removed && !wire.shouldBreak && !wire.state.canSurvive(level, wire.pos)) {
-            wire.shouldBreak = true;
-        }
+        if (!wire.removed && !wire.shouldBreak && !wire.state.canSurvive(level, wire.pos)) wire.shouldBreak = true;
+
 
         wire.virtualPower = wire.currentPower;
         wire.externalPower = POWER_MIN - 1;
@@ -702,16 +680,13 @@ public class WireHandler {
         // If the wire is removed or going to break, its power level should always be
         // the minimum value. This is because it (effectively) no longer exists, so
         // cannot provide any power to neighboring wires.
-        if (wire.removed || wire.shouldBreak) {
-            return;
-        }
+        if (wire.removed || wire.shouldBreak) return;
+
 
         // Power received from neighboring wires will never exceed POWER_MAX -
         // POWER_STEP, so if the external power is already larger than or equal to
         // that, there is no need to check for power from neighboring wires.
-        if (wire.externalPower < (POWER_MAX - POWER_STEP)) {
-            findWirePower(wire, ignoreSearched);
-        }
+        if (wire.externalPower < (POWER_MAX - POWER_STEP)) findWirePower(wire, ignoreSearched);
     }
 
     /**
@@ -720,9 +695,8 @@ public class WireHandler {
      */
     private void findWirePower(WireNode wire, boolean ignoreSearched) {
         wire.connections.forEach(connection -> {
-            if (!connection.accept) {
-                return;
-            }
+            if (!connection.accept) return;
+
 
             WireNode neighbor = connection.wire;
 
@@ -743,15 +717,11 @@ public class WireHandler {
         // If the wire is removed or going to break, its power level should always be
         // the minimum value. Thus external power need not be computed.
         // In other cases external power need only be computed once.
-        if (wire.removed || wire.shouldBreak || wire.externalPower >= POWER_MIN) {
-            return;
-        }
+        if (wire.removed || wire.shouldBreak || wire.externalPower >= POWER_MIN) return;
 
         wire.externalPower = getExternalPower(wire);
 
-        if (wire.externalPower > wire.virtualPower) {
-            wire.virtualPower = wire.externalPower;
-        }
+        if (wire.externalPower > wire.virtualPower) wire.virtualPower = wire.externalPower;
     }
 
     /**
@@ -765,24 +735,19 @@ public class WireHandler {
             Node neighbor = getNeighbor(wire, iDir);
 
             // Power from wires is handled separately.
-            if (neighbor.isWire()) {
-                continue;
-            }
+            if (neighbor.isWire()) continue;
+
 
             // Since 1.16 there is a block that is both a conductor and a signal
             // source: the target block!
-            if (neighbor.isConductor()) {
-                power = Math.max(power, getDirectSignalTo(wire, neighbor, Directions.iOpposite(iDir)));
-            }
-            if (neighbor.isSignalSource()) {
-                power = Math.max(power, neighbor.state.getSignal(level, neighbor.pos, Directions.ALL[iDir]));
-            }
+            if (neighbor.isConductor()) power = Math.max(power, getDirectSignalTo(wire, neighbor, Directions.iOpposite(iDir)));
 
-            if (power >= POWER_MAX) {
-                return POWER_MAX;
-            }
+            if (neighbor.isSignalSource()) power = Math.max(power, neighbor.state.getSignal(level, neighbor.pos, Directions.ALL[iDir]));
+
+
+            if (power >= POWER_MAX) return POWER_MAX;
+
         }
-
         return power;
     }
 
@@ -799,9 +764,7 @@ public class WireHandler {
             if (neighbor.isSignalSource()) {
                 power = Math.max(power, neighbor.state.getDirectSignal(level, neighbor.pos, Directions.ALL[iDir]));
 
-                if (power >= POWER_MAX) {
-                    return POWER_MAX;
-                }
+                if (power >= POWER_MAX) return POWER_MAX;
             }
         }
 
@@ -843,9 +806,8 @@ public class WireHandler {
     }
 
     private void tryUpdate() {
-        if (!search.isEmpty()) {
-            update();
-        }
+        if (!search.isEmpty()) update();
+
         if (!updating) {
             nodes.clear();
             nodeCount = 0;
@@ -917,15 +879,12 @@ public class WireHandler {
             // The order in which wires are searched will influence the order in
             // which they update their power levels.
             wire.connections.forEach(connection -> {
-                if (!connection.offer) {
-                    return;
-                }
+                if (!connection.offer) return;
 
                 WireNode neighbor = connection.wire;
 
-                if (neighbor.searched) {
-                    return;
-                }
+                if (neighbor.searched) return;
+
 
                 discover(neighbor);
                 findPower(neighbor, false);
@@ -933,13 +892,11 @@ public class WireHandler {
                 // If power from neighboring wires has decreased, check for power
                 // from non-wire components so as to determine how low power can
                 // fall.
-                if (neighbor.virtualPower < neighbor.currentPower) {
-                    findExternalPower(neighbor);
-                }
+                if (neighbor.virtualPower < neighbor.currentPower) findExternalPower(neighbor);
 
-                if (needsUpdate(neighbor)) {
-                    search(neighbor, false, connection.iDir);
-                }
+
+                if (needsUpdate(neighbor)) search(neighbor, false, connection.iDir);
+
             }, wire.iFlowDir);
         }
     }
@@ -975,9 +932,7 @@ public class WireHandler {
         // (or the same network in another place), new power changes will be
         // integrated into the already ongoing power queue, so we can exit early
         // here.
-        if (updating) {
-            return;
-        }
+        if (updating) return;
 
         updating = true;
 
@@ -987,9 +942,8 @@ public class WireHandler {
             if (node.isWire()) {
                 WireNode wire = node.asWire();
 
-                if (!needsUpdate(wire)) {
-                    continue;
-                }
+                if (!needsUpdate(wire)) continue;
+
 
                 findPowerFlow(wire);
                 transmitPower(wire);
@@ -1042,18 +996,15 @@ public class WireHandler {
      */
     private void transmitPower(WireNode wire) {
         wire.connections.forEach(connection -> {
-            if (!connection.offer) {
-                return;
-            }
+            if (!connection.offer) return;
 
             WireNode neighbor = connection.wire;
 
             int power = Math.max(POWER_MIN, wire.virtualPower - POWER_STEP);
             int iDir = connection.iDir;
 
-            if (neighbor.offerPower(power, iDir)) {
-                queueWire(neighbor);
-            }
+            if (neighbor.offerPower(power, iDir)) queueWire(neighbor);
+
         }, wire.iFlowDir);
     }
 
@@ -1136,9 +1087,7 @@ public class WireHandler {
         // performance gains in certain setups, if you are not, you can add all the
         // positions of the network to a set and filter out block updates to wires in
         // the network that way.
-        if (!state.isAir() && !state.is(Blocks.REDSTONE_WIRE)) {
-            state.neighborChanged(level, pos, neighborBlock, neighborPos, false);
-        }
+        if (!state.isAir() && !state.is(Blocks.REDSTONE_WIRE)) state.neighborChanged(level, pos, neighborBlock, neighborPos, false);
     }
 
     @FunctionalInterface

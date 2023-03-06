@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.chunk;
+package com.teampotato.potatoptimize.util.chunk;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;

@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.wire;
+package com.teampotato.potatoptimize.util.wire;
 
 import java.util.AbstractQueue;
 import java.util.Iterator;
@@ -16,9 +16,8 @@ public class SimpleQueue extends AbstractQueue<WireNode> {
 
 	@Override
 	public boolean offer(WireNode node) {
-		if (node == null) {
-			throw new NullPointerException();
-		}
+		if (node == null) throw new NullPointerException();
+
 
 		if (tail == null) {
 			head = tail = node;
@@ -34,9 +33,7 @@ public class SimpleQueue extends AbstractQueue<WireNode> {
 
 	@Override
 	public WireNode poll() {
-		if (head == null) {
-			return null;
-		}
+		if (head == null) return null;
 
 		WireNode node = head;
 		WireNode next = node.next_wire;
@@ -94,9 +91,7 @@ public class SimpleQueue extends AbstractQueue<WireNode> {
 
 		@Override
 		public boolean hasNext() {
-			if (next == null && curr != null) {
-				next = curr.next_wire;
-			}
+			if (next == null && curr != null) next = curr.next_wire;
 
 			return next != null;
 		}

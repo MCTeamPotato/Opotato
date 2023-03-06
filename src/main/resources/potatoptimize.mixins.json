@@ -1,5 +1,6 @@
 {
   "package": "com.teampotato.potatoptimize.mixin",
+  "plugin": "com.teampotato.potatoptimize.mixin.PotatoMixinPlugin",
   "required": true,
   "compatibilityLevel": "JAVA_8",
   "injectors": {
@@ -11,7 +12,7 @@
     "alternatecurrent.ServerLevelMixin",
     "mixintrace.MixinCrashReportSection",
     "mixintrace.MixinCrashReport",
-    "schwarz.MixinCommandManager",
+    "MixinCommandManager",
     "smoothmenu.SmoothMenuMixin"
   ]
 }

@@ -4,13 +4,12 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import com.teampotato.potatoptimize.chunk.ChunkCommandHandler;
-import com.teampotato.potatoptimize.profiler.ProfilerResults;
+import com.teampotato.potatoptimize.config.PotatoCommonConfig;
+import com.teampotato.potatoptimize.util.chunk.ChunkCommandHandler;
+import com.teampotato.potatoptimize.util.profiler.ProfilerResults;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
-
-import static net.minecraft.commands.Commands.literal;
 
 
 public class PotatOptimizeCommand {
@@ -27,7 +26,7 @@ public class PotatOptimizeCommand {
                         executes(context -> set(context.getSource(), false))).
                 then(Commands.
                         literal("resetProfiler").
-                        requires(source -> PotatOptimize.DEBUG).
+                        requires(source -> PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get()).
                         executes(context -> resetProfiler(context.getSource())));
 
         LiteralArgumentBuilder<CommandSourceStack> builder2 = Commands.

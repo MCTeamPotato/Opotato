@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.wire;
+package com.teampotato.potatoptimize.util.wire;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -19,9 +19,7 @@ public class LevelHelper {
     static boolean setWireState(ServerLevel level, BlockPos pos, BlockState state, boolean updateNeighborShapes) {
         int y = pos.getY();
 
-        if (y < 0 || y >= level.getMaxBuildHeight()) {
-            return false;
-        }
+        if (y < 0 || y >= level.getMaxBuildHeight()) return false;
 
         int x = pos.getX();
         int z = pos.getZ();
@@ -31,15 +29,13 @@ public class LevelHelper {
         assert chunk != null;
         LevelChunkSection section = chunk.getSections()[index];
 
-        if (section == null) {
-            return false;
-        }
+        if (section == null) return false;
+
 
         BlockState prevState = section.setBlockState(x & 15, y & 15, z & 15, state);
 
-        if (state == prevState) {
-            return false;
-        }
+        if (state == prevState) return false;
+
 
         // notify clients of the BlockState change
         level.getChunkSource().blockChanged(pos);

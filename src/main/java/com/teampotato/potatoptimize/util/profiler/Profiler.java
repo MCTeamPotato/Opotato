@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.profiler;
+package com.teampotato.potatoptimize.util.profiler;
 
 public interface Profiler {
 

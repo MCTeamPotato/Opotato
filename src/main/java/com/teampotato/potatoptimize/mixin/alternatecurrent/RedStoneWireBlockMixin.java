@@ -24,11 +24,7 @@ public class RedStoneWireBlockMixin {
             )
     )
     private void onUpdate(Level level, BlockPos pos, BlockState state, CallbackInfo ci) {
-        if (PotatOptimize.on) {
-            // Using redirects for calls to this method makes conflicts with
-            // other mods more likely, so we inject-cancel instead.
-            ci.cancel();
-        }
+        if (PotatOptimize.on) ci.cancel();
     }
 
     @Inject(
@@ -40,9 +36,7 @@ public class RedStoneWireBlockMixin {
             )
     )
     private void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean moved, CallbackInfo ci) {
-        if (PotatOptimize.on) {
-            ((IServerLevel)level).getWireHandler().onWireAdded(pos);
-        }
+        if (PotatOptimize.on) ((IServerLevel)level).getWireHandler().onWireAdded(pos);
     }
 
     @Inject(
@@ -54,9 +48,7 @@ public class RedStoneWireBlockMixin {
             )
     )
     private void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci) {
-        if (PotatOptimize.on) {
-            ((IServerLevel)level).getWireHandler().onWireRemoved(pos, state);
-        }
+        if (PotatOptimize.on) ((IServerLevel)level).getWireHandler().onWireRemoved(pos, state);
     }
 
     @Inject(

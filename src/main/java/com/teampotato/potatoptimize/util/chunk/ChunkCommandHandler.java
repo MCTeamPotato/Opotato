@@ -1,5 +1,6 @@
-package com.teampotato.potatoptimize.chunk;
+package com.teampotato.potatoptimize.util.chunk;
 
+import com.teampotato.potatoptimize.PotatOptimize;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -12,7 +13,7 @@ public class ChunkCommandHandler {
     private static final List<ChunkStatus> scores = new ArrayList<>();
 
     public static void AnalyseChunk(CommandSourceStack commandSource) {
-        List<LevelChunk> currentWorldChunkList = ChunkData.loadedChunks;
+        List<LevelChunk> currentWorldChunkList = PotatOptimize.loadedChunks;
         scores.clear();
         for (LevelChunk chunk : currentWorldChunkList) {
             scores.add(new ChunkStatus(chunk));

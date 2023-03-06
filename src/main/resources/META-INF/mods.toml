@@ -7,7 +7,7 @@ issueTrackerURL = "https://github.com/MCTeamPotato/PotatOptimize/issues"
 modId = "potatoptimize"
 version = "${version}"
 displayName = "PotatOptimize"
-authors="Space Walker, Team Potato"
+authors="Team Potato"
 description = '''
-n efficient and non-locational redstone dust implementation.
+Yeah another optimization mod.
 '''

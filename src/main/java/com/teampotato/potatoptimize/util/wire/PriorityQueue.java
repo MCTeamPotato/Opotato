@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.wire;
+package com.teampotato.potatoptimize.util.wire;
 
 import java.util.AbstractQueue;
 import java.util.Arrays;
@@ -22,9 +22,7 @@ public class PriorityQueue extends AbstractQueue<Node> {
 
 	@Override
 	public boolean offer(Node node) {
-		if (node == null) {
-			throw new NullPointerException();
-		}
+		if (node == null) throw new NullPointerException();
 
 		int priority = node.priority();
 
@@ -45,9 +43,7 @@ public class PriorityQueue extends AbstractQueue<Node> {
 
 	@Override
 	public Node poll() {
-		if (head == null) {
-			return null;
-		}
+		if (head == null) return null;
 
 		Node node = head;
 		Node next = node.next_node;
@@ -199,9 +195,7 @@ public class PriorityQueue extends AbstractQueue<Node> {
 		for (int i = node.priority + OFFSET; i < tails.length; i++) {
 			prev = tails[i];
 
-			if (prev != null) {
-				break;
-			}
+			if (prev != null) break;
 		}
 
 		return prev;

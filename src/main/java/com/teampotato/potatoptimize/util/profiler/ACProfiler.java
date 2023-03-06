@@ -1,4 +1,4 @@
-package com.teampotato.potatoptimize.profiler;
+package com.teampotato.potatoptimize.util.profiler;
 
 import com.teampotato.potatoptimize.PotatOptimize;
 import org.apache.logging.log4j.Logger;
