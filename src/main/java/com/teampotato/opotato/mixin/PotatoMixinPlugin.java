@@ -12,28 +12,28 @@ import java.util.List;
 import java.util.Set;
 
 public class PotatoMixinPlugin implements IMixinConfigPlugin {
-    private static final String MIXIN_PACKAGE_ROOT = "com.teampotato.potatoptimize.mixin.";
-    private final Logger logger = LogManager.getLogger("PotatOptimize");
+    private static final String MIXIN_PACKAGE_ROOT = "com.teampotato.opotato.mixin.";
+    private final Logger logger = LogManager.getLogger("Opotato");
     public static PotatoMixinConfig config;
     public static PotatoMixinPlugin instance;
 
     public PotatoMixinPlugin() {
         instance = this;
         try {
-            config = PotatoMixinConfig.load(new File("./config/modernfix-mixins.properties"));
+            config = PotatoMixinConfig.load(new File("./config/opotato-mixins.properties"));
         } catch (Exception e) {
-            throw new RuntimeException("Could not load configuration file for PotatOptimize", e);
+            throw new RuntimeException("Could not load configuration file for Opotato", e);
         }
 
-        this.logger.info("Loaded configuration file for PotatOptimize: {} options available, {} override(s) found", config.getOptionCount(), config.getOptionOverrideCount());
+        this.logger.info("Loaded configuration file for Opotato: {} options available, {} override(s) found", config.getOptionCount(), config.getOptionOverrideCount());
     }
 
     @Override
     public void onLoad(String mixinPackage) {
         try {
-            config = PotatoMixinConfig.load(new File("./config/potatoptimize-mixins.properties"));
+            config = PotatoMixinConfig.load(new File("./config/opotato-mixins.properties"));
         } catch (Exception e) {
-            throw new RuntimeException("Could not load configuration file for PotatOptimize", e);
+            throw new RuntimeException("Could not load configuration file for Opotato", e);
         }
     }
 

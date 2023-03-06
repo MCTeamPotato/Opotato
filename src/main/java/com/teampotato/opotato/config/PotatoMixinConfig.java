@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PotatoMixinConfig {
-    private static final Logger LOGGER = LogManager.getLogger("PotatOptimizeConfig");
+    private static final Logger LOGGER = LogManager.getLogger("OpotatoConfig");
     private final Map<String, Option> options = new HashMap<>();
 
     private PotatoMixinConfig() {
@@ -121,7 +121,7 @@ public class PotatoMixinConfig {
         }
 
         try (Writer writer = new FileWriter(file)) {
-            writer.write("# This is the configuration file for ModernFix.\n");
+            writer.write("# This is the configuration file for Opotato.\n");
             writer.write("#\n");
             writer.write("# The following options can be enabled or disabled if there is a compatibility issue.\n");
             writer.write("# Add a line mixin.example_name=true/false without the # sign to enable/disable a rule.\n");

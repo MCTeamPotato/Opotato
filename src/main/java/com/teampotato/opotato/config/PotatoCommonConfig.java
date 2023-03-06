@@ -8,7 +8,7 @@ public class PotatoCommonConfig {
 
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
-        CONFIG_BUILDER.comment("PotatOptimize").push("alternatecurrent");
+        CONFIG_BUILDER.comment("Opotato").push("alternatecurrent");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER.define("enable alternate current debug mode", false);
         CONFIG_BUILDER.pop();
         COMMON_CONFIG = CONFIG_BUILDER.build();
