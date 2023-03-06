@@ -25,7 +25,7 @@ public class PotatOptimize {
 
     public static final String ID = "potatoptimize";
     public static final String NAME = "PotatOptimize";
-    public static final String VER = "1.0.0";
+    public static final String VER = "1.0";
     public static final Logger LOGGER = LogManager.getLogger(ID);
 
     public static List<LevelChunk> loadedChunks = new ArrayList<>();
@@ -34,5 +34,13 @@ public class PotatOptimize {
 
     public static Profiler creatrProfiler() {
         return PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get() ? new ACProfiler() : Profiler.DUMMY;
+    }
+
+    @Mod.EventBusSubscriber(modid = ID)
+    public static class ModEvents {
+        @SubscribeEvent
+        public static void onRegisterCommands(RegisterCommandsEvent event) {
+            PotatOptimizeCommand.register(event.getDispatcher());
+        }
     }
 }
