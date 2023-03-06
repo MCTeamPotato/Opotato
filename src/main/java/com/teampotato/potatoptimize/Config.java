@@ -4,9 +4,16 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Config {
 
-    public static ForgeConfigSpec COMMON_CONFIG;
-    public static ForgeConfigSpec.IntValue TARGET_FPS_IN_GAME_GUI, TARGET_FPS_IN_GAME_GUI_ANIMATED, TARGET_FPS_IN_GAME_SCREENS, TARGET_FPS_NAME_TAGS;
-    public static ForgeConfigSpec.BooleanValue ENABLED_GUI, ENABLED_GUI_ANIMATION_SPEEDUP, ENABLED_SCREENS, ENABLE_SIGN_BUFFERING, ENABLE_NAME_TAG_SCREEN_BUFFERING;
+    public static final ForgeConfigSpec COMMON_CONFIG;
+    public static final ForgeConfigSpec.IntValue TARGET_FPS_IN_GAME_GUI;
+    public static final ForgeConfigSpec.IntValue TARGET_FPS_IN_GAME_GUI_ANIMATED;
+    public static final ForgeConfigSpec.IntValue TARGET_FPS_IN_GAME_SCREENS;
+    public static final ForgeConfigSpec.IntValue TARGET_FPS_NAME_TAGS;
+    public static final ForgeConfigSpec.BooleanValue ENABLED_GUI;
+    public static final ForgeConfigSpec.BooleanValue ENABLED_GUI_ANIMATION_SPEEDUP;
+    public static final ForgeConfigSpec.BooleanValue ENABLED_SCREENS;
+    public static final ForgeConfigSpec.BooleanValue ENABLE_SIGN_BUFFERING;
+    public static final ForgeConfigSpec.BooleanValue ENABLE_NAME_TAG_SCREEN_BUFFERING;
 
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();

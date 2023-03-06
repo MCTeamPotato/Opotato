@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChunkCommandHandler {
-    private static List<ChunkStatus> scores = new ArrayList<ChunkStatus>();
+    private static final List<ChunkStatus> scores = new ArrayList<>();
 
     public static void AnalyseChunk(CommandSourceStack commandSource) {
         List<LevelChunk> currentWorldChunkList = ChunkData.loadedChunks;

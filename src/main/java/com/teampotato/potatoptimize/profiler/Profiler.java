@@ -2,7 +2,7 @@ package com.teampotato.potatoptimize.profiler;
 
 public interface Profiler {
 
-    public static final Profiler DUMMY = new Profiler() {
+    Profiler DUMMY = new Profiler() {
         @Override public void start() { }
         @Override public void end() { }
         @Override public void push(String location) { }
@@ -10,14 +10,14 @@ public interface Profiler {
         @Override public void swap(String location) { }
     };
 
-    public void start();
+    void start();
 
-    public void end();
+    void end();
 
-    public void push(String location);
+    void push(String location);
 
-    public void pop();
+    void pop();
 
-    public void swap(String location);
+    void swap(String location);
 
 }

@@ -14,16 +14,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 public class ChunkStatus implements Comparable<ChunkStatus>{
     private int score = 0;
-    private int coords[] = new int[2];
+    private final int[] coords = new int[2];
 
-    private LevelChunk chunk;
+    private final LevelChunk chunk;
     private String world;
 
-    private HashMap<BlockEntityType, Integer> blockEntityScore = new HashMap<BlockEntityType, Integer>() {{
+    private final HashMap<BlockEntityType, Integer> blockEntityScore = new HashMap<BlockEntityType, Integer>() {{
         put(BlockEntityType.CHEST, 1);
         put(BlockEntityType.TRAPPED_CHEST, 2);
         put(BlockEntityType.BLAST_FURNACE, 3);
@@ -36,7 +35,7 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
         put(BlockEntityType.MOB_SPAWNER, 60);
     }};
 
-    private HashMap<EntityType, Integer> livingEntityScore = new HashMap<EntityType, Integer>(){{
+    private final HashMap<EntityType, Integer> livingEntityScore = new HashMap<EntityType, Integer>(){{
         put(EntityType.PLAYER, 15);
         put(EntityType.ZOMBIE, 2);
         put(EntityType.SPIDER, 2);

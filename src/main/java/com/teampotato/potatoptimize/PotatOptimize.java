@@ -1,9 +1,5 @@
 package com.teampotato.potatoptimize;
 
-import com.mojang.blaze3d.pipeline.RenderTarget;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.teampotato.potatoptimize.profiler.ACProfiler;
 import com.teampotato.potatoptimize.profiler.Profiler;
 import net.minecraftforge.common.MinecraftForge;
