@@ -131,6 +131,11 @@ public class PotatoMixinConfig {
             for(String line : lines) {
                 writer.write(line);
             }
+            for (Map.Entry<Object, Object> entry : props.entrySet()) {
+                String key = (String) entry.getKey();
+                String value = (String) entry.getValue();
+                writer.write(key + "=" + value + "\n");
+            }
         }
     }
 
