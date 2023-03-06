@@ -11,12 +11,9 @@ import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.teampotato.potatoptimize.Config.COMMON_CONFIG;
-
 @Mod(PotatOptimize.ID)
 public class PotatOptimize {
     public PotatOptimize() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
         MinecraftForge.EVENT_BUS.register(this);
     }
 

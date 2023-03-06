@@ -14,8 +14,7 @@ import static net.minecraft.commands.Commands.literal;
 
 public class PotatOptimizeCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        LiteralArgumentBuilder<CommandSourceStack> builder =
-                literal("alternatecurrent").
+        LiteralArgumentBuilder<CommandSourceStack> builder = literal("alternatecurrent").
                 requires(source -> source.hasPermission(2)).
                 executes(context -> query(context.getSource())).
                 then(literal("on").
@@ -26,10 +25,11 @@ public class PotatOptimizeCommand {
                         requires(source -> PotatOptimize.DEBUG).
                         executes(context -> resetProfiler(context.getSource())));
 
-                literal("schwarz").
+        LiteralArgumentBuilder<CommandSourceStack> builder2 = literal("schwarz").
                 then(literal("chunkanalyse")).
                 executes(PotatOptimizeCommand::ChunkAnalyse);
         dispatcher.register(builder);
+        dispatcher.register(builder2);
     }
 
     private static int query(CommandSourceStack source) {
