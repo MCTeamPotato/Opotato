@@ -1,12 +1,12 @@
 modLoader = "javafml"
 loaderVersion = "[36,)"
 license = "MIT"
-issueTrackerURL = "https://github.com/MCTeamPotato/PotatOptimize/issues"
+issueTrackerURL = "https://github.com/MCTeamPotato/Opotato/issues"
 
 [[mods]]
-modId = "potatoptimize"
+modId = "opotato"
 version = "${version}"
-displayName = "PotatOptimize"
+displayName = "Opotato"
 authors="Team Potato"
 description = '''
 Yeah another optimization mod.
