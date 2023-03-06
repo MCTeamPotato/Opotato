@@ -21,6 +21,7 @@ public class PotatOptimize {
     public PotatOptimize() {
         MinecraftForge.EVENT_BUS.register(this);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
+        if (PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get()) LOGGER.info("PotatOptimize - Alternate Current DEBUG mode enabled!");
     }
 
     public static final String ID = "potatoptimize";

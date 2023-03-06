@@ -1,13 +1,9 @@
 package com.teampotato.potatoptimize.util.wire;
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.function.Consumer;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap.Entry;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -15,6 +11,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.Constants;
+
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.function.Consumer;
 
 /**
  * This class handles power changes for redstone wire. The algorithm was

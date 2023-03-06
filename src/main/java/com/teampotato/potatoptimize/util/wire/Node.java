@@ -1,11 +1,11 @@
 package com.teampotato.potatoptimize.util.wire;
 
-import java.util.Arrays;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Arrays;
 
 /**
  * A Node represents a block in the world. It also holds a few other pieces of
