@@ -13,13 +13,12 @@ public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
 
     private PotatoMixinConfig() {
-        this.addMixinRule("smoothmenu.SmoothMenuMixin", true);
-        this.addMixinRule("mixintrace.MixinCrashReport", true);
-        this.addMixinRule("mixintrace.MixinCrashReportSection", true);
-
-        disableIfModPresent("mixin.smoothmenu.SmoothMenuMixin", "forgery");
-        disableIfModPresent("mixin.mixintrace.MixinCrashReport", "notenoughcrashes");
-        disableIfModPresent("mixin.mixintrace.MixinCrashReportSection", "notenoughcrashes");
+        this.addMixinRule("smoothmenu", true);
+        this.addMixinRule("mixintrace", true);
+        this.addMixinRule("mixintrace", true);
+        disableIfModPresent("mixin.smoothmenu", "forgery");
+        disableIfModPresent("mixin.mixintrace", "notenoughcrashes");
+        disableIfModPresent("mixin.mixintrace", "notenoughcrashes");
     }
 
     private void disableIfModPresent(String configName, String... ids) {
