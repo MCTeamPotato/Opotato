@@ -16,7 +16,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("smoothmenu", true);
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("alternatecurrent", true);
-        this.addMixinRule("betterbeds", false);
+        this.addMixinRule("betterbeds", true);
         disableIfModPresent("mixin.smoothmenu", "forgery");
         disableIfModPresent("mixin.mixintrace", "notenoughcrashes");
     }
