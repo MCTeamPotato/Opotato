@@ -12,6 +12,8 @@
     "alternatecurrent.ServerLevelMixin",
     "mixintrace.MixinCrashReportSection",
     "mixintrace.MixinCrashReport",
-    "smoothmenu.SmoothMenuMixin"
+    "smoothmenu.SmoothMenuMixin",
+    "betterbeds.MixinBedBlock",
+    "betterbeds.MixinBlockEntityRendererDispatcher"
   ]
 }
