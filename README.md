@@ -27,6 +27,6 @@ if you intsall Forgery, the mixin of Smooth Menu will be automatically disabled 
 ____
 
 # Config
-config/opotato-mixins.properties → You can disable/enable the mixin of this mod hre.
+config/opotato-mixins.properties → You can disable/enable the mixin of this mod here.
 
 config/opotato-common.toml → You can disable/enable the DEBUG mode of Alternate Current here.
