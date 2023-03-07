@@ -16,6 +16,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("smoothmenu", true);
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("alternatecurrent", true);
+        this.addMixinRule("betterbeds", false);
         disableIfModPresent("mixin.smoothmenu", "forgery");
         disableIfModPresent("mixin.mixintrace", "notenoughcrashes");
     }
@@ -123,11 +124,8 @@ public class PotatoMixinConfig {
             writer.write("#\n");
             writer.write("# The following options can be enabled or disabled if there is a compatibility issue.\n");
             writer.write("# Add a line mixin.example_name=true/false without the # sign to enable/disable a rule.\n");
-            List<String> lines = this.options.keySet().stream()
-                    .filter(key -> !key.equals("mixin.core"))
-                    .sorted()
-                    .map(key -> "#   " + key + "\n")
-                    .collect(Collectors.toList());
+            writer.write("# Only the mixin.betterbeds is false by default.\n");
+            List<String> lines = this.options.keySet().stream().filter(key -> !key.equals("mixin.core")).sorted().map(key -> "#   " + key + "\n").collect(Collectors.toList());
             for(String line : lines) {
                 writer.write(line);
             }
