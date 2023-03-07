@@ -11,6 +11,10 @@ To port other optimization mods that don't support mc 1.16.5 forge.
 
 4. [Schwarz](https://beta.curseforge.com/minecraft/mc-mods/schwarz)
 
+5. [Better Beds](https://beta.curseforge.com/minecraft/mc-mods/better-beds)(WIP & not usable & disable by default, TODO: its resourcepack)
+
+6. [Jump Over Fences](https://beta.curseforge.com/minecraft/mc-mods/jump-over-fences-forge)(It does support 1.16.5 Forge. But see config for details)
+
 
 # LICENSE info
 See [LICENSE.md](https://github.com/MCTeamPotato/Opotato/blob/main/LICENSE.md "LICENSE.md")
