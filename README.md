@@ -13,7 +13,7 @@ To port other optimization mods that don't support mc 1.16.5 forge.
 
 5. [Better Beds](https://beta.curseforge.com/minecraft/mc-mods/better-beds)(WIP & not usable & disable by default, TODO: its resourcepack)
 
-6. [Jump Over Fences](https://beta.curseforge.com/minecraft/mc-mods/jump-over-fences-forge)(It does support 1.16.5 Forge. But see config for details)
+6. [Jump Over Fences](https://beta.curseforge.com/minecraft/mc-mods/jump-over-fences-forge)(It does support 1.16.5 Forge. But see [config](https://github.com/MCTeamPotato/Opotato/blob/e0b55324bff707adc555310a3dfccf4d53af9aea/src/main/java/com/teampotato/opotato/config/PotatoCommonConfig.java#L16) for details)
 
 
 # LICENSE info
