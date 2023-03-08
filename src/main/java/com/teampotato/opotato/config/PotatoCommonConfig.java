@@ -15,8 +15,7 @@ public class PotatoCommonConfig {
                 .comment(
                         "Compared with the 'Jump Over Fences' mod, the fence jumping function of this mod is better optimized.",
                         "I had experienced crash with 'Jump Over Fences' before, so I don't want to use it again and wrote this instead.",
-                        "This is disabled by default, because this is not optimization & don't fit well with the concept of Opotato.",
-                        "Yeah for my personal use originally, if you don't want this feature, you can just don't enable this."
+                        "This is disabled by default, because this is not optimization & don't fit well with the concept of Opotato."
                 )
                 .define("enable fence jump", false);
         CONFIG_BUILDER.pop();
