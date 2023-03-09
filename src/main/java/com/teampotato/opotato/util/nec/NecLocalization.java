@@ -3,7 +3,6 @@ package com.teampotato.opotato.util.nec;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sun.org.apache.xml.internal.security.utils.I18n;
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.platform.NecPlatform;
 import net.minecraft.client.Minecraft;
@@ -29,8 +28,9 @@ public class NecLocalization {
             && !NecPlatform.instance().isModLoaded("fabric-resource-loader-v0");
 
     public static String localize(String translationKey) {
+        TranslatableComponent text = new TranslatableComponent(translationKey);
         if (useCustomLocalization) return localizeCustom(translationKey);
-        else return I18n.translate(translationKey);
+        else return text.getContents();
     }
 
     @NotNull
