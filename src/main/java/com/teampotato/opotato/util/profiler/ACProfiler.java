@@ -1,15 +1,12 @@
 package com.teampotato.opotato.util.profiler;
 
 import com.teampotato.opotato.Opotato;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class ACProfiler implements Profiler {
-
-    private static final Logger LOGGER = Opotato.LOGGER;
 
     private final Stack<Integer> indexStack;
     private final List<String> locations;
@@ -26,7 +23,7 @@ public class ACProfiler implements Profiler {
     @Override
     public void start() {
         if (started) {
-            LOGGER.warn("profiling already started!");
+            Opotato.LOGGER.warn("profiling already started!");
         } else {
             indexStack.clear();
             locations.clear();
@@ -44,12 +41,12 @@ public class ACProfiler implements Profiler {
             started = false;
 
             if (!indexStack.isEmpty()) {
-                LOGGER.warn("profiling ended before stack was fully popped, did something go wrong?");
+                Opotato.LOGGER.warn("profiling ended before stack was fully popped, did something go wrong?");
             }
 
             ProfilerResults.add(locations, times);
         } else {
-            LOGGER.warn("profiling already ended!");
+            Opotato.LOGGER.warn("profiling already ended!");
         }
     }
 
@@ -60,7 +57,7 @@ public class ACProfiler implements Profiler {
             locations.add(location);
             times.add(System.nanoTime());
         } else {
-            LOGGER.error("cannot push " + location + " as profiling hasn't started!");
+            Opotato.LOGGER.error("cannot push " + location + " as profiling hasn't started!");
         }
     }
 
@@ -70,14 +67,14 @@ public class ACProfiler implements Profiler {
             Integer index = indexStack.pop();
 
             if (index == null) {
-                LOGGER.error("no element to pop!");
+                Opotato.LOGGER.error("no element to pop!");
             } else {
                 long startTime = times.get(index);
                 long endTime = System.nanoTime();
                 times.set(index, endTime - startTime);
             }
         } else {
-            LOGGER.error("cannot pop as profiling hasn't started!");
+            Opotato.LOGGER.error("cannot pop as profiling hasn't started!");
         }
     }
 

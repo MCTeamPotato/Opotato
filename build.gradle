@@ -35,15 +35,24 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven { url "https://jitpack.io"}
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
     forge "net.minecraftforge:forge:${project.forge_version}"
-/*
-    modCompileOnly("curse.maven:rubidium-574856:4397474")
-    modRuntimeOnly("curse.maven:rubidium-574856:4397474")*/
+
+    modImplementation("curse.maven:architectury-api-419699:3857643")
+    modImplementation("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
+    modImplementation("com.fasterxml.jackson.core:jackson-annotations:2.9.0")
+    testImplementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(platform('org.junit:junit-bom:5.8.2'))
+    api("com.squareup.retrofit2:retrofit:2.9.0")
+    modImplementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+    modImplementation("com.squareup.retrofit2:converter-jackson:2.9.0")
 }
 
 processResources {

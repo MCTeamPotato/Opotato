@@ -1,9 +1,10 @@
-package com.teampotato.opotato;
+package com.teampotato.opotato.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.chunk.ChunkCommandHandler;
 import com.teampotato.opotato.util.profiler.ProfilerResults;

@@ -10,8 +10,6 @@ import java.util.Map.Entry;
 
 public class ProfilerResults {
 
-    private static final Logger LOGGER = Opotato.LOGGER;
-
     private static final Map<String, Long> RESULTS = new LinkedHashMap<>();
     private static long totalTime;
 
@@ -33,16 +31,16 @@ public class ProfilerResults {
     }
 
     public static void log() {
-        LOGGER.info("------------------------------------------------------");
-        LOGGER.info("..... Alternate Current Profiler Session Results .....");
+        Opotato.LOGGER.info("------------------------------------------------------");
+        Opotato.LOGGER.info("..... Alternate Current Profiler Session Results .....");
 
-        LOGGER.info("total: " + totalTime);
+        Opotato.LOGGER.info("total: " + totalTime);
 
         for (Entry<String, Long> entry : RESULTS.entrySet()) {
             String loc = entry.getKey();
             long time = entry.getValue();
 
-            LOGGER.info(String.format("%s: %d (~%d%%)", loc, time, (100 * time / totalTime)));
+            Opotato.LOGGER.info(String.format("%s: %d (~%d%%)", loc, time, (100 * time / totalTime)));
         }
     }
 }
