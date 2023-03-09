@@ -2,7 +2,6 @@ package com.teampotato.opotato;
 
 import com.teampotato.opotato.command.OpotatoCommand;
 import com.teampotato.opotato.config.PotatoCommonConfig;
-import com.teampotato.opotato.util.ChatGPTUtils;
 import com.teampotato.opotato.util.profiler.ACProfiler;
 import com.teampotato.opotato.util.profiler.Profiler;
 import me.shedaniel.architectury.platform.forge.EventBuses;
@@ -27,7 +26,6 @@ public class Opotato {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
         if (PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get()) LOGGER.info("Opotato - Alternate Current DEBUG mode enabled!");
         EventBuses.registerModEventBus(Opotato.ID, FMLJavaModLoadingContext.get().getModEventBus());
-        ChatGPTUtils.init();
     }
 
     public static final String ID = "opotato";
