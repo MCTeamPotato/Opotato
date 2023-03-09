@@ -1,8 +1,8 @@
-package com.teampotato.opotato.stacktrace;
+package com.teampotato.opotato.util.nec.stacktrace;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.teampotato.opotato.Opotato;
-import com.teampotato.opotato.platform.NecPlatform;
+import com.teampotato.opotato.util.nec.platform.NecPlatform;
 import net.minecraft.CrashReport;
 import net.minecraft.client.Minecraft;
 

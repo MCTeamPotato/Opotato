@@ -1,9 +1,9 @@
-package com.teampotato.opotato.mixinhandlers;
+package com.teampotato.opotato.util.nec.mixinhandlers;
 
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.nec.NecConfig;
 import com.teampotato.opotato.gui.CrashScreen;
-import com.teampotato.opotato.stacktrace.CrashUtils;
+import com.teampotato.opotato.util.nec.stacktrace.CrashUtils;
 import com.teampotato.opotato.util.nec.GlUtil;
 import com.teampotato.opotato.util.nec.StateManager;
 import net.minecraft.CrashReport;

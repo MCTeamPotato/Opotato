@@ -1,10 +1,10 @@
-package com.teampotato.opotato.stacktrace;
+package com.teampotato.opotato.util.nec.stacktrace;
 
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.nec.NecConfig;
-import com.teampotato.opotato.platform.CommonModMetadata;
-import com.teampotato.opotato.platform.ModsByLocation;
-import com.teampotato.opotato.platform.NecPlatform;
+import com.teampotato.opotato.util.nec.platform.CommonModMetadata;
+import com.teampotato.opotato.util.nec.platform.ModsByLocation;
+import com.teampotato.opotato.util.nec.platform.NecPlatform;
 import net.minecraft.CrashReport;
 import org.jetbrains.annotations.NotNull;
 

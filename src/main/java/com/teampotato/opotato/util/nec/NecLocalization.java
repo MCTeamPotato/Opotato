@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.teampotato.opotato.Opotato;
-import com.teampotato.opotato.platform.NecPlatform;
+import com.teampotato.opotato.util.nec.platform.NecPlatform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -24,8 +24,7 @@ import java.util.Map;
 public class NecLocalization {
     private static final String DEFAULT_LANGUAGE_CODE = "en_us";
 
-    private static final boolean useCustomLocalization = !NecPlatform.instance().isForge()
-            && !NecPlatform.instance().isModLoaded("fabric-resource-loader-v0");
+    private static final boolean useCustomLocalization = !NecPlatform.instance().isForge() && !NecPlatform.instance().isModLoaded("fabric-resource-loader-v0");
 
     public static String localize(String translationKey) {
         TranslatableComponent text = new TranslatableComponent(translationKey);

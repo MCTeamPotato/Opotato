@@ -3,7 +3,7 @@ package com.teampotato.opotato.config.nec;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.teampotato.opotato.Opotato;
-import com.teampotato.opotato.platform.NecPlatform;
+import com.teampotato.opotato.util.nec.platform.NecPlatform;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;

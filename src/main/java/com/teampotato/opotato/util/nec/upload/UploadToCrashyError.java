@@ -1,4 +1,4 @@
-package com.teampotato.opotato.upload;
+package com.teampotato.opotato.util.nec.upload;
 
 public abstract class UploadToCrashyError extends RuntimeException {
     public UploadToCrashyError(String message) {

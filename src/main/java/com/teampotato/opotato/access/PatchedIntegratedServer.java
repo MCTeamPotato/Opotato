@@ -1,4 +1,4 @@
-package com.teampotato.opotato.patches;
+package com.teampotato.opotato.access;
 
 public interface PatchedIntegratedServer {
     void setCrashNextTick();

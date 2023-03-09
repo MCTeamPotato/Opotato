@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.chunk;
+package com.teampotato.opotato.util.schwarz;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;

@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.chunk;
+package com.teampotato.opotato.util.schwarz;
 
 import com.teampotato.opotato.Opotato;
 import net.minecraft.commands.CommandSourceStack;

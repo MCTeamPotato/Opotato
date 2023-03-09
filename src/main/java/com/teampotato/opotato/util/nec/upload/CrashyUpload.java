@@ -1,4 +1,4 @@
-package com.teampotato.opotato.upload;
+package com.teampotato.opotato.util.nec.upload;
 
 import com.google.gson.Gson;
 import com.teampotato.opotato.Opotato;

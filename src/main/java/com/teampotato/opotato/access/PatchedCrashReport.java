@@ -1,6 +1,6 @@
-package com.teampotato.opotato.patches;
+package com.teampotato.opotato.access;
 
-import com.teampotato.opotato.platform.CommonModMetadata;
+import com.teampotato.opotato.util.nec.platform.CommonModMetadata;
 
 import java.util.Set;
 

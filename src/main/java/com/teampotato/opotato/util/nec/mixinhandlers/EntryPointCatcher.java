@@ -1,9 +1,9 @@
-package com.teampotato.opotato.mixinhandlers;
+package com.teampotato.opotato.util.nec.mixinhandlers;
 
 import com.mojang.blaze3d.platform.Window;
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.gui.InitErrorScreen;
-import com.teampotato.opotato.stacktrace.CrashUtils;
+import com.teampotato.opotato.util.nec.stacktrace.CrashUtils;
 import net.minecraft.CrashReport;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.Minecraft;

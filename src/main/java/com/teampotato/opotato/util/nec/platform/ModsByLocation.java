@@ -1,4 +1,4 @@
-package com.teampotato.opotato.platform;
+package com.teampotato.opotato.util.nec.platform;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
