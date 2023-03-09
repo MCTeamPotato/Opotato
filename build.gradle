@@ -35,7 +35,6 @@ repositories {
             includeGroup "curse.maven"
         }
     }
-    maven { url "https://jitpack.io"}
 }
 
 dependencies {
@@ -44,15 +43,6 @@ dependencies {
     forge "net.minecraftforge:forge:${project.forge_version}"
 
     modImplementation("curse.maven:architectury-api-419699:3857643")
-    implementation("org.projectlombok:lombok:1.18.24")
-    annotationProcessor("org.projectlombok:lombok:1.18.24")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.9.0")
-    testImplementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation(platform('org.junit:junit-bom:5.8.2'))
-    api("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
-    implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
 }
 
 processResources {
