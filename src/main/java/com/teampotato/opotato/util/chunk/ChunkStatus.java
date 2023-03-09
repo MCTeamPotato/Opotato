@@ -105,21 +105,6 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
         return new TextComponent("Chunk Center Pos: " + coords[0] + " " + coords[1] + "\nScore: " + score + "\nWorld: " + world);
     }
 
-    private static Integer getChunkBlockEntitySize(LevelChunk chunk) {
-        return chunk.getBlockEntities().size();
-    }
-
-    private static Integer getChunkLivingEntitySize(LevelChunk chunk) {
-        int startx = chunk.getPos().getMinBlockX();
-        int startz = chunk.getPos().getMinBlockZ();
-        int endx = chunk.getPos().getMaxBlockX();
-        int endz = chunk.getPos().getMaxBlockZ();
-        AABB box = new AABB(startx, 0, startz, endx, 256, endz);
-        List<Entity> entityList = new ArrayList<>();
-        chunk.getEntities((Entity) null, box, entityList, entity -> true);
-        return entityList.size();
-    }
-
     @Override
     public int compareTo(ChunkStatus from) {
         int CompareQuantity = from.score;

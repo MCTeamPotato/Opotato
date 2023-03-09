@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.notenoughcrashes;
+package com.teampotato.opotato.platform;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -7,11 +7,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class CommonModMetadata {
-    private String id;
-    private String name;
-    private @Nullable String issuesPage;
-    private @Nullable List<String> authors;
-    private Path rootPath;
+    private final String id;
+    private final String name;
+    private final @Nullable String issuesPage;
+    private final @Nullable List<String> authors;
+    private final Path rootPath;
 
     public CommonModMetadata(String id, String name, @Nullable String issuesPage, @Nullable List<String> authors, Path rootPath) {
         this.id = id;

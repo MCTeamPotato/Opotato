@@ -1,7 +1,6 @@
 package com.teampotato.opotato.util.profiler;
 
 import com.teampotato.opotato.Opotato;
-import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedHashMap;
 import java.util.List;
