@@ -14,8 +14,9 @@ public class PotatoCommonConfig {
         ENABLE_FENCE_JUMP = CONFIG_BUILDER
                 .comment(
                         "Compared with the 'Jump Over Fences' mod, the fence jumping function of this mod is better optimized.",
-                        "I had experienced crash with 'Jump Over Fences' before, so I don't want to use it again and wrote this instead.",
-                        "This is disabled by default, because this is not optimization & don't fit well with the concept of Opotato."
+                        "I(Team Potato Coder, Kasualix) had experienced crash with 'Jump Over Fences' before, so I don't want to use it again and wrote this instead.",
+                        "This is disabled by default, because this is not optimization & don't fit well with the concept of Opotato, but I do need this even for my personal use.",
+                        "You can enable this if you like. (yea of course)"
                 )
                 .define("enable fence jump", false);
         CONFIG_BUILDER.pop();
