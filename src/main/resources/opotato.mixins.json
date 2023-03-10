@@ -15,7 +15,7 @@
     "smoothmenu.SmoothMenuMixin",
     "betterbeds.MixinBedBlock",
     "betterbeds.MixinBlockEntityRendererDispatcher",
-    "nec.client.EntityRenderDispatcher",
+    "nec.client.EntityRenderDispatcherMixin",
     "nec.client.MixinIntegratedServer",
     "nec.client.MixinMinecraft",
     "nec.client.MixinMinecraftServerClientOnly",
