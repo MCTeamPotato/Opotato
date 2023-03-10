@@ -30,7 +30,7 @@ public final class LegacyCrashLogUpload {
     }
 
     // I don't think there's any security problem because the token can only upload gists,
-    // but Github will revoke the token as soon as it sees it, so we trick it by splitting the token into 2.
+    // but GitHub will revoke the token as soon as it sees it, so we trick it by splitting the token into 2.
     private static final String GIST_ACCESS_TOKEN = GIST_ACCESS_TOKEN_PART_1() + GIST_ACCESS_TOKEN_PART_2();
 
     private static class GistPost {
@@ -130,10 +130,7 @@ public final class LegacyCrashLogUpload {
         String customUserAgent = NecConfig.instance().crashlogUpload.customUserAgent;
         HttpPost post = new HttpPost(url + "documents");
         post.setEntity(createStringEntity(str));
-
-        if (!customUserAgent.isEmpty()) {
-            post.setHeader("User-Agent", customUserAgent);
-        }
+        post.setHeader("User-Agent", customUserAgent);
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             CloseableHttpResponse response = httpClient.execute(post);
@@ -154,7 +151,7 @@ public final class LegacyCrashLogUpload {
 
         List<NameValuePair> params = Arrays.asList(new BasicNameValuePair("api_dev_key", pastebinUploadKey), new BasicNameValuePair("api_option", "paste"), // to create
                 new BasicNameValuePair("api_paste_code", text), new BasicNameValuePair("api_paste_name", "crash.txt"), // mirroring gist
-                new BasicNameValuePair("api_paste_format", "yaml"), // hl.js auto detects mc crashes as this
+                new BasicNameValuePair("api_paste_format", "yaml"), // hl.js auto-detects mc crashes as this
                 new BasicNameValuePair("api_paste_expire_date", pastebinExpiryKey), new BasicNameValuePair("api_paste_private", pastebinPrivacy));
         post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
@@ -171,7 +168,7 @@ public final class LegacyCrashLogUpload {
         final NecConfig.CrashUpload config = NecConfig.instance().crashlogUpload;
         String url = NecConfig.instance().crashlogUpload.bytebinUrl;
         HttpPost post = new HttpPost(url + "post");
-        String userAgent = config.customUserAgent.isEmpty() ? String.join(" ", Arrays.toString(post.getHeaders("User-Agent"))).concat(" NotEnoughCrashes") : config.customUserAgent;
+        String userAgent = String.join(" ", Arrays.toString(post.getHeaders("User-Agent"))).concat(" NotEnoughCrashes");
 
         post.setHeader("User-Agent", userAgent);
         post.addHeader("Content-Type", "text/plain");

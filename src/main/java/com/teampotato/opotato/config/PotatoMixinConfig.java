@@ -20,8 +20,12 @@ public class PotatoMixinConfig {
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("betterbeds", false);
+        this.addMixinRule("nec", true);
+        this.addMixinRule("nec.client", true);
         disableIfModPresent("mixin.smoothmenu", "forgery");
         disableIfModPresent("mixin.mixintrace", "notenoughcrashes");
+        disableIfModPresent("mixin.nec", "notenoughcrashes");
+        disableIfModPresent("mixin.nec.client", "notenoughcrashes");
     }
 
     private void disableIfModPresent(String configName, String... ids) {

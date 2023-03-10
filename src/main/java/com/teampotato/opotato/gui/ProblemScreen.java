@@ -2,13 +2,13 @@ package com.teampotato.opotato.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teampotato.opotato.Opotato;
+import com.teampotato.opotato.util.nec.NecLocalization;
+import com.teampotato.opotato.util.nec.gui.TextWidget;
+import com.teampotato.opotato.util.nec.gui.Widget;
 import com.teampotato.opotato.util.nec.platform.CommonModMetadata;
 import com.teampotato.opotato.util.nec.stacktrace.ModIdentifier;
 import com.teampotato.opotato.util.nec.upload.CrashyUpload;
 import com.teampotato.opotato.util.nec.upload.LegacyCrashLogUpload;
-import com.teampotato.opotato.util.nec.NecLocalization;
-import com.teampotato.opotato.util.nec.gui.TextWidget;
-import com.teampotato.opotato.util.nec.gui.Widget;
 import net.minecraft.CrashReport;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;

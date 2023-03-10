@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class StateManager {
-
-    // Use WeakReference to allow garbage collection, preventing memory leaks
     private static final Set<WeakReference<IResettable>> resettableRefs = new HashSet<>();
 
     public static void resetStates() {
