@@ -14,6 +14,14 @@
     "mixintrace.MixinCrashReport",
     "smoothmenu.SmoothMenuMixin",
     "betterbeds.MixinBedBlock",
-    "betterbeds.MixinBlockEntityRendererDispatcher"
+    "betterbeds.MixinBlockEntityRendererDispatcher",
+    "nec.client.EntityRenderDispatcher",
+    "nec.client.MixinIntegratedServer",
+    "nec.client.MixinMinecraft",
+    "nec.client.MixinMinecraftServerClientOnly",
+    "nec.client.SplashScreenMixin",
+    "nec.MixinCrashReport",
+    "nec.MixinEntity",
+    "nec.MixinTileEntity"
   ]
 }

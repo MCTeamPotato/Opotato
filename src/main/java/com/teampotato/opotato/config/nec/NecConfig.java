@@ -14,10 +14,10 @@ public class NecConfig {
      *******************************/
     public final boolean disableReturnToMainMenu = false;
     public boolean deobfuscateStackTrace = true;
-    public boolean catchInitializationCrashes = true;
+    public final boolean catchInitializationCrashes = true;
     public final boolean debugModIdentification = false;
     public boolean forceCrashScreen = false;
-    public int crashLimit = 20;
+    public final int crashLimit = 20;
     public final CrashUpload crashlogUpload = new CrashUpload();
 
     public static class CrashUpload {
