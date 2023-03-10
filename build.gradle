@@ -35,6 +35,10 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name 'IzzelAliz Maven'
+        url 'https://maven.izzel.io/releases'
+    }
 }
 
 dependencies {
@@ -43,6 +47,9 @@ dependencies {
     forge "net.minecraftforge:forge:${project.forge_version}"
 
     modImplementation("curse.maven:architectury-api-419699:3857643")
+    modImplementation("icyllis.modernui:ModernUI-Core:${modernui_core_version}")
+    modCompileOnly("icyllis.modernui:ModernUI-Forge:${modernui_version}")
+    modImplementation("curse.maven:oculus-581495:4300427")
 }
 
 processResources {
