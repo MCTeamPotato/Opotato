@@ -6,9 +6,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Iris.class)
+@Mixin(value = Iris.class, remap = false)
 public class MixinOculus {
-    @Inject( method = "hasNotEnoughCrashes", at = {@At(value = "HEAD", remap = false)}, cancellable = true)
+    @Inject(method = "hasNotEnoughCrashes", at = @At(value = "HEAD"), cancellable = true)
     public static boolean removeNEC(CallbackInfo info) {
         info.cancel();
         return false;
