@@ -82,7 +82,8 @@ public abstract class MixinMinecraft extends ReentrantBlockableEventLoop<Runnabl
         InGameCatcher.cleanupBeforeMinecraft(progressTasks);
     }
 
-    @Redirect(method = "loadWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/CrashReport;forThrowable(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/CrashReport;"), require = 0)
+    @Redirect(method = "loadWorld(Ljava/lang/String;Lnet/minecraft/core/RegistryAccess$RegistryHolder;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function4;ZLnet/minecraft/client/Minecraft$ExperimentalDialogType;Z)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;crash(Lnet/minecraft/CrashReport;)V"), require = 0)
     private void redirectForgePrintCrashReport(CrashReport report) {
     }
 }
