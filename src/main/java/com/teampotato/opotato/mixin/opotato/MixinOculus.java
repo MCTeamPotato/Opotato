@@ -6,8 +6,9 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(Iris.class)
 public class MixinOculus {
-    /*
-    
+    /**
+     * @author Doctor Who
+     * @reason Saving The World
      */
     @Overwrite
     public static boolean hasNotEnoughCrashes() {
