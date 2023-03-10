@@ -2,16 +2,15 @@ package com.teampotato.opotato.mixin.opotato;
 
 import net.coderbot.iris.Iris;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Iris.class)
 public class MixinOculus {
-    /**
-     * @author Doctor Who
-     * @reason Saving The World
-     */
-    @Overwrite
-    public static boolean hasNotEnoughCrashes() {
+    @Inject(at = {@At("RETURN")}, method = "hasNotEnoughCrashes", cancellable = true)
+    public static boolean hasNotEnoughCrashes(CallbackInfo info) {
+        info.cancel();
         return false;
     }
 }
