@@ -27,8 +27,8 @@ public abstract class MixinCrashReport {
         return (CrashReport) (Object) this;
     }
 
-    @Inject(method = "fillSystemDetails", at = @At("TAIL"))
-    private void afterFillSystemDetails(CallbackInfo ci) {
+    @Inject(method = "initDetails", at = @At("TAIL"))
+    private void afterInitDetails(CallbackInfo ci) {
         systemDetails.setDetail("Suspected Mods", () -> {
             try {
                 Set<CommonModMetadata> suspectedMods = ModIdentifier.getSuspectedModsOf(getThis());

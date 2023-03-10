@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(LoadingOverlay.class)
 public interface SplashScreenMixin {
-    @Accessor("LOGO")
+    @Accessor("MOJANG_STUDIOS_LOGO_LOCATION")
     static void setLogo(ResourceLocation logo) {
         throw new UnsupportedOperationException();
     }

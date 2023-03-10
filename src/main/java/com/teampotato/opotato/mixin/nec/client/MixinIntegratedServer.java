@@ -19,7 +19,7 @@ public class MixinIntegratedServer implements PatchedIntegratedServer {
         crashNextTick = true;
     }
 
-    @Inject(method = "tick(Ljava/util/function/BooleanSupplier;)V", at = @At("HEAD"))
+    @Inject(method = "tickServer", at = @At("HEAD"))
     private void beforeTick(CallbackInfo ci) {
         if (crashNextTick) {
             throw new ReportedException(new CrashReport("Manually triggered server-side debug crash", new Throwable()));

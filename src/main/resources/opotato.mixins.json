@@ -20,6 +20,7 @@
     "nec.client.MixinMinecraft",
     "nec.client.MixinMinecraftServerClientOnly",
     "nec.client.SplashScreenMixin",
+    "nec.client.MixinBufferBuilder",
     "nec.MixinCrashReport",
     "nec.MixinEntity",
     "nec.MixinTileEntity"

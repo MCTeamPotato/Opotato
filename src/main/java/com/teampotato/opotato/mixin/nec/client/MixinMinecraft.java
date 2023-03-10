@@ -20,37 +20,37 @@ import java.util.Queue;
 @Mixin(Minecraft.class)
 public abstract class MixinMinecraft extends ReentrantBlockableEventLoop<Runnable> {
     @Shadow
-    private CrashReport crashReport;
+    private CrashReport delayedCrash;
 
     @Shadow
     @Final
-    private Queue<Runnable> renderTaskQueue;
+    private Queue<Runnable> progressTasks;
 
     public MixinMinecraft(String string_1) {
         super(string_1);
     }
 
-    @Inject(method = "run()V", at = @At("HEAD"))
+    @Inject(method = "run", at = @At("HEAD"))
     private void beforeRun(CallbackInfo ci) {
         if (EntryPointCatcher.crashedDuringStartup()) EntryPointCatcher.displayInitErrorScreen();
     }
 
-    @Inject(method = "run()V", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;crashReport:Lnet/minecraft/util/crash/CrashReport;"))
+    @Inject(method = "run", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;crashReport:Lnet/minecraft/CrashReport;"))
     private void onRunLoop(CallbackInfo ci) {
         if (!Opotato.ENABLE_GAMELOOP_CATCHING) return;
 
-        if (this.crashReport != null) {
+        if (this.delayedCrash != null) {
             Opotato.LOGGER.debug("Handling run loop crash");
-            InGameCatcher.handleServerCrash(crashReport);
+            InGameCatcher.handleServerCrash(delayedCrash);
 
             // Causes the run loop to keep going
-            crashReport = null;
+            delayedCrash = null;
         }
     }
 
 
     // Can't capture arg in inject so captured here
-    @ModifyArg(method = "run()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;printCrashReport(Lnet/minecraft/util/crash/CrashReport;)V", ordinal = 1))
+    @ModifyArg(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;crash(Lnet/minecraft/CrashReport;)V", ordinal = 1))
     private CrashReport atTheEndOfFirstCatchBeforePrintingCrashReport(CrashReport report) {
         if (!Opotato.ENABLE_GAMELOOP_CATCHING) return report;
 
@@ -61,7 +61,7 @@ public abstract class MixinMinecraft extends ReentrantBlockableEventLoop<Runnabl
     }
 
     // Can't capture arg in inject so captured here
-    @ModifyArg(method = "run()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;printCrashReport(Lnet/minecraft/util/crash/CrashReport;)V", ordinal = 2))
+    @ModifyArg(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;crash(Lnet/minecraft/CrashReport;)V", ordinal = 2))
     private CrashReport atTheEndOfSecondCatchBeforePrintingCrashReport(CrashReport report) {
         if (!Opotato.ENABLE_GAMELOOP_CATCHING) return report;
 
@@ -72,30 +72,17 @@ public abstract class MixinMinecraft extends ReentrantBlockableEventLoop<Runnabl
     }
 
     // Prevent calling printCrashReport which is not needed
-    @Inject(method = "run()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;printCrashReport(Lnet/minecraft/util/crash/CrashReport;)V"), cancellable = true)
+    @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;crash(Lnet/minecraft/CrashReport;)V"), cancellable = true)
     private void cancelRunLoopAfterCrash(CallbackInfo ci) {
         if (Opotato.ENABLE_GAMELOOP_CATCHING) ci.cancel();
     }
 
     @Inject(method = "emergencySave()V", at = @At("HEAD"))
     private void beforeEmergencySave(CallbackInfo info) {
-        InGameCatcher.cleanupBeforeMinecraft(renderTaskQueue);
+        InGameCatcher.cleanupBeforeMinecraft(progressTasks);
     }
 
-    /**
-     * Prevent the integrated server from exiting in the case it crashed
-     */
-    @Redirect(method = "doLoadLevel(Ljava/lang/String;Lnet/minecraft/util/registry/DynamicRegistryManager$Impl;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function4;ZLnet/minecraft/client/MinecraftClient$WorldLoadAction;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;printCrashReport(Lnet/minecraft/util/crash/CrashReport;)V"))
-    private void redirectPrintCrashReport(CrashReport report) {
-    }
-    /**
-     * Forge only: Prevent the integrated server from exiting in the case it crashed in another case
-     */
-    @Redirect(method = "loadLevel(Ljava/lang/String;Lnet/minecraft/util/registry/DynamicRegistryManager$Impl;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function4;ZLnet/minecraft/client/MinecraftClient$WorldLoadAction;Z)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;printCrashReport(Lnet/minecraft/util/crash/CrashReport;)V"),
-            require = 0)
+    @Redirect(method = "loadWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/CrashReport;forThrowable(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/CrashReport;"), require = 0)
     private void redirectForgePrintCrashReport(CrashReport report) {
     }
-
 }

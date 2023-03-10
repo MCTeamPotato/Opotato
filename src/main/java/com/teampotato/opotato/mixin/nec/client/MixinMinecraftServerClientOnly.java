@@ -10,7 +10,7 @@ import java.io.File;
 
 @Mixin(MinecraftServer.class)
 public class MixinMinecraftServerClientOnly {
-    @Redirect(method = "runServer()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/crash/CrashReport;writeToFile(Ljava/io/File;)Z"))
+    @Redirect(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/CrashReport;saveToFile(Ljava/io/File;)Z"))
     private boolean disableIntegratedServerWriteToFileOnCrash(CrashReport instance, File file) {
         return true;
     }
