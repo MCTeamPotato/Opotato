@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Iris.class)
 public class MixinOculus {
-    @Inject(at = {@At(value = "HEAD", remap = false)}, method = "hasNotEnoughCrashes", cancellable = true)
-    public static boolean hasNotEnoughCrashes(CallbackInfo info) {
+    @Inject( method = "hasNotEnoughCrashes", at = {@At(value = "HEAD", remap = false)}, cancellable = true)
+    public static boolean removeNEC(CallbackInfo info) {
         info.cancel();
         return false;
     }
