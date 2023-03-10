@@ -30,12 +30,12 @@ public abstract class MixinMinecraft extends ReentrantBlockableEventLoop<Runnabl
         super(string_1);
     }
 
-    @Inject(method = "run", at = @At("HEAD"))
+    @Inject(method = "run()V", at = @At("HEAD"))
     private void beforeRun(CallbackInfo ci) {
         if (EntryPointCatcher.crashedDuringStartup()) EntryPointCatcher.displayInitErrorScreen();
     }
 
-    @Inject(method = "run", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;crashReport:Lnet/minecraft/CrashReport;"))
+    @Inject(method = "run()V", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;delayedCrash:Lnet/minecraft/CrashReport;"))
     private void onRunLoop(CallbackInfo ci) {
         if (!Opotato.ENABLE_GAMELOOP_CATCHING) return;
 
@@ -50,7 +50,7 @@ public abstract class MixinMinecraft extends ReentrantBlockableEventLoop<Runnabl
 
 
     // Can't capture arg in inject so captured here
-    @ModifyArg(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;crash(Lnet/minecraft/CrashReport;)V", ordinal = 1))
+    @ModifyArg(method = "run()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;crash(Lnet/minecraft/CrashReport;)V", ordinal = 1))
     private CrashReport atTheEndOfFirstCatchBeforePrintingCrashReport(CrashReport report) {
         if (!Opotato.ENABLE_GAMELOOP_CATCHING) return report;
 
