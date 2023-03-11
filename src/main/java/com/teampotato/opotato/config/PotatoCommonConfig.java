@@ -23,7 +23,7 @@ public class PotatoCommonConfig {
                         "You can enable this if you like. (yea of course)"
                 )
                 .define("enable fence jump", false);
-        );
+
         ENABLE_HEADSHOT = CONFIG_BUILDER.comment(
                 "-----------------------------------",
                 "[Headshot]",
