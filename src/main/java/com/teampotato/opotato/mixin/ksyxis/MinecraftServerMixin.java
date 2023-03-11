@@ -13,6 +13,6 @@ public class MinecraftServerMixin {
     public int prepareLevels_Redirect(ServerChunkCache serverChunkCache) {
         Opotato.LOGGER.info("Hi there, Opotato has removed the 441 chunk loading.");
         Opotato.LOGGER.info("If you encounter loading stuck at 0% or 100%, please try to write 'mixin.ksyxis=false' in config/opotato-mixins.properties.");
-        return serverChunkCache.getLoadedChunksCount();
+        return 441;
     }
 }
