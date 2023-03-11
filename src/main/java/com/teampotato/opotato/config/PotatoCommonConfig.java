@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class PotatoCommonConfig {
     public static final ForgeConfigSpec COMMON_CONFIG;
-    public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE, ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA, ENABLE_HEADSHOT;
+    public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE, ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA, ENABLE_HEADSHOT, PLAY_HEADSHOT_SOUND;
     public static final ForgeConfigSpec.DoubleValue DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue BLIND_TICKS, NAUSEA_TICKS;
 
@@ -44,7 +44,9 @@ public class PotatoCommonConfig {
         NAUSEA_TICKS = CONFIG_BUILDER
                 .defineInRange("nausea ticks (you should enable 'do nausea' to make this work)", 60, 1, Integer.MAX_VALUE);
         DAMAGE_MULTIPLIER = CONFIG_BUILDER
-                .defineInRange("damage multiplier on headshots", 2.56, 1.00, Double.MAX_VALUE);
+                .defineInRange("damage multiplier on headshots, use 1.00 for no damage multiply", 2.56, 1.00, Double.MAX_VALUE);
+        PLAY_HEADSHOT_SOUND = CONFIG_BUILDER
+                .define("player headshot feedback sound", true);
         CONFIG_BUILDER.pop();
         COMMON_CONFIG = CONFIG_BUILDER.build();
     }

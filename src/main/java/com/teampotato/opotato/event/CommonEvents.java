@@ -30,7 +30,7 @@ public class CommonEvents {
                 ((Player) archer).displayClientMessage(new TranslatableComponent("headshot.opotato.on_entity"), true);
             }
         }
-        attacked.playSound(SoundEvents.ARROW_HIT_PLAYER, 1, 1);
+        if (PotatoCommonConfig.PLAY_HEADSHOT_SOUND.get()) attacked.playSound(SoundEvents.ARROW_HIT_PLAYER, 1, 1);
         event.setAmount((float) (event.getAmount() * PotatoCommonConfig.DAMAGE_MULTIPLIER.get()));
         if (PotatoCommonConfig.DO_BLIND.get()) attacked.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, PotatoCommonConfig.BLIND_TICKS.get(), 3));
         if (PotatoCommonConfig.DO_NAUSEA.get()) attacked.addEffect(new MobEffectInstance(MobEffects.CONFUSION, PotatoCommonConfig.NAUSEA_TICKS.get(), 2));
