@@ -35,7 +35,7 @@ public class PotatoCommonConfig {
         PLAY_HEADSHOT_SOUND = CONFIG_BUILDER
                 .define("player headshot feedback sound", true);
         DAMAGE_MULTIPLIER = CONFIG_BUILDER
-                .defineInRange("damage multiplier on headshots", 2.56, 1.00, 10.00);
+                .defineInRange("damage multiplier on headshots", 2.56, 1.00, Integer.MAX_VALUE);
         DO_BLIND = CONFIG_BUILDER
                 .define("do blind", true);
         BLIND_TICKS = CONFIG_BUILDER
