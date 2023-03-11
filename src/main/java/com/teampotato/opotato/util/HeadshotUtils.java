@@ -13,18 +13,19 @@ public class HeadshotUtils {
         }
     }
 
-    static boolean calculateSimpleHeadHit(Vec3 sourcePos, LivingEntity entity) {
+    private static boolean calculateSimpleHeadHit(Vec3 sourcePos, LivingEntity entity) {
         double playerHeadStart = entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85F, 0.0).y - 0.17;
         return sourcePos.y > playerHeadStart;
     }
 
-    static boolean calculateComplexHeadHit(Vec3 sourcePos, LivingEntity entity) {
+    private static boolean calculateComplexHeadHit(Vec3 sourcePos, LivingEntity entity) {
         double headY = - Math.sin(Math.toRadians(entity.xRot));
 
         double lengthMod = Math.cos(entity.xRot);
 
         double headX = Math.sin(Math.toRadians(- entity.yRot)) * lengthMod;
         double headZ = Math.cos(Math.toRadians(- entity.yRot)) * lengthMod;
+
         return sourcePos.closerThan(entity.position().add(headX, headY / 2, headZ), 0.4);
     }
 }
