@@ -28,18 +28,14 @@ public class PotatoMixinConfig {
 
     private void disableIfModPresent(String configName, String... ids) {
         for(String id : ids) {
-            if(FMLLoader.getLoadingModList().getModFileById(id) != null) {
-                this.options.get(configName).addModOverride(false, id);
-            }
+            if(FMLLoader.getLoadingModList().getModFileById(id) != null) this.options.get(configName).addModOverride(false, id);
         }
     }
 
     private void addMixinRule(String mixin, boolean enabled) {
         String name = getMixinRuleName(mixin);
 
-        if (this.options.putIfAbsent(name, new Option(name, enabled, false)) != null) {
-            throw new IllegalStateException("Mixin rule already defined: " + mixin);
-        }
+        if (this.options.putIfAbsent(name, new Option(name, enabled, false)) != null) throw new IllegalStateException("Mixin rule already defined: " + mixin);
     }
 
     private void readProperties(Properties props) {
@@ -83,9 +79,7 @@ public class PotatoMixinConfig {
             if (candidate != null) {
                 rule = candidate;
 
-                if (!rule.isEnabled()) {
-                    return rule;
-                }
+                if (!rule.isEnabled()) return rule;
             }
 
             lastSplit = nextSplit + 1;
