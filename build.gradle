@@ -50,6 +50,10 @@ dependencies {
     modImplementation("icyllis.modernui:ModernUI-Core:${modernui_core_version}")
     modCompileOnly("icyllis.modernui:ModernUI-Forge:${modernui_version}")
     modImplementation("curse.maven:oculus-581495:4300427")
+    modImplementation("curse.maven:rubidium-574856:4397474")
+    modImplementation("curse.maven:forgedfabric-662687:4059371")
+    implementation("com.moandjiezana.toml:toml4j:0.7.2")
+    implementation("org.json:json:20210307")
 }
 
 processResources {

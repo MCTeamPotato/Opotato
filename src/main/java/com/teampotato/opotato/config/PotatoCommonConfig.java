@@ -11,11 +11,14 @@ public class PotatoCommonConfig {
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
         CONFIG_BUILDER.push("Opotato Common Config");
-        ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER.comment("[Alternate Current]").define("enable alternate current debug mode", false);
-
+        ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
+                .comment(
+                        "[Alternate Current]"
+                )
+                .define("enable alternate current debug mode", false);
         ENABLE_FENCE_JUMP = CONFIG_BUILDER
                 .comment(
-                        "-----------------------------------",
+                        "------------------",
                         "[Jump Over Fences]",
                         "Compared with the 'Jump Over Fences' mod, the fence jumping function of this mod is better optimized.",
                         "I(Team Potato Coder, Kasualix) had experienced crash with 'Jump Over Fences' before, so I don't want to use it again and wrote this instead.",
@@ -24,18 +27,20 @@ public class PotatoCommonConfig {
                 )
                 .define("enable fence jump", false);
         ENABLE_HEADSHOT = CONFIG_BUILDER.comment(
-                "-----------------------------------",
+                "----------",
                 "[Headshot]",
-                "This is NOT a copy of chronosacaria's Headshot-Forge",
+                "This is not a copy of chronosacaria's Headshot-Forge",
                 "I sent a PR to improve it, but he seemed to abandon 1.16.5 Forge, so I don't want to wait for him anymore.",
                 "This version is more like the original SilverAndro's Fabric Headshot, with utils to check whether an arrow hit is on entity's head.",
                 "What's more, you can also receive feedback sound (ARROW_HIT_PLAYER, also known as DING) when headshot events trigger.",
-                "You can also use resourcepack to customize the status message when headshot events trigger (Yeah in the lang file).")
+                "You can also use resourcepack to customize the status message when headshot events trigger (Yeah in the lang file).",
+                "disable by default, enable this if you like."
+                )
                 .define("enable headshot", false);
         PLAY_HEADSHOT_SOUND = CONFIG_BUILDER
                 .define("player headshot feedback sound", true);
         DAMAGE_MULTIPLIER = CONFIG_BUILDER
-                .defineInRange("damage multiplier on headshots", 2.56, 1.00, Integer.MAX_VALUE);
+                .defineInRange("damage multiplier on headshots", 2.56, 1.00, 1000.00);
         DO_BLIND = CONFIG_BUILDER
                 .define("do blind", true);
         BLIND_TICKS = CONFIG_BUILDER

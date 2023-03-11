@@ -1,8 +1,7 @@
 package com.teampotato.opotato.config;
 
+import com.teampotato.opotato.Opotato;
 import net.minecraftforge.fml.loading.FMLLoader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class PotatoMixinConfig {
-    private static final Logger LOGGER = LogManager.getLogger("OpotatoConfig");
     private final Map<String, Option> options = new HashMap<>();
 
     private PotatoMixinConfig() {
@@ -46,7 +44,7 @@ public class PotatoMixinConfig {
             Option option = this.options.get(key);
 
             if (option == null) {
-                LOGGER.warn("No configuration key exists with name '{}', ignoring", key);
+                Opotato.LOGGER.warn("No configuration key exists with name '{}', ignoring", key);
                 continue;
             }
 
@@ -57,7 +55,7 @@ public class PotatoMixinConfig {
             } else if (value.equalsIgnoreCase("false")) {
                 enabled = false;
             } else {
-                LOGGER.warn("Invalid value '{}' encountered for configuration key '{}', ignoring", value, key);
+                Opotato.LOGGER.warn("Invalid value '{}' encountered for configuration key '{}', ignoring", value, key);
                 continue;
             }
 
@@ -103,7 +101,7 @@ public class PotatoMixinConfig {
         try {
             config.writeConfig(file, props);
         } catch (IOException e) {
-            LOGGER.warn("Could not write configuration file", e);
+            Opotato.LOGGER.warn("Could not write configuration file", e);
         }
 
         return config;
