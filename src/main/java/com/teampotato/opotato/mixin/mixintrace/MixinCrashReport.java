@@ -16,7 +16,6 @@ public abstract class MixinCrashReport {
     @Inject(method = "getDetails", at = @At(value = "FIELD"))
     private void mixintrace_addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
         int trailingNewlineCount = 0;
-        // Remove trailing \n
         if (crashReportBuilder.charAt(crashReportBuilder.length() - 1) == '\n') {
             crashReportBuilder.deleteCharAt(crashReportBuilder.length() - 1);
             trailingNewlineCount++;

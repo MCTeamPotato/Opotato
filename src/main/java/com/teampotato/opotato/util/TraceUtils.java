@@ -12,28 +12,24 @@ import java.util.Set;
 public class TraceUtils {
     public static void printTrace(StackTraceElement[] stackTrace, StringBuilder crashReportBuilder) {
         if (stackTrace != null && stackTrace.length > 0) {
-            crashReportBuilder.append("\nMixins in Stacktrace:");
+            crashReportBuilder.append("\nMixins in Heaven:");
 
             try {
                 List<String> classNames = new ArrayList<>();
                 for (StackTraceElement el : stackTrace) {
-                    if (!classNames.contains(el.getClassName())) {
-                        classNames.add(el.getClassName());
-                    }
+                    if (!classNames.contains(el.getClassName())) classNames.add(el.getClassName());
                 }
 
                 boolean found = false;
                 for (String className : classNames) {
                     ClassInfo classInfo = ClassInfo.fromCache(className);
                     if (classInfo != null) {
-                        // Workaround for bug in Mixin, where it adds to the wrong thing :(
                         Object mixinInfoSetObject;
                         try {
                             Method getMixins = ClassInfo.class.getDeclaredMethod("getMixins");
                             getMixins.setAccessible(true);
                             mixinInfoSetObject = getMixins.invoke(classInfo);
                         } catch (Exception e) {
-                            // Fabric loader >=0.12.0 proguards out this method; use the field instead
                             Field mixinsField = ClassInfo.class.getDeclaredField("mixins");
                             mixinsField.setAccessible(true);
                             mixinInfoSetObject = mixinsField.get(classInfo);
@@ -56,10 +52,7 @@ public class TraceUtils {
                         }
                     }
                 }
-
-                if (!found) {
-                    crashReportBuilder.append(" None found");
-                }
+                if (!found) crashReportBuilder.append(" None found");
             } catch (Exception e) {
                 crashReportBuilder.append(" Failed to find Mixin metadata: ").append(e);
             }

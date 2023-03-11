@@ -40,12 +40,4 @@ public class Opotato {
     public static Profiler creatrProfiler() {
         return PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get() ? new ACProfiler() : Profiler.DUMMY;
     }
-
-    @Mod.EventBusSubscriber
-    public static class ModEvents {
-        @SubscribeEvent
-        public static void onRegisterCommands(RegisterCommandsEvent event) {
-            OpotatoCommand.register(event.getDispatcher());
-        }
-    }
 }
