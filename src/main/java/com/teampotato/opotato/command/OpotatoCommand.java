@@ -1,8 +1,5 @@
 package com.teampotato.opotato.command;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -17,15 +14,11 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import org.json.JSONObject;
 
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
+
+import static com.teampotato.opotato.util.ChatGPTUtils.generatePrompt;
+import static com.teampotato.opotato.util.ChatGPTUtils.getChatGPTResponse;
 
 public class OpotatoCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -51,7 +44,22 @@ public class OpotatoCommand {
                         .executes(OpotatoCommand::ChunkAnalyse));
         dispatcher.register(builder1);
         dispatcher.register(builder2);
+
+        if (!PotatoCommonConfig.ENABLE_CHATGPT.get()) return;
+        LiteralArgumentBuilder<CommandSourceStack> builder3 = Commands
+                .literal("chatgpt")
+                .then(Commands.argument("message", StringArgumentType.greedyString()))
+                .executes(context -> {
+                    String message = StringArgumentType.getString(context, "message");
+                    String prompt = generatePrompt(message);
+                    CompletableFuture<String> future = getChatGPTResponse(prompt);
+                    future.thenAcceptAsync(response -> context.getSource().sendSuccess(new TextComponent(response).withStyle(ChatFormatting.YELLOW), false));
+                    System.out.println("ChatGPT responds");
+                    return 1;
+                });
+        dispatcher.register(builder3);
     }
+
     private static int query(CommandSourceStack source) {
         String state = Opotato.on ? "enabled" : "disabled";
         source.sendSuccess(Component.nullToEmpty(String.format("Alternate Current is currently %s", state)), false);

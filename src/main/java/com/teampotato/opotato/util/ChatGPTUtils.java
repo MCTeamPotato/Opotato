@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
 
 public class ChatGPTUtils {
-
     public static String generatePrompt(String message) {
         String encodedMessage = URLEncoder.encode(message, StandardCharsets.UTF_8);
         return "System.out.println(\"" + encodedMessage + "\");\n\npublic class MyFirstProgram {\n    public static void main(String[] args) {\n\n    }\n}";

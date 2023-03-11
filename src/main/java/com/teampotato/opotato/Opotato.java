@@ -43,25 +43,5 @@ public class Opotato {
     }
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
-        if(PotatoCommonConfig.ENABLE_CHATGPT.get()){
-            net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-                dispatcher.register(Commands.literal("chatgpt").then(Commands.argument("message", StringArgumentType.greedyString())
-                    .executes(context -> {
-                        try {
-                            String message = StringArgumentType.getString(context, "message");
-                            String prompt = generatePrompt(message);
-                            CompletableFuture<String> future = getChatGPTResponse(prompt);
-                            future.thenAcceptAsync(response -> {
-                                context.getSource().sendSuccess(new TextComponent(response).withStyle(ChatFormatting.YELLOW), false);
-                            });
-                            return 1;
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            return 0;
-                        }
-                    }))
-                );
-            });
-        }
     }
 }
