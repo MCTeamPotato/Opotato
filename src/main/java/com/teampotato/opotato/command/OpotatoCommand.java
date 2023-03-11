@@ -29,40 +29,42 @@ import java.util.concurrent.CompletableFuture;
 
 public class OpotatoCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        LiteralArgumentBuilder<CommandSourceStack> builder1 = Commands.
-                literal("alternatecurrent").
-                requires(source -> source.hasPermission(2)).
-                executes(context -> query(context.getSource())).
-                then(Commands.
-                        literal("on").
-                        executes(context -> set(context.getSource(), true))).
-                then(Commands.
-                        literal("off").
-                        executes(context -> set(context.getSource(), false))).
-                then(Commands.
-                        literal("resetProfiler").
-                        requires(source -> PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get()).
-                        executes(context -> resetProfiler(context.getSource())));
+        LiteralArgumentBuilder<CommandSourceStack> builder1 = Commands
+                .literal("alternatecurrent")
+                .requires(source -> source.hasPermission(2))
+                .executes(context -> query(context.getSource()))
+                .then(Commands
+                        .literal("on")
+                        .executes(context -> set(context.getSource(), true)))
+                .then(Commands
+                        .literal("off")
+                        .executes(context -> set(context.getSource(), false)))
+                .then(Commands
+                        .literal("resetProfiler")
+                        .requires(source -> PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get())
+                        .executes(context -> resetProfiler(context.getSource())));
 
-        LiteralArgumentBuilder<CommandSourceStack> builder2 = Commands.
-                literal("schwarz").
-                then(Commands.
-                        literal("chunkanalyse").
-                        executes(OpotatoCommand::ChunkAnalyse));
+        LiteralArgumentBuilder<CommandSourceStack> builder2 = Commands
+                .literal("schwarz")
+                .then(Commands
+                        .literal("chunkanalyse")
+                        .executes(OpotatoCommand::ChunkAnalyse));
         dispatcher.register(builder1);
         dispatcher.register(builder2);
 
         if (PotatoCommonConfig.ENABLE_CHATGPT.get()) {
-            LiteralArgumentBuilder<CommandSourceStack> builder3 = Commands.
-                    literal("chatgpt").
-                    then(Commands.
-                            argument("message", StringArgumentType.greedyString())).
-                    executes(context -> {
+
+            LiteralArgumentBuilder<CommandSourceStack> builder3 = Commands
+                    .literal("chatgpt")
+                    .then(Commands.argument("message", StringArgumentType.greedyString()))
+                    .executes(context -> {
                         try {
                             String message = StringArgumentType.getString(context, "message");
                             String prompt = generatePrompt(message);
                             CompletableFuture<String> future = getChatGPTResponse(prompt);
-                            future.thenAcceptAsync(response -> context.getSource().sendSuccess(new TextComponent(response).withStyle(ChatFormatting.YELLOW), false));
+                            future.thenAcceptAsync(response -> {
+                                context.getSource().sendSuccess(new TextComponent(response).withStyle(ChatFormatting.YELLOW), false);
+                            });
                             return 1;
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -80,10 +82,9 @@ public class OpotatoCommand {
 
     private static CompletableFuture<String> getChatGPTResponse(String message) {
         return CompletableFuture.supplyAsync(() -> {
-            String prompt = "User: " + message + "\nChatGPT:";
             JSONObject requestData = new JSONObject()
                     .put("model", PotatoCommonConfig.MODEL.get())
-                    .put("prompt", prompt)
+                    .put("prompt", "User: " + message + "\nChatGPT:")
                     .put("max_tokens", Integer.parseInt(PotatoCommonConfig.MAX_TOKENS.get()))
                     .put("n", Integer.parseInt(PotatoCommonConfig.N.get()))
                     .put("stop", "\n");

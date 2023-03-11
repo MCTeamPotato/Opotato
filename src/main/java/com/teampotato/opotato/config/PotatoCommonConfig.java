@@ -12,37 +12,33 @@ public class PotatoCommonConfig {
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
         CONFIG_BUILDER.push("Opotato Common Config");
+        CONFIG_BUILDER.push("ChatGPT");
         ENABLE_CHATGPT = CONFIG_BUILDER
-                .define("enable ChatGPT", false);
+                .define("Enable ChatGPT", false);
         ENDPOINT = CONFIG_BUILDER
-                .define("endpoint", "");
+                .define("Api link", "");
         API_KEY = CONFIG_BUILDER
-                .define("api key", "");
+                .define("Api Key", "");
         MODEL = CONFIG_BUILDER
-                .define("model", "");
+                .define("ChatGPT model", "");
         MAX_TOKENS = CONFIG_BUILDER
-                .define("max tokens", "");
+                .define("Max tokens", "");
         N = CONFIG_BUILDER
-                .define("n", "");
+                .define("Number of returned best message", "");
+        CONFIG_BUILDER.push("Alternate Current");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
-                .comment(
-                        "-------------------",
-                        "[Alternate Current]"
-                )
                 .define("enable alternate current debug mode", false);
+        CONFIG_BUILDER.push("Jump Over Fences");
         ENABLE_FENCE_JUMP = CONFIG_BUILDER
                 .comment(
-                        "------------------",
-                        "[Jump Over Fences]",
                         "Compared with the 'Jump Over Fences' mod, the fence jumping function of this mod is better optimized.",
                         "I(Team Potato Coder, Kasualix) had experienced crash with 'Jump Over Fences' before, so I don't want to use it again and wrote this instead.",
                         "This is disabled by default, because this is not optimization & don't fit well with the concept of Opotato, but I do need this even for my personal use.",
                         "You can enable this if you like. (yea of course)"
                 )
                 .define("enable fence jump", false);
+        CONFIG_BUILDER.push("Headshot");
         ENABLE_HEADSHOT = CONFIG_BUILDER.comment(
-                "----------",
-                "[Headshot]",
                 "This is not a copy of chronosacaria's Headshot-Forge",
                 "I sent a PR to improve it, but he seemed to abandon 1.16.5 Forge, so I don't want to wait for him anymore.",
                 "This version is more like the original SilverAndro's Fabric Headshot, with utils to check whether an arrow hit is on entity's head.",

@@ -34,17 +34,6 @@ public class Opotato {
         return PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get() ? new ACProfiler() : Profiler.DUMMY;
     }
 
-
-    public static Toml readTomlFromFile(String path) {
-        Toml toml = new Toml();
-        try {
-            toml = new Toml().read(new FileReader(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return toml;
-    }
-
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
     }
