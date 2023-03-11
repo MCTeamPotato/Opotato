@@ -4,15 +4,29 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class PotatoCommonConfig {
     public static final ForgeConfigSpec COMMON_CONFIG;
-    public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE, ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA, ENABLE_HEADSHOT, PLAY_HEADSHOT_SOUND;
+    public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE, ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA, ENABLE_HEADSHOT, PLAY_HEADSHOT_SOUND, ENABLE_CHATGPT;
     public static final ForgeConfigSpec.DoubleValue DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue BLIND_TICKS, NAUSEA_TICKS;
+    public static final ForgeConfigSpec.ConfigValue<String> ENDPOINT, API_KEY, MODEL, MAX_TOKENS, N;
 
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
         CONFIG_BUILDER.push("Opotato Common Config");
+        ENABLE_CHATGPT = CONFIG_BUILDER
+                .define("enable ChatGPT", false);
+        ENDPOINT = CONFIG_BUILDER
+                .define("endpoint", "");
+        API_KEY = CONFIG_BUILDER
+                .define("api key", "");
+        MODEL = CONFIG_BUILDER
+                .define("model", "");
+        MAX_TOKENS = CONFIG_BUILDER
+                .define("max tokens", "");
+        N = CONFIG_BUILDER
+                .define("n", "");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
                 .comment(
+                        "-------------------",
                         "[Alternate Current]"
                 )
                 .define("enable alternate current debug mode", false);

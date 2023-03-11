@@ -49,27 +49,28 @@ public class OpotatoCommand {
                 then(Commands.
                         literal("chunkanalyse").
                         executes(OpotatoCommand::ChunkAnalyse));
-
-        LiteralArgumentBuilder<CommandSourceStack> builder3 = Commands.
-                literal("chatgpt").
-                then(Commands.
-                        argument("message", StringArgumentType.greedyString())).
-                executes(context -> {
-                    try {
-                        String message = StringArgumentType.getString(context, "message");
-                        String prompt = generatePrompt(message);
-                        CompletableFuture<String> future = getChatGPTResponse(prompt);
-                        future.thenAcceptAsync(response -> context.getSource().sendSuccess(new TextComponent(response).withStyle(ChatFormatting.YELLOW), false));
-                        return 1;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return 0;
-                    }
-                });
-
         dispatcher.register(builder1);
         dispatcher.register(builder2);
-        dispatcher.register(builder3);
+
+        if (PotatoCommonConfig.ENABLE_CHATGPT.get()) {
+            LiteralArgumentBuilder<CommandSourceStack> builder3 = Commands.
+                    literal("chatgpt").
+                    then(Commands.
+                            argument("message", StringArgumentType.greedyString())).
+                    executes(context -> {
+                        try {
+                            String message = StringArgumentType.getString(context, "message");
+                            String prompt = generatePrompt(message);
+                            CompletableFuture<String> future = getChatGPTResponse(prompt);
+                            future.thenAcceptAsync(response -> context.getSource().sendSuccess(new TextComponent(response).withStyle(ChatFormatting.YELLOW), false));
+                            return 1;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return 0;
+                        }
+                    });
+            dispatcher.register(builder3);
+        }
     }
 
     private static String generatePrompt(String message) {
@@ -81,17 +82,17 @@ public class OpotatoCommand {
         return CompletableFuture.supplyAsync(() -> {
             String prompt = "User: " + message + "\nChatGPT:";
             JSONObject requestData = new JSONObject()
-                    .put("model", Opotato.MODEL)
+                    .put("model", PotatoCommonConfig.MODEL.get())
                     .put("prompt", prompt)
-                    .put("max_tokens", Integer.parseInt(Opotato.MAX_TOKENS))
-                    .put("n", Integer.parseInt(Opotato.N))
+                    .put("max_tokens", Integer.parseInt(PotatoCommonConfig.MAX_TOKENS.get()))
+                    .put("n", Integer.parseInt(PotatoCommonConfig.N.get()))
                     .put("stop", "\n");
             try {
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(Opotato.ENDPOINT))
+                        .uri(URI.create(PotatoCommonConfig.ENDPOINT.get()))
                         .header("Content-Type", "application/json")
-                        .header("Authorization", "Bearer " + Opotato.API_KEY)
+                        .header("Authorization", "Bearer " + PotatoCommonConfig.API_KEY.get())
                         .POST(HttpRequest.BodyPublishers.ofString(requestData.toString()))
                         .build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -99,7 +100,6 @@ public class OpotatoCommand {
                 JsonObject responseJson = parser.parse(response.body()).getAsJsonObject();
                 JsonArray choices = responseJson.getAsJsonArray("choices");
                 System.out.println("Received response from ChatGPT API: " + response);
-
                 if (choices == null || choices.size() == 0) return "Failed to get a response from OpenAI API.";
                 JsonObject choice = choices.get(0).getAsJsonObject();
                 return choice.get("text").getAsString();
