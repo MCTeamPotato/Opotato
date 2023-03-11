@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 public class CommonEvents {
     @SubscribeEvent
     public static void onHeadshot(LivingHurtEvent event) {
-        if (!event.getSource().isProjectile()) return;
+        if (!event.getSource().isProjectile() || !PotatoCommonConfig.ENABLE_HEADSHOT.get()) return;
         LivingEntity attacked = event.getEntityLiving();
         if (!HeadshotUtils.calculateIsHeadHit(event.getSource().getSourcePosition(), attacked) || attacked.isInvulnerableTo(event.getSource())) return;
         if (attacked instanceof Player) {

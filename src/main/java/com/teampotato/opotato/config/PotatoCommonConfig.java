@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class PotatoCommonConfig {
     public static final ForgeConfigSpec COMMON_CONFIG;
-    public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE, ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA;
+    public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE, ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA, ENABLE_HEADSHOT;
     public static final ForgeConfigSpec.DoubleValue DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue BLIND_TICKS, NAUSEA_TICKS;
 
@@ -17,6 +17,7 @@ public class PotatoCommonConfig {
         ENABLE_FENCE_JUMP = CONFIG_BUILDER
                 .comment(
                         "-----------------------------------",
+                        "[Jump Over Fences]",
                         "Compared with the 'Jump Over Fences' mod, the fence jumping function of this mod is better optimized.",
                         "I(Team Potato Coder, Kasualix) had experienced crash with 'Jump Over Fences' before, so I don't want to use it again and wrote this instead.",
                         "This is disabled by default, because this is not optimization & don't fit well with the concept of Opotato, but I do need this even for my personal use.",
@@ -32,6 +33,8 @@ public class PotatoCommonConfig {
                 "What's more, you can also receive feedback sound (ARROW_HIT_PLAYER, also known as DING) when headshot events trigger.",
                 "You can also use resourcepack to customize the status message when headshot events trigger (Yeah in the lang file)."
         );
+        ENABLE_HEADSHOT = CONFIG_BUILDER
+                .define("enable headshot", false);
         DO_BLIND = CONFIG_BUILDER
                 .define("do blind", true);
         BLIND_TICKS = CONFIG_BUILDER
