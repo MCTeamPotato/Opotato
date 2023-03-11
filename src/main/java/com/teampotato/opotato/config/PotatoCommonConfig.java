@@ -34,6 +34,8 @@ public class PotatoCommonConfig {
                 .define("enable headshot", false);
         PLAY_HEADSHOT_SOUND = CONFIG_BUILDER
                 .define("player headshot feedback sound", true);
+        DAMAGE_MULTIPLIER = CONFIG_BUILDER
+                .defineInRange("damage multiplier on headshots", 2.56, 1.00, 10.00);
         DO_BLIND = CONFIG_BUILDER
                 .define("do blind", true);
         BLIND_TICKS = CONFIG_BUILDER
@@ -42,8 +44,6 @@ public class PotatoCommonConfig {
                 .define("do nausea", true);
         NAUSEA_TICKS = CONFIG_BUILDER
                 .defineInRange("nausea ticks (you should enable 'do nausea' to make this work)", 60, 1, Integer.MAX_VALUE);
-        DAMAGE_MULTIPLIER = CONFIG_BUILDER
-                .defineInRange("damage multiplier on headshots (use 1.00 for no damage multiply)", 2.56, 1.00, Double.MAX_VALUE);
         CONFIG_BUILDER.pop();
         COMMON_CONFIG = CONFIG_BUILDER.build();
     }
