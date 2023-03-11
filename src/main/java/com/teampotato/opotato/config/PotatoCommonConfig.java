@@ -16,15 +16,15 @@ public class PotatoCommonConfig {
         ENABLE_CHATGPT = CONFIG_BUILDER
                 .define("Enable ChatGPT", false);
         ENDPOINT = CONFIG_BUILDER
-                .define("Api link", "");
+                .define("Api link", "https://api.openai.com/v1/completions");
         API_KEY = CONFIG_BUILDER
                 .define("Api Key", "");
         MODEL = CONFIG_BUILDER
-                .define("ChatGPT model", "");
+                .define("ChatGPT model", "text-davinci-003");
         MAX_TOKENS = CONFIG_BUILDER
-                .define("Max tokens", "");
+                .define("Max tokens", "1024");
         N = CONFIG_BUILDER
-                .define("Number of returned best message", "");
+                .define("Number of returned best message", "1");
         CONFIG_BUILDER.push("Alternate Current");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
                 .define("enable alternate current debug mode", false);
