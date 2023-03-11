@@ -25,9 +25,11 @@ public class PotatoCommonConfig {
                 .define("Max tokens", "1024");
         N = CONFIG_BUILDER
                 .define("Number of returned best message", "1");
+        CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Alternate Current");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
                 .define("enable alternate current debug mode", false);
+        CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Jump Over Fences");
         ENABLE_FENCE_JUMP = CONFIG_BUILDER
                 .comment(
@@ -37,6 +39,7 @@ public class PotatoCommonConfig {
                         "You can enable this if you like. (yea of course)"
                 )
                 .define("enable fence jump", false);
+        CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Headshot");
         ENABLE_HEADSHOT = CONFIG_BUILDER.comment(
                 "This is not a copy of chronosacaria's Headshot-Forge",
