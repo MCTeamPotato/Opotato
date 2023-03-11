@@ -15,6 +15,6 @@
     "smoothmenu.SmoothMenuMixin",
     "betterbeds.MixinBedBlock",
     "betterbeds.MixinBlockEntityRendererDispatcher",
-    "opotato.MixinOculus"
+    "opotato.MixinOculusNECDetection"
   ]
 }

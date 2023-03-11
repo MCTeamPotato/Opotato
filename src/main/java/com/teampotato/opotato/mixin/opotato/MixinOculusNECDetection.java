@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(value = Iris.class, remap = false)
-public class MixinOculus {
+public class MixinOculusNECDetection {
     /**
      * @author Doctor Who
      * @reason Saving The World
