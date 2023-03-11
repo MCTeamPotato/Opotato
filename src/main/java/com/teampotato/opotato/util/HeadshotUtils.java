@@ -14,9 +14,7 @@ public class HeadshotUtils {
     }
 
     static boolean calculateSimpleHeadHit(Vec3 sourcePos, Entity entity) {
-        double playerHeadStart = entity.position().add(
-                0.0,
-                entity.getDimensionsForge(entity.getPose()).height * 0.85F, 0.0).y - 0.17;
+        double playerHeadStart = entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85F, 0.0).y - 0.17;
         return sourcePos.y > playerHeadStart;
     }
 

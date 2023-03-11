@@ -10,8 +10,11 @@ public class PotatoCommonConfig {
 
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
-        CONFIG_BUILDER.comment("Opotato Common Config").push("Alternate Current");
+        CONFIG_BUILDER.push("Opotato Common Config");
+        CONFIG_BUILDER.comment("Alternate Current");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER.define("enable alternate current debug mode", false);
+        CONFIG_BUILDER.comment("-----------------------------------");
+
         ENABLE_FENCE_JUMP = CONFIG_BUILDER
                 .comment(
                         "Compared with the 'Jump Over Fences' mod, the fence jumping function of this mod is better optimized.",
@@ -20,10 +23,11 @@ public class PotatoCommonConfig {
                         "You can enable this if you like. (yea of course)"
                 )
                 .define("enable fence jump", false);
-        CONFIG_BUILDER.push("Headshot");
         CONFIG_BUILDER.comment(
+                "-----------------------------------",
+                "Headshot",
                 "This is NOT a copy of chronosacaria's Headshot-Forge",
-                "Yeah I sent a PR to improve it, but he seemed to be busy and didn't respond, so I don't want to wait for him anymore.",
+                "Yeah I sent a PR to improve it, but he seemed to abandon 1.16.5 Forge, so I don't want to wait for him anymore.",
                 "This version is more like the original SilverAndro's Fabric Headshot, with utils to check whether an arrow hit is on entity's head.",
                 "What's more, you can also receive feedback sound (ARROW_HIT_PLAYER, also known as DING) when headshot events trigger.",
                 "You can also use resourcepack to customize the status message when headshot events trigger (Yeah in the lang file)."

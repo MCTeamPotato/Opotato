@@ -9,26 +9,25 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class CommonEvents {
     @SubscribeEvent
-    public static void onHeadshot(LivingDamageEvent event) {
+    public static void onHeadshot(LivingHurtEvent event) {
         if (!event.getSource().isProjectile()) return;
         LivingEntity attacked = event.getEntityLiving();
-        if (!HeadshotUtils.calculateIsHeadHit(event.getSource().getSourcePosition(), attacked)) return;
-        if (attacked instanceof ServerPlayer) {
-            ServerPlayer player = (ServerPlayer) attacked;
-            player.displayClientMessage(new TranslatableComponent("headshot.opotato.on_player"), true);
+        if (!HeadshotUtils.calculateIsHeadHit(event.getSource().getSourcePosition(), attacked) || attacked.isInvulnerableTo(event.getSource())) return;
+        if (attacked instanceof Player) {
+            ((Player) attacked).displayClientMessage(new TranslatableComponent("headshot.opotato.on_player"), true);
         } else {
             Entity archer = event.getSource().getDirectEntity();
             if (archer == null) return;
-            if (archer instanceof ServerPlayer) {
-                ServerPlayer player = (ServerPlayer) archer;
-                player.displayClientMessage(new TranslatableComponent("headshot.opotato.on_entity"), true);
+            if (archer instanceof Player) {
+                ((Player) archer).displayClientMessage(new TranslatableComponent("headshot.opotato.on_entity"), true);
             }
         }
         attacked.playSound(SoundEvents.ARROW_HIT_PLAYER, 1, 1);
