@@ -6,7 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
-import com.teampotato.opotato.util.profiler.ProfilerResults;
+import com.teampotato.opotato.util.alternatecurrent.profiler.ProfilerResults;
 import com.teampotato.opotato.util.schwarz.ChunkCommandHandler;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

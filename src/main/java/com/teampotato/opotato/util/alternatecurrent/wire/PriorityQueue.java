@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
 import java.util.AbstractQueue;
 import java.util.Arrays;

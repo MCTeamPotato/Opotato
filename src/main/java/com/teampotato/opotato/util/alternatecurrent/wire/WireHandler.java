@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap.Entry;

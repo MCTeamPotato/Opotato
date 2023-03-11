@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.profiler;
+package com.teampotato.opotato.util.alternatecurrent.profiler;
 
 public interface Profiler {
 

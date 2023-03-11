@@ -2,8 +2,8 @@ package com.teampotato.opotato;
 
 import com.teampotato.opotato.command.OpotatoCommand;
 import com.teampotato.opotato.config.PotatoCommonConfig;
-import com.teampotato.opotato.util.profiler.ACProfiler;
-import com.teampotato.opotato.util.profiler.Profiler;
+import com.teampotato.opotato.util.alternatecurrent.profiler.ACProfiler;
+import com.teampotato.opotato.util.alternatecurrent.profiler.Profiler;
 import me.shedaniel.architectury.platform.forge.EventBuses;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.MinecraftForge;

@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
