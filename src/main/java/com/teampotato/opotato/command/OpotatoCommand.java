@@ -11,7 +11,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.alternatecurrent.profiler.ProfilerResults;
-import com.teampotato.opotato.util.chatgpt.TomlUtils;
 import com.teampotato.opotato.util.schwarz.ChunkCommandHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -82,17 +81,17 @@ public class OpotatoCommand {
         return CompletableFuture.supplyAsync(() -> {
             String prompt = "User: " + message + "\nChatGPT:";
             JSONObject requestData = new JSONObject()
-                    .put("model", TomlUtils.MODEL)
+                    .put("model", Opotato.MODEL)
                     .put("prompt", prompt)
-                    .put("max_tokens", Integer.parseInt(TomlUtils.MAX_TOKENS))
-                    .put("n", Integer.parseInt(TomlUtils.N))
+                    .put("max_tokens", Integer.parseInt(Opotato.MAX_TOKENS))
+                    .put("n", Integer.parseInt(Opotato.N))
                     .put("stop", "\n");
             try {
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(TomlUtils.ENDPOINT))
+                        .uri(URI.create(Opotato.ENDPOINT))
                         .header("Content-Type", "application/json")
-                        .header("Authorization", "Bearer " + TomlUtils.API_KEY)
+                        .header("Authorization", "Bearer " + Opotato.API_KEY)
                         .POST(HttpRequest.BodyPublishers.ofString(requestData.toString()))
                         .build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -101,9 +100,7 @@ public class OpotatoCommand {
                 JsonArray choices = responseJson.getAsJsonArray("choices");
                 System.out.println("Received response from ChatGPT API: " + response);
 
-                if (choices == null || choices.size() == 0) {
-                    return "Failed to get a response from OpenAI API.";
-                }
+                if (choices == null || choices.size() == 0) return "Failed to get a response from OpenAI API.";
                 JsonObject choice = choices.get(0).getAsJsonObject();
                 return choice.get("text").getAsString();
             } catch (Exception e) {

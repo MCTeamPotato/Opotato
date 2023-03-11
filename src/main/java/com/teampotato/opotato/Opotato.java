@@ -4,7 +4,6 @@ import com.moandjiezana.toml.Toml;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.alternatecurrent.profiler.ACProfiler;
 import com.teampotato.opotato.util.alternatecurrent.profiler.Profiler;
-import com.teampotato.opotato.util.chatgpt.TomlUtils;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -21,38 +20,6 @@ import java.util.List;
 
 @Mod(Opotato.ID)
 public class Opotato {
-    public Opotato() {
-        File file = new File("config/chatgpt.toml");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-                FileWriter writer = new FileWriter(file);
-                writer.write("endpoint = \"YOUR_ENDPOINT\"\n");
-                writer.write("api_key = \"YOUR_OPENAI_APIKEY\"\n");
-                writer.write("model = \"YOUR_OPENAI_MODEL\"\n");
-                writer.write("prompt = \"YOUR_PROMPT\"\n");
-                writer.write("max_tokens = \"YOUR_MAX_TOKENS\"\n");
-                writer.write("n = \"YOUR_N\"\n");
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        Toml toml = readTomlFromFile("config/chatgpt.toml");
-
-        ENDPOINT = toml.getString("endpoint");
-        API_KEY = toml.getString("api_key");
-        MODEL = toml.getString("model");
-        MAX_TOKENS = toml.getString("max_tokens");
-        N = toml.getString("n");
-        Toml tomlFile = TomlUtils.readTomlFromFile("config/chatgpt.toml");
-        TomlUtils.ENDPOINT = tomlFile.getString("endpoint");
-        TomlUtils.API_KEY = tomlFile.getString("api_key");
-        TomlUtils.MODEL = tomlFile.getString("model");
-        TomlUtils.MAX_TOKENS = tomlFile.getString("max_tokens");
-        TomlUtils.N = tomlFile.getString("n");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
-    }
 
     public static String ENDPOINT;
     public static String API_KEY;
@@ -82,5 +49,34 @@ public class Opotato {
             e.printStackTrace();
         }
         return toml;
+    }
+
+    public Opotato() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
+
+
+        File file = new File("config/chatgpt.toml");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                FileWriter writer = new FileWriter(file);
+                writer.write("endpoint = \"YOUR_ENDPOINT\"\n");
+                writer.write("api_key = \"YOUR_OPENAI_APIKEY\"\n");
+                writer.write("model = \"YOUR_OPENAI_MODEL\"\n");
+                writer.write("prompt = \"YOUR_PROMPT\"\n");
+                writer.write("max_tokens = \"YOUR_MAX_TOKENS\"\n");
+                writer.write("n = \"YOUR_N\"\n");
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Toml toml = readTomlFromFile("config/chatgpt.toml");
+
+        ENDPOINT = toml.getString("endpoint");
+        API_KEY = toml.getString("api_key");
+        MODEL = toml.getString("model");
+        MAX_TOKENS = toml.getString("max_tokens");
+        N = toml.getString("n");
     }
 }
