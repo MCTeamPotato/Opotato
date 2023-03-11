@@ -5,7 +5,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.alternatecurrent.profiler.ACProfiler;
 import com.teampotato.opotato.util.alternatecurrent.profiler.Profiler;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TextComponent;
@@ -42,12 +41,10 @@ public class Opotato {
     public static Profiler creatrProfiler() {
         return PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get() ? new ACProfiler() : Profiler.DUMMY;
     }
-
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
-
         if(PotatoCommonConfig.ENABLE_CHATGPT.get()){
-            CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+            net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
                 dispatcher.register(Commands.literal("chatgpt").then(Commands.argument("message", StringArgumentType.greedyString())
                     .executes(context -> {
                         try {
