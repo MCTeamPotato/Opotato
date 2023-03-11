@@ -1,13 +1,8 @@
 package com.teampotato.opotato;
 
-import com.moandjiezana.toml.Toml;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.alternatecurrent.profiler.ACProfiler;
 import com.teampotato.opotato.util.alternatecurrent.profiler.Profiler;
-import net.minecraft.ChatFormatting;
-import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -15,16 +10,8 @@ import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
-import static com.teampotato.opotato.util.ChatGPTUtils.generatePrompt;
-import static com.teampotato.opotato.util.ChatGPTUtils.getChatGPTResponse;
 
 @Mod(Opotato.ID)
 public class Opotato {
