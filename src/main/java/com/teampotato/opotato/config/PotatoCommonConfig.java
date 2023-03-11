@@ -12,7 +12,7 @@ public class PotatoCommonConfig {
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
         CONFIG_BUILDER.push("Opotato Common Config");
-        CONFIG_BUILDER.push("ChatGPT");
+        CONFIG_BUILDER.push("ChatGPT In Minecraft");
         ENABLE_CHATGPT = CONFIG_BUILDER
                 .define("Enable ChatGPT", false);
         ENDPOINT = CONFIG_BUILDER
