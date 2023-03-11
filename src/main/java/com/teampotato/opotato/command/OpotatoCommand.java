@@ -60,9 +60,7 @@ public class OpotatoCommand {
                         String message = StringArgumentType.getString(context, "message");
                         String prompt = generatePrompt(message);
                         CompletableFuture<String> future = getChatGPTResponse(prompt);
-                        future.thenAcceptAsync(response -> {
-                            context.getSource().sendSuccess(new TextComponent(response).withStyle(ChatFormatting.YELLOW), false);
-                        });
+                        future.thenAcceptAsync(response -> context.getSource().sendSuccess(new TextComponent(response).withStyle(ChatFormatting.YELLOW), false));
                         return 1;
                     } catch (Exception e) {
                         e.printStackTrace();
