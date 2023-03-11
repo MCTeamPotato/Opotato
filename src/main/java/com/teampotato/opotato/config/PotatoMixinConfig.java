@@ -21,9 +21,9 @@ public class PotatoMixinConfig {
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("betterbeds", false);
         this.addMixinRule("opotato", true);
-        this.addMixinRule("kysxis", true);
+        this.addMixinRule("ksyxis", true);
         disableIfModPresent("mixin.smoothmenu", "forgery");
-        disableIfModPresent("mixin.kysxis", "dragora", "ksyxis");
+        disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
     }
 
     private void disableIfModPresent(String configName, String... ids) {
