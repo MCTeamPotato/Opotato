@@ -37,8 +37,7 @@ public class ChatGPTUtils {
                         .POST(HttpRequest.BodyPublishers.ofString(requestData.toString()))
                         .build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                JsonParser parser = new JsonParser();
-                JsonObject responseJson = parser.parse(response.body()).getAsJsonObject();
+                JsonObject responseJson = JsonParser.parseString(response.body()).getAsJsonObject();
                 JsonArray choices = responseJson.getAsJsonArray("choices");
                 System.out.println("Received response from ChatGPT API: " + response);
                 if (choices == null || choices.size() == 0) return "Failed to get a response from OpenAI API.";
