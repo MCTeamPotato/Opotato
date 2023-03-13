@@ -1,4 +1,9 @@
 {
   "headshot.opotato.on_entity": "爆头！",
-  "headshot.opotato.on_player": "你被爆头了！"
+  "headshot.opotato.on_player": "你被爆头了！",
+  "minegpt.set.default": "默认配置已成功设置！",
+  "minegpt.set.configapikey": "OpenAI API密钥已保存",
+  "minegpt.error.saveconfig": "无法保存配置文件！",
+  "minegpt.error.apikey": "API密钥无效！",
+  "minegpt.reload.config": "已重新加载配置文件。"
 }

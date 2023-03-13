@@ -1,4 +1,9 @@
 {
   "headshot.opotato.on_entity": "Headshot!",
-  "headshot.opotato.on_player": "You got headshot!"
+  "headshot.opotato.on_player": "You got headshot!",
+  "minegpt.set.configapikey": "OpenAI API key saved.",
+  "minegpt.set.default": "The default endpoint has been updated in %s",
+  "minegpt.error.saveconfig": "Failed to save config file.",
+  "minegpt.error.apikey": "Invalid API key!",
+  "minegpt.reload.config": "The configuration file has been reloaded."
 }

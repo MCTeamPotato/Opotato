@@ -7,28 +7,15 @@ public class PotatoCommonConfig {
     public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE, ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA, ENABLE_HEADSHOT, PLAY_HEADSHOT_SOUND, ENABLE_CHATGPT;
     public static final ForgeConfigSpec.DoubleValue DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue BLIND_TICKS, NAUSEA_TICKS;
-    public static final ForgeConfigSpec.ConfigValue<String> ENDPOINT, API_KEY, MODEL, MAX_TOKENS, N;
-
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
         CONFIG_BUILDER.push("Opotato Common Config");
-        CONFIG_BUILDER.push("ChatGPT In Minecraft");
+        CONFIG_BUILDER.push("ChatGPT In MC");
         ENABLE_CHATGPT = CONFIG_BUILDER
                 .define("Enable ChatGPT", false);
-        ENDPOINT = CONFIG_BUILDER
-                .define("Api link", "https://api.openai.com/v1/completions");
-        API_KEY = CONFIG_BUILDER
-                .define("Api Key", "");
-        MODEL = CONFIG_BUILDER
-                .define("ChatGPT model", "text-davinci-003");
-        MAX_TOKENS = CONFIG_BUILDER
-                .define("Max tokens", "1024");
-        N = CONFIG_BUILDER
-                .define("Number of returned best message", "1");
-        CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Alternate Current");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
-                .define("enable alternate current debug mode", false);
+                .define("Enable alternate current debug mode", false);
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Jump Over Fences");
         ENABLE_FENCE_JUMP = CONFIG_BUILDER
@@ -38,7 +25,7 @@ public class PotatoCommonConfig {
                         "This is disabled by default, because this is not optimization & don't fit well with the concept of Opotato, but I do need this even for my personal use.",
                         "You can enable this if you like. (yea of course)"
                 )
-                .define("enable fence jump", false);
+                .define("Enable fence jump", false);
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Headshot");
         ENABLE_HEADSHOT = CONFIG_BUILDER.comment(
@@ -49,19 +36,19 @@ public class PotatoCommonConfig {
                 "You can also use resourcepack to customize the status message when headshot events trigger (Yeah in the lang file).",
                 "disable by default, enable this if you like."
                 )
-                .define("enable headshot", false);
+                .define("Enable headshot", false);
         PLAY_HEADSHOT_SOUND = CONFIG_BUILDER
-                .define("player headshot feedback sound", true);
+                .define("Player headshot feedback sound", true);
         DAMAGE_MULTIPLIER = CONFIG_BUILDER
-                .defineInRange("damage multiplier on headshots", 2.56, 1.00, 1000.00);
+                .defineInRange("Damage multiplier on headshots", 2.56, 1.00, 1000.00);
         DO_BLIND = CONFIG_BUILDER
-                .define("do blind", true);
+                .define("Do blind", true);
         BLIND_TICKS = CONFIG_BUILDER
-                .defineInRange("blind ticks (you should enable 'do blind' to make this work)", 60, 1, Integer.MAX_VALUE);
+                .defineInRange("Blind ticks (you should enable 'do blind' to make this work)", 60, 1, Integer.MAX_VALUE);
         DO_NAUSEA = CONFIG_BUILDER
-                .define("do nausea", true);
+                .define("Do nausea", true);
         NAUSEA_TICKS = CONFIG_BUILDER
-                .defineInRange("nausea ticks (you should enable 'do nausea' to make this work)", 60, 1, Integer.MAX_VALUE);
+                .defineInRange("Nausea ticks (you should enable 'do nausea' to make this work)", 60, 1, Integer.MAX_VALUE);
         CONFIG_BUILDER.pop();
         COMMON_CONFIG = CONFIG_BUILDER.build();
     }

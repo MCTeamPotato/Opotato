@@ -52,10 +52,9 @@ dependencies {
     modCompileOnly("icyllis.modernui:ModernUI-Forge:${modernui_version}")
     modImplementation("curse.maven:oculus-581495:4300427")
     modImplementation("curse.maven:rubidium-574856:4397474")
-    modImplementation("curse.maven:forgedfabric-662687:4059371")
-    implementation("com.moandjiezana.toml:toml4j:0.7.2")
-    implementation("org.json:json:20210307")
-    implementation("com.google.code.gson:gson:2.8.9")
+    implementation(include("org.json:json:20210307"))
+    implementation(include("com.moandjiezana.toml:toml4j:0.7.2"))
+    implementation(include("com.google.code.gson:gson:2.8.9"))
 }
 
 processResources {
