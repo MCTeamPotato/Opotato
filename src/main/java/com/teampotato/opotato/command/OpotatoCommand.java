@@ -65,11 +65,10 @@ public class OpotatoCommand {
                                                 .append(new TextComponent(response).withStyle(ChatFormatting.YELLOW)), false
                                 );
                             });
-                            return 1;
                     } catch (Exception e) {
                         e.printStackTrace();
-                        return 0;
                     }
+                    return 0;
                 });
         dispatcher.register(builder3);
     }
