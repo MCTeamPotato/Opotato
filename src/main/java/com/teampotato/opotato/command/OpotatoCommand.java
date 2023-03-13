@@ -63,12 +63,10 @@ public class OpotatoCommand {
                         CompletableFuture<String> future = ChatGPTUtils.getChatGPTResponse(prompt);
                         future.thenAcceptAsync(response -> {
                             String playerName = context.getSource().getTextName();
-
                             context.getSource().sendSuccess(new TextComponent("[" + playerName + "] -> ").withStyle(ChatFormatting.GREEN)
                                     .append(new TextComponent(message).withStyle(ChatFormatting.AQUA)), false);
                             context.getSource().sendSuccess(new TextComponent("[ChatGPT-" + MODEL + "] -> " + "[" + playerName + "]" + ": ").withStyle(ChatFormatting.GOLD)
                                     .append(new TextComponent(response).withStyle(ChatFormatting.YELLOW)), false);
-
                         });
                         return 1;
                     } catch (Exception e) {
