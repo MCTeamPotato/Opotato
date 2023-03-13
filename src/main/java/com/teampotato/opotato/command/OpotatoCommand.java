@@ -2,21 +2,15 @@ package com.teampotato.opotato.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
-import com.teampotato.opotato.util.ChatGPTUtils;
 import com.teampotato.opotato.util.alternatecurrent.profiler.ProfilerResults;
 import com.teampotato.opotato.util.schwarz.ChunkCommandHandler;
-import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-
-import java.util.concurrent.CompletableFuture;
 
 public class OpotatoCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -42,35 +36,6 @@ public class OpotatoCommand {
                         .executes(OpotatoCommand::ChunkAnalyse));
         dispatcher.register(builder1);
         dispatcher.register(builder2);
-
-        if (!PotatoCommonConfig.ENABLE_CHATGPT.get()) return;
-        LiteralArgumentBuilder<CommandSourceStack> builder3 = Commands
-                .literal("chatgpt")
-                .then(Commands.argument("message", StringArgumentType.greedyString()))
-                .executes(context -> {
-                    try {
-                            String message = StringArgumentType.getString(context, "message");
-                            String prompt = ChatGPTUtils.generatePrompt(message);
-                            CompletableFuture<String> future = ChatGPTUtils.getChatGPTResponse(prompt);
-                            future.thenAcceptAsync(response -> {
-                                String playerName = context.getSource().getTextName();
-                                context.getSource().sendSuccess(
-                                        new TextComponent("[" + playerName + "] -> ")
-                                                .withStyle(ChatFormatting.GREEN)
-                                                .append(new TextComponent(message).withStyle(ChatFormatting.AQUA)), false
-                                );
-                                context.getSource().sendSuccess(
-                                        new TextComponent("[ChatGPT-" + PotatoCommonConfig.MODEL.get() + "] -> " + "[" + playerName + "]" +": ")
-                                                .withStyle(ChatFormatting.GOLD)
-                                                .append(new TextComponent(response).withStyle(ChatFormatting.YELLOW)), false
-                                );
-                            });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return 0;
-                });
-        dispatcher.register(builder3);
     }
 
     private static int query(CommandSourceStack source) {
