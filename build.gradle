@@ -55,7 +55,7 @@ dependencies {
     modImplementation("curse.maven:forgedfabric-662687:4059371")
     implementation("com.moandjiezana.toml:toml4j:0.7.2")
     implementation("org.json:json:20210307")
-    implementation("com.github.google:gson:gson-parent-2.8.9")
+    implementation("com.google.code.gson:gson:2.8.9")
 }
 
 processResources {
