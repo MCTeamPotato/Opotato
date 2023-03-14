@@ -1,7 +1,6 @@
 plugins {
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT"
     id "maven-publish"
-    id "com.github.johnrengelman.shadow" version "6.0.0"
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
@@ -41,20 +40,20 @@ repositories {
         url 'https://maven.izzel.io/releases'
     }
     maven { url 'https://jitpack.io' }
-}
-
-shadowJar {
-    include("org.json:json:20210307")
-    include("com.moandjiezana.toml:toml4j:0.7.2")
-    include("com.google.code.gson:gson:2.8.9")
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
+    }
     forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modImplementation("curse.maven:architectury-api-419699:3857643")
     modImplementation("curse.maven:oculus-581495:4300427")
     modImplementation("curse.maven:the-twilight-forest-227639:3575220")
     implementation("org.json:json:20210307")
