@@ -20,8 +20,6 @@ public class Opotato {
     public static final Logger LOGGER = LogManager.getLogger(ID);
     public static List<Chunk> loadedChunks = new ArrayList<>();
 
-    public static boolean on = true;
-
     public static Profiler createProfiler() {
         return PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get() ? new ACProfiler() : Profiler.DUMMY;
     }

@@ -1,6 +1,5 @@
 package com.teampotato.opotato.mixin.alternatecurrent;
 
-import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.interfaces.IServerWorld;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -24,11 +23,7 @@ public class RedStoneWireBlockMixin {
 		)
 	)
 	private void onUpdate(World level, BlockPos pos, BlockState state, CallbackInfo ci) {
-		if (Opotato.on) {
-			// Using redirects for calls to this method makes conflicts with
-			// other mods more likely, so we inject-cancel instead.
-			ci.cancel();
-		}
+		ci.cancel();
 	}
 
 	@Inject(
@@ -40,9 +35,7 @@ public class RedStoneWireBlockMixin {
 		)
 	)
 	private void onPlace(BlockState state, World level, BlockPos pos, BlockState oldState, boolean moved, CallbackInfo ci) {
-		if (Opotato.on) {
-			((IServerWorld)level).getWireHandler().onWireAdded(pos);
-		}
+		((IServerWorld)level).getWireHandler().onWireAdded(pos);
 	}
 
 	@Inject(
@@ -54,9 +47,7 @@ public class RedStoneWireBlockMixin {
 		)
 	)
 	private void onRemove(BlockState state, World level, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci) {
-		if (Opotato.on) {
-			((IServerWorld)level).getWireHandler().onWireRemoved(pos, state);
-		}
+		((IServerWorld)level).getWireHandler().onWireRemoved(pos, state);
 	}
 
 	@Inject(
@@ -67,9 +58,7 @@ public class RedStoneWireBlockMixin {
 		)
 	)
 	private void onNeighborChanged(BlockState state, World level, BlockPos pos, Block block, BlockPos fromPos, boolean notify, CallbackInfo ci) {
-		if (Opotato.on) {
-			((IServerWorld)level).getWireHandler().onWireUpdated(pos);
-			ci.cancel();
-		}
+		((IServerWorld)level).getWireHandler().onWireUpdated(pos);
+		ci.cancel();
 	}
 }
