@@ -35,7 +35,8 @@ public class TraceUtils {
                             mixinInfoSetObject = mixinsField.get(classInfo);
                         }
 
-                        @SuppressWarnings("unchecked") Set<IMixinInfo> mixinInfoSet = (Set<IMixinInfo>) mixinInfoSetObject;
+                        @SuppressWarnings("unchecked")
+                        Set<IMixinInfo> mixinInfoSet = (Set<IMixinInfo>) mixinInfoSetObject;
 
                         if (mixinInfoSet.size() > 0) {
                             crashReportBuilder.append("\n\t");
