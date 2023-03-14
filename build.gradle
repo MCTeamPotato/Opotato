@@ -1,6 +1,7 @@
 plugins {
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT"
     id "maven-publish"
+    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
@@ -43,6 +44,14 @@ repositories {
     maven {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
+    }
+}
+
+shadowJar {
+    dependencies {
+        include dependency("org.json:json:20210307")
+        include dependency("com.moandjiezana.toml:toml4j:0.7.2")
+        include dependency("com.google.code.gson:gson:2.8.9")
     }
 }
 

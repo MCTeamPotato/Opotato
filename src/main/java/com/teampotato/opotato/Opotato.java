@@ -20,7 +20,6 @@ public class Opotato {
     public static final String NAME = "Opotato";
     public static final String VER = "1.4.0";
     public static final Logger LOGGER = LogManager.getLogger(ID);
-    public static final String CHATGPT_CONFIG = "config/Opotato_MineGPTConfig.toml";
 
     public static List<LevelChunk> loadedChunks = new ArrayList<>();
 
