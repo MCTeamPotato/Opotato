@@ -12,6 +12,7 @@ public class PotatoCommonConfig {
         CONFIG_BUILDER.push("Opotato Common Config");
         CONFIG_BUILDER.push("ChatGPT In MC");
         ENABLE_CHATGPT = CONFIG_BUILDER
+                .comment("NOT Available yet.")
                 .define("Enable ChatGPT", false);
         CONFIG_BUILDER.push("Alternate Current");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
