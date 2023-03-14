@@ -104,6 +104,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation fg.deobf('com.velocitypowered:velocity-native:3.1.2-SNAPSHOT')
     shadow 'com.google.code.gson:gson:2.8.9'
+    
 }
 
 jar {
