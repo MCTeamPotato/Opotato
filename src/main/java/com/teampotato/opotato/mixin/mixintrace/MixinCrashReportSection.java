@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.mixintrace;
 
 import com.teampotato.opotato.util.TraceUtils;
-import net.minecraft.CrashReportCategory;
+import net.minecraft.crash.CrashReportCategory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,15 +1,15 @@
 package com.teampotato.opotato.util.schwarz;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.phys.AABB;
-
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,23 +19,23 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
     private int score = 0;
     private final int[] coords = new int[2];
 
-    private final LevelChunk chunk;
+    private final Chunk chunk;
     private String world;
 
-    private final HashMap<BlockEntityType, Integer> blockEntityScore = new HashMap<>() {{
-        put(BlockEntityType.CHEST, 1);
-        put(BlockEntityType.TRAPPED_CHEST, 2);
-        put(BlockEntityType.BLAST_FURNACE, 3);
-        put(BlockEntityType.FURNACE, 3);
-        put(BlockEntityType.SIGN, 1);
-        put(BlockEntityType.BEACON, 35);
-        put(BlockEntityType.HOPPER, 6);
-        put(BlockEntityType.PISTON, 5);
-        put(BlockEntityType.DISPENSER, 10);
-        put(BlockEntityType.MOB_SPAWNER, 60);
+    private final HashMap<TileEntityType, Integer> blockEntityScore = new HashMap<TileEntityType, Integer>() {{
+        put(TileEntityType.CHEST, 1);
+        put(TileEntityType.TRAPPED_CHEST, 2);
+        put(TileEntityType.BLAST_FURNACE, 3);
+        put(TileEntityType.FURNACE, 3);
+        put(TileEntityType.SIGN, 1);
+        put(TileEntityType.BEACON, 35);
+        put(TileEntityType.HOPPER, 6);
+        put(TileEntityType.PISTON, 5);
+        put(TileEntityType.DISPENSER, 10);
+        put(TileEntityType.MOB_SPAWNER, 60);
     }};
 
-    private final HashMap<EntityType, Integer> livingEntityScore = new HashMap<>() {{
+    private final HashMap<EntityType, Integer> livingEntityScore = new HashMap<EntityType, Integer>() {{
         put(EntityType.PLAYER, 15);
         put(EntityType.ZOMBIE, 2);
         put(EntityType.SPIDER, 2);
@@ -66,13 +66,13 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
         put(EntityType.ENDERMITE, 5);
     }};
 
-    public ChunkStatus(LevelChunk chunk) {
+    public ChunkStatus(Chunk chunk) {
         this.chunk = chunk;
-        if (chunk.getLevel().dimension().equals(Level.OVERWORLD)) {
+        if (chunk.getLevel().dimension().equals(World.OVERWORLD)) {
             this.world = "overworld";
-        } else if (chunk.getLevel().dimension().equals(Level.NETHER)) {
+        } else if (chunk.getLevel().dimension().equals(World.NETHER)) {
             this.world = "nether";
-        } else if (chunk.getLevel().dimension().equals(Level.END)) {
+        } else if (chunk.getLevel().dimension().equals(World.END)) {
             this.world = "end";
         }
         coords[0] = (chunk.getPos().getMinBlockX() + chunk.getPos().getMaxBlockX()) / 2;
@@ -80,8 +80,8 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
     }
 
     public void genScore() {
-        Map<BlockPos, BlockEntity> blockentities = chunk.getBlockEntities();
-        for (BlockEntity blockEntity : blockentities.values()) {
+        Map<BlockPos, TileEntity> blockentities = chunk.getBlockEntities();
+        for (TileEntity blockEntity : blockentities.values()) {
             if (blockEntityScore.get(blockEntity.getType()) != null) {
                 score += blockEntityScore.get(blockEntity.getType());
             }
@@ -91,7 +91,7 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
         int startz = chunk.getPos().getMinBlockZ();
         int endx = chunk.getPos().getMaxBlockX();
         int endz = chunk.getPos().getMaxBlockZ();
-        AABB box = new AABB(startx, 0, startz, endx, 256, endz);
+        AxisAlignedBB box = new AxisAlignedBB(startx, 0, startz, endx, 256, endz);
         List<Entity> livingEntityList = new ArrayList<>();
         chunk.getEntities((Entity) null, box, livingEntityList, entity -> true);
         for (Entity entity : livingEntityList) {
@@ -101,8 +101,8 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
         }
     }
 
-    public TextComponent genText() {
-        return new TextComponent("Chunk Center Pos: " + coords[0] + " " + coords[1] + "\nScore: " + score + "\nWorld: " + world);
+    public ITextComponent genText() {
+        return new StringTextComponent("Chunk Center Pos: " + coords[0] + " " + coords[1] + "\nScore: " + score + "\nWorld: " + world);
     }
 
     @Override

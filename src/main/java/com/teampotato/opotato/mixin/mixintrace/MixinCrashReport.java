@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.mixintrace;
 
 import com.teampotato.opotato.util.TraceUtils;
-import net.minecraft.CrashReport;
+import net.minecraft.crash.CrashReport;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ public abstract class MixinCrashReport {
     @Shadow
     private StackTraceElement[] uncategorizedStackTrace;
 
-    @Inject(method = "getDetails", at = @At(value = "FIELD"))
+    @Inject(method = "getDetails", at = @At(value = "FIELD", target = "Lnet/minecraft/crash/CrashReport;details:Ljava/util/List;"))
     private void mixintrace_addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
         int trailingNewlineCount = 0;
         if (crashReportBuilder.charAt(crashReportBuilder.length() - 1) == '\n') {
@@ -25,8 +25,6 @@ public abstract class MixinCrashReport {
             trailingNewlineCount++;
         }
         TraceUtils.printTrace(uncategorizedStackTrace, crashReportBuilder);
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n".repeat(trailingNewlineCount));
-        crashReportBuilder.append(sb);
+        crashReportBuilder.append("\n".repeat(trailingNewlineCount));
     }
 }

@@ -1,25 +1,21 @@
 package com.teampotato.opotato.mixin.betterbeds;
 
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.*;
+import net.minecraft.util.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = BedBlock.class, priority = 2000)
-public abstract class MixinBedBlock extends HorizontalDirectionalBlock {
-    protected MixinBedBlock(BlockBehaviour.Properties settings) {
+public abstract class MixinBedBlock extends HorizontalBlock {
+    protected MixinBedBlock(AbstractBlock.Properties settings) {
         super(settings);
     }
 
     @Inject(at = @At("RETURN"), method = "getRenderShape", cancellable = true)
-    private void getRenderShape(BlockState state, CallbackInfoReturnable<RenderShape> cir) {
-        cir.setReturnValue(RenderShape.MODEL);
+    private void getRenderShape(BlockState state, CallbackInfoReturnable<BlockRenderType> cir) {
+        cir.setReturnValue(BlockRenderType.MODEL);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.teampotato.opotato.mixin.betterbeds;
 
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.tileentity.TileEntityType;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,14 +12,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
-@Mixin(BlockEntityRenderDispatcher.class)
+@Mixin(TileEntityRendererDispatcher.class)
 public abstract class MixinBlockEntityRendererDispatcher {
     @Shadow
     @Final
-    private Map<BlockEntityType<?>, BlockEntityRenderer<?>> renderers;
+    private Map<TileEntityType<?>, TileEntityRenderer<?>> renderers;
 
     @Inject(method = {"<init>()V"}, at = {@At("TAIL")})
     private void init(CallbackInfo info) {
-        this.renderers.remove(BlockEntityType.BED);
+        this.renderers.remove(TileEntityType.BED);
     }
 }

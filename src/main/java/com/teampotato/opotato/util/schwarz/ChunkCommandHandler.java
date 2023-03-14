@@ -1,9 +1,9 @@
 package com.teampotato.opotato.util.schwarz;
 
 import com.teampotato.opotato.Opotato;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.command.CommandSource;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.chunk.Chunk;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,10 +12,10 @@ import java.util.List;
 public class ChunkCommandHandler {
     private static final List<ChunkStatus> scores = new ArrayList<>();
 
-    public static void AnalyseChunk(CommandSourceStack commandSource) {
-        List<LevelChunk> currentWorldChunkList = Opotato.loadedChunks;
+    public static void AnalyseChunk(CommandSource commandSource) {
+        List<Chunk> currentWorldChunkList = Opotato.loadedChunks;
         scores.clear();
-        for (LevelChunk chunk : currentWorldChunkList) {
+        for (Chunk chunk : currentWorldChunkList) {
             scores.add(new ChunkStatus(chunk));
         }
 
@@ -24,7 +24,7 @@ public class ChunkCommandHandler {
         }
         Collections.sort(scores);
 
-        commandSource.sendSuccess(new TextComponent("Chunk Analyse Report \n"), false);
+        commandSource.sendSuccess(new StringTextComponent("Chunk Analyse Report \n"), false);
         for (int i = 0; i < 10; i++) {
             if (i >= scores.size()) {
                 break;

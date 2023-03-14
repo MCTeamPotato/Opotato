@@ -1,118 +1,135 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'org.spongepowered',  name: 'mixingradle', version: '0.7+'
+    }
+}
+
 plugins {
-    id "dev.architectury.loom" version "0.12.0-SNAPSHOT"
-    id "maven-publish"
-    id "com.github.johnrengelman.shadow" version "6.1.0"
+    id 'com.github.johnrengelman.shadow' version "${shadow_version}"
 }
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
+version = '1.16.5-${mod_version}'
+group = 'com.teampotato.opotato'
+archivesBaseName = 'opotato'
 
-loom {
-    silentMojangMappingsLicense()
-    forge {
-        mixinConfigs = [
-                "opotato.mixins.json"
-        ]
-        dataGen {
-            mod project.mod_id
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
+minecraft {
+    mappings channel: 'official', version: '1.16.5'
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'info'
+
+            mods {
+                opotato {
+                    source sourceSets.main
+                }
+            }
         }
-    }
-    mixin.defaultRefmapName = "opotato.refmap.json"
 
-    launches {
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'info'
+
+            mods {
+                opotato {
+                    source sourceSets.main
+                }
+            }
+        }
+
         data {
-            arg "--existing", file("src/main/resources").absolutePath
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'info'
+
+            args '--mod', 'opotato', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                opotato {
+                    source sourceSets.main
+                }
+            }
         }
     }
 }
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+mixin {
+    add sourceSets.main, "opotato.refmap.json"
+}
+
 
 repositories {
     maven {
-        url "https://cursemaven.com"
+        url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
     }
-    maven {
-        name 'IzzelAliz Maven'
-        url 'https://maven.izzel.io/releases'
-    }
-    maven { url 'https://jitpack.io' }
-    maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
-    }
 }
 
-shadowJar {
-    dependencies {
-        include dependency("org.json:json:20210307")
-        include dependency("com.moandjiezana.toml:toml4j:0.7.2")
-        include dependency("com.google.code.gson:gson:2.8.9")
-    }
+configurations {
+    shade
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
-    }
-    forge "net.minecraftforge:forge:${project.forge_version}"
-
-    modImplementation("curse.maven:oculus-581495:4300427")
-    modImplementation("curse.maven:the-twilight-forest-227639:3575220")
-    implementation("org.json:json:20210307")
-    implementation("com.moandjiezana.toml:toml4j:0.7.2")
-    implementation("com.google.code.gson:gson:2.8.9")
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation fg.deobf('curse.maven:oculus-581495:4300427')
+    implementation fg.deobf('curse.maven:the-twilight-forest-227639:3575220')
 }
 
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
-    }
+shadowJar {
+    
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-    def targetVersion = 11
-    if (JavaVersion.current().isJava9Compatible()) {
-        options.release = targetVersion
-    }
-}
-
-java {
-    withSourcesJar()
+reobf {
+    shadowJar {}
 }
 
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : project.mod_id,
-                "Specification-Vendor"    : project.mod_author,
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : version,
-                "Implementation-Vendor"   : project.mod_author,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"TeamPotato",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "opotato.mixins.json"
         ])
     }
 }
 
+jar.finalizedBy('reobfJar') 
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
 }

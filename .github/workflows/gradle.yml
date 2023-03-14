@@ -1,4 +1,4 @@
-name: Build mod
+name: Build
 
 on: [push, pull_request]
 
@@ -6,18 +6,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '8'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build the mod
-        run: ./gradlew build
-      - uses: actions/upload-artifact@v2
+        run: ./gradlew --no-daemon build
+      - uses: actions/upload-artifact@v3
         with:
           name: Package
           path: build/libs

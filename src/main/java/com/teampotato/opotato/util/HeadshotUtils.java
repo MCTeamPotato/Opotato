@@ -1,11 +1,11 @@
 package com.teampotato.opotato.util;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Pose;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class HeadshotUtils {
-    public static boolean calculateIsHeadHit(Vec3 sourcePos, LivingEntity entity) {
+    public static boolean calculateIsHeadHit(Vector3d sourcePos, LivingEntity entity) {
         if (entity.getPose().equals(Pose.SWIMMING)) {
             return calculateComplexHeadHit(sourcePos, entity);
         } else {
@@ -13,12 +13,12 @@ public class HeadshotUtils {
         }
     }
 
-    private static boolean calculateSimpleHeadHit(Vec3 sourcePos, LivingEntity entity) {
+    private static boolean calculateSimpleHeadHit(Vector3d sourcePos, LivingEntity entity) {
         double playerHeadStart = entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85F, 0.0).y - 0.17;
         return sourcePos.y > playerHeadStart;
     }
 
-    private static boolean calculateComplexHeadHit(Vec3 sourcePos, LivingEntity entity) {
+    private static boolean calculateComplexHeadHit(Vector3d sourcePos, LivingEntity entity) {
         double headY = - Math.sin(Math.toRadians(entity.xRot));
 
         double lengthMod = Math.cos(entity.xRot);
