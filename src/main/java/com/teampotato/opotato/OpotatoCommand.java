@@ -2,6 +2,7 @@ package com.teampotato.opotato;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.alternatecurrent.AlternateCurrentCmdUtils;
 import com.teampotato.opotato.util.schwarz.ChunkCommandHandler;
 import net.minecraft.command.CommandSource;
@@ -22,7 +23,7 @@ public class OpotatoCommand {
                         executes(context -> AlternateCurrentCmdUtils.set(context.getSource(), false))).
                 then(Commands.
                         literal("resetProfiler").
-                        requires(source -> Opotato.DEBUG).
+                        requires(source -> PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get()).
                         executes(context -> AlternateCurrentCmdUtils.resetProfiler(context.getSource())));
 
         LiteralArgumentBuilder<CommandSource> schwarz = Commands
@@ -30,6 +31,7 @@ public class OpotatoCommand {
                 .then(Commands
                         .literal("chunkanalyse")
                         .executes(ChunkCommandHandler::ChunkAnalyse));
+
         dispatcher.register(schwarz);
         dispatcher.register(alternatecurrent);
 

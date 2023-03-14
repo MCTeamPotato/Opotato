@@ -15,6 +15,7 @@ public class PotatoCommonConfig {
                 .define("Enable ChatGPT", false);
         CONFIG_BUILDER.push("Alternate Current");
         ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
+                .comment("This is for dev.")
                 .define("Enable alternate current debug mode", false);
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Jump Over Fences");

@@ -21,8 +21,7 @@ public class ACProfiler implements Profiler {
 		this.indexStack = new Stack<>();
 		this.locations = new ArrayList<>();
 		this.times = new ArrayList<>();
-	}
-	
+	}	
 	@Override
 	public void start() {
 		if (started) {

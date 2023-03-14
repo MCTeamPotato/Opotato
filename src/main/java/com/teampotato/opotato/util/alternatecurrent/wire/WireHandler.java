@@ -875,23 +875,8 @@ public class WireHandler {
 	 * will emit shape updates and queue updates for neighboring wires and blocks.
 	 */
 	private void update() {
-		// The profiler keeps track of how long various parts of the algorithm take.
-		// It is only here for debugging purposes, and is commented out in production.
-//		Profiler profiler = Opotato.createProfiler();
-//		profiler.start();
-
-		// Search through the network for wires that need power changes. This includes
-		// the roots as well as any wires that will be affected by power changes to
-		// those roots.
-//		profiler.push("search network");
-		searchNetwork();
-
-		// Depower all the wires in the network.
-//		profiler.swap("depower network");
 		depowerNetwork();
 
-		// Bring each wire up to its new power level and update neighboring blocks.
-//		profiler.swap("power network");
 		try {
 			powerNetwork();
 		} catch (Throwable t) {
@@ -901,9 +886,6 @@ public class WireHandler {
 			updating = false;
 
 			throw t;
-//		} finally {
-//			profiler.pop();
-//			profiler.end();
 		}
 	}
 
