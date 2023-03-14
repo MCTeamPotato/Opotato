@@ -1,5 +1,6 @@
 package com.teampotato.opotato.util.schwarz;
 
+import com.mojang.brigadier.context.CommandContext;
 import com.teampotato.opotato.Opotato;
 import net.minecraft.command.CommandSource;
 import net.minecraft.util.text.StringTextComponent;
@@ -32,5 +33,11 @@ public class ChunkCommandHandler {
             ChunkStatus chunkStatus = scores.get(i);
             commandSource.sendSuccess(chunkStatus.genText(), false);
         }
+    }
+
+    public static int ChunkAnalyse(CommandContext<CommandSource> ctx) {
+        CommandSource CommandSource = ctx.getSource();
+        ChunkCommandHandler.AnalyseChunk(CommandSource);
+        return 1;
     }
 }

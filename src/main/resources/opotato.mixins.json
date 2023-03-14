@@ -9,13 +9,13 @@
   "minVersion": "0.8",
   "mixins": [
     "alternatecurrent.RedStoneWireBlockMixin",
-    "alternatecurrent.ServerLevelMixin",
-    "mixintrace.MixinCrashReportSection",
-    "mixintrace.MixinCrashReport",
-    "smoothmenu.SmoothMenuMixin",
+    "alternatecurrent.ServerWorldMixin",
     "betterbeds.MixinBedBlock",
     "betterbeds.MixinBlockEntityRendererDispatcher",
+    "ksyxis.MinecraftServerMixin",
+    "mixintrace.MixinCrashReport",
+    "mixintrace.MixinCrashReportSection",
     "opotato.MixinOculusNECDetection",
-    "ksyxis.MinecraftServerMixin"
+    "smoothmenu.SmoothMenuMixin"
   ]
 }
