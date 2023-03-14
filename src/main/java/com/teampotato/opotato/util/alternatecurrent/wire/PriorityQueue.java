@@ -22,7 +22,9 @@ public class PriorityQueue extends AbstractQueue<Node> {
 
 	@Override
 	public boolean offer(Node node) {
-		if (node == null) throw new NullPointerException();
+		if (node == null) {
+			throw new NullPointerException();
+		}
 
 		int priority = node.priority();
 

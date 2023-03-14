@@ -806,8 +806,9 @@ public class WireHandler {
     }
 
     private void tryUpdate() {
-        if (!search.isEmpty()) update();
-
+        if (!search.isEmpty()) {
+            update();
+        }
         if (!updating) {
             nodes.clear();
             nodeCount = 0;

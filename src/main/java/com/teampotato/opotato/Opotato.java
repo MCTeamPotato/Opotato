@@ -3,8 +3,6 @@ package com.teampotato.opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.alternatecurrent.profiler.ACProfiler;
 import com.teampotato.opotato.util.alternatecurrent.profiler.Profiler;
-import com.teampotato.opotato.util.chatgpt.ChatGPTUtils;
-import com.teampotato.opotato.util.chatgpt.TomlUtils;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -34,8 +32,5 @@ public class Opotato {
 
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
-        ChatGPTUtils.createConfig();
-        ChatGPTUtils.initChatGPTInfo();
-        TomlUtils.loadConfig();
     }
 }
