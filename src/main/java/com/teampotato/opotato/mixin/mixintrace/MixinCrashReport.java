@@ -26,9 +26,7 @@ public abstract class MixinCrashReport {
         }
         TraceUtils.printTrace(uncategorizedStackTrace, crashReportBuilder);
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < trailingNewlineCount; i++) {
-            sb.append("\n");
-        }
+        sb.append("\n".repeat(trailingNewlineCount));
         crashReportBuilder.append(sb);
     }
 }

@@ -22,7 +22,7 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
     private final LevelChunk chunk;
     private String world;
 
-    private final HashMap<BlockEntityType, Integer> blockEntityScore = new HashMap<BlockEntityType, Integer>() {{
+    private final HashMap<BlockEntityType, Integer> blockEntityScore = new HashMap<>() {{
         put(BlockEntityType.CHEST, 1);
         put(BlockEntityType.TRAPPED_CHEST, 2);
         put(BlockEntityType.BLAST_FURNACE, 3);
@@ -35,7 +35,7 @@ public class ChunkStatus implements Comparable<ChunkStatus>{
         put(BlockEntityType.MOB_SPAWNER, 60);
     }};
 
-    private final HashMap<EntityType, Integer> livingEntityScore = new HashMap<EntityType, Integer>(){{
+    private final HashMap<EntityType, Integer> livingEntityScore = new HashMap<>() {{
         put(EntityType.PLAYER, 15);
         put(EntityType.ZOMBIE, 2);
         put(EntityType.SPIDER, 2);
