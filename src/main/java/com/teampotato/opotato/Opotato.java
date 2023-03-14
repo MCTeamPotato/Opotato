@@ -27,5 +27,8 @@ public class Opotato {
 
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
+        if (System.getProperty("io.netty.allocator.maxOrder") == null) {
+            System.setProperty("io.netty.allocator.maxOrder", "9");
+        }
     }
 }

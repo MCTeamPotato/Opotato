@@ -80,19 +80,29 @@ mixin {
 
 repositories {
     maven {
+        name = 'CurseForge'
         url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = 'GitHub'
+        url = 'https://jitpack.io'
+    }
+    maven {
+        name = 'PaperMC'
+        url = "https://papermc.io/repo/repository/maven-public/"
+    }
 }
-
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
     implementation fg.deobf('curse.maven:the-twilight-forest-227639:3575220')
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation fg.deobf('com.velocitypowered:velocity-native:3.1.2-SNAPSHOT')
     shadow 'com.google.code.gson:gson:2.8.9'
 }
 
@@ -103,8 +113,7 @@ jar {
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"TeamPotato",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "opotato.mixins.json",
-            "Class-Path": "/libs/gson-2.8.9.jar"
+            "MixinConfigs": "opotato.mixins.json"
         ])
     }
 }

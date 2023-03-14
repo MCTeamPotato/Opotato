@@ -12,10 +12,15 @@
     "alternatecurrent.ServerWorldMixin",
     "betterbeds.MixinBedBlock",
     "betterbeds.MixinBlockEntityRendererDispatcher",
+    "fastchest.ChestBlockMixin",
+    "fastchest.EnderChestBlockMixin",
     "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
     "opotato.MixinOculusNECDetection",
     "smoothmenu.SmoothMenuMixin"
+  ],
+  "client": [
+    "fastchest.BlockEntityRenderDispatcherMixin"
   ]
 }

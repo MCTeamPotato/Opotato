@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.alternatecurrent;
 
-import com.teampotato.opotato.interfaces.IServerWorld;
+import com.teampotato.opotato.interfaces.alternatecurrent.IServerWorld;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RedstoneWireBlock;
