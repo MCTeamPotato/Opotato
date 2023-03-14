@@ -15,11 +15,9 @@ import java.util.List;
 public class Opotato {
 
     public static final String ID = "opotato";
-    public static final String NAME = "Opotato";
-    public static final String VER = "1.4.0";
     public static final Logger LOGGER = LogManager.getLogger(ID);
     public static List<Chunk> loadedChunks = new ArrayList<>();
-    public static boolean on = true;
+
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
     }
