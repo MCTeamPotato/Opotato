@@ -18,7 +18,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.16.5-${mod_version}'
+version = '1.16.5-' + mod_version
 group = 'com.teampotato.opotato'
 archivesBaseName = 'opotato'
 
