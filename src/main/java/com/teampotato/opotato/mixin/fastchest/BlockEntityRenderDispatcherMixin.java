@@ -1,4 +1,5 @@
 package com.teampotato.opotato.mixin.fastchest;
+
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.tileentity.ChestTileEntity;

@@ -30,13 +30,15 @@ minecraft {
     mappings channel: 'official', version: '1.16.5'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
+    
     runs {
         client {
             workingDirectory project.file('run')
+            arg "-mixin.config=opotato.mixins.json"
             property 'forge.logging.markers', 'REGISTRIES'
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.console.level', 'info'
-
             mods {
                 opotato {
                     source sourceSets.main
@@ -46,9 +48,11 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
+            arg "-mixin.config=opotato.mixins.json"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'info'
-
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 opotato {
                     source sourceSets.main
@@ -59,10 +63,10 @@ minecraft {
         data {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
-
+            property 'forge.logging.console.level', 'debug'
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             args '--mod', 'opotato', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
             mods {
                 opotato {
                     source sourceSets.main
@@ -70,13 +74,6 @@ minecraft {
             }
         }
     }
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-mixin {
-    add sourceSets.main, "opotato.refmap.json"
-    config "opotato.mixins.json"
 }
 
 repositories {
@@ -87,15 +84,9 @@ repositories {
             includeGroup "curse.maven"
         }
     }
-    maven {
-        name = 'GitHub'
-        url = 'https://jitpack.io'
-    }
-    maven {
-        name = 'PaperMC'
-        url = "https://papermc.io/repo/repository/maven-public/"
-    }
 }
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
@@ -103,17 +94,40 @@ dependencies {
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
     implementation fg.deobf('curse.maven:the-twilight-forest-227639:3575220')
     implementation 'com.google.code.gson:gson:2.8.9'
-    implementation fg.deobf('com.velocitypowered:velocity-native:3.1.2-SNAPSHOT')
+    implementation 'org.json:json:20210307'
+    implementation 'com.moandjiezana.toml:toml4j:0.7.2'
     shadow 'com.google.code.gson:gson:2.8.9'
-    
+    shadow 'org.json:json:20210307'
+    shadow 'com.moandjiezana.toml:toml4j:0.7.2'
+}
+
+mixin {
+    add sourceSets.main, "opotato.refmap.json"
+    config "opotato.mixins.json"
+}
+
+configurations {
+    shade
+}
+
+shadowJar {
+    classifier ''
+    configurations = [project.configurations.shade]
+    include 'gson-2.8.9.jar'
+    include 'json-20210307.jar'
+    include 'toml4j-0.7.2.jar'
+    minimize()
 }
 
 jar {
     manifest {
         attributes([
+            "Specification-Title": "opotato",
+            "Specification-Vendor": "teampotato",
+            "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"TeamPotato",
+            "Implementation-Vendor" :"teampotato",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "MixinConfigs": "opotato.mixins.json"
         ])
@@ -121,14 +135,6 @@ jar {
 }
 
 jar.finalizedBy('reobfJar') 
-
-shadowJar {
-    archiveBaseName.set('shadow')
-    archiveClassifier.set('')
-    archiveVersion.set('')
-    include 'gson-2.8.9.jar'
-    minimize()
-}
 
 publishing {
     publications {
