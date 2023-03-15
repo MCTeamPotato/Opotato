@@ -126,6 +126,7 @@ jar {
 }
 
 shadowJar {
+    dependsOn(jar)
     classifier ''
     configurations = [project.configurations.shade]
     include 'gson-2.8.9.jar'
@@ -147,7 +148,9 @@ publishing {
 }
 
 reobf {
-    shadowJar {}
+    shadowJar {
+        dependsOn(shadowJar)
+    }
 }
 
 jar.finalizedBy('reobfJar')
