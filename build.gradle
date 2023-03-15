@@ -110,6 +110,10 @@ configurations {
     shade
 }
 
+reobf {
+    shadowJar {}
+}
+
 shadowJar {
     classifier ''
     configurations = [project.configurations.shade]
