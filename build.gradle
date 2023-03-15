@@ -14,6 +14,10 @@ plugins {
     id 'com.github.johnrengelman.shadow' version "${shadow_version}"
 }
 
+configurations {
+    shade
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
@@ -106,22 +110,6 @@ mixin {
     config "opotato.mixins.json"
 }
 
-configurations {
-    shade
-}
-
-reobf {
-    shadowJar {}
-}
-
-shadowJar {
-    classifier ''
-    configurations = [project.configurations.shade]
-    include 'gson-2.8.9.jar'
-    include 'json-20210307.jar'
-    include 'toml4j-0.7.2.jar'
-}
-
 jar {
     manifest {
         attributes([
@@ -137,7 +125,13 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar') 
+shadowJar {
+    classifier ''
+    configurations = [project.configurations.shade]
+    include 'gson-2.8.9.jar'
+    include 'json-20210307.jar'
+    include 'toml4j-0.7.2.jar'
+}
 
 publishing {
     publications {
@@ -151,3 +145,9 @@ publishing {
         }
     }
 }
+
+reobf {
+    shadowJar {}
+}
+
+jar.finalizedBy('reobfJar')
