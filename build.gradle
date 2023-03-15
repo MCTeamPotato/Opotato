@@ -14,10 +14,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version "${shadow_version}"
 }
 
-configurations {
-    shade
-}
-
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
@@ -80,6 +76,13 @@ minecraft {
     }
 }
 
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+mixin {
+    add sourceSets.main, "opotato.refmap.json"
+    config "opotato.mixins.json"
+}
+
 repositories {
     maven {
         name = 'CurseForge'
@@ -90,7 +93,10 @@ repositories {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+configurations {
+    shade
+}
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
@@ -100,15 +106,16 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'org.json:json:20210307'
     implementation 'com.moandjiezana.toml:toml4j:0.7.2'
-    shadow 'com.google.code.gson:gson:2.8.9'
-    shadow 'org.json:json:20210307'
-    shadow 'com.moandjiezana.toml:toml4j:0.7.2'
 }
 
-mixin {
-    add sourceSets.main, "opotato.refmap.json"
-    config "opotato.mixins.json"
+shadowJar {
+    minimize()
 }
+
+reobf {
+    shadowJar {}
+}
+
 
 jar {
     manifest {
@@ -125,14 +132,7 @@ jar {
     }
 }
 
-shadowJar {
-    dependsOn(jar)
-    classifier ''
-    configurations = [project.configurations.shade]
-    include 'gson-2.8.9.jar'
-    include 'json-20210307.jar'
-    include 'toml4j-0.7.2.jar'
-}
+jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
@@ -146,11 +146,3 @@ publishing {
         }
     }
 }
-
-reobf {
-    shadowJar {
-        dependsOn(shadowJar)
-    }
-}
-
-jar.finalizedBy('reobfJar')
