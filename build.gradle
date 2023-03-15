@@ -109,13 +109,11 @@ dependencies {
 }
 
 shadowJar {
-    minimize()
 }
 
 reobf {
     shadowJar {}
 }
-
 
 jar {
     manifest {
