@@ -76,6 +76,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 mixin {
     add sourceSets.main, "opotato.refmap.json"
+    config "opotato.mixins.json"
 }
 
 repositories {
