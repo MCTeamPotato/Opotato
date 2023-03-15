@@ -1,6 +1,6 @@
 package com.teampotato.opotato.event;
 
-import com.teampotato.opotato.OpotatoCommand;
+import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.HeadshotUtils;
 import net.minecraft.entity.Entity;
@@ -43,6 +43,6 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
-        OpotatoCommand.register(event.getDispatcher());
+        Opotato.OpotatoCommand.register(event.getDispatcher());
     }
 }
