@@ -165,13 +165,10 @@ public class Opotato {
                         tomlMap.put("api_key", "api_key");
                         tomlMap.put("max_tokens", "1024");
                         tomlMap.put("n", "1");
-                        TomlWriter writer = new TomlWriter();
                         try {
-                            // 写入配置文件
                             ChatGPTUtils.writeTomlToFile(tomlMap, CHAT_GPT_CONFIG);
                             context.getSource().sendSuccess(new TranslationTextComponent("minegpt.set.default", CHAT_GPT_CONFIG), true);
                         } catch (IOException e) {
-                            // 捕获并处理异常
                             context.getSource().sendFailure(new TranslationTextComponent("minegpt.error.saveconfig"));
                             LOGGER.error("Failed to save config file: {}", e.getMessage());
                         }
