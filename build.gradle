@@ -116,7 +116,6 @@ shadowJar {
     include 'gson-2.8.9.jar'
     include 'json-20210307.jar'
     include 'toml4j-0.7.2.jar'
-    minimize()
 }
 
 jar {
