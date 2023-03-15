@@ -14,21 +14,21 @@ public abstract class MixinCrashReport {
     private StackTraceElement[] uncategorizedStackTrace;
 
     @Inject(method = "getDetails", at = @At(value = "FIELD", target = "Lnet/minecraft/crash/CrashReport;details:Ljava/util/List;"))
-    private void mixintrace_addTrace(StringBuilder crashReportBuilder, CallbackInfo ci) {
+    private void mixintrace_addTrace(StringBuilder p_71506_1_, CallbackInfo ci) {
         int trailingNewlineCount = 0;
-        if (crashReportBuilder.charAt(crashReportBuilder.length() - 1) == '\n') {
-            crashReportBuilder.deleteCharAt(crashReportBuilder.length() - 1);
+        if (p_71506_1_.charAt(p_71506_1_.length() - 1) == '\n') {
+            p_71506_1_.deleteCharAt(p_71506_1_.length() - 1);
             trailingNewlineCount++;
         }
-        if (crashReportBuilder.charAt(crashReportBuilder.length() - 1) == '\n') {
-            crashReportBuilder.deleteCharAt(crashReportBuilder.length() - 1);
+        if (p_71506_1_.charAt(p_71506_1_.length() - 1) == '\n') {
+            p_71506_1_.deleteCharAt(p_71506_1_.length() - 1);
             trailingNewlineCount++;
         }
-        TraceUtils.printTrace(uncategorizedStackTrace, crashReportBuilder);
+        TraceUtils.printTrace(uncategorizedStackTrace, p_71506_1_);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < trailingNewlineCount; i++) {
             sb.append("\n");
         }
-        crashReportBuilder.append(sb);
+        p_71506_1_.append(sb);
     }
 }
