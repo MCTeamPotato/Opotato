@@ -60,7 +60,7 @@ public class ChatGPTUtils {
     public static Toml readTomlFromFile(String path) {
         Toml toml = null;
         try {
-            String path2 = "config" + File.separator + "MineGPTconfig.toml";
+            String path2 = "config" + File.separator + Opotato.CHAT_GPT_CONFIG;
             InputStream inputStream = Files.newInputStream(new File(path2).toPath());
             toml = new Toml().read(new InputStreamReader(inputStream));
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class ChatGPTUtils {
     }
 
     public static void reloadConfig() {
-        Toml toml = readTomlFromFile("config" + File.separator + "MineGPTconfig.toml");
+        Toml toml = readTomlFromFile("config" + File.separator + Opotato.CHAT_GPT_CONFIG);
         ENDPOINT = toml.getString("endpoint");
         API_KEY = toml.getString("api_key");
         MODEL = toml.getString("model");
