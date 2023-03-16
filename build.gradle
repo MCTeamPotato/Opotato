@@ -123,6 +123,13 @@ reobf {
 }
 
 jar {
+    classifier 'slim'
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
+    duplicatesStrategy 'exclude'
     manifest {
         attributes([
             "Specification-Title": "opotato",
