@@ -94,11 +94,6 @@ repositories {
     }
 }
 
-
-configurations {
-    shade
-}
-
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
@@ -117,10 +112,6 @@ shadowJar {
         include('com.moandjiezana.toml:toml4j:0.7.2')
     }
     minimize()
-}
-
-reobf {
-    shadowJar {}
 }
 
 jar {
