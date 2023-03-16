@@ -5,7 +5,7 @@ issueTrackerURL = "https://github.com/MCTeamPotato/Opotato/issues"
 
 [[mods]]
 modId = "opotato"
-version = "${version}"
+version = "${file.jarVersion}"
 displayName = "Opotato"
 authors="Team Potato"
 description = '''

@@ -1,8 +1,9 @@
 {
   "package": "com.teampotato.opotato.mixin",
   "plugin": "com.teampotato.opotato.mixin.PotatoMixinPlugin",
+  "refmap": "opotato.refmap.json",
   "required": true,
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_11",
   "injectors": {
     "defaultRequire": 1
   },
