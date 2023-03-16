@@ -25,8 +25,6 @@ public abstract class MixinCrashReport {
             trailingNewlineCount++;
         }
         TraceUtils.printTrace(uncategorizedStackTrace, p_71506_1_);
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n".repeat(trailingNewlineCount));
-        p_71506_1_.append(sb);
+        p_71506_1_.append("\n".repeat(trailingNewlineCount));
     }
 }

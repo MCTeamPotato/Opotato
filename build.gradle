@@ -109,7 +109,7 @@ configurations {
 }
 
 shadowJar {
-    baseName = 'opotato-1.16.5-' + mod_version + "-shadowed"
+    baseName = 'opotato-1.16.5-' + mod_version + "-universal"
     classifier = null
     version = null
     dependencies {

@@ -18,8 +18,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -36,10 +34,6 @@ public class ChatGPTUtils {
 
     public static String getEndpoint() {
         return ENDPOINT;
-    }
-
-    public static String getApiKey() {
-        return API_KEY;
     }
 
     public static String getModel() {
@@ -135,17 +129,6 @@ public class ChatGPTUtils {
         });
     }
 
-    public static Toml readOrCreateConfig() throws IOException {
-        Path configFile = Paths.get(Opotato.CHAT_GPT_CONFIG);
-        if (!Files.exists(configFile)) {
-            Files.createDirectories(configFile.getParent());
-            Files.createFile(configFile);
-            Toml toml = new Toml();
-            TomlWriter writer = new TomlWriter();
-            writer.write(toml, new File(Opotato.CHAT_GPT_CONFIG));
-        }
-        return new Toml().read(new File(Opotato.CHAT_GPT_CONFIG));
-    }
     public static boolean isValidApiKey(String apiKey) {
         return apiKey.startsWith("sk-");
     }
