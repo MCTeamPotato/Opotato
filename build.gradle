@@ -97,6 +97,9 @@ repositories {
 
 configurations {
     shade
+    library
+    library.extendsFrom(shade)
+    implementation.extendsFrom(library)
 }
 
 dependencies {
