@@ -94,45 +94,28 @@ repositories {
     }
 }
 
-
-configurations {
-    shade
-    library
-    library.extendsFrom(shade)
-    implementation.extendsFrom(library)
-}
-
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
     implementation fg.deobf('curse.maven:the-twilight-forest-227639:3575220')
-    shade('com.google.code.gson:gson:2.8.9')
-    shade('org.json:json:20210307')
-    shade('com.moandjiezana.toml:toml4j:0.7.2')
+    implementation('com.google.code.gson:gson:2.8.9')
+    implementation('org.json:json:20210307')
+    implementation('com.moandjiezana.toml:toml4j:0.7.2')
 }
 
 shadowJar {
-    archiveClassifier.set('')
-    configurations = [project.configurations.shade]
-    duplicatesStrategy 'exclude'
-    finalizedBy 'reobfShadowJar'
-}
-
-assemble.dependsOn(shadowJar)
-
-reobf {
-    shadowJar {}
+    dependencies {
+        include dependency("com.google.code.gson:gson:2.8.9")
+        include dependency("org.json:json:20210307")
+        include dependency("com.moandjiezana.toml:toml4j:0.7.2")
+    }
+    relocate("com.google.gson", "shadow.com.google.gson")
+    relocate("org.json", "shadow.org.json")
+    relocate("com.moandjiezana.toml", "shadow.com.moandjiezana.toml")
 }
 
 jar {
-    classifier 'slim'
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)) {
-            exclude 'META-INF', 'META-INF/**'
-        }
-    }
-    duplicatesStrategy 'exclude'
     manifest {
         attributes([
             "Specification-Title": "opotato",
