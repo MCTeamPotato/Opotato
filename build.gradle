@@ -79,11 +79,6 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-mixin {
-    add sourceSets.main, "opotato.refmap.json"
-    config "opotato.mixins.json"
-}
-
 repositories {
     maven {
         name = 'CurseForge'
@@ -108,21 +103,6 @@ configurations {
     shade
 }
 
-shadowJar {
-    baseName = 'opotato-1.16.5-' + mod_version + "-universal"
-    classifier = null
-    version = null
-    dependencies {
-        include dependency("com.google.code.gson:gson:2.8.9")
-        include dependency("org.json:json:20210307")
-        include dependency("com.moandjiezana.toml:toml4j:0.7.2")
-    }
-}
-
-reobf {
-    shadowJar {}
-}
-
 jar {
     manifest {
         attributes([
@@ -136,6 +116,26 @@ jar {
             "MixinConfigs": "opotato.mixins.json"
         ])
     }
+}
+
+shadowJar {
+    baseName = 'opotato-1.16.5-' + mod_version + "-universal"
+    classifier = null
+    version = null
+    dependencies {
+        include dependency("com.google.code.gson:gson:2.8.9")
+        include dependency("org.json:json:20210307")
+        include dependency("com.moandjiezana.toml:toml4j:0.7.2")
+    }
+}
+
+mixin {
+    add sourceSets.main, "opotato.refmap.json"
+    config "opotato.mixins.json"
+}
+
+reobf {
+    shadowJar {}
 }
 
 jar.finalizedBy('reobfJar')
