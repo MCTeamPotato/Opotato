@@ -39,7 +39,7 @@ public class Opotato {
     public static final Logger LOGGER = LogManager.getLogger(ID);
     public static List<Chunk> loadedChunks = new ArrayList<>();
     public static boolean on = true;
-    public static final String CHAT_GPT_CONFIG = "Opotato_ChatGPT.toml";
+    public static final String CHAT_GPT_CONFIG = "opotato-chatgpt.toml";
 
     public static Profiler createProfiler() {
         return PotatoCommonConfig.ALTERNATE_CURRENT_DEBUG_MODE.get() ? new ACProfiler() : Profiler.DUMMY;
