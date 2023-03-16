@@ -3,6 +3,7 @@ package com.teampotato.opotato;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.teampotato.opotato.config.PotatoCommonConfig;
@@ -45,38 +46,38 @@ public class Opotato {
     }
 
     public Opotato() {
-        String folderPath = "config" + File.separator;
-        File folder = new File(folderPath);
-        if (!folder.exists()) folder.mkdir();
-        String filePath = folderPath + CHAT_GPT_CONFIG;
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-                try (FileWriter writer = new FileWriter(file)) {
-                    writer.write("endpoint = \"API_Link\"\n");
-                    writer.write("api_key = \"OpenAI_API_Key\"\n");
-                    writer.write("model = \"AI_Model\"\n");
-                    writer.write("prompt = \"Undeveloped\"\n");
-                    writer.write("max_tokens = \"Max_Tokens\"\n");
-                    writer.write("n = \"N\"\n");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
-
-        ChatGPTUtils.loadChatGPTConfig();
-        LOGGER.info("-----------------------------------------");
-        LOGGER.info("[Opotato-ChatGPT] Your ChatGPT Config Info:");
-        LOGGER.info("-----------------------------------------");
-        LOGGER.info("Endpoint: {}", ChatGPTUtils.getEndpoint());
-        LOGGER.info("Model: {}", ChatGPTUtils.getModel());
-        LOGGER.info("Max tokens: {}", ChatGPTUtils.getMaxTokens());
-        LOGGER.info("N: {}", ChatGPTUtils.getN());
-        LOGGER.info("-----------------------------------------");
+        if (PotatoCommonConfig.ENABLE_CHATGPT.get()) {
+            String folderPath = "config" + File.separator;
+            File folder = new File(folderPath);
+            if (!folder.exists()) folder.mkdir();
+            String filePath = folderPath + CHAT_GPT_CONFIG;
+            File file = new File(filePath);
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                    try (FileWriter writer = new FileWriter(file)) {
+                        writer.write("endpoint = \"API_Link\"\n");
+                        writer.write("api_key = \"OpenAI_API_Key\"\n");
+                        writer.write("model = \"AI_Model\"\n");
+                        writer.write("prompt = \"Undeveloped\"\n");
+                        writer.write("max_tokens = \"Max_Tokens\"\n");
+                        writer.write("n = \"N\"\n");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            ChatGPTUtils.loadChatGPTConfig();
+            LOGGER.info("-----------------------------------------");
+            LOGGER.info("[Opotato-ChatGPT] Your ChatGPT Config Info:");
+            LOGGER.info("-----------------------------------------");
+            LOGGER.info("Endpoint: {}", ChatGPTUtils.getEndpoint());
+            LOGGER.info("Model: {}", ChatGPTUtils.getModel());
+            LOGGER.info("Max tokens: {}", ChatGPTUtils.getMaxTokens());
+            LOGGER.info("N: {}", ChatGPTUtils.getN());
+            LOGGER.info("-----------------------------------------");
+        }
     }
 
     public static class OpotatoCommand {
@@ -110,6 +111,7 @@ public class Opotato {
                     .literal("chatgpt")
                     .then(Commands.argument("message", StringArgumentType.greedyString()))
                     .executes(context -> {
+                        System.out.println("Before TRY, ChatGPT doesn't respond");
                         try {
                             String message = StringArgumentType.getString(context, "message");
                             String prompt = ChatGPTUtils.generatePrompt(message);
@@ -121,9 +123,11 @@ public class Opotato {
                                 context.getSource().sendSuccess(new StringTextComponent("[ChatGPT-" + ChatGPTUtils.getModel() + "] -> " + "[" + playerName + "]" + ": ").withStyle(TextFormatting.GOLD)
                                         .append(new StringTextComponent("\"" + response + "\"").withStyle(TextFormatting.YELLOW)), false);
                             });
+                            System.out.println("ChatGPT respond in TRY");
                             return 1;
                         } catch (Exception e) {
                             e.printStackTrace();
+                            System.out.println("ChatGPT failed to respond in TRY");
                             return 0;
                         }
                     });
