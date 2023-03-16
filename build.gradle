@@ -94,24 +94,32 @@ repositories {
     }
 }
 
+
+configurations {
+    shade
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
     implementation fg.deobf('curse.maven:the-twilight-forest-227639:3575220')
-    implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'org.json:json:20210307'
-    implementation 'com.moandjiezana.toml:toml4j:0.7.2'
+    shade('com.google.code.gson:gson:2.8.9')
+    shade('org.json:json:20210307')
+    shade('com.moandjiezana.toml:toml4j:0.7.2')
 }
 
 shadowJar {
-    archiveClassifier.set('packed')
-    dependencies {
-        include('com.google.code.gson:gson:2.8.9')
-        include('org.json:json:20210307')
-        include('com.moandjiezana.toml:toml4j:0.7.2')
-    }
-    minimize()
+    archiveClassifier.set('')
+    configurations = [project.configurations.shade]
+    duplicatesStrategy 'exclude'
+    finalizedBy 'reobfShadowJar'
+}
+
+assemble.dependsOn(shadowJar)
+
+reobf {
+    shadowJar {}
 }
 
 jar {
