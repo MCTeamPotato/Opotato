@@ -12,6 +12,7 @@ buildscript {
 
 plugins {
     id 'com.github.johnrengelman.shadow' version "${shadow_version}"
+    id 'java'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
@@ -109,6 +110,13 @@ dependencies {
 }
 
 shadowJar {
+    archiveClassifier.set('packed')
+    dependencies {
+        include('com.google.code.gson:gson:2.8.9')
+        include('org.json:json:20210307')
+        include('com.moandjiezana.toml:toml4j:0.7.2')
+    }
+    minimize()
 }
 
 reobf {
