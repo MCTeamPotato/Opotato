@@ -104,6 +104,10 @@ dependencies {
     implementation('com.moandjiezana.toml:toml4j:0.7.2')
 }
 
+configurations {
+    shade
+}
+
 shadowJar {
     baseName = 'shadow-jar'
     classifier = null
@@ -113,6 +117,10 @@ shadowJar {
         include dependency("org.json:json:20210307")
         include dependency("com.moandjiezana.toml:toml4j:0.7.2")
     }
+}
+
+reobf {
+    shadowJar {}
 }
 
 jar {
