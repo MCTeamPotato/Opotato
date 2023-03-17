@@ -20,8 +20,6 @@
     "mixintrace.MixinCrashReportSection",
     "opotato.citadel.MixinWebHelper",
     "opotato.oculus.MixinNECDetection",
-    "opotato.pfm.MixinUpdateChecker",
-    "opotato.pfm.MixinUpdateCheckerImpl",
     "opotato.placebo.MixinTrailsManager",
     "opotato.placebo.MixinWingsManager",
     "opotato.quark.MixinContributorRewardHandler",
