@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.alternatecurrent;
 
-import com.teampotato.opotato.interfaces.alternatecurrent.IServerWorld;
+import com.teampotato.opotato.access.IServerWorld;
 import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler;
 import net.minecraft.world.server.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;

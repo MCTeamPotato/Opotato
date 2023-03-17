@@ -18,7 +18,13 @@
     "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
-    "opotato.MixinOculusNECDetection",
+    "opotato.citadel.MixinWebHelper",
+    "opotato.oculus.MixinNECDetection",
+    "opotato.pfm.MixinUpdateChecker",
+    "opotato.pfm.MixinUpdateCheckerImpl",
+    "opotato.placebo.MixinTrailsManager",
+    "opotato.placebo.MixinWingsManager",
+    "opotato.quark.MixinContributorRewardHandler",
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [

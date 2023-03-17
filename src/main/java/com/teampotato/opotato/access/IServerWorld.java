@@ -1,4 +1,4 @@
-package com.teampotato.opotato.interfaces.alternatecurrent;
+package com.teampotato.opotato.access;
 
 import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler;
 
