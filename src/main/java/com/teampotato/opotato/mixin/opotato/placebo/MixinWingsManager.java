@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import shadows.placebo.patreon.WingsManager;
 
-@Mixin(WingsManager.class)
+@Mixin(value = WingsManager.class, remap = false)
 public class MixinWingsManager {
     /**
      * @author Doctor Who

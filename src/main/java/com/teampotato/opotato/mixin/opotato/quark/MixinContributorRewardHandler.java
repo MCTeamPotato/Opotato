@@ -4,7 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import vazkii.quark.base.handler.ContributorRewardHandler;
 
-@Mixin(ContributorRewardHandler.class)
+@Mixin(value = ContributorRewardHandler.class, remap = false)
 public class MixinContributorRewardHandler {
     /**
      * @author Doctor Who

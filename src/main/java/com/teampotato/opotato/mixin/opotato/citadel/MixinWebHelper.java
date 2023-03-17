@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.BufferedReader;
 
-@Mixin(WebHelper.class)
+@Mixin(value = WebHelper.class, remap = false)
 public class MixinWebHelper {
     /**
      * @author Doctor Who
