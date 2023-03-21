@@ -1,7 +1,4 @@
-package com.teampotato.opotato.util.alternatecurrent.wire;
-
-import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler.Directions;
-import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler.NodeProvider;
+package com.teampotato.opotato.util.ac.wire;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -31,7 +28,7 @@ public class WireConnectionManager {
 	WireConnectionManager(WireNode owner) {
 		this.owner = owner;
 
-		this.heads = new WireConnection[Directions.HORIZONTAL.length];
+		this.heads = new WireConnection[WireHandler.Directions.HORIZONTAL.length];
 
 		this.total = 0;
 
@@ -39,15 +36,15 @@ public class WireConnectionManager {
 		this.iFlowDir = -1;
 	}
 
-	void set(NodeProvider nodes) {
+	void set(WireHandler.NodeProvider nodes) {
 		if (total > 0) {
 			clear();
 		}
 
-		boolean belowIsConductor = nodes.getNeighbor(owner, Directions.DOWN).isConductor();
-		boolean aboveIsConductor = nodes.getNeighbor(owner, Directions.UP).isConductor();
+		boolean belowIsConductor = nodes.getNeighbor(owner, WireHandler.Directions.DOWN).isConductor();
+		boolean aboveIsConductor = nodes.getNeighbor(owner, WireHandler.Directions.UP).isConductor();
 
-		for (int iDir = 0; iDir < Directions.HORIZONTAL.length; iDir++) {
+		for (int iDir = 0; iDir < WireHandler.Directions.HORIZONTAL.length; iDir++) {
 			Node neighbor = nodes.getNeighbor(owner, iDir);
 
 			if (neighbor.isWire()) {
@@ -59,14 +56,14 @@ public class WireConnectionManager {
 			boolean sideIsConductor = neighbor.isConductor();
 
 			if (!sideIsConductor) {
-				Node node = nodes.getNeighbor(neighbor, Directions.DOWN);
+				Node node = nodes.getNeighbor(neighbor, WireHandler.Directions.DOWN);
 
 				if (node.isWire()) {
 					add(node.asWire(), iDir, belowIsConductor, true);
 				}
 			}
 			if (!aboveIsConductor) {
-				Node node = nodes.getNeighbor(neighbor, Directions.UP);
+				Node node = nodes.getNeighbor(neighbor, WireHandler.Directions.UP);
 
 				if (node.isWire()) {
 					add(node.asWire(), iDir, true, sideIsConductor);
@@ -98,10 +95,11 @@ public class WireConnectionManager {
 	private void add(WireConnection connection) {
 		if (head == null) {
 			head = connection;
+			tail = connection;
 		} else {
 			tail.next = connection;
+			tail = connection;
 		}
-		tail = connection;
 
 		total++;
 

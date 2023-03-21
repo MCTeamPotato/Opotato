@@ -1,12 +1,15 @@
-package com.teampotato.opotato.util.alternatecurrent.wire;
+package com.teampotato.opotato.util.ac.wire;
+
+import com.teampotato.opotato.util.ac.Redstone;
 
 import java.util.AbstractQueue;
 import java.util.Arrays;
 import java.util.Iterator;
 
+
 public class PriorityQueue extends AbstractQueue<Node> {
 
-	private static final int OFFSET = 0;
+	private static final int OFFSET = -Redstone.SIGNAL_MIN;
 
 	/** The last node for each priority value. */
 	private final Node[] tails;
@@ -17,7 +20,7 @@ public class PriorityQueue extends AbstractQueue<Node> {
 	private int size;
 
 	PriorityQueue() {
-		this.tails = new Node[(15 + OFFSET) + 1];
+		this.tails = new Node[(Redstone.SIGNAL_MAX + OFFSET) + 1];
 	}
 
 	@Override

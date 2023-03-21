@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class PotatoCommonConfig {
     public static final ForgeConfigSpec COMMON_CONFIG;
-    public static final ForgeConfigSpec.BooleanValue ALTERNATE_CURRENT_DEBUG_MODE, ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA, ENABLE_HEADSHOT, PLAY_HEADSHOT_SOUND, ENABLE_CHATGPT;
+    public static final ForgeConfigSpec.BooleanValue ENABLE_FENCE_JUMP, DO_BLIND, DO_NAUSEA, ENABLE_HEADSHOT, PLAY_HEADSHOT_SOUND, ENABLE_CHATGPT;
     public static final ForgeConfigSpec.DoubleValue DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue BLIND_TICKS, NAUSEA_TICKS;
     static {
@@ -14,11 +14,6 @@ public class PotatoCommonConfig {
         ENABLE_CHATGPT = CONFIG_BUILDER
                 .comment("NOT Available yet.")
                 .define("Enable ChatGPT", false);
-        CONFIG_BUILDER.pop();
-        CONFIG_BUILDER.push("Alternate Current");
-        ALTERNATE_CURRENT_DEBUG_MODE = CONFIG_BUILDER
-                .comment("This is for dev.")
-                .define("Enable alternate current debug mode", false);
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Jump Over Fences");
         ENABLE_FENCE_JUMP = CONFIG_BUILDER
@@ -37,7 +32,7 @@ public class PotatoCommonConfig {
                 "This version is more like the original SilverAndro's Fabric Headshot, with utils to check whether an arrow hit is on entity's head.",
                 "What's more, you can also receive feedback sound (ARROW_HIT_PLAYER, also known as DING) when headshot events trigger.",
                 "You can also use resourcepack to customize the status message when headshot events trigger (Yeah in the lang file).",
-                "disable by default, enable this if you like."
+                "disable by default, NOT Available yet."
                 )
                 .define("Enable headshot", false);
         PLAY_HEADSHOT_SOUND = CONFIG_BUILDER

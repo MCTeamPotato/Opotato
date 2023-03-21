@@ -1,9 +1,10 @@
-package com.teampotato.opotato.util.alternatecurrent.wire;
+package com.teampotato.opotato.util.ac.wire;
 
+import com.teampotato.opotato.util.ac.Redstone;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.server.ServerWorld;
@@ -27,7 +28,7 @@ public class WireNode extends Node {
 	 * track of the power level this wire should have.
 	 */
 	int virtualPower;
-	/** The power level received from non-wire ITextComponents. */
+	/** The power level received from non-wire components. */
 	int externalPower;
 	/**
 	 * A 4-bit number that keeps track of the power flow of the wires that give this
@@ -54,7 +55,7 @@ public class WireNode extends Node {
 
 		this.connections = new WireConnectionManager(this);
 
-		this.virtualPower = this.currentPower = this.state.getValue(BlockStateProperties.POWER);
+		this.virtualPower = this.currentPower = this.state.getValue(RedstoneWireBlock.POWER);
 		this.priority = priority();
 	}
 
@@ -65,7 +66,7 @@ public class WireNode extends Node {
 
 	@Override
 	int priority() {
-		return MathHelper.clamp(virtualPower, 0, 15);
+		return MathHelper.clamp(virtualPower, Redstone.SIGNAL_MIN, Redstone.SIGNAL_MAX);
 	}
 
 	@Override
@@ -109,13 +110,13 @@ public class WireNode extends Node {
 
 		if (shouldBreak) {
 			Block.dropResources(state, level, pos);
-			level.setBlock(pos, Blocks.AIR.defaultBlockState(), Constants.BlockFlags.DEFAULT);
+			level.setBlock(pos, Blocks.AIR.defaultBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
 
 			return true;
 		}
 
-		currentPower = MathHelper.clamp(virtualPower, 0, 15);
-		state = state.setValue(BlockStateProperties.POWER, currentPower);
+		currentPower = MathHelper.clamp(virtualPower, Redstone.SIGNAL_MIN, Redstone.SIGNAL_MAX);
+		state = state.setValue(RedstoneWireBlock.POWER, currentPower);
 
 		return LevelHelper.setWireState(level, pos, state, added);
 	}

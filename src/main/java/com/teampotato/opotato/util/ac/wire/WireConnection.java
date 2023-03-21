@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.alternatecurrent.wire;
+package com.teampotato.opotato.util.ac.wire;
 
 /**
  * This class represents a connection between some WireNode (the 'owner') and a

@@ -1,12 +1,12 @@
-package com.teampotato.opotato.util.alternatecurrent.wire;
+package com.teampotato.opotato.util.ac.wire;
 
-import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler.Directions;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Arrays;
+
 
 /**
  * A Node represents a block in the world. It also holds a few other pieces of
@@ -40,7 +40,7 @@ public class Node {
 
 	Node(ServerWorld level) {
 		this.level = level;
-		this.neighbors = new Node[Directions.ALL.length];
+		this.neighbors = new Node[WireHandler.Directions.ALL.length];
 	}
 
 	@Override

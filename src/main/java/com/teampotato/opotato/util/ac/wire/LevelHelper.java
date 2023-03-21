@@ -1,4 +1,5 @@
-package com.teampotato.opotato.util.alternatecurrent.wire;
+package com.teampotato.opotato.util.ac.wire;
+
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -25,13 +26,9 @@ public class LevelHelper {
 
 		int x = pos.getX();
 		int z = pos.getZ();
-		int index = y >> 4;
 
 		IChunk chunk = level.getChunk(x >> 4, z >> 4, ChunkStatus.FULL, true);
-		ChunkSection section = null;
-		if (chunk != null) {
-			section = chunk.getSections()[index];
-		}
+		ChunkSection section = chunk.getSections()[y >> 4];
 
 		if (section == null) {
 			return false; // we should never get here
@@ -49,10 +46,11 @@ public class LevelHelper {
 		chunk.setUnsaved(true);
 
 		if (updateNeighborShapes) {
-			prevState.updateIndirectNeighbourShapes(level, pos, Constants.BlockFlags.DEFAULT);
-			state.updateNeighbourShapes(level, pos, Constants.BlockFlags.DEFAULT);
-			state.updateIndirectNeighbourShapes(level, pos, Constants.BlockFlags.DEFAULT);
+			prevState.updateIndirectNeighbourShapes(level, pos, Constants.BlockFlags.BLOCK_UPDATE);
+			state.updateNeighbourShapes(level, pos, Constants.BlockFlags.BLOCK_UPDATE);
+			state.updateIndirectNeighbourShapes(level, pos, Constants.BlockFlags.BLOCK_UPDATE);
 		}
+
 		return true;
 	}
 }

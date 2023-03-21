@@ -10,7 +10,7 @@
   "minVersion": "0.8",
   "mixins": [
     "alternatecurrent.RedStoneWireBlockMixin",
-    "alternatecurrent.ServerWorldMixin",
+    "alternatecurrent.ServerLevelMixin",
     "betterbeds.MixinBedBlock",
     "betterbeds.MixinBlockEntityRendererDispatcher",
     "fastchest.ChestBlockMixin",

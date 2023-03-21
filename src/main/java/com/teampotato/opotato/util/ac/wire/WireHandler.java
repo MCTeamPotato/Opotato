@@ -1,5 +1,10 @@
-package com.teampotato.opotato.util.alternatecurrent.wire;
+package com.teampotato.opotato.util.ac.wire;
 
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.function.Consumer;
+
+import com.teampotato.opotato.util.ac.Redstone;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap.Entry;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
@@ -12,9 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.Constants;
 
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.function.Consumer;
 
 /**
  * This class handles power changes for redstone wire. The algorithm was
@@ -71,7 +73,7 @@ import java.util.function.Consumer;
  * redstone power from "outside" the network, and spread the power from there.
  * This has a few advantages:
  * <br>
- * - Each wire checks for power from non-wire ITextComponents at most once, and from
+ * - Each wire checks for power from non-wire components at most once, and from
  * nearby wires just twice.
  * <br>
  * - Each wire only sets its power level in the world once. This is important,
@@ -258,8 +260,8 @@ public class WireHandler {
 	 */
 	static final int[] DEFAULT_CARDINAL_UPDATE_ORDER = CARDINAL_UPDATE_ORDERS[0];
 
-	private static final int POWER_MIN = 0;
-	private static final int POWER_MAX = 15;
+	private static final int POWER_MIN = Redstone.SIGNAL_MIN;
+	private static final int POWER_MAX = Redstone.SIGNAL_MAX;
 	private static final int POWER_STEP = 1;
 
 	// If Vanilla will ever multi-thread the ticking of levels, there should
@@ -295,7 +297,7 @@ public class WireHandler {
 	}
 
 	/**
-	 * Retrieve the {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} that represents the
+	 * Retrieve the {@link Node Node} that represents the
 	 * block at the given position in the level.
 	 */
 	private Node getOrAddNode(BlockPos pos) {
@@ -314,7 +316,7 @@ public class WireHandler {
 	}
 
 	/**
-	 * Remove and return the {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} at the given
+	 * Remove and return the {@link Node Node} at the given
 	 * position.
 	 */
 	private Node removeNode(BlockPos pos) {
@@ -322,7 +324,7 @@ public class WireHandler {
 	}
 
 	/**
-	 * Return a {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} that represents the block
+	 * Return a {@link Node Node} that represents the block
 	 * at the given position.
 	 */
 	private Node getNextNode(BlockPos pos) {
@@ -331,8 +333,8 @@ public class WireHandler {
 
 	/**
 	 * Return a node that represents the given position and block state. If it is a
-	 * wire, then create a new {@link com.teampotato.opotato.util.alternatecurrent.wire.WireNode WireNode}.
-	 * Otherwise, grab the next {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} from the
+	 * wire, then create a new {@link WireNode WireNode}.
+	 * Otherwise, grab the next {@link Node Node} from the
 	 * cache and update it.
 	 */
 	private Node getNextNode(BlockPos pos, BlockState state) {
@@ -355,7 +357,9 @@ public class WireHandler {
 		Node[] oldCache = nodeCache;
 		nodeCache = new Node[oldCache.length << 1];
 
-		System.arraycopy(oldCache, 0, nodeCache, 0, oldCache.length);
+		for (int index = 0; index < oldCache.length; index++) {
+			nodeCache[index] = oldCache[index];
+		}
 
 		fillNodeCache(oldCache.length, nodeCache.length);
 	}
@@ -690,7 +694,7 @@ public class WireHandler {
 
 	/**
 	 * Determine the power level the given wire receives from the blocks around it.
-	 * Power from non-wire ITextComponents only needs to be computed if power from
+	 * Power from non-wire components only needs to be computed if power from
 	 * neighboring wires has decreased, so as to determine how low the power of the
 	 * wire can fall.
 	 */
@@ -737,7 +741,7 @@ public class WireHandler {
 
 	/**
 	 * Determine the redstone signal the given wire receives from non-wire
-	 * ITextComponents and update the virtual power accordingly.
+	 * components and update the virtual power accordingly.
 	 */
 	private void findExternalPower(WireNode wire) {
 		// If the wire is removed or going to break, its power level should always be
@@ -756,7 +760,7 @@ public class WireHandler {
 
 	/**
 	 * Determine the redstone signal the given wire receives from non-wire
-	 * ITextComponents.
+	 * components.
 	 */
 	private int getExternalPower(WireNode wire) {
 		int power = POWER_MIN;
@@ -790,7 +794,7 @@ public class WireHandler {
 	 * Determine the direct signal the given wire receives from neighboring blocks
 	 * through the given conductor node.
 	 */
-	private int getDirectSignalTo(WireNode ignoredWire, Node node, int except) {
+	private int getDirectSignalTo(WireNode wire, Node node, int except) {
 		int power = POWER_MIN;
 
 		for (int iDir : Directions.I_EXCEPT[except]) {
@@ -875,8 +879,23 @@ public class WireHandler {
 	 * will emit shape updates and queue updates for neighboring wires and blocks.
 	 */
 	private void update() {
+		// The profiler keeps track of how long various parts of the algorithm take.
+		// It is only here for debugging purposes, and is commented out in production.
+//		Profiler profiler = AlternateCurrentMod.createProfiler();
+//		profiler.start();
+
+		// Search through the network for wires that need power changes. This includes
+		// the roots as well as any wires that will be affected by power changes to
+		// those roots.
+//		profiler.push("search network");
+		searchNetwork();
+
+		// Depower all the wires in the network.
+//		profiler.swap("depower network");
 		depowerNetwork();
 
+		// Bring each wire up to its new power level and update neighboring blocks.
+//		profiler.swap("power network");
 		try {
 			powerNetwork();
 		} catch (Throwable t) {
@@ -886,6 +905,9 @@ public class WireHandler {
 			updating = false;
 
 			throw t;
+//		} finally {
+//			profiler.pop();
+//			profiler.end();
 		}
 	}
 
@@ -913,7 +935,7 @@ public class WireHandler {
 				findPower(neighbor, false);
 
 				// If power from neighboring wires has decreased, check for power
-				// from non-wire ITextComponents so as to determine how low power can
+				// from non-wire components so as to determine how low power can
 				// fall.
 				if (neighbor.virtualPower < neighbor.currentPower) {
 					findExternalPower(neighbor);
@@ -1066,7 +1088,7 @@ public class WireHandler {
 		// as a result of power changes anyway.
 		if (!state.isAir() && !state.is(Blocks.REDSTONE_WIRE)) {
 			BlockState newState = state.updateShape(dir, neighborState, level, pos, neighborPos);
-			Block.updateOrDestroy(state, newState, level, pos, Constants.BlockFlags.DEFAULT);
+			Block.updateOrDestroy(state, newState, level, pos, Constants.BlockFlags.BLOCK_UPDATE);
 		}
 	}
 
@@ -1074,7 +1096,9 @@ public class WireHandler {
 	 * Queue block updates to nodes around the given wire.
 	 */
 	private void queueNeighbors(WireNode wire) {
-		forEachNeighbor(wire, neighbor -> queueNeighbor(neighbor, wire));
+		forEachNeighbor(wire, neighbor -> {
+			queueNeighbor(neighbor, wire);
+		});
 	}
 
 	/**
@@ -1124,9 +1148,9 @@ public class WireHandler {
 	}
 
 	@FunctionalInterface
-	public interface NodeProvider {
+	public static interface NodeProvider {
 
-		Node getNeighbor(Node node, int iDir);
+		public Node getNeighbor(Node node, int iDir);
 
 	}
 }

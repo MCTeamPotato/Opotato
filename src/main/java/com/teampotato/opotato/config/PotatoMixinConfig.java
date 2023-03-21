@@ -16,11 +16,11 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("smoothmenu", true);
         this.addMixinRule("mixintrace", true);
-        this.addMixinRule("betterbeds", false);
         this.addMixinRule("opotato", true);
         this.addMixinRule("ksyxis", true);
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("fastchest", false);
+        this.addMixinRule("betterbeds", false);
         disableIfModPresent("mixin.smoothmenu", "forgery");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
     }
