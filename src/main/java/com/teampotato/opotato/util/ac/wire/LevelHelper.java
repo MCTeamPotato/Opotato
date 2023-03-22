@@ -28,7 +28,10 @@ public class LevelHelper {
 		int z = pos.getZ();
 
 		IChunk chunk = level.getChunk(x >> 4, z >> 4, ChunkStatus.FULL, true);
-		ChunkSection section = chunk.getSections()[y >> 4];
+		ChunkSection section = null;
+		if (chunk != null) {
+			section = chunk.getSections()[y >> 4];
+		}
 
 		if (section == null) {
 			return false; // we should never get here
