@@ -22,6 +22,8 @@ public class PotatoMixinConfig {
         this.addMixinRule("fastchest", false);
         this.addMixinRule("betterbeds", false);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
+        this.addMixinRule("nohurtcam", false);
+        disableIfModPresent("mixin.smoothmenu", "forgery");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
     }
 

@@ -5,5 +5,7 @@
   "minegpt.set.default": "The default endpoint has been updated in %s",
   "minegpt.error.saveconfig": "Failed to save config file.",
   "minegpt.error.apikey": "Invalid API key!",
-  "minegpt.reload.config": "The configuration file has been reloaded."
+  "minegpt.reload.config": "The configuration file has been reloaded.",
+  "opotato.key.no_hurt_cam": "Hurt Cam Option",
+  "opotato.key.no_hurt_cam.category": "Opotato-NoHurtCam"
 }

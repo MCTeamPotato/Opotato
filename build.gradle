@@ -91,16 +91,6 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
-    implementation fg.deobf('curse.maven:the-twilight-forest-227639:3575220')
-
-    implementation fg.deobf('curse.maven:paladins-furniture-663141:3972315')
-    implementation fg.deobf('curse.maven:quark-243121:3642325')
-    implementation fg.deobf('curse.maven:placebo-283644:3750838')
-    implementation 'curse.maven:citadel-331936:3441030'
-
-    implementation('com.google.code.gson:gson:2.8.9')
-    implementation('org.json:json:20210307')
-    implementation('com.moandjiezana.toml:toml4j:0.7.2')
 }
 
 configurations {
@@ -123,13 +113,10 @@ jar {
 }
 
 shadowJar {
-    baseName = 'opotato-1.16.5-' + mod_version + "-universal"
+    baseName = 'opotato-1.16.5-' + mod_version
     classifier = null
     version = null
     dependencies {
-        include dependency("com.google.code.gson:gson:2.8.9")
-        include dependency("org.json:json:20210307")
-        include dependency("com.moandjiezana.toml:toml4j:0.7.2")
     }
 }
 

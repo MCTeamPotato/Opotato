@@ -1,9 +1,5 @@
 package com.teampotato.opotato.util.ac.wire;
 
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.function.Consumer;
-
 import com.teampotato.opotato.util.ac.Redstone;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap.Entry;
@@ -16,6 +12,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.Constants;
+
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.function.Consumer;
 
 
 /**

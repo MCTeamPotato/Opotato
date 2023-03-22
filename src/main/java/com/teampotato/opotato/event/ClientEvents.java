@@ -5,11 +5,19 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.settings.KeyConflictContext;
+import net.minecraftforge.client.settings.KeyModifier;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = "opotato", value = {Dist.CLIENT})
 public class ClientEvents {
@@ -35,5 +43,24 @@ public class ClientEvents {
         if (isPlayerNextToFence(player) && player.input.jumping) {
             player.setDeltaMovement(player.getDeltaMovement().add(0.0D, 0.05D, 0.0D));
         }
+    }
+
+    public static final KeyBinding noHurtCamKey = new KeyBinding("opotato.key.no_hurt_cam",
+            KeyConflictContext.IN_GAME,
+            KeyModifier.NONE,
+            InputMappings.Type.KEYSYM,
+            GLFW.GLFW_KEY_C,
+            "opotato.key.no_hurt_cam.category");
+
+    public static boolean toggledOn = false;
+
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> ClientRegistry.registerKeyBinding(noHurtCamKey));
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        toggledOn = !toggledOn;
     }
 }

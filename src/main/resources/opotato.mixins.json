@@ -22,6 +22,7 @@
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
-    "fastchest.BlockEntityRenderDispatcherMixin"
+    "fastchest.BlockEntityRenderDispatcherMixin",
+    "nohurtcam.GameRendererMixin"
   ]
 }
