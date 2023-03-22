@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.alternatecurrent;
 
-import com.teampotato.opotato.util.ac.access.IServerLevel;
-import com.teampotato.opotato.util.ac.wire.WireHandler;
+import com.teampotato.opotato.util.alternatecurrent.access.IServerLevel;
+import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler;
 import net.minecraft.world.server.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 

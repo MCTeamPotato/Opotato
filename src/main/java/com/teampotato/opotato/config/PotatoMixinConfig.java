@@ -16,7 +16,7 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("smoothmenu", true);
         this.addMixinRule("mixintrace", true);
-        this.addMixinRule("opotato", true);
+        this.addMixinRule("opotato.oculus", true);
         this.addMixinRule("ksyxis", true);
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("fastchest", false);
