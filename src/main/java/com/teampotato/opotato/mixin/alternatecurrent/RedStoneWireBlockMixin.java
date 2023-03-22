@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.alternatecurrent;
 
-import com.teampotato.opotato.util.ac.access.IServerLevel;
+import com.teampotato.opotato.util.alternatecurrent.access.IServerLevel;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RedstoneWireBlock;

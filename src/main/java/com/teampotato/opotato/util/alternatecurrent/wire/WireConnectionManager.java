@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.ac.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
 import java.util.Arrays;
 import java.util.function.Consumer;

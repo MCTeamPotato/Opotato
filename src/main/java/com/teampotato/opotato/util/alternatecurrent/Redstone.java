@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util.ac;
+package com.teampotato.opotato.util.alternatecurrent;
 
 public class Redstone {
     public static final int SIGNAL_MIN = 0;

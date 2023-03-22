@@ -1,6 +1,6 @@
-package com.teampotato.opotato.util.ac.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
-import com.teampotato.opotato.util.ac.Redstone;
+import com.teampotato.opotato.util.alternatecurrent.Redstone;
 
 import java.util.AbstractQueue;
 import java.util.Arrays;

@@ -1,6 +1,6 @@
-package com.teampotato.opotato.util.ac.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
-import com.teampotato.opotato.util.ac.Redstone;
+import com.teampotato.opotato.util.alternatecurrent.Redstone;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap.Entry;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
