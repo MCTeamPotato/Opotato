@@ -10,11 +10,6 @@ buildscript {
     }
 }
 
-plugins {
-    id 'com.github.johnrengelman.shadow' version "6.1.0"
-    id 'java'
-}
-
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
@@ -94,11 +89,6 @@ dependencies {
     implementation fg.deobf('curse.maven:crackers-wither-storm-mod-621405:4403153')
     implementation fg.deobf('curse.maven:rubidium-574856:4397474')
 }
-
-configurations {
-    shade
-}
-
 jar {
     manifest {
         attributes([
@@ -114,21 +104,9 @@ jar {
     }
 }
 
-shadowJar {
-    baseName = 'opotato-1.16.5-' + mod_version
-    classifier = null
-    version = null
-    dependencies {
-    }
-}
-
 mixin {
     add sourceSets.main, "opotato.refmap.json"
     config "opotato.mixins.json"
-}
-
-reobf {
-    shadowJar {}
 }
 
 jar.finalizedBy('reobfJar')
