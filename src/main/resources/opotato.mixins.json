@@ -29,7 +29,6 @@
     "dupe_fix.FireworkEntityMixin",
     "fastchest.BlockEntityRenderDispatcherMixin",
     "fixselecteditemtext.IngameGuiMixin",
-    "nochatlag.GuiMixin",
-    "nohurtcam.GameRendererMixin"
+    "nochatlag.GuiMixin"
   ]
 }
