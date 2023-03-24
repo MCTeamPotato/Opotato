@@ -21,7 +21,6 @@
     "mixintrace.MixinCrashReportSection",
     "myserveriscompatible.MixinClientHooks",
     "opotato.oculus.MixinNECDetection",
-    "opotato.rubidium.MixinSodiumWorldRenderer",
     "opotato.witherstormmod.WitherSicknessEventsMixin",
     "smoothmenu.SmoothMenuMixin",
     "suggestionproviderfix.ISuggestionProviderMixin"
