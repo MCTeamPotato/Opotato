@@ -48,6 +48,7 @@ public class MixinSodiumWorldRenderer implements ChunkStatusListener {
     @Overwrite
     private static ChunkRenderBackend<?> createChunkRenderBackend(RenderDevice device, SodiumGameOptions options, ChunkVertexType vertexFormat) {
         boolean disableBlacklist = SodiumClientMod.options().advanced.ignoreDriverBlacklist;
-        return options.advanced.useChunkMultidraw && MultidrawChunkRenderBackend.isSupported(disableBlacklist) ? new MultidrawChunkRenderBackend(device, DefaultModelVertexFormats.MODEL_VERTEX_HFP) : new ChunkRenderBackendOneshot(DefaultModelVertexFormats.MODEL_VERTEX_HFP);
+        return options.advanced.useChunkMultidraw && MultidrawChunkRenderBackend.isSupported(disableBlacklist) ?
+                new MultidrawChunkRenderBackend(device, DefaultModelVertexFormats.MODEL_VERTEX_SFP) : new ChunkRenderBackendOneshot(DefaultModelVertexFormats.MODEL_VERTEX_SFP);
     }
 }
