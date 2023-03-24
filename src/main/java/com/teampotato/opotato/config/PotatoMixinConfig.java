@@ -17,14 +17,27 @@ public class PotatoMixinConfig {
         this.addMixinRule("smoothmenu", true);
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("opotato.oculus", true);
+        this.addMixinRule("opotato.witherstormmod", true);
         this.addMixinRule("ksyxis", true);
         this.addMixinRule("alternatecurrent", true);
+        this.addMixinRule("block_limit_fix", true);
+        this.addMixinRule("dupe_fix", true);
+        this.addMixinRule("fixselecteditemtext", true);
+        this.addMixinRule("myserveriscompatible", true);
+        this.addMixinRule("suggestionproviderfix", true);
+        this.addMixinRule("nochatlag", true);
         this.addMixinRule("fastchest", false);
         this.addMixinRule("betterbeds", false);
-        disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         this.addMixinRule("nohurtcam", false);
+        disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         disableIfModPresent("mixin.smoothmenu", "forgery");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
+        disableIfModPresent("mixin.fixselecteditemtext", "fixselecteditemtext");
+        disableIfModPresent("mixin.block_limit_fix", "block_limit_fix");
+        disableIfModPresent("mixin.dupe_fix", "dupe_fix");
+        disableIfModPresent("mixin.myserveriscompatible", "myserveriscompatible");
+        disableIfModPresent("mixin.suggestionproviderfix", "suggestionproviderfix");
+        disableIfModPresent("mixin.nochatlag", "nochatlag");
     }
 
     private void disableIfModPresent(String configName, String... ids) {

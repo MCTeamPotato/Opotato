@@ -22,7 +22,6 @@ public class Opotato {
     public static final String ID = "opotato";
     public static final Logger LOGGER = LogManager.getLogger(ID);
     public static List<Chunk> loadedChunks = new ArrayList<>();
-    public static boolean on = true;
     public static final String CHAT_GPT_CONFIG = "opotato-chatgpt.toml";
 
 

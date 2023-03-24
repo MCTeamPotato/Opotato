@@ -6,20 +6,23 @@ import com.teampotato.opotato.util.HeadshotUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Mod.EventBusSubscriber
 public class CommonEvents {
@@ -63,12 +66,38 @@ public class CommonEvents {
             Entity existing = world.getEntity(entity.getUUID());
             if (existing != null && existing != entity) {
                 UUID newUUID = MathHelper.createInsecureUUID(RANDOM);
-                while (world.getEntity(newUUID) != null) {
-                    newUUID = MathHelper.createInsecureUUID(RANDOM);
-                }
+                while (world.getEntity(newUUID) != null) newUUID = MathHelper.createInsecureUUID(RANDOM);
                 entity.setUUID(newUUID);
             }
         }
     }
 
+    @SubscribeEvent
+    public static void fixExperienceBug(PlayerEvent.PlayerChangedDimensionEvent event) {
+        PlayerEntity player = event.getPlayer();
+        if (player instanceof ServerPlayerEntity) {
+            ((ServerPlayerEntity) player).setExperienceLevels(player.experienceLevel);
+            ResourceLocation dim = event.getTo().getRegistryName();
+            player.addTag("opotato_" + dim.getNamespace() + "_" + dim.getPath());
+        }
+    }
+
+    @SubscribeEvent
+    public static void tick(TickEvent.PlayerTickEvent event) {
+        PlayerEntity player = event.player;
+        if (player.level.isClientSide) return;
+
+        ResourceLocation dim = player.level.dimension().getRegistryName();
+        if (!player.removeTag("opotato_" + dim.getNamespace() + "_" + dim.getPath())) return;
+
+        List<EffectInstance> effects = new ArrayList<>(player.getActiveEffects());
+        if (effects.isEmpty()) return;
+
+        effects.sort(Comparator.comparingInt(EffectInstance::getDuration).reversed());
+
+        player.removeAllEffects();
+        for (EffectInstance effect : effects) {
+            player.addEffect(effect);
+        }
+    }
 }

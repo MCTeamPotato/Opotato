@@ -5,7 +5,5 @@
   "minegpt.set.configapikey": "OpenAI API密钥已保存",
   "minegpt.error.saveconfig": "无法保存配置文件！",
   "minegpt.error.apikey": "API密钥无效！",
-  "minegpt.reload.config": "已重新加载配置文件。",
-  "opotato.key.no_hurt_cam": "受伤时视角晃动开关",
-  "opotato.key.no_hurt_cam.category": "Opotato-NoHurtCam"
+  "minegpt.reload.config": "已重新加载配置文件。"
 }
