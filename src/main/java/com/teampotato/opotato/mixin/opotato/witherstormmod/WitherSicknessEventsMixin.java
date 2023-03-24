@@ -35,7 +35,8 @@ public class WitherSicknessEventsMixin {
             CopyOnWriteArrayList<Entity> entities = StreamSupport.stream(((ServerWorld) event.world).getAllEntities().spliterator(), false)
                     .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
 
-            if (entities.stream().noneMatch(checker -> checker instanceof WitherStormEntity || checker instanceof PlayerEntity)) return;
+            if (entities.stream().noneMatch(checker -> checker instanceof WitherStormEntity)) return;
+            if (entities.stream().noneMatch(checker -> checker instanceof PlayerEntity)) return;
 
             Map<Class<? extends Entity>, List<Entity>> entityGroups = entities.stream().collect(Collectors.groupingBy(Entity::getClass));
 
