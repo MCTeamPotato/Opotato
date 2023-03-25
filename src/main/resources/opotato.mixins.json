@@ -13,22 +13,17 @@
     "alternatecurrent.ServerLevelMixin",
     "betterbeds.MixinBedBlock",
     "betterbeds.MixinBlockEntityRendererDispatcher",
-    "block_limit_fix.ClientboundSectionBlocksUpdatePacketMixin",
     "fastchest.ChestBlockMixin",
     "fastchest.EnderChestBlockMixin",
     "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
-    "myserveriscompatible.MixinClientHooks",
+    "opotato.headshot.DealHeadshotEventMixin",
+    "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.oculus.MixinNECDetection",
-    "opotato.witherstormmod.WitherSicknessEventsMixin",
-    "smoothmenu.SmoothMenuMixin",
-    "suggestionproviderfix.ISuggestionProviderMixin"
+    "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
-    "dupe_fix.FireworkEntityMixin",
-    "fastchest.BlockEntityRenderDispatcherMixin",
-    "fixselecteditemtext.IngameGuiMixin",
-    "nochatlag.GuiMixin"
+    "fastchest.BlockEntityRenderDispatcherMixin"
   ]
 }

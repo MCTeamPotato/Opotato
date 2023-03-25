@@ -2,14 +2,11 @@ package com.teampotato.opotato;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.schwarz.ChunkCommandHandler;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,13 +19,10 @@ public class Opotato {
     public static final String ID = "opotato";
     public static final Logger LOGGER = LogManager.getLogger(ID);
     public static List<Chunk> loadedChunks = new ArrayList<>();
-    public static final String CHAT_GPT_CONFIG = "opotato-chatgpt.toml";
 
 
     public Opotato() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
-        if (PotatoCommonConfig.ENABLE_CHATGPT.get()) {
-        }
+        LOGGER.info("I love you.");
     }
 
     public static class OpotatoCommand {
@@ -41,8 +35,6 @@ public class Opotato {
                             .executes(ChunkCommandHandler::ChunkAnalyse));
 
             dispatcher.register(schwarz);
-
-            if (!PotatoCommonConfig.ENABLE_CHATGPT.get()) return;
         }
     }
 }

@@ -23,7 +23,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(11)
 minecraft {
     mappings channel: 'official', version: '1.16.5'
 
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    //accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     
     runs {
         client {
@@ -86,9 +86,10 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
-    implementation fg.deobf('curse.maven:crackers-wither-storm-mod-621405:4403153')
-    implementation fg.deobf('curse.maven:rubidium-574856:4397474')
+    implementation fg.deobf('curse.maven:headshot-forge-538264:3501178')
+    implementation fg.deobf('curse.maven:jump-over-fences-forge-423421:3125998')
 }
+
 jar {
     manifest {
         attributes([
