@@ -23,7 +23,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(11)
 minecraft {
     mappings channel: 'official', version: '1.16.5'
 
-    //accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     
     runs {
         client {
@@ -88,6 +88,9 @@ dependencies {
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
     implementation fg.deobf('curse.maven:headshot-forge-538264:3501178')
     implementation fg.deobf('curse.maven:jump-over-fences-forge-423421:3125998')
+    implementation fg.deobf('curse.maven:water-source-388078:3554906')
+    implementation fg.deobf('curse.maven:blue-skies-312918:3411324')
+    implementation fg.deobf('curse.maven:structure-gel-api-378802:3498310')
 }
 
 jar {

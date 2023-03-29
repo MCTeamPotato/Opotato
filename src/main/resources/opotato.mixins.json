@@ -18,6 +18,8 @@
     "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
+    "opotato.blueskies.MixinMinecraftLivingEntity",
+    "opotato.blueskies.MixinSkiesEntityHooks",
     "opotato.headshot.DealHeadshotEventMixin",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.oculus.MixinNECDetection",
