@@ -6,7 +6,7 @@ import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Mod.EventBusSubscriber
 public class ChunkInit {
@@ -18,7 +18,7 @@ public class ChunkInit {
 
     @SubscribeEvent
     public static void onChunkUnload(ChunkEvent.Unload event) {
-        List<Chunk> loadedChunks = Opotato.loadedChunks;
+        CopyOnWriteArrayList<Chunk> loadedChunks = Opotato.loadedChunks;
         loadedChunks.removeIf(loadedchunk -> loadedchunk.getPos().equals(event.getChunk().getPos()));
         Opotato.loadedChunks = loadedChunks;
     }

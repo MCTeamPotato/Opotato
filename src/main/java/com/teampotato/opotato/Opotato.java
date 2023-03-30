@@ -13,16 +13,14 @@ import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Mod(Opotato.ID)
 public class Opotato {
 
     public static final String ID = "opotato";
     public static final Logger LOGGER = LogManager.getLogger(ID);
-    public static List<Chunk> loadedChunks = new ArrayList<>();
-
+    public static CopyOnWriteArrayList<Chunk> loadedChunks = new CopyOnWriteArrayList<>();
 
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
