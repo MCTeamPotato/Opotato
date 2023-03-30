@@ -20,6 +20,7 @@
     "mixintrace.MixinCrashReportSection",
     "opotato.blueskies.MixinMinecraftLivingEntity",
     "opotato.blueskies.MixinSkiesEntityHooks",
+    "opotato.blueskies.MixinSkiesHooks",
     "opotato.headshot.DealHeadshotEventMixin",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.oculus.MixinNECDetection",
