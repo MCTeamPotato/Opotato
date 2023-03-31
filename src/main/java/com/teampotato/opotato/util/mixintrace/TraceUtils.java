@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util;
+package com.teampotato.opotato.util.mixintrace;
 
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.mixin.transformer.ClassInfo;

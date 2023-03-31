@@ -11,10 +11,6 @@
   "mixins": [
     "alternatecurrent.RedStoneWireBlockMixin",
     "alternatecurrent.ServerLevelMixin",
-    "betterbeds.MixinBedBlock",
-    "betterbeds.MixinBlockEntityRendererDispatcher",
-    "fastchest.ChestBlockMixin",
-    "fastchest.EnderChestBlockMixin",
     "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
@@ -25,8 +21,5 @@
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.oculus.MixinNECDetection",
     "smoothmenu.SmoothMenuMixin"
-  ],
-  "client": [
-    "fastchest.BlockEntityRenderDispatcherMixin"
   ]
 }

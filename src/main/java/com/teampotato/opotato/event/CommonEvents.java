@@ -25,9 +25,9 @@ public class CommonEvents {
     @SubscribeEvent
     public static void duplicateEntityUUIDFix(EntityJoinWorldEvent event) {
         if (event.getWorld() instanceof ServerWorld) {
-            ServerWorld world = (ServerWorld) event.getWorld();
             Entity entity = event.getEntity();
             if (entity instanceof PlayerEntity) return;
+            ServerWorld world = (ServerWorld) event.getWorld();
             Entity existing = world.getEntity(entity.getUUID());
             if (existing != null && existing != entity) {
                 UUID newUUID = MathHelper.createInsecureUUID(RANDOM);

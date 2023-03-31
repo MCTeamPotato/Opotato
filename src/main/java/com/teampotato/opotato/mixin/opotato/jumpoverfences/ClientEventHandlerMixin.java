@@ -18,7 +18,8 @@ public class ClientEventHandlerMixin {
     @Overwrite
     private static boolean isPlayerNextToFence(ClientPlayerEntity player) {
         BlockPos playerPos = player.blockPosition();
-        for (BlockPos blockPos : BlockPos.betweenClosed(playerPos.offset(-1, 0, -1), playerPos.offset(1, 0, 1))) {
+        Iterable<BlockPos> positions = BlockPos.betweenClosed(playerPos.offset(-1, 0, -1), playerPos.offset(1, 0, 1));
+        for (BlockPos blockPos : positions) {
             if (blockPos.equals(playerPos)) continue;
             BlockState blockState = player.level.getBlockState(blockPos);
             if (blockState.getBlock() instanceof FenceBlock || blockState.getBlock() instanceof WallBlock) return true;
