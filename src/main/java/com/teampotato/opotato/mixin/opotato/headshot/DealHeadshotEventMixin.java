@@ -64,5 +64,6 @@ public class DealHeadshotEventMixin {
             if (HeadshotConfig.DO_BLINDNESS.get()) entity.addEffect(new EffectInstance(Effects.BLINDNESS, HeadshotConfig.BLIND_TICKS.get(), 3));
             if (HeadshotConfig.DO_NAUSEA.get()) entity.addEffect(new EffectInstance(Effects.CONFUSION, HeadshotConfig.NAUSEA_TICKS.get(), 2));
         }
+
     }
 }

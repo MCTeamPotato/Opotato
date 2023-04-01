@@ -14,6 +14,8 @@
     "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
+    "opotato.blueskies.MixinBlueSkiesCommonConfig",
+    "opotato.blueskies.MixinGatekeeperHouseStructure",
     "opotato.blueskies.MixinMinecraftLivingEntity",
     "opotato.blueskies.MixinSkiesEntityHooks",
     "opotato.blueskies.MixinSkiesHooks",
