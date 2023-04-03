@@ -88,7 +88,6 @@ dependencies {
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
     implementation fg.deobf('curse.maven:headshot-forge-538264:3501178')
     implementation fg.deobf('curse.maven:jump-over-fences-forge-423421:3125998')
-    implementation fg.deobf('curse.maven:water-source-388078:3554906')
     implementation fg.deobf('curse.maven:blue-skies-312918:3411324')
     implementation fg.deobf('curse.maven:structure-gel-api-378802:3498310')
 }

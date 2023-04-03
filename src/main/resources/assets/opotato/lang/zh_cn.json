@@ -1,4 +1,5 @@
 {
   "headshot.opotato.on_entity": "爆头！",
-  "headshot.opotato.on_player": "你被爆头了！"
+  "headshot.opotato.on_player": "你被爆头了！",
+  "opotato.epicfight.wrong_forge_version": "Opotato 抛出警告：你的 Forge 不是最新的 36.2.39 版本！史诗战斗 16.6.4+ 版本不兼容旧版本 Forge！"
 }

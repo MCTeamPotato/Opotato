@@ -13,6 +13,7 @@ public class PotatoCommonConfig {
         ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM = CONFIG_BUILDER.define("allow every mod generate features in blueskies dimensions", false);
         GATE_KEEPER_HOUSE_SPACING = CONFIG_BUILDER.defineInRange("gate keeper house spacing", 18, 6, Integer.MAX_VALUE);
         CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.push("Epic Fight Forge Version Detection");
         COMMON_CONFIG = CONFIG_BUILDER.build();
     }
 }
