@@ -2,6 +2,7 @@ package com.teampotato.opotato.mixin.opotato.headshot;
 
 import chronosacaria.headshot.config.HeadshotConfig;
 import chronosacaria.headshot.events.DealHeadshotEvent;
+import com.teampotato.opotato.config.PotatoCommonConfig;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -11,6 +12,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -63,7 +65,8 @@ public class DealHeadshotEventMixin {
 
             if (HeadshotConfig.DO_BLINDNESS.get()) entity.addEffect(new EffectInstance(Effects.BLINDNESS, HeadshotConfig.BLIND_TICKS.get(), 3));
             if (HeadshotConfig.DO_NAUSEA.get()) entity.addEffect(new EffectInstance(Effects.CONFUSION, HeadshotConfig.NAUSEA_TICKS.get(), 2));
+            if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get() && entity instanceof ServerPlayerEntity)
+                entity.playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
         }
-
     }
 }

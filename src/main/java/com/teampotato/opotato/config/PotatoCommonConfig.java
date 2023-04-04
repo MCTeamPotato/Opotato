@@ -4,8 +4,9 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class PotatoCommonConfig {
     public static ForgeConfigSpec COMMON_CONFIG;
-    public static ForgeConfigSpec.BooleanValue ENABLE_BLUE_SKIES_NERF, ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM;
+    public static ForgeConfigSpec.BooleanValue ENABLE_BLUE_SKIES_NERF, ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM, ENABLE_HEADSHOT_SOUND_DING;
     public static ForgeConfigSpec.IntValue GATE_KEEPER_HOUSE_SPACING;
+    public static ForgeConfigSpec.ConfigValue<Float> HEADSHOT_VOLUME, HEADSHOT_PITCH;
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
         CONFIG_BUILDER.comment("Opotato Common Config").push("Blue Skies Extra Settings");
@@ -13,7 +14,11 @@ public class PotatoCommonConfig {
         ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM = CONFIG_BUILDER.define("allow every mod generate features in blueskies dimensions", false);
         GATE_KEEPER_HOUSE_SPACING = CONFIG_BUILDER.defineInRange("gate keeper house spacing", 18, 6, Integer.MAX_VALUE);
         CONFIG_BUILDER.pop();
-        CONFIG_BUILDER.push("Epic Fight Forge Version Detection");
+        CONFIG_BUILDER.push("Headshot Extra Settings");
+        ENABLE_HEADSHOT_SOUND_DING = CONFIG_BUILDER.define("enable \"Ding\" on Headshot", true);
+        HEADSHOT_VOLUME = CONFIG_BUILDER.comment("Range: 0.0F ~ 1.0F. Type: Float").define("\"Ding\" volume", 1.0F);
+        HEADSHOT_PITCH = CONFIG_BUILDER.comment("Range: 0.5F ~ 2.0F. Type: Float").define("\"Ding\" pitch", 1.0F);
+        CONFIG_BUILDER.pop();
         COMMON_CONFIG = CONFIG_BUILDER.build();
     }
 }
