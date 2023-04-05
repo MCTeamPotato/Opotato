@@ -25,7 +25,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("smoothmenu", true);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
-        disableIfModPresent("mixin.opotato.modernui", "essential");
     }
 
     private void disableIfModPresent(String configName, String... ids) {

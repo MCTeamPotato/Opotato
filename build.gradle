@@ -90,6 +90,7 @@ dependencies {
     implementation fg.deobf('curse.maven:jump-over-fences-forge-423421:3125998')
     implementation fg.deobf('curse.maven:blue-skies-312918:3411324')
     implementation fg.deobf('curse.maven:structure-gel-api-378802:3498310')
+    implementation fg.deobf('curse.maven:modern-ui-352491:3765938')
 }
 
 jar {
