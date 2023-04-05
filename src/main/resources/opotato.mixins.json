@@ -21,11 +21,9 @@
     "opotato.blueskies.MixinSkiesHooks",
     "opotato.headshot.DealHeadshotEventMixin",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
-    "opotato.modernui.MixinMUIConfigPlugin",
     "opotato.oculus.MixinNECDetection",
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
-    "opotato.modernui.MixinMinecraftWindow"
   ]
 }

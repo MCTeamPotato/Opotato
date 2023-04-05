@@ -21,7 +21,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.headshot", true);
         this.addMixinRule("opotato.jumpoverfences", true);
         this.addMixinRule("opotato.blueskies", true);
-        this.addMixinRule("opotato.modernui", true);
         this.addMixinRule("smoothmenu", true);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");

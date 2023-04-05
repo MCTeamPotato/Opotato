@@ -42,6 +42,7 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
     public String getRefMapperConfig() {
         return null;
     }
+
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (!mixinClassName.startsWith(MIXIN_PACKAGE_ROOT)) {
