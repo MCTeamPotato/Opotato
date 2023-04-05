@@ -23,5 +23,8 @@
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.oculus.MixinNECDetection",
     "smoothmenu.SmoothMenuMixin"
+  ],
+  "client": [
+    "opotato.modernui.MixinMinecraftMainWindow"
   ]
 }
