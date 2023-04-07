@@ -34,10 +34,7 @@ public class MixinSkiesHooks {
         Block block = state.getBlock();
         Item item = player.getMainHandItem().getItem();
         if (pos != null) {
-            if (webHarvestCheck(block, item)) {
-                return 15.0F;
-            }
-
+            if (webHarvestCheck(block, item)) return 15.0F;
             if (PotatoCommonConfig.ENABLE_BLUE_SKIES_NERF.get() && !Objects.requireNonNull(item.getRegistryName()).getNamespace().equals("blue_skies") && item instanceof ToolItem && SkiesDimensions.inSkyDimension(player) && (isApplicableTool((ToolItem)item, state) || player.getMainHandItem().getToolTypes().contains(state.getHarvestTool()))) {
                 return Objects.requireNonNullElse(SkiesPlayer.getIfPresent(player, (skyPlayer) -> {
                     if (!EntityUtil.hasPlayerCompletedProgression(skyPlayer)) {
@@ -49,7 +46,6 @@ public class MixinSkiesHooks {
                 }), speed);
             }
         }
-
         return speed;
     }
 
