@@ -63,6 +63,6 @@ public class CommonEvents {
         if (world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
         CommandSource source = server.createCommandSourceStack().withSuppressedOutput();
         String[] targets = {"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"};
-        Arrays.stream(targets).forEach(obj -> server.getCommands().performCommand(source, "/execute in witherstormmod:bowels run kill @e[type=witherstormmod:" + obj + "]"));
+        Arrays.stream(targets).forEach(obj -> server.getCommands().performCommand(source, "/kill @e[type=witherstormmod:" + obj + "]"));
     }
 }
