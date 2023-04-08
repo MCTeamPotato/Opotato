@@ -28,7 +28,6 @@ public class Opotato {
 
     public static class OpotatoCommand {
         public static void register(CommandDispatcher<CommandSource> dispatcher) {
-
             LiteralArgumentBuilder<CommandSource> schwarz = Commands
                     .literal("schwarz")
                     .then(Commands

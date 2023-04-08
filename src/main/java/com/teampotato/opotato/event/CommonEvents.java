@@ -2,7 +2,6 @@ package com.teampotato.opotato.event;
 
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
-import net.minecraft.command.CommandSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -61,8 +60,7 @@ public class CommonEvents {
         MinecraftServer server = world.getServer();
         ResourceLocation name = entity.getType().getRegistryName();
         if (world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
-        CommandSource source = server.createCommandSourceStack().withSuppressedOutput();
         String[] targets = {"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"};
-        Arrays.stream(targets).forEach(obj -> server.getCommands().performCommand(source, "/kill @e[type=witherstormmod:" + obj + "]"));
+        Arrays.stream(targets).forEach(obj -> server.getCommands().performCommand(server.createCommandSourceStack().withSuppressedOutput(), "/kill @e[type=witherstormmod:" + obj + "]"));
     }
 }

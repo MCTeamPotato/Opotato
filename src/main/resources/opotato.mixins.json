@@ -26,6 +26,7 @@
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
+    "opotato.enigmaticlegacy.MixinEnigmaticPotionEntity",
     "opotato.modernui.MixinMinecraftMainWindow"
   ]
 }
