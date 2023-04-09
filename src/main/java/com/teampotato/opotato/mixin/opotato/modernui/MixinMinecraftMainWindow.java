@@ -15,8 +15,14 @@ public class MixinMinecraftMainWindow {
     private int framebufferHeight;
 
     /**
-     * @author Doctor Who
-     * @reason Saving The World
+     * @author
+     * Kasualix
+     *
+     * @reason
+     * If you install Modern UI with Rubidium, then your GUI Scale will always be 1 less than normal because Modern UI change the way MC calculate GUI Scale by overwrite this method.
+     * This will cause huge inconvenience in some computers.
+     * This mixin revert the calculateScale method to the vanilla to fix this problem
+     * Opotato's mixin has higher execution priority then Modern UI, so Modern UI's overwrite will be skipped when you launch your game.
      */
     @Overwrite
     public int calculateScale(int p_216521_1_, boolean p_216521_2_) {
