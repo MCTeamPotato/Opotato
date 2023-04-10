@@ -14,17 +14,17 @@ public abstract class MixinCrashReport {
     private StackTraceElement[] uncategorizedStackTrace;
 
     @Inject(method = "getDetails", at = @At(value = "FIELD", target = "Lnet/minecraft/crash/CrashReport;details:Ljava/util/List;"))
-    private void mixintrace_addTrace(StringBuilder p_71506_1_, CallbackInfo ci) {
+    private void mixinTrace_addTrace(StringBuilder builder, CallbackInfo ci) {
         int trailingNewlineCount = 0;
-        if (p_71506_1_.charAt(p_71506_1_.length() - 1) == '\n') {
-            p_71506_1_.deleteCharAt(p_71506_1_.length() - 1);
+        if (builder.charAt(builder.length() - 1) == '\n') {
+            builder.deleteCharAt(builder.length() - 1);
             trailingNewlineCount++;
         }
-        if (p_71506_1_.charAt(p_71506_1_.length() - 1) == '\n') {
-            p_71506_1_.deleteCharAt(p_71506_1_.length() - 1);
+        if (builder.charAt(builder.length() - 1) == '\n') {
+            builder.deleteCharAt(builder.length() - 1);
             trailingNewlineCount++;
         }
-        TraceUtils.printTrace(uncategorizedStackTrace, p_71506_1_);
-        p_71506_1_.append("\n".repeat(trailingNewlineCount));
+        TraceUtils.printTrace(uncategorizedStackTrace, builder);
+        builder.append("\n".repeat(trailingNewlineCount));
     }
 }

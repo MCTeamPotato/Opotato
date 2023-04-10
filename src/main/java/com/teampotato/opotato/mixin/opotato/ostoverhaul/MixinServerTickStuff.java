@@ -27,11 +27,11 @@ public class MixinServerTickStuff {
      */
     @Overwrite
     @SubscribeEvent
-    public static void serverTickEnding(TickEvent.WorldTickEvent worldTickEvent){
-        if (worldTickEvent.world.isClientSide || !worldTickEvent.phase.equals(TickEvent.Phase.END)) return;
+    public static void serverTickEnding(TickEvent.WorldTickEvent event){
+        if (event.world.isClientSide || !event.phase.equals(TickEvent.Phase.END)) return;
         ticksorsmthn++;
         if (ticksorsmthn % 20 == 0) {
-            List<ServerPlayerEntity> playerList = Objects.requireNonNull(worldTickEvent.world.getServer()).getPlayerList().getPlayers();
+            List<ServerPlayerEntity> playerList = Objects.requireNonNull(event.world.getServer()).getPlayerList().getPlayers();
             AtomicInteger index = new AtomicInteger();
             if (playerList.stream().anyMatch(playerEntity -> {
                 if (LocationPredicate.inFeature(Structure.STRONGHOLD).matches(playerEntity.getLevel(), playerEntity.getX(), playerEntity.getY(), playerEntity.getZ()) && !OstOverhaul.serverPlayerEntityStructureFeatureMap.getOrDefault(playerEntity, Structure.BASTION_REMNANT).equals(Structure.STRONGHOLD)) return indexSetter(index, playerList, playerEntity);

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
     @Redirect(method = "prepareLevels", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/server/ServerChunkProvider;getTickingGenerated()I"))
-    public int prepareLevels_Redirect(ServerChunkProvider serverChunkProvider) {
+    public int prepareLevels_Redirect(ServerChunkProvider provider) {
         Opotato.LOGGER.warn("Hi there, Opotato has removed the 441 chunk loading.");
         Opotato.LOGGER.warn("If you encounter loading stuck at 0% or 100%, please try to write 'mixin.ksyxis=false' in config/opotato-mixins.properties.");
         return 441;

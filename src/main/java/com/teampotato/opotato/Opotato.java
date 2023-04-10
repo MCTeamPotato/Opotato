@@ -24,16 +24,12 @@ public class Opotato {
 
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
+        LOGGER.info("Oh, potato!");
     }
 
     public static class OpotatoCommand {
         public static void register(CommandDispatcher<CommandSource> dispatcher) {
-            LiteralArgumentBuilder<CommandSource> schwarz = Commands
-                    .literal("schwarz")
-                    .then(Commands
-                            .literal("chunkanalyse")
-                            .executes(ChunkCommandHandler::ChunkAnalyse));
-
+            LiteralArgumentBuilder<CommandSource> schwarz = Commands.literal("schwarz").then(Commands.literal("chunkanalyse").executes(ChunkCommandHandler::ChunkAnalyse));
             dispatcher.register(schwarz);
         }
     }

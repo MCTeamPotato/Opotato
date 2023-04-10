@@ -8,7 +8,6 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -21,21 +20,9 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = DealHeadshotEvent.class, remap = false)
 public class DealHeadshotEventMixin {
-
-    @Shadow
-    private static boolean doesNotHaveHelmet(Entity entity) {
-        return HeadshotConfig.HELMET_MITIGATION.get() ? ((LivingEntity)entity).getItemBySlot(EquipmentSlotType.HEAD).isEmpty() : entity instanceof LivingEntity;
-    }
-
-    @Shadow
-    private static boolean hasProjectileProtection(Entity entity) {
-        return EnchantmentHelper.getEnchantmentLevel(Enchantments.PROJECTILE_PROTECTION, (LivingEntity)entity) > 0;
-    }
-
     /**
      * @author Doctor Who
      * @reason Saving The World
@@ -48,7 +35,7 @@ public class DealHeadshotEventMixin {
         if (world.isClientSide) return;
         DamageSource eventSource = event.getSource();
         Vector3d srcPos = eventSource.getSourcePosition();
-        if (!eventSource.isProjectile() || srcPos == null || entity.isInvulnerableTo(eventSource) || srcPos.y <= (entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85, 0.0).y - 0.17) || !doesNotHaveHelmet(entity)) return;
+        if (!eventSource.isProjectile() || srcPos == null || entity.isInvulnerableTo(eventSource) || srcPos.y <= entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85, 0.0).y - 0.17 || !(!HeadshotConfig.HELMET_MITIGATION.get() || entity.getItemBySlot(EquipmentSlotType.HEAD).isEmpty())) return;
 
         PlayerEntity player = (entity instanceof PlayerEntity) ? (PlayerEntity) entity : null;
         if (player != null) player.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_player"), true);
@@ -58,7 +45,7 @@ public class DealHeadshotEventMixin {
         if (sourcePlayer != null) sourcePlayer.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_entity"), true);
 
         double headshotDamage = event.getAmount() * HeadshotConfig.HEADSHOT_DAMAGE_MULTIPLIER.get();
-        if (hasProjectileProtection(entity)) {
+        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.PROJECTILE_PROTECTION, entity) > 0) {
             event.setAmount((float) (headshotDamage * HeadshotConfig.HEADSHOT_PROJECTILE_PROTECTION_DAMAGE_REDUCTION.get()));
             entity.getItemBySlot(EquipmentSlotType.HEAD).hurt((int) (headshotDamage / 4), world.random, null);
         } else {

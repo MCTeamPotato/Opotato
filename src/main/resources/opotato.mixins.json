@@ -20,13 +20,13 @@
     "opotato.blueskies.MixinSkiesEntityHooks",
     "opotato.blueskies.MixinSkiesHooks",
     "opotato.headshot.DealHeadshotEventMixin",
-    "opotato.jumpoverfences.ClientEventHandlerMixin",
+    "opotato.inspirations.MixinPortalColorHandler",
     "opotato.oculus.MixinNECDetection",
     "opotato.ostoverhaul.MixinServerTickStuff",
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
-    "opotato.enigmaticlegacy.MixinEnigmaticPotionEntity",
-    "opotato.modernui.MixinMinecraftMainWindow"
+    "opotato.modernui.MixinMinecraftMainWindow",
+    "opotato.jumpoverfences.ClientEventHandlerMixin"
   ]
 }
