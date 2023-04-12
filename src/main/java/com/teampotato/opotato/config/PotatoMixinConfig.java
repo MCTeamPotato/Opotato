@@ -1,7 +1,6 @@
 package com.teampotato.opotato.config;
 
 import com.teampotato.opotato.Opotato;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.io.*;

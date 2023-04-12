@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinGatekeeperHouseStructure {
 
     @Inject(method = "getSpacing", at = @At("HEAD"), cancellable = true)
-    private static void configurableSpacing(CallbackInfoReturnable<Integer> cir) {
+    private void getSpacing(CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(PotatoCommonConfig.GATE_KEEPER_HOUSE_SPACING.get());
         cir.cancel();
     }
