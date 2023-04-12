@@ -13,6 +13,7 @@ public class MinecraftServerMixin {
     public int prepareLevels_Redirect(ServerChunkProvider provider) {
         Opotato.LOGGER.error("Hi there, Opotato has removed the 441 chunk loading.");
         Opotato.LOGGER.error("If you encounter loading stuck at 0% or 100%, please try to write 'mixin.ksyxis=false' in config/opotato-mixins.properties.");
+        Opotato.LOGGER.error("This is not an error but a warn exactly. lol");
         return 441;
     }
 }
