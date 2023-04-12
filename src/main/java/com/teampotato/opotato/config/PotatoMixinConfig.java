@@ -18,21 +18,18 @@ public class PotatoMixinConfig {
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("ksyxis", true);
         this.addMixinRule("mixintrace", true);
+        this.addMixinRule("opotato.blueskies", true);
+        this.addMixinRule("opotato.headshot", true);
+        this.addMixinRule("opotato.inspirations", true);
+        this.addMixinRule("opotato.jumpoverfences", true);
+        this.addMixinRule("opotato.modernui", true);
+        this.addMixinRule("opotato.oculus", true);
+        this.addMixinRule("opotato.ostoverhaul", true);
+        this.addMixinRule("opotato.quark", true);
         this.addMixinRule("smoothmenu", true);
-        this.addMixinRule("opotato.oculus", isModLoaded("oculus"));
-        this.addMixinRule("opotato.headshot", isModLoaded("headshot"));
-        this.addMixinRule("opotato.jumpoverfences", isModLoaded("jumpoverfences"));
-        this.addMixinRule("opotato.blueskies", isModLoaded("blueskies"));
-        this.addMixinRule("opotato.modernui", isModLoaded("modernui"));
-        this.addMixinRule("opotato.ostoverhaul", isModLoaded("ostoverhaul"));
-        this.addMixinRule("opotato.inspirations", isModLoaded("inspirations"));
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
         disableIfModPresent("mixin.opotato.modernui", "essential");
-    }
-
-    private boolean isModLoaded(String modID) {
-        return ModList.get().isLoaded(modID);
     }
 
     private void disableIfModPresent(String configName, String... ids) {

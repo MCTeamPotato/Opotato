@@ -57,7 +57,7 @@ minecraft {
         data {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             properties 'mixin.env.remapRefMap': 'true'
             property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             args '--mod', 'opotato', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
@@ -94,14 +94,13 @@ dependencies {
     implementation fg.deobf('curse.maven:ost-overhaul-504439:3390987')
     implementation fg.deobf('curse.maven:inspirations-284007:3414517')
     implementation fg.deobf('curse.maven:mantle-74924:3631982')
+    implementation fg.deobf('curse.maven:quark-243121:3642325')
+    implementation fg.deobf('curse.maven:autoreglib-250363:3326041')
 }
 
 jar {
     manifest {
         attributes([
-            "Specification-Title": "opotato",
-            "Specification-Vendor": "teampotato",
-            "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"teampotato",

@@ -23,10 +23,13 @@
     "opotato.inspirations.MixinPortalColorHandler",
     "opotato.oculus.MixinNECDetection",
     "opotato.ostoverhaul.MixinServerTickStuff",
+    "opotato.quark.MixinContributorRewardHandler",
+    "opotato.quark.MixinImprovedTooltipsModule",
+    "opotato.quark.MixinQuarkModule",
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
-    "opotato.modernui.MixinMinecraftMainWindow",
-    "opotato.jumpoverfences.ClientEventHandlerMixin"
+    "opotato.jumpoverfences.ClientEventHandlerMixin",
+    "opotato.modernui.MixinMinecraftMainWindow"
   ]
 }

@@ -24,8 +24,8 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(value = DealHeadshotEvent.class, remap = false)
 public class DealHeadshotEventMixin {
     /**
-     * @author Doctor Who
-     * @reason Saving The World
+     * @author Kasualix
+     * @reason Optimize someone's shit
      */
     @Overwrite
     @SubscribeEvent
