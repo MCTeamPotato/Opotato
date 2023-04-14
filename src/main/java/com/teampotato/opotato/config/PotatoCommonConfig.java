@@ -1,12 +1,16 @@
 package com.teampotato.opotato.config;
 
+import com.google.common.collect.Lists;
 import net.minecraftforge.common.ForgeConfigSpec;
+
+import java.util.List;
 
 public class PotatoCommonConfig {
     public static ForgeConfigSpec COMMON_CONFIG;
-    public static ForgeConfigSpec.BooleanValue ENABLE_BLUE_SKIES_NERF, ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM, ENABLE_HEADSHOT_SOUND_DING, KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES;
-    public static ForgeConfigSpec.IntValue GATE_KEEPER_HOUSE_SPACING;
+    public static ForgeConfigSpec.BooleanValue ALLOW_LIMIT_MAX_SPAWN, ENABLE_BLUE_SKIES_NERF, ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM, ENABLE_HEADSHOT_SOUND_DING, KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES;
+    public static ForgeConfigSpec.IntValue GATE_KEEPER_HOUSE_SPACING, MAX_ENTITIES_NUMBER_PER_CHUNK;
     public static ForgeConfigSpec.ConfigValue<Float> HEADSHOT_VOLUME, HEADSHOT_PITCH;
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLIST;
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
         CONFIG_BUILDER.comment("Opotato Common Config").push("Blue Skies Extra Settings");
@@ -21,6 +25,12 @@ public class PotatoCommonConfig {
         CONFIG_BUILDER.pop();
         CONFIG_BUILDER.push("Cracker's Wither Storm Mod Optimization Settings");
         KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES = CONFIG_BUILDER.comment("Entities that will be killed: Block Cluster, Sickened Skeleton, Sickened Creeper, Sickened Spider, Sickened Zombie, Tentacle, Withered Symbiont.", "Inspired by Lag Removal mod").define("kill witherstormmod entities after command block dies", false);
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.push("Opotato Custom Optimization Settings");
+        ALLOW_LIMIT_MAX_SPAWN = CONFIG_BUILDER.define("allow entities spawn limit", false);
+        MAX_ENTITIES_NUMBER_PER_CHUNK = CONFIG_BUILDER.defineInRange("max entities spawning number per chunk", 10, 1, 100);
+        BLACKLIST = CONFIG_BUILDER.define("entities whose spawn won't be limited", Lists.newArrayList(), o -> o instanceof String);
+        CONFIG_BUILDER.pop();
         COMMON_CONFIG = CONFIG_BUILDER.build();
     }
 }
