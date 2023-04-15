@@ -96,6 +96,10 @@ dependencies {
     implementation fg.deobf('curse.maven:mantle-74924:3631982')
     implementation fg.deobf('curse.maven:quark-243121:3642325')
     implementation fg.deobf('curse.maven:autoreglib-250363:3326041')
+    implementation fg.deobf('curse.maven:citadel-331936:3441028')
+    implementation fg.deobf('curse.maven:placebo-283644:3750838')
+    implementation fg.deobf('curse.maven:elenai-dodge-2-442962:3343309')
+    implementation fg.deobf('curse.maven:l_ender-s-cataclysm-551586:4418434')
 }
 
 jar {

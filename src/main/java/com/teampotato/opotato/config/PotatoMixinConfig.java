@@ -16,14 +16,19 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("ksyxis", true);
+        this.addMixinRule("lazystronghold", true);
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("opotato.blueskies", true);
+        this.addMixinRule("opotato.cataclysm", true);
+        this.addMixinRule("opotato.citadel", true);
+        this.addMixinRule("opotato.elenaidodge", true);
         this.addMixinRule("opotato.headshot", true);
         this.addMixinRule("opotato.inspirations", true);
         this.addMixinRule("opotato.jumpoverfences", true);
         this.addMixinRule("opotato.modernui", true);
         this.addMixinRule("opotato.oculus", true);
         this.addMixinRule("opotato.ostoverhaul", true);
+        this.addMixinRule("opotato.placebo", true);
         this.addMixinRule("opotato.quark", true);
         this.addMixinRule("smoothmenu", true);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");

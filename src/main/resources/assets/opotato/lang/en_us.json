@@ -1,5 +1,6 @@
 {
   "headshot.opotato.on_entity": "Headshot!",
   "headshot.opotato.on_player": "You got headshot!",
-  "opotato.epicfight.wrong_forge_version": "Warn throwed by Opotato: Your Forge Version is not latest 36.2.39! Epic Fight 16.6.4 + won't work on old Forge Version!"
+  "opotato.epicfight.wrong_forge_version": "Warn throwed by Opotato: Your Forge Version is not latest 36.2.39! Epic Fight 16.6.4 + won't work on old Forge Version!",
+  "opotato.bettefpsdist.incompatible_with_rubidium": "Better Fps Render Distance is not compatible with Rubidium, pls remove Better Fps Render Distance！"
 }

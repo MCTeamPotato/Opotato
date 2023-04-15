@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(MinecraftServer.class)
+@Mixin(value = MinecraftServer.class, priority = 900)
 public class MinecraftServerMixin {
     @Redirect(method = "prepareLevels", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/server/ServerChunkProvider;getTickingGenerated()I"))
     public int prepareLevels_Redirect(ServerChunkProvider provider) {

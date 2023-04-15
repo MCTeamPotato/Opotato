@@ -34,7 +34,7 @@ public class CommonEvents {
     private static final Random RANDOM = new Random();
 
     @SubscribeEvent
-    public static void onRegisterCommands(RegisterCommandsEvent event) {
+    public static void registerCommands(RegisterCommandsEvent event) {
         Opotato.OpotatoCommand.register(event.getDispatcher());
     }
 
@@ -56,6 +56,7 @@ public class CommonEvents {
     @SubscribeEvent
     public static void forgeVersionCheck(FMLCommonSetupEvent event) {
         if (!ForgeVersion.getVersion().equals("36.2.39") && ModList.get().isLoaded("epicfight") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4")) event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, "opotato.epicfight.wrong_forge_version")));
+        if (ModList.get().isLoaded("betterfpsdist") && ModList.get().isLoaded("rubidium")) event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, "opotato.bettefpsdist.incompatible_with_rubidium")));
     }
 
     @SubscribeEvent
@@ -77,10 +78,6 @@ public class CommonEvents {
         ResourceLocation regName = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.ALLOW_LIMIT_MAX_SPAWN.get() || regName == null || world.isClientSide() || PotatoCommonConfig.BLACKLIST.get().contains(regName.toString())) return;
         ChunkPos chunk = world.getChunk(entity.blockPosition()).getPos();
-        if (world.getEntitiesOfClass(entity.getClass(),
-                new AxisAlignedBB(chunk.getMinBlockX(), 0, chunk.getMinBlockZ(), chunk.getMaxBlockX(), 256, chunk.getMaxBlockX())).size() >
-                PotatoCommonConfig.MAX_ENTITIES_NUMBER_PER_CHUNK.get()) {
-            event.setResult(Event.Result.DENY);
-        }
+        if (world.getEntitiesOfClass(entity.getClass(), new AxisAlignedBB(chunk.getMinBlockX(), 0, chunk.getMinBlockZ(), chunk.getMaxBlockX(), 256, chunk.getMaxBlockX())).size() > PotatoCommonConfig.MAX_ENTITIES_NUMBER_PER_CHUNK.get()) event.setResult(Event.Result.DENY);
     }
 }

@@ -4,6 +4,6 @@ import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler;
 
 public interface IServerLevel {
 
-    public WireHandler getWireHandler();
+    WireHandler getWireHandler();
 
 }
