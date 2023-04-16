@@ -2,9 +2,6 @@ package com.teampotato.opotato.event;
 
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
-import net.minecraft.block.Block;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.EnderChestBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -21,7 +17,6 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -106,17 +101,5 @@ public class CommonEvents {
         if (!PotatoCommonConfig.ALLOW_LIMIT_MAX_SPAWN.get() || regName == null || world.isClientSide() || PotatoCommonConfig.BLACKLIST.get().contains(regName.toString())) return;
         ChunkPos chunk = world.getChunk(entity.blockPosition()).getPos();
         if (world.getEntitiesOfClass(entity.getClass(), new AxisAlignedBB(chunk.getMinBlockX(), 0, chunk.getMinBlockZ(), chunk.getMaxBlockX(), 256, chunk.getMaxBlockX())).size() > PotatoCommonConfig.MAX_ENTITIES_NUMBER_PER_CHUNK.get()) event.setResult(Event.Result.DENY);
-    }
-
-    @SubscribeEvent
-    public static void fastChestWarn(PlayerInteractEvent.RightClickBlock event) {
-        World world = event.getWorld();
-        PlayerEntity player = event.getPlayer();
-        if (world.isClientSide || player.getTags().contains("opotato.warn_received")) return;
-        Block block = world.getBlockState(event.getPos()).getBlock();
-        if (block instanceof ChestBlock || block instanceof EnderChestBlock) {
-            player.sendMessage(new TranslationTextComponent("opotato.warn.fastchest"), player.getUUID());
-            player.addTag("opotato.warn_received");
-        }
     }
 }
