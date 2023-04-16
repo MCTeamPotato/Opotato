@@ -72,23 +72,16 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
         }
         return option.isEnabled();
     }
-    @Override
-    public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
-
-    }
 
     @Override
-    public List<String> getMixins() {
-        return null;
-    }
+    public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
 
     @Override
-    public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
-    }
+    public List<String> getMixins() {return null;}
 
     @Override
-    public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+    public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
 
-    }
+    @Override
+    public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
 }

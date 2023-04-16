@@ -2,6 +2,9 @@ package com.teampotato.opotato.event;
 
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
+import net.minecraft.block.Block;
+import net.minecraft.block.ChestBlock;
+import net.minecraft.block.EnderChestBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -17,6 +21,7 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,9 +34,15 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
+import static com.teampotato.opotato.Opotato.isLoaded;
+
 @Mod.EventBusSubscriber
 public class CommonEvents {
     private static final Random RANDOM = new Random();
+
+    private static void addIncompatibleWarn(FMLCommonSetupEvent event, String translationKey) {
+        event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, translationKey)));
+    }
 
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
@@ -39,7 +50,7 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void duplicateEntityUUIDFix(EntityJoinWorldEvent event) {
+    public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (event.getWorld() instanceof ServerWorld) {
             Entity entity = event.getEntity();
             if (entity instanceof PlayerEntity) return;
@@ -54,13 +65,29 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void forgeVersionCheck(FMLCommonSetupEvent event) {
-        if (!ForgeVersion.getVersion().equals("36.2.39") && ModList.get().isLoaded("epicfight") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4")) event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, "opotato.epicfight.wrong_forge_version")));
-        if (ModList.get().isLoaded("betterfpsdist") && ModList.get().isLoaded("rubidium")) event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, "opotato.bettefpsdist.incompatible_with_rubidium")));
+    public static void onCommonSetup(FMLCommonSetupEvent event) {
+        boolean rb = isLoaded("rubidium");
+        if (isLoaded("epicfight")) {
+            if (!ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4"))
+                addIncompatibleWarn(event, "opotato.epicfight.wrong_forge_version");
+        }
+        if (rb) {
+            if (isLoaded("betterfpsdist")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterfpsdist");
+            if (isLoaded("immersive_portals")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.immersive_portals");
+            if (isLoaded("chunkanimator"))addIncompatibleWarn(event, "opotato.incompatible.rubidium.chunkanimator");
+        }
+        if (isLoaded("mcdoom") && !isLoaded("mcdoomfix")) addIncompatibleWarn(event, "opotato.mcdoom.without_fix");
+        if (isLoaded("magnesium")) {
+            if (rb) {
+                addIncompatibleWarn(event, "opotato.incompatible.magnesium.rubidium");
+            } else {
+                addIncompatibleWarn(event, "opotato.magnesium");
+            }
+        }
     }
 
     @SubscribeEvent
-    public static void optimizeWitherStorm(LivingDeathEvent event) {
+    public static void onLivingDeath(LivingDeathEvent event) {
         if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get()) return;
         LivingEntity entity = event.getEntityLiving();
         World world = entity.level;
@@ -79,5 +106,17 @@ public class CommonEvents {
         if (!PotatoCommonConfig.ALLOW_LIMIT_MAX_SPAWN.get() || regName == null || world.isClientSide() || PotatoCommonConfig.BLACKLIST.get().contains(regName.toString())) return;
         ChunkPos chunk = world.getChunk(entity.blockPosition()).getPos();
         if (world.getEntitiesOfClass(entity.getClass(), new AxisAlignedBB(chunk.getMinBlockX(), 0, chunk.getMinBlockZ(), chunk.getMaxBlockX(), 256, chunk.getMaxBlockX())).size() > PotatoCommonConfig.MAX_ENTITIES_NUMBER_PER_CHUNK.get()) event.setResult(Event.Result.DENY);
+    }
+
+    @SubscribeEvent
+    public static void fastChestWarn(PlayerInteractEvent.RightClickBlock event) {
+        World world = event.getWorld();
+        PlayerEntity player = event.getPlayer();
+        if (world.isClientSide || player.getTags().contains("opotato.warn_received")) return;
+        Block block = world.getBlockState(event.getPos()).getBlock();
+        if (block instanceof ChestBlock || block instanceof EnderChestBlock) {
+            player.sendMessage(new TranslationTextComponent("opotato.warn.fastchest"), player.getUUID());
+            player.addTag("opotato.warn_received");
+        }
     }
 }

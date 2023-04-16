@@ -7,6 +7,7 @@ import com.teampotato.opotato.util.schwarz.ChunkCommandHandler;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -24,7 +25,10 @@ public class Opotato {
 
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
-        LOGGER.info("Oh, potato!");
+    }
+
+    public static boolean isLoaded(String modID) {
+        return ModList.get().isLoaded(modID);
     }
 
     public static class OpotatoCommand {
@@ -32,5 +36,14 @@ public class Opotato {
             LiteralArgumentBuilder<CommandSource> schwarz = Commands.literal("schwarz").then(Commands.literal("chunkanalyse").executes(ChunkCommandHandler::ChunkAnalyse));
             dispatcher.register(schwarz);
         }
+    }
+
+    public static class EmptyThread extends Thread {
+        public EmptyThread() {
+            this.setName("Empty Thread");
+            this.setDaemon(true);
+            this.start();
+        }
+        public void run() {}
     }
 }

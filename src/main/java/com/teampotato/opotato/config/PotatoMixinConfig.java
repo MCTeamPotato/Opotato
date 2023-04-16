@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
-
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("ksyxis", true);
@@ -30,6 +29,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.ostoverhaul", true);
         this.addMixinRule("opotato.placebo", true);
         this.addMixinRule("opotato.quark", true);
+        this.addMixinRule("opotato.undergarden", true);
         this.addMixinRule("smoothmenu", true);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");

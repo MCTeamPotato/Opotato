@@ -15,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class RedStoneWireBlockMixin {
     @Inject(method = "updatePowerStrength", cancellable = true, at = @At(value = "HEAD"))
     private void onUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci) {
-        // Using redirects for calls to this method makes conflicts with
-        // other mods more likely, so we inject-cancel instead.
         ci.cancel();
     }
 

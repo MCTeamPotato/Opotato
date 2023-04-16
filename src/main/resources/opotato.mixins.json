@@ -35,6 +35,7 @@
     "opotato.quark.MixinContributorRewardHandler",
     "opotato.quark.MixinImprovedTooltipsModule",
     "opotato.quark.MixinQuarkModule",
+    "opotato.undergarden.MixinUGStructures",
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [

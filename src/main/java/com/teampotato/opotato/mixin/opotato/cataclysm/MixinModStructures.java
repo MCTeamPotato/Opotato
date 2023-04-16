@@ -7,10 +7,8 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.fml.RegistryObject;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static com.teampotato.opotato.config.PotatoCommonConfig.*;
 
@@ -23,11 +21,14 @@ public abstract class MixinModStructures {
     @Shadow @Final public static RegistryObject<Structure<NoFeatureConfig>> RUINED_CITADEL;
     @Shadow @Final public static RegistryObject<Structure<NoFeatureConfig>> BURNING_ARENA;
 
-    @Inject(method = "setupStructures", at = @At("HEAD"), cancellable = true)
-    private static void on_setupStructures(CallbackInfo ci) {
+    /**
+     * @author Kasuliax
+     * @reason Allow structures generation settings
+     */
+    @Overwrite
+    public static void setupStructures() {
         setupMapSpacingAndLand(SOUL_BLACK_SMITH.get(), new StructureSeparationSettings(SOUL_BLACK_SMITH_SPACING.get(), SOUL_BLACK_SMITH_SEPARATION.get(), 1984567320), false);
         setupMapSpacingAndLand(RUINED_CITADEL.get(), new StructureSeparationSettings(RUINED_CITADEL_SPACING.get(), RUINED_CITADEL_SEPARATION.get(), 367895146), false);
         setupMapSpacingAndLand(BURNING_ARENA.get(), new StructureSeparationSettings(BURNING_ARENA_SPACING.get(), BURNING_ARENA_SEPARATION.get(), 1923456789), false);
-        ci.cancel();
     }
 }

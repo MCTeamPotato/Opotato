@@ -32,10 +32,9 @@ public class DealHeadshotEventMixin {
     public static void onHeadshotIfApplicable(LivingDamageEvent event) {
         LivingEntity entity = event.getEntityLiving();
         World world = entity.level;
-        if (world.isClientSide) return;
         DamageSource eventSource = event.getSource();
         Vector3d srcPos = eventSource.getSourcePosition();
-        if (!eventSource.isProjectile() || srcPos == null || entity.isInvulnerableTo(eventSource) || srcPos.y <= entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85, 0.0).y - 0.17 || !(!HeadshotConfig.HELMET_MITIGATION.get() || entity.getItemBySlot(EquipmentSlotType.HEAD).isEmpty())) return;
+        if (world.isClientSide || !eventSource.isProjectile() || srcPos == null || entity.isInvulnerableTo(eventSource) || srcPos.y <= entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85, 0.0).y - 0.17 || !(!HeadshotConfig.HELMET_MITIGATION.get() || entity.getItemBySlot(EquipmentSlotType.HEAD).isEmpty())) return;
 
         PlayerEntity player = (entity instanceof PlayerEntity) ? (PlayerEntity) entity : null;
         if (player != null) player.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_player"), true);

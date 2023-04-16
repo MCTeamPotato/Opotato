@@ -22,8 +22,8 @@ public class MixinServerTickStuff {
     @Shadow
     public static int ticksorsmthn = 0;
     /**
-     * @author Doctor Who
-     * @reason Saving The World
+     * @author Kasualix
+     * @reason Optimize tick event
      */
     @Overwrite
     @SubscribeEvent
