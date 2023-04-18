@@ -18,7 +18,7 @@ version = '1.16.5-' + mod_version
 group = 'com.teampotato.opotato'
 archivesBaseName = 'opotato'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(11)
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
     mappings channel: 'official', version: '1.16.5'
@@ -103,6 +103,7 @@ dependencies {
     implementation fg.deobf('curse.maven:elenai-dodge-2-442962:3343309')
     implementation fg.deobf('curse.maven:l_ender-s-cataclysm-551586:4418434')
     implementation fg.deobf('curse.maven:the-undergarden-379849:3477594')
+    implementation fg.deobf('curse.maven:randompatches-forge-285612:3211323')
     implementation 'org.jetbrains:annotations:24.0.1'
 }
 

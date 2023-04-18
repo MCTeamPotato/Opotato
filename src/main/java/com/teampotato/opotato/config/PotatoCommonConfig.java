@@ -22,7 +22,7 @@ public class PotatoCommonConfig {
         MAX_ENTITIES_NUMBER_PER_CHUNK = CONFIG_BUILDER.defineInRange("max entities spawning number per chunk", 10, 1, 100);
         BLACKLIST = CONFIG_BUILDER.defineList("entities whose spawn won't be limited", Lists.newArrayList("modid:mobid"), o -> o instanceof String);
         CONFIG_BUILDER.pop();
-        
+
         CONFIG_BUILDER.push("Blue Skies Extra Settings");
         ENABLE_BLUE_SKIES_NERF = CONFIG_BUILDER.define("enable blue skies nerf", true);
         ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM = CONFIG_BUILDER.define("allow every mod generate features in blueskies dimensions", false);

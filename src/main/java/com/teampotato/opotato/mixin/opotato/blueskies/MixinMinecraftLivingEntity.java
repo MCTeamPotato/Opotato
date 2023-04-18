@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = LivingEntity.class)
 public abstract class MixinMinecraftLivingEntity {
     @Shadow
-    public abstract double getAttributeValue(Attribute p_233637_1_);
+    public abstract double getAttributeValue(Attribute attribute);
 
     @Inject(at = @At("HEAD"), method = "getArmorValue", cancellable = true)
     private void getArmorValue(CallbackInfoReturnable<Integer> callback) {

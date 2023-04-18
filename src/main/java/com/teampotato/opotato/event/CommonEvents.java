@@ -33,8 +33,6 @@ import static com.teampotato.opotato.Opotato.isLoaded;
 
 @Mod.EventBusSubscriber
 public class CommonEvents {
-    private static final Random RANDOM = new Random();
-
     private static void addIncompatibleWarn(FMLCommonSetupEvent event, String translationKey) {
         event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, translationKey)));
     }
@@ -52,8 +50,8 @@ public class CommonEvents {
             ServerWorld world = (ServerWorld) event.getWorld();
             Entity existing = world.getEntity(entity.getUUID());
             if (existing != null && existing != entity) {
-                UUID newUUID = MathHelper.createInsecureUUID(RANDOM);
-                while (world.getEntity(newUUID) != null) newUUID = MathHelper.createInsecureUUID(RANDOM);
+                UUID newUUID = MathHelper.createInsecureUUID();
+                while (world.getEntity(newUUID) != null) newUUID = MathHelper.createInsecureUUID();
                 entity.setUUID(newUUID);
             }
         }
@@ -83,12 +81,11 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get()) return;
         LivingEntity entity = event.getEntityLiving();
         World world = entity.level;
         MinecraftServer server = world.getServer();
         ResourceLocation name = entity.getType().getRegistryName();
-        if (world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
+        if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get() || world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
         String[] targets = {"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"};
         Arrays.stream(targets).forEach(obj -> server.getCommands().performCommand(server.createCommandSourceStack().withSuppressedOutput(), "/kill @e[type=witherstormmod:" + obj + "]"));
     }

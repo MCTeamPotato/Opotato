@@ -3,7 +3,7 @@
   "plugin": "com.teampotato.opotato.mixin.PotatoMixinPlugin",
   "refmap": "opotato.refmap.json",
   "required": true,
-  "compatibilityLevel": "JAVA_11",
+  "compatibilityLevel": "JAVA_8",
   "injectors": {
     "defaultRequire": 1
   },
@@ -18,6 +18,8 @@
     "lazystronghold.MixinChunkGenerator",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
+    "opotato.MixinChunk",
+    "opotato.MixinWorld",
     "opotato.blueskies.MixinBlueSkiesCommonConfig",
     "opotato.blueskies.MixinGatekeeperHouseStructure",
     "opotato.blueskies.MixinMinecraftLivingEntity",
@@ -35,6 +37,7 @@
     "opotato.quark.MixinContributorRewardHandler",
     "opotato.quark.MixinImprovedTooltipsModule",
     "opotato.quark.MixinQuarkModule",
+    "opotato.randompatches.MixinDuplicateEntityUUIDFixHandler",
     "opotato.undergarden.MixinUGStructures",
     "smoothmenu.SmoothMenuMixin"
   ],
