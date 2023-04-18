@@ -1,5 +1,6 @@
 package com.teampotato.opotato.mixin.opotato;
 
+import com.teampotato.opotato.util.MixinUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,11 +27,6 @@ public class MixinChunk {
      */
     @Overwrite
     public <T extends Entity> void getEntitiesOfClass(Class<? extends T> cs, AxisAlignedBB aabb, List<T> list, @Nullable Predicate<? super T> predicate) {
-        for(int k = MathHelper.clamp(MathHelper.floor((aabb.minY - this.level.getMaxEntityRadius()) / 16.0D), 0, this.entitySections.length - 1);
-            k <= MathHelper.clamp(MathHelper.floor((aabb.maxY + this.level.getMaxEntityRadius()) / 16.0D), 0, this.entitySections.length - 1); ++k) {
-            this.entitySections[k].find(cs).forEach(t -> {
-                if (t.getBoundingBox().intersects(aabb) && (predicate == null || predicate.test(t))) list.add(t);
-            });
-        }
+        MixinUtil.getEntitiesOfClass(cs, aabb, list, predicate, level, entitySections);
     }
 }

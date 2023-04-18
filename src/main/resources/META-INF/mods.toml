@@ -9,5 +9,5 @@ version = "${file.jarVersion}"
 displayName = "Opotato"
 authors="Team Potato"
 description = '''
-Yeah another optimization mod.
+Not just an optimization mod.
 '''

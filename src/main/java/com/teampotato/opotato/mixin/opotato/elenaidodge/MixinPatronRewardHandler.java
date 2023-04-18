@@ -22,6 +22,7 @@ public class MixinPatronRewardHandler {
     public static void init() {
         if (thread == null || !thread.isAlive()) {
             doneLoading = false;
+            Opotato.LOGGER.info("Opotato: cancel Elenai Dodge 2 creates new Internet connection thread");
             thread = new Opotato.EmptyThread();
         }
     }

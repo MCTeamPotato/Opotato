@@ -26,7 +26,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.versions.forge.ForgeVersion;
 
 import java.util.Arrays;
-import java.util.Random;
 import java.util.UUID;
 
 import static com.teampotato.opotato.Opotato.isLoaded;

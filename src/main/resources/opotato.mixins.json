@@ -12,10 +12,6 @@
     "alternatecurrent.RedStoneWireBlockMixin",
     "alternatecurrent.ServerLevelMixin",
     "ksyxis.MinecraftServerMixin",
-    "lazystronghold.ChunkGeneratorAccess",
-    "lazystronghold.EntityMixin",
-    "lazystronghold.MinecraftServerMixin",
-    "lazystronghold.MixinChunkGenerator",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
     "opotato.MixinChunk",
@@ -38,6 +34,7 @@
     "opotato.quark.MixinImprovedTooltipsModule",
     "opotato.quark.MixinQuarkModule",
     "opotato.randompatches.MixinDuplicateEntityUUIDFixHandler",
+    "opotato.randompatches.MixinRPContributorCapeHandler",
     "opotato.undergarden.MixinUGStructures",
     "smoothmenu.SmoothMenuMixin"
   ],

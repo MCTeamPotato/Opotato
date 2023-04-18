@@ -15,7 +15,6 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("ksyxis", true);
-        this.addMixinRule("lazystronghold", true);
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("opotato.blueskies", true);
         this.addMixinRule("opotato.cataclysm", true);
