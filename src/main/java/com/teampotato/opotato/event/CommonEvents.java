@@ -4,7 +4,7 @@ import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,14 +28,10 @@ import net.minecraftforge.versions.forge.ForgeVersion;
 import java.util.Arrays;
 import java.util.UUID;
 
-import static com.teampotato.opotato.Opotato.isLoaded;
+import static com.teampotato.opotato.util.opotato.EventUtil.*;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = Opotato.ID)
 public class CommonEvents {
-    private static void addIncompatibleWarn(FMLCommonSetupEvent event, String translationKey) {
-        event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, translationKey)));
-    }
-
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
         Opotato.OpotatoCommand.register(event.getDispatcher());
@@ -43,17 +39,15 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (event.getWorld() instanceof ServerWorld) {
-            Entity entity = event.getEntity();
-            if (entity instanceof PlayerEntity) return;
-            ServerWorld world = (ServerWorld) event.getWorld();
-            Entity existing = world.getEntity(entity.getUUID());
-            if (existing != null && existing != entity) {
-                UUID newUUID = MathHelper.createInsecureUUID();
-                while (world.getEntity(newUUID) != null) newUUID = MathHelper.createInsecureUUID();
-                entity.setUUID(newUUID);
-            }
-        }
+        if (!(event.getWorld() instanceof ServerWorld)) return;
+        Entity entity = event.getEntity();
+        if (entity instanceof ServerPlayerEntity) return;
+        ServerWorld world = (ServerWorld) event.getWorld();
+        Entity existing = world.getEntity(entity.getUUID());
+        if (existing == null || existing == entity) return;
+        UUID newUUID = MathHelper.createInsecureUUID();
+        while (world.getEntity(newUUID) != null) newUUID = MathHelper.createInsecureUUID();
+        entity.setUUID(newUUID);
     }
 
     @SubscribeEvent
@@ -85,8 +79,9 @@ public class CommonEvents {
         MinecraftServer server = world.getServer();
         ResourceLocation name = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get() || world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
-        String[] targets = {"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"};
-        Arrays.stream(targets).forEach(obj -> server.getCommands().performCommand(server.createCommandSourceStack().withSuppressedOutput(), "/kill @e[type=witherstormmod:" + obj + "]"));
+        Arrays
+                .stream(new String[]{"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"})
+                .forEach(obj -> exeCmd(server, "/kill @e[type=witherstormmod:" + obj + "]"));
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

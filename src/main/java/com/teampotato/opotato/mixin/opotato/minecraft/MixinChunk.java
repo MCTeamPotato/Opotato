@@ -1,10 +1,9 @@
-package com.teampotato.opotato.mixin.opotato;
+package com.teampotato.opotato.mixin.opotato.minecraft;
 
-import com.teampotato.opotato.util.MixinUtil;
+import com.teampotato.opotato.util.opotato.MixinUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import org.spongepowered.asm.mixin.Final;
@@ -27,6 +26,6 @@ public class MixinChunk {
      */
     @Overwrite
     public <T extends Entity> void getEntitiesOfClass(Class<? extends T> cs, AxisAlignedBB aabb, List<T> list, @Nullable Predicate<? super T> predicate) {
-        MixinUtil.getEntitiesOfClass(cs, aabb, list, predicate, level, entitySections);
+        MixinUtil.MinecraftUtil.getEntitiesOfClass(cs, aabb, list, predicate, level, entitySections);
     }
 }

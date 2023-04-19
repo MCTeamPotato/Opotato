@@ -14,18 +14,21 @@
     "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
-    "opotato.MixinChunk",
-    "opotato.MixinWorld",
     "opotato.blueskies.MixinBlueSkiesCommonConfig",
     "opotato.blueskies.MixinGatekeeperHouseStructure",
     "opotato.blueskies.MixinMinecraftLivingEntity",
+    "opotato.blueskies.MixinMLSupporters",
     "opotato.blueskies.MixinSkiesEntityHooks",
     "opotato.blueskies.MixinSkiesHooks",
     "opotato.cataclysm.MixinModStructures",
     "opotato.citadel.MixinWebHelper",
+    "opotato.deuf.MixinDEUF",
     "opotato.elenaidodge.MixinPatronRewardHandler",
     "opotato.headshot.DealHeadshotEventMixin",
     "opotato.inspirations.MixinPortalColorHandler",
+    "opotato.kiwi.MixinContributors",
+    "opotato.minecraft.MixinChunk",
+    "opotato.minecraft.MixinWorld",
     "opotato.oculus.MixinNECDetection",
     "opotato.ostoverhaul.MixinServerTickStuff",
     "opotato.placebo.MixinTrailsManager",
@@ -35,11 +38,15 @@
     "opotato.quark.MixinQuarkModule",
     "opotato.randompatches.MixinDuplicateEntityUUIDFixHandler",
     "opotato.randompatches.MixinRPContributorCapeHandler",
+    "opotato.supplementaries.MixinCredits",
     "opotato.undergarden.MixinUGStructures",
+    "opotato.witherstormmod.MixinWitherSicknessEvents",
+    "opotato.witherstormmod.MixinWitherStormChunkLoader",
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
     "opotato.jumpoverfences.ClientEventHandlerMixin",
-    "opotato.modernui.MixinMinecraftMainWindow"
+    "opotato.modernui.MixinMinecraftMainWindow",
+    "opotato.witherstormmod.MixinBlockClusterRenderer"
   ]
 }

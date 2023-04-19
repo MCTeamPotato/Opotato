@@ -27,10 +27,6 @@ public class Opotato {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
     }
 
-    public static boolean isLoaded(String modID) {
-        return ModList.get().isLoaded(modID);
-    }
-
     public static class OpotatoCommand {
         public static void register(CommandDispatcher<CommandSource> dispatcher) {
             LiteralArgumentBuilder<CommandSource> schwarz = Commands.literal("schwarz").then(Commands.literal("chunkanalyse").executes(ChunkCommandHandler::ChunkAnalyse));

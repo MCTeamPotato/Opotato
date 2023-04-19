@@ -104,6 +104,10 @@ dependencies {
     implementation fg.deobf('curse.maven:l_ender-s-cataclysm-551586:4418434')
     implementation fg.deobf('curse.maven:the-undergarden-379849:3477594')
     implementation fg.deobf('curse.maven:randompatches-forge-285612:3211323')
+    implementation fg.deobf("curse.maven:kiwi-303657:3536245")
+    implementation fg.deobf("curse.maven:crackers-wither-storm-mod-621405:4403153")
+    implementation fg.deobf("curse.maven:supplementaries-412082:4351390")
+    implementation fg.deobf("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
     implementation 'org.jetbrains:annotations:24.0.1'
 }
 
