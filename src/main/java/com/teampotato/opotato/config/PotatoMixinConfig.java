@@ -21,6 +21,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.citadel", true);
         this.addMixinRule("opotato.deuf", true);
         this.addMixinRule("opotato.elenaidodge", true);
+        this.addMixinRule("opotato.forge", true);
         this.addMixinRule("opotato.headshot", true);
         this.addMixinRule("opotato.inspirations", true);
         this.addMixinRule("opotato.jumpoverfences", true);
