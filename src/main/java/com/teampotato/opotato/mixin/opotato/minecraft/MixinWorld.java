@@ -26,6 +26,6 @@ public abstract class MixinWorld implements IWorld {
      */
     @Overwrite
     public <T extends Entity> @NotNull List<T> getEntitiesOfClass(@NotNull Class<? extends T> cs, @NotNull AxisAlignedBB aabb, @Nullable Predicate<? super T> predicate) {
-        return MixinUtil.MinecraftUtil.getEntitiesOfClass(cs, aabb, predicate, getProfiler(), getMaxEntityRadius(), this.getChunkSource());
+        return MixinUtil.getEntitiesOfClass(cs, aabb, predicate, getProfiler(), getMaxEntityRadius(), this.getChunkSource());
     }
 }

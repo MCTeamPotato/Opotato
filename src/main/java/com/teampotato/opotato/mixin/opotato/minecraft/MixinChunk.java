@@ -26,6 +26,6 @@ public class MixinChunk {
      */
     @Overwrite
     public <T extends Entity> void getEntitiesOfClass(Class<? extends T> cs, AxisAlignedBB aabb, List<T> list, @Nullable Predicate<? super T> predicate) {
-        MixinUtil.MinecraftUtil.getEntitiesOfClass(cs, aabb, list, predicate, level, entitySections);
+        MixinUtil.getEntitiesOfClass(cs, aabb, list, predicate, level, entitySections);
     }
 }
