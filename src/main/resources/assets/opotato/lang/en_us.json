@@ -7,5 +7,6 @@
   "opotato.incompatible.rubidium.chunkanimator": "Chunk Animator is not compatible with Rubidium, pls remove Chunk Animator!",
   "opotato.incompatible.magnesium.rubidium": "Magnesium and Rubidium are unofficial ports of Sodium and they are not compatible, pls remove Magnesium!",
   "opotato.mcdoom.without_fix": "You installed MC Doom but didn't install MCDoom Hotfixes. Your game will crashed when rendering Dread Knight!",
-  "opotato.magnesium": "Magnesium detected! SomeoneElseWasTaken has stopped updating it, the compatibility of open-source mods are improved with the update time, if you want to get better rendering optimization, pls try Rubidium!"
+  "opotato.magnesium": "Magnesium detected! SomeoneElseWasTaken has stopped updating it, the compatibility of open-source mods are improved with the update time, if you want to get better rendering optimization, pls try Rubidium!",
+  "opotato.optnotfine": "Optifine detected! It's closed-source & incompatible with a lot of mods & increase your game launching time a lot, pls use Rubidium + Oculus!"
 }

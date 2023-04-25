@@ -46,6 +46,7 @@
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
+    "opotato.gender.MixinGenderLayer",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.modernui.MixinMinecraftMainWindow",
     "opotato.witherstormmod.MixinBlockClusterRenderer"

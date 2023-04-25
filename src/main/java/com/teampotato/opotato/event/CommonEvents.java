@@ -52,6 +52,10 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event) {
+        try {
+            Class.forName("net.optifine.Config");
+            addIncompatibleWarn(event, "opotato.optnotfine");
+        } catch (ClassNotFoundException ignored) {}
         boolean rb = isLoaded("rubidium");
         if (isLoaded("epicfight")) {
             if (!ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4"))

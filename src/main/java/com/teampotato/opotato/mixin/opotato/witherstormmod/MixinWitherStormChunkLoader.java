@@ -12,15 +12,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(WitherStormChunkLoader.class)
+@Mixin(value = WitherStormChunkLoader.class, remap = false)
 public class MixinWitherStormChunkLoader {
     @Inject(method = "onWorldTick", at = @At("HEAD"), cancellable = true)
     private static void onWitherStormChunkLoad(TickEvent.WorldTickEvent event, CallbackInfo ci) {
-        if (
-                !(event.world instanceof ServerWorld) ||
-                (PotatoCommonConfig.REDUCE_THE_WITHER_STORM_CHUNK_ACTIVITY.get() && RandomUtils.nextInt(0, 2) == 1) ||
-                event.world.players().isEmpty() ||
-                ((ServerWorld) event.world).getEntities(WitherStormModEntityTypes.WITHER_STORM, Entity::isAlive).isEmpty()
-        ) ci.cancel();
+        if (!(event.world instanceof ServerWorld) || (PotatoCommonConfig.REDUCE_THE_WITHER_STORM_CHUNK_ACTIVITY.get() && RandomUtils.nextInt(0, 2) == 1) || event.world.players().isEmpty() || ((ServerWorld) event.world).getEntities(WitherStormModEntityTypes.WITHER_STORM, Entity::isAlive).isEmpty()) ci.cancel();
     }
 }

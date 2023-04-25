@@ -24,6 +24,7 @@ public class Opotato {
 
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
+        LOGGER.info("Oh, potato!");
     }
 
     public static class OpotatoCommand {

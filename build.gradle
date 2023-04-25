@@ -22,9 +22,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
     mappings channel: 'official', version: '1.16.5'
-
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-    
     runs {
         client {
             workingDirectory project.file('run')
@@ -82,11 +80,16 @@ repositories {
     }
     maven { url = 'https://maven.minecraftforge.net' }
     maven { url 'https://jitpack.io' }
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    implementation 'org.jetbrains:annotations:24.0.1'
+
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
     implementation fg.deobf('curse.maven:headshot-forge-538264:3501178')
     implementation fg.deobf('curse.maven:jump-over-fences-forge-423421:3125998')
@@ -104,11 +107,16 @@ dependencies {
     implementation fg.deobf('curse.maven:l_ender-s-cataclysm-551586:4418434')
     implementation fg.deobf('curse.maven:the-undergarden-379849:3477594')
     implementation fg.deobf('curse.maven:randompatches-forge-285612:3211323')
-    implementation fg.deobf("curse.maven:kiwi-303657:3536245")
     implementation fg.deobf("curse.maven:crackers-wither-storm-mod-621405:4403153")
     implementation fg.deobf("curse.maven:supplementaries-412082:4351390")
     implementation fg.deobf("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
-    implementation 'org.jetbrains:annotations:24.0.1'
+    implementation fg.deobf("curse.maven:kiwi-303657:3536245")
+    implementation fg.deobf("curse.maven:rubidium-574856:4397474")
+    implementation fg.deobf("curse.maven:mowzies-mobs-250498:4120133")
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.16.5:3.0.106')
+
+    implementation fg.deobf("curse.maven:female-gender-forge-481655:3459078")
+    implementation fg.deobf("curse.maven:corpse-316582:3447907")
 }
 
 jar {
