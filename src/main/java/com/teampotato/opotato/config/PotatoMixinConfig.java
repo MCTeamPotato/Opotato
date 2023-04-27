@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
     private PotatoMixinConfig() {
-        this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("ksyxis", true);
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("opotato.blueskies", true);
@@ -22,8 +21,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.deuf", true);
         this.addMixinRule("opotato.elenaidodge", true);
         this.addMixinRule("opotato.forge", true);
-        this.addMixinRule("opotato.gender", true);
-        this.addMixinRule("opotato.headshot", true);
         this.addMixinRule("opotato.inspirations", true);
         this.addMixinRule("opotato.jumpoverfences", true);
         this.addMixinRule("opotato.kiwi", true);
@@ -33,12 +30,10 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.ostoverhaul", true);
         this.addMixinRule("opotato.placebo", true);
         this.addMixinRule("opotato.quark", true);
-        this.addMixinRule("opotato.randompatches", true);
         this.addMixinRule("opotato.supplementaries", true);
         this.addMixinRule("opotato.undergarden", true);
         this.addMixinRule("opotato.witherstormmod", false);
         this.addMixinRule("opotato.xaero", true);
-        this.addMixinRule("smoothmenu", true);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
         disableIfModPresent("mixin.opotato.modernui", "essential");

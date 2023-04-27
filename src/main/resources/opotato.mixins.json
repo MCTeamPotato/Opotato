@@ -9,8 +9,6 @@
   },
   "minVersion": "0.8",
   "mixins": [
-    "alternatecurrent.RedStoneWireBlockMixin",
-    "alternatecurrent.ServerLevelMixin",
     "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
@@ -25,7 +23,6 @@
     "opotato.deuf.MixinDEUF",
     "opotato.elenaidodge.MixinPatronRewardHandler",
     "opotato.forge.MixinFMLConfig",
-    "opotato.headshot.DealHeadshotEventMixin",
     "opotato.inspirations.MixinPortalColorHandler",
     "opotato.kiwi.MixinContributors",
     "opotato.minecraft.MixinChunk",
@@ -37,8 +34,6 @@
     "opotato.quark.MixinContributorRewardHandler",
     "opotato.quark.MixinImprovedTooltipsModule",
     "opotato.quark.MixinQuarkModule",
-    "opotato.randompatches.MixinDuplicateEntityUUIDFixHandler",
-    "opotato.randompatches.MixinRPContributorCapeHandler",
     "opotato.supplementaries.MixinCredits",
     "opotato.undergarden.MixinUGStructures",
     "opotato.witherstormmod.MixinWitherSicknessEvents",
@@ -46,11 +41,9 @@
     "opotato.xaero.MixinMinimapInternet",
     "opotato.xaero.MixinMinimapPatreon",
     "opotato.xaero.MixinWorldMapInternet",
-    "opotato.xaero.MixinWorldMapPatreon",
-    "smoothmenu.SmoothMenuMixin"
+    "opotato.xaero.MixinWorldMapPatreon"
   ],
   "client": [
-    "opotato.gender.MixinGenderLayer",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.modernui.MixinMinecraftMainWindow",
     "opotato.witherstormmod.MixinBlockClusterRenderer"
