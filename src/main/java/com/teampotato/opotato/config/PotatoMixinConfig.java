@@ -37,6 +37,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.supplementaries", true);
         this.addMixinRule("opotato.undergarden", true);
         this.addMixinRule("opotato.witherstormmod", false);
+        this.addMixinRule("opotato.xaero", true);
         this.addMixinRule("smoothmenu", true);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");

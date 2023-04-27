@@ -43,6 +43,10 @@
     "opotato.undergarden.MixinUGStructures",
     "opotato.witherstormmod.MixinWitherSicknessEvents",
     "opotato.witherstormmod.MixinWitherStormChunkLoader",
+    "opotato.xaero.MixinMinimapInternet",
+    "opotato.xaero.MixinMinimapPatreon",
+    "opotato.xaero.MixinWorldMapInternet",
+    "opotato.xaero.MixinWorldMapPatreon",
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [

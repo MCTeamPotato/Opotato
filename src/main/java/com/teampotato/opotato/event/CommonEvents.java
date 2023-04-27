@@ -16,6 +16,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -32,6 +33,15 @@ import static com.teampotato.opotato.util.opotato.EventUtil.*;
 
 @Mod.EventBusSubscriber(modid = Opotato.ID)
 public class CommonEvents {
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        Entity source = event.getSource().getDirectEntity();
+        if (!(source instanceof ServerPlayerEntity) || !PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get()) return;
+        ServerPlayerEntity player = (ServerPlayerEntity) source;
+        if (!player.isCreative()) return;
+        event.getEntityLiving().setHealth(0.0F);
+    }
+
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
         Opotato.OpotatoCommand.register(event.getDispatcher());
@@ -83,9 +93,7 @@ public class CommonEvents {
         MinecraftServer server = world.getServer();
         ResourceLocation name = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get() || world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
-        Arrays
-                .stream(new String[]{"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"})
-                .forEach(obj -> exeCmd(server, "/kill @e[type=witherstormmod:" + obj + "]"));
+        Arrays.stream(new String[]{"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"}).forEach(obj -> exeCmd(server, "/kill @e[type=witherstormmod:" + obj + "]"));
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
