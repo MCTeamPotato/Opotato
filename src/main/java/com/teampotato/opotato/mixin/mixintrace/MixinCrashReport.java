@@ -14,7 +14,7 @@ public abstract class MixinCrashReport {
     @Shadow
     private StackTraceElement[] uncategorizedStackTrace;
 
-    @Inject(method = "getDetails*", at = @At(value = "FIELD", target = "Lnet/minecraft/CrashReport;details:Ljava/util/List;"))
+    @Inject(method = "getDetails(Ljava/lang/StringBuilder;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/CrashReport;details:Ljava/util/List;"))
     private void mixinTrace_addTrace(StringBuilder builder, CallbackInfo ci) {
         int trailingNewlineCount = 0;
         if (builder.charAt(builder.length() - 1) == '\n') {
