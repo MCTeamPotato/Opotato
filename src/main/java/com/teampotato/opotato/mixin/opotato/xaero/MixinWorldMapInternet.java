@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import xaero.common.IXaeroMinimap;
 import xaero.common.misc.Internet;
 
-@Mixin(Internet.class)
+@Mixin(value = Internet.class, remap = false)
 public class MixinWorldMapInternet {
     /**
      * @author Kasualix

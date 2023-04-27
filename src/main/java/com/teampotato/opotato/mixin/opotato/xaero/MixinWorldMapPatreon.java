@@ -8,7 +8,7 @@ import xaero.common.patreon.Patreon;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@Mixin(Patreon.class)
+@Mixin(value = Patreon.class, remap = false)
 public abstract class MixinWorldMapPatreon {
     @Shadow private static HashMap<Integer, ArrayList<String>> patrons;
     @Shadow private static boolean loaded;
