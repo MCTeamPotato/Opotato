@@ -1,11 +1,11 @@
 package com.teampotato.opotato.mixin.opotato.modernui;
 
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(MainWindow.class)
+@Mixin(Window.class)
 public class MixinMinecraftMainWindow {
     @Shadow
     private int framebufferWidth;

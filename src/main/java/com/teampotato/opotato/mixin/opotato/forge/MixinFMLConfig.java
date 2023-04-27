@@ -3,6 +3,7 @@ package com.teampotato.opotato.mixin.opotato.forge;
 import net.minecraftforge.fml.loading.FMLConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+
 @Mixin(value = FMLConfig.class, remap = false)
 public class MixinFMLConfig {
     /**

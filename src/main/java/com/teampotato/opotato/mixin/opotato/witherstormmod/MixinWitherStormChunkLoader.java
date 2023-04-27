@@ -1,8 +1,8 @@
 package com.teampotato.opotato.mixin.opotato.witherstormmod;
 
 import com.teampotato.opotato.config.PotatoCommonConfig;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.event.TickEvent;
 import nonamecrackers2.witherstormmod.common.event.WitherStormChunkLoader;
 import nonamecrackers2.witherstormmod.common.init.WitherStormModEntityTypes;
@@ -16,6 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinWitherStormChunkLoader {
     @Inject(method = "onWorldTick", at = @At("HEAD"), cancellable = true)
     private static void onWitherStormChunkLoad(TickEvent.WorldTickEvent event, CallbackInfo ci) {
-        if (!(event.world instanceof ServerWorld) || (PotatoCommonConfig.REDUCE_THE_WITHER_STORM_CHUNK_ACTIVITY.get() && RandomUtils.nextInt(0, 2) == 1) || event.world.players().isEmpty() || ((ServerWorld) event.world).getEntities(WitherStormModEntityTypes.WITHER_STORM, Entity::isAlive).isEmpty()) ci.cancel();
+        if (!(event.world instanceof ServerLevel) || (PotatoCommonConfig.REDUCE_THE_WITHER_STORM_CHUNK_ACTIVITY.get() && RandomUtils.nextInt(0, 2) == 1) || event.world.players().isEmpty() || ((ServerLevel) event.world).getEntities(WitherStormModEntityTypes.WITHER_STORM.get(), Entity::isAlive).isEmpty()) ci.cancel();
     }
 }

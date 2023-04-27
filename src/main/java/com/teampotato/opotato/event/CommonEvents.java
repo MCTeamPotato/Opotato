@@ -2,29 +2,27 @@ package com.teampotato.opotato.event;
 
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.versions.forge.ForgeVersion;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -33,30 +31,27 @@ import static com.teampotato.opotato.util.opotato.EventUtil.*;
 
 @Mod.EventBusSubscriber(modid = Opotato.ID)
 public class CommonEvents {
+
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+        if (entity.level.isClientSide) return;
         Entity source = event.getSource().getDirectEntity();
-        if (!(source instanceof ServerPlayerEntity) || !PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get()) return;
-        ServerPlayerEntity player = (ServerPlayerEntity) source;
-        if (!player.isCreative()) return;
+        if (Float.isNaN(entity.getHealth())) entity.setHealth(0.0F);
+        if (Float.isNaN(event.getAmount())) event.setCanceled(true);
+
+        if (!(source instanceof ServerPlayer player) || !PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get() || !player.isCreative()) return;
         event.getEntityLiving().setHealth(0.0F);
     }
-
-    @SubscribeEvent
-    public static void registerCommands(RegisterCommandsEvent event) {
-        Opotato.OpotatoCommand.register(event.getDispatcher());
-    }
-
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (!(event.getWorld() instanceof ServerWorld)) return;
+        if (!(event.getWorld() instanceof ServerLevel world)) return;
         Entity entity = event.getEntity();
-        if (entity instanceof ServerPlayerEntity) return;
-        ServerWorld world = (ServerWorld) event.getWorld();
+        if (entity instanceof ServerPlayer) return;
         Entity existing = world.getEntity(entity.getUUID());
         if (existing == null || existing == entity) return;
-        UUID newUUID = MathHelper.createInsecureUUID();
-        while (world.getEntity(newUUID) != null) newUUID = MathHelper.createInsecureUUID();
+        UUID newUUID = Mth.createInsecureUUID();
+        while (world.getEntity(newUUID) != null) newUUID = Mth.createInsecureUUID();
         entity.setUUID(newUUID);
     }
 
@@ -66,30 +61,15 @@ public class CommonEvents {
             Class.forName("net.optifine.Config");
             addIncompatibleWarn(event, "opotato.optnotfine");
         } catch (ClassNotFoundException ignored) {}
-        boolean rb = isLoaded("rubidium");
-        if (isLoaded("epicfight")) {
-            if (!ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4"))
-                addIncompatibleWarn(event, "opotato.epicfight.wrong_forge_version");
-        }
-        if (rb) {
-            if (isLoaded("betterfpsdist")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterfpsdist");
-            if (isLoaded("immersive_portals")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.immersive_portals");
+        if (isLoaded("rubidium")) {
             if (isLoaded("chunkanimator"))addIncompatibleWarn(event, "opotato.incompatible.rubidium.chunkanimator");
-        }
-        if (isLoaded("mcdoom") && !isLoaded("mcdoomfix")) addIncompatibleWarn(event, "opotato.mcdoom.without_fix");
-        if (isLoaded("magnesium")) {
-            if (rb) {
-                addIncompatibleWarn(event, "opotato.incompatible.magnesium.rubidium");
-            } else {
-                addIncompatibleWarn(event, "opotato.magnesium");
-            }
         }
     }
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
         LivingEntity entity = event.getEntityLiving();
-        World world = entity.level;
+        Level world = entity.level;
         MinecraftServer server = world.getServer();
         ResourceLocation name = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get() || world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
@@ -99,10 +79,22 @@ public class CommonEvents {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void ctrlSpawn(LivingSpawnEvent.CheckSpawn event) {
         LivingEntity entity = event.getEntityLiving();
-        IWorld world = event.getWorld();
+        LevelAccessor world = event.getWorld();
         ResourceLocation regName = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.ALLOW_LIMIT_MAX_SPAWN.get() || regName == null || world.isClientSide() || PotatoCommonConfig.BLACKLIST.get().contains(regName.toString())) return;
         ChunkPos chunk = world.getChunk(entity.blockPosition()).getPos();
-        if (world.getEntitiesOfClass(entity.getClass(), new AxisAlignedBB(chunk.getMinBlockX(), 0, chunk.getMinBlockZ(), chunk.getMaxBlockX(), 256, chunk.getMaxBlockX())).size() > PotatoCommonConfig.MAX_ENTITIES_NUMBER_PER_CHUNK.get()) event.setResult(Event.Result.DENY);
+        if (world.getEntitiesOfClass(entity.getClass(), new AABB(chunk.getMinBlockX(), 0, chunk.getMinBlockZ(), chunk.getMaxBlockX(), 256, chunk.getMaxBlockX())).size() > PotatoCommonConfig.MAX_ENTITIES_NUMBER_PER_CHUNK.get()) event.setResult(Event.Result.DENY);
+    }
+
+    @SubscribeEvent
+    public static void livingDeath(LivingDeathEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+        if (!entity.level.isClientSide && Float.isNaN(entity.getHealth())) entity.setHealth(0.0F);
+    }
+
+    @SubscribeEvent
+    public static void livingUpdate(LivingEvent.LivingUpdateEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+        if (!entity.level.isClientSide && Float.isNaN(entity.getHealth())) entity.setHealth(0.0F);
     }
 }
