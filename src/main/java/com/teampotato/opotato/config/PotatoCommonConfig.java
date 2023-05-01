@@ -14,9 +14,8 @@ public class PotatoCommonConfig {
 
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
-        CONFIG_BUILDER.comment("Opotato Common Config");
+        CONFIG_BUILDER.comment("Opotato Common Config").push("Opotato Settings");
 
-        CONFIG_BUILDER.push("Opotato Settings");
         PRINT_MOD_LIST_WHEN_LAUNCHING_GAME = CONFIG_BUILDER
                 .define("print mods list when launching game", true);
         ALLOW_LIMIT_MAX_SPAWN = CONFIG_BUILDER
@@ -38,7 +37,7 @@ public class PotatoCommonConfig {
                 .defineInRange("gate keeper house spacing", 18, 6, Integer.MAX_VALUE);
         CONFIG_BUILDER.pop();
 
-        CONFIG_BUILDER.push("Ars Nouveau");
+        CONFIG_BUILDER.push("Ars Nouveau Extra Settings");
         DISABLE_ARS_NOUVEAU_MANA_GEM_IN_BASIC_LOOT = CONFIG_BUILDER
                 .define("disable mana gems generation in basic loot chests", false);
         CONFIG_BUILDER.pop();
