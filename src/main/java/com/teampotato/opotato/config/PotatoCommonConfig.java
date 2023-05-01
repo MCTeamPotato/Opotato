@@ -40,7 +40,7 @@ public class PotatoCommonConfig {
 
         CONFIG_BUILDER.push("Ars Nouveau");
         DISABLE_ARS_NOUVEAU_MANA_GEM_IN_BASIC_LOOT = CONFIG_BUILDER
-                .define("disable mana gem in basic loot", false);
+                .define("disable mana gems generation in basic loot chests", false);
         CONFIG_BUILDER.pop();
 
         CONFIG_BUILDER.push("Headshot Extra Settings");
