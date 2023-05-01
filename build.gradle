@@ -86,8 +86,6 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.2.2'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    annotationProcessor 'org.projectlombok:lombok:1.18.26'
-    compileOnly 'org.projectlombok:lombok:1.18.26'
     implementation 'org.jetbrains:annotations:24.0.1'
 
     implementation fg.deobf('curse.maven:oculus-581495:4451905')

@@ -30,16 +30,16 @@ public class PotatoCommonConfig {
 
         CONFIG_BUILDER.push("Cracker's Wither Storm Mod Optimization Settings").comment("Every settings here will improve performance a lot as the mod is really laggy");
         LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS = CONFIG_BUILDER
-                .define("let wither sickness ticking system only take effect on players, NOT AVAILABLE YET", false);
+                .define("let wither sickness ticking system only take effect on players, NOT AVAILABLE YET, DON'T ENABLE THIS", false);
         LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM = CONFIG_BUILDER
-                .define("don't let the wither sickness ticking system affect monsters, NOT AVAILABLE YET", false);
+                .define("don't let the wither sickness ticking system affect monsters, NOT AVAILABLE YET, DON'T ENABLE THIS", false);
         LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM = CONFIG_BUILDER
-                .define("don't let the wither sickness ticking system affect animals, NOT AVAILABLE YET", false);
+                .define("don't let the wither sickness ticking system affect animals, NOT AVAILABLE YET, DON'T ENABLE THIS", false);
         BLOCK_CLUSTER_RENDER_OPTIMIZATION = CONFIG_BUILDER
                 .comment("With this turning on, the amount of block clusters will be reduced on rendering and they won't be rendered when no player see them, NOT AVAILABLE YET")
                 .define("block cluster render optimization", false);
         REDUCE_THE_WITHER_STORM_CHUNK_ACTIVITY = CONFIG_BUILDER
-                .define("reduce the wither storm chunks activity by one half, NOT AVAILABLE YET", false);
+                .define("reduce the wither storm chunks activity by one half, NOT AVAILABLE YET, DON'T ENABLE THIS", false);
         KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES = CONFIG_BUILDER
                 .comment("Entities that will be killed: Block Cluster, Sickened Skeleton, Sickened Creeper, Sickened Spider, Sickened Zombie, Tentacle, Withered Symbiont.",
                         "Inspired by Lag Removal mod.")

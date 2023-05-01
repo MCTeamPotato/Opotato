@@ -9,7 +9,6 @@
   },
   "minVersion": "0.8",
   "mixins": [
-    "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
     "opotato.citadel.MixinWebHelper",

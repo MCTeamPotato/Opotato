@@ -24,13 +24,14 @@ public class MixinMinecraftMainWindow {
      * Opotato's mixin has higher execution priority then Modern UI, so Modern UI's overwrite will be skipped when you launch your game.
      */
     @Overwrite
-    public int calculateScale(int p_216521_1_, boolean p_216521_2_) {
+    public int calculateScale(int p_85386_, boolean p_85387_) {
         int i;
-        for(i = 1; i != p_216521_1_ && i < framebufferWidth && i < framebufferHeight && framebufferWidth / (i + 1) >= 320 && framebufferHeight / (i + 1) >= 240; ++i) {
-
+        for(i = 1; i != p_85386_ && i < this.framebufferWidth && i < this.framebufferHeight && this.framebufferWidth / (i + 1) >= 320 && this.framebufferHeight / (i + 1) >= 240; ++i) {
         }
 
-        if (p_216521_2_ && i % 2 != 0) ++i;
+        if (p_85387_ && i % 2 != 0) {
+            ++i;
+        }
 
         return i;
     }

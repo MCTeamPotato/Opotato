@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
     private PotatoMixinConfig() {
-        this.addMixinRule("ksyxis", true);
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("opotato.citadel", true);
         this.addMixinRule("opotato.deuf", true);

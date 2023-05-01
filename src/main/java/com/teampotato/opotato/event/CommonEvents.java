@@ -7,13 +7,17 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -24,6 +28,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -96,5 +101,25 @@ public class CommonEvents {
     public static void livingUpdate(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
         if (!entity.level.isClientSide && Float.isNaN(entity.getHealth())) entity.setHealth(0.0F);
+    }
+
+    @SubscribeEvent
+    public static void changeDimension(EntityTravelToDimensionEvent event) {
+        if (event.getEntity().level.isClientSide) return;
+        ResourceLocation dim = event.getDimension().location();
+        if (event.getEntity() instanceof Player) event.getEntity().addTag("spe_" + dim.getNamespace() + "_" + dim.getPath());
+    }
+
+    @SubscribeEvent
+    public static void tick(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        if (player.level.isClientSide) return;
+        ResourceLocation dim = player.level.dimension().location();
+        if (!player.removeTag("spe_" + dim.getNamespace() + "_" + dim.getPath())) return;
+        ArrayList<MobEffectInstance> effects = new ArrayList<>(player.getActiveEffects());
+        for (int i = effects.size() - 1; i >= 0; i --) {
+            player.removeEffect(effects.get(i).getEffect());
+            player.addEffect(effects.get(i));
+        }
     }
 }
