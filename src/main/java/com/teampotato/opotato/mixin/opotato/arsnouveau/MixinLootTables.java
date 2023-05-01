@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 public class MixinLootTables {
     @Shadow
     public static Random r;
-    private static List<Supplier<ItemStack>> NEW_BASIC_LOOT = new ArrayList<>();
+    private static final List<Supplier<ItemStack>> NEW_BASIC_LOOT = new ArrayList<>();
 
     static {
         if (!PotatoCommonConfig.DISABLE_ARS_NOUVEAU_MANA_GEM_IN_BASIC_LOOT.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.manaGem,1 + r.nextInt(5)));

@@ -7,7 +7,7 @@ import xaero.map.patreon.Patreon;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@Mixin(Patreon.class)
+@Mixin(value = Patreon.class, remap = false)
 public abstract class MixinMinimapPatreon {
     @Shadow private static boolean shouldRedirectToMinimap;
     @Shadow public static void loadSettings() {}
