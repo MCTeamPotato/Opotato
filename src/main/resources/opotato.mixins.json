@@ -13,6 +13,7 @@
     "alternatecurrent.ServerLevelMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
+    "opotato.arsnouveau.MixinLootTables",
     "opotato.blueskies.MixinBlueSkiesCommonConfig",
     "opotato.blueskies.MixinGatekeeperHouseStructure",
     "opotato.blueskies.MixinMinecraftLivingEntity",

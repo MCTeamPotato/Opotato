@@ -16,6 +16,7 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("mixintrace", true);
+        this.addMixinRule("opotato.arsnouveau", true);
         this.addMixinRule("opotato.blueskies", true);
         this.addMixinRule("opotato.cataclysm", true);
         this.addMixinRule("opotato.citadel", true);

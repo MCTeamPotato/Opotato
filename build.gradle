@@ -79,15 +79,11 @@ repositories {
         }
     }
     maven { url = 'https://maven.minecraftforge.net' }
-    maven { url 'https://jitpack.io' }
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    annotationProcessor 'org.projectlombok:lombok:1.18.26'
-    compileOnly 'org.projectlombok:lombok:1.18.26'
     implementation 'org.jetbrains:annotations:24.0.1'
 
     implementation fg.deobf('curse.maven:oculus-581495:4300427')
@@ -112,13 +108,13 @@ dependencies {
     implementation fg.deobf("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
     implementation fg.deobf("curse.maven:kiwi-303657:3536245")
     implementation fg.deobf("curse.maven:rubidium-574856:4397474")
-    implementation fg.deobf("curse.maven:mowzies-mobs-250498:4120133")
     implementation fg.deobf("curse.maven:xaeros-world-map-317780:4492949")
     implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492919")
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.16.5:3.0.106')
 
     implementation fg.deobf("curse.maven:female-gender-forge-481655:3459078")
     implementation fg.deobf("curse.maven:corpse-316582:3447907")
+
+    implementation fg.deobf("curse.maven:ars-nouveau-401955:4300733")
 }
 
 jar {
