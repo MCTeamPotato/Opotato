@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
+
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", true);
-        this.addMixinRule("ksyxis", true);
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("opotato.blueskies", true);
         this.addMixinRule("opotato.cataclysm", true);

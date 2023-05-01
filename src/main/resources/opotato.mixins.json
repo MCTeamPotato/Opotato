@@ -11,7 +11,6 @@
   "mixins": [
     "alternatecurrent.RedStoneWireBlockMixin",
     "alternatecurrent.ServerLevelMixin",
-    "ksyxis.MinecraftServerMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
     "opotato.blueskies.MixinBlueSkiesCommonConfig",
