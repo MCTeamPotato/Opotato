@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PotatoCommonConfig {
     public static ForgeConfigSpec COMMON_CONFIG;
-    public static ForgeConfigSpec.BooleanValue ALLOW_LIMIT_MAX_SPAWN, KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES, PRINT_MOD_LIST_WHEN_LAUNCHING_GAME, LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS, LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM, LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM, BLOCK_CLUSTER_RENDER_OPTIMIZATION, REDUCE_THE_WITHER_STORM_CHUNK_ACTIVITY, ENABLE_CREATIVE_ONE_POUCH;
+    public static ForgeConfigSpec.BooleanValue ALLOW_LIMIT_MAX_SPAWN, KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES, LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS, LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM, LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM, BLOCK_CLUSTER_RENDER_OPTIMIZATION, REDUCE_THE_WITHER_STORM_CHUNK_ACTIVITY, ENABLE_CREATIVE_ONE_POUCH;
     public static ForgeConfigSpec.IntValue MAX_ENTITIES_NUMBER_PER_CHUNK;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLIST;
 
@@ -16,8 +16,6 @@ public class PotatoCommonConfig {
         CONFIG_BUILDER.comment("Opotato Common Config");
 
         CONFIG_BUILDER.push("Opotato Settings");
-        PRINT_MOD_LIST_WHEN_LAUNCHING_GAME = CONFIG_BUILDER
-                .define("print modfile names list when launching game", true);
         ALLOW_LIMIT_MAX_SPAWN = CONFIG_BUILDER
                 .define("allow entities spawn limit", false);
         MAX_ENTITIES_NUMBER_PER_CHUNK = CONFIG_BUILDER
@@ -28,7 +26,8 @@ public class PotatoCommonConfig {
                 .define("enable creative one pouch", true);
         CONFIG_BUILDER.pop();
 
-        CONFIG_BUILDER.push("Cracker's Wither Storm Mod Optimization Settings").comment("Every settings here will improve performance a lot as the mod is really laggy");
+        CONFIG_BUILDER.push("Cracker's Wither Storm Mod Optimization Settings")
+        .comment("Every settings here will improve performance a lot as the mod is really laggy");
         LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS = CONFIG_BUILDER
                 .define("let wither sickness ticking system only take effect on players, NOT AVAILABLE YET, DON'T ENABLE THIS", false);
         LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM = CONFIG_BUILDER
