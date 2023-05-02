@@ -26,7 +26,7 @@ public class Opotato {
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
         if (PotatoCommonConfig.PRINT_MOD_LIST_WHEN_LAUNCHING_GAME.get()) {
-            ModList.get().getMods().forEach(modInfo -> LOGGER.info("Mod " + modInfo.getOwningFile().getFile().getFileName() + "loaded!"));
+            ModList.get().getMods().forEach(modInfo -> LOGGER.info("Mod " + modInfo.getOwningFile().getFile().getFileName() + " loaded!"));
         }
         LOGGER.info("Oh, potato!");
     }
