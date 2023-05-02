@@ -17,7 +17,7 @@ public class PotatoCommonConfig {
 
         CONFIG_BUILDER.push("Opotato Settings");
         PRINT_MOD_LIST_WHEN_LAUNCHING_GAME = CONFIG_BUILDER
-                .define("print mods list when launching game", true);
+                .define("print modfile names list when launching game", true);
         ALLOW_LIMIT_MAX_SPAWN = CONFIG_BUILDER
                 .define("allow entities spawn limit", false);
         MAX_ENTITIES_NUMBER_PER_CHUNK = CONFIG_BUILDER
