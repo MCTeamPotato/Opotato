@@ -9,7 +9,5 @@ import shadows.placebo.patreon.WingsManager;
 @Mixin(value = WingsManager.class, remap = false)
 public class MixinWingsManager {
     @Redirect(method = "init", at = @At(value = "INVOKE", target = "Ljava/lang/Thread;start()V"))
-    private static void onThreadStart(Thread instance) {
-        Opotato.LOGGER.info("Opotato: cancel Placebo inits Wings Manager");
-    }
+    private static void onThreadStart(Thread instance) {}
 }

@@ -9,7 +9,5 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(value = RPContributorCapeHandler.class, remap = false)
 public class MixinRPContributorCapeHandler {
     @Redirect(method = "onPreRenderPlayer", at = @At(value = "INVOKE", target = "Lcom/therandomlabs/randompatches/client/RPContributorCapeHandler;downloadContributorList()V"))
-    private static void onDownload() {
-        Opotato.LOGGER.info("Opotato: remove RandomPatches downloads contributor capes behavior.");
-    }
+    private static void onDownload() {}
 }

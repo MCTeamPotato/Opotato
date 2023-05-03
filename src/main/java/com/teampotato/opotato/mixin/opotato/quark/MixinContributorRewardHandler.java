@@ -11,7 +11,6 @@ import vazkii.quark.base.handler.ContributorRewardHandler;
 public class MixinContributorRewardHandler {
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
     private static void onInit(CallbackInfo ci) {
-        Opotato.LOGGER.info("Opotato: cancel Quark Internet connection thread creation");
         ci.cancel();
     }
 }
