@@ -28,6 +28,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.inspirations", true);
         this.addMixinRule("opotato.jumpoverfences", true);
         this.addMixinRule("opotato.kiwi", true);
+        this.addMixinRule("opotato.ldlib", true);
         this.addMixinRule("opotato.minecraft", true);
         this.addMixinRule("opotato.modernui", true);
         this.addMixinRule("opotato.oculus", true);

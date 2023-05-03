@@ -28,6 +28,8 @@
     "opotato.headshot.DealHeadshotEventMixin",
     "opotato.inspirations.MixinPortalColorHandler",
     "opotato.kiwi.MixinContributors",
+    "opotato.ldlib.MixinJEIClientEventHandler",
+    "opotato.ldlib.MixinJEIPlugin",
     "opotato.minecraft.MixinChunk",
     "opotato.minecraft.MixinWorld",
     "opotato.oculus.MixinNECDetection",
