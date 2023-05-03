@@ -1,6 +1,5 @@
 package com.teampotato.opotato.mixin.opotato.randompatches;
 
-import com.teampotato.opotato.Opotato;
 import com.therandomlabs.randompatches.client.RPContributorCapeHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

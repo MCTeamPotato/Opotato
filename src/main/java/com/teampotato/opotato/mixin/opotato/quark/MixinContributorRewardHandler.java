@@ -1,6 +1,5 @@
 package com.teampotato.opotato.mixin.opotato.quark;
 
-import com.teampotato.opotato.Opotato;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

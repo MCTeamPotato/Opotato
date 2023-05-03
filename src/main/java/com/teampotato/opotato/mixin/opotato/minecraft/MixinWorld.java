@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.minecraft;
 
-import com.teampotato.opotato.util.opotato.MixinUtil;
+import com.teampotato.opotato.Opotato;
 import net.minecraft.entity.Entity;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,6 +26,6 @@ public abstract class MixinWorld implements IWorld {
      */
     @Overwrite
     public <T extends Entity> @NotNull List<T> getEntitiesOfClass(@NotNull Class<? extends T> cs, @NotNull AxisAlignedBB aabb, @Nullable Predicate<? super T> predicate) {
-        return MixinUtil.getEntitiesOfClass(cs, aabb, predicate, getProfiler(), getMaxEntityRadius(), this.getChunkSource());
+        return Opotato.getEntitiesOfClass(cs, aabb, predicate, getProfiler(), getMaxEntityRadius(), this.getChunkSource());
     }
 }

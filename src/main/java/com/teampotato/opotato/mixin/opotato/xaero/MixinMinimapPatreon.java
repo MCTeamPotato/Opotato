@@ -4,6 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import xaero.map.patreon.Patreon;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

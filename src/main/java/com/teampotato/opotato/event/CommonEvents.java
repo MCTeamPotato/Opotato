@@ -29,7 +29,7 @@ import net.minecraftforge.versions.forge.ForgeVersion;
 import java.util.Arrays;
 import java.util.UUID;
 
-import static com.teampotato.opotato.util.opotato.EventUtil.*;
+import static com.teampotato.opotato.Opotato.*;
 
 @Mod.EventBusSubscriber(modid = Opotato.ID)
 public class CommonEvents {
