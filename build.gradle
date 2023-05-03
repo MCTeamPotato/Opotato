@@ -72,7 +72,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name = 'CurseForge'
         url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -86,35 +85,33 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation 'org.jetbrains:annotations:24.0.1'
 
-    implementation fg.deobf('curse.maven:oculus-581495:4300427')
-    implementation fg.deobf('curse.maven:headshot-forge-538264:3501178')
-    implementation fg.deobf('curse.maven:jump-over-fences-forge-423421:3125998')
-    implementation fg.deobf('curse.maven:blue-skies-312918:3411324')
     implementation fg.deobf('curse.maven:structure-gel-api-378802:3498310')
-    implementation fg.deobf('curse.maven:modern-ui-352491:3765938')
-    implementation fg.deobf('curse.maven:ost-overhaul-504439:3390987')
-    implementation fg.deobf('curse.maven:inspirations-284007:3414517')
     implementation fg.deobf('curse.maven:mantle-74924:3631982')
-    implementation fg.deobf('curse.maven:quark-243121:3642325')
     implementation fg.deobf('curse.maven:autoreglib-250363:3326041')
-    implementation fg.deobf('curse.maven:citadel-331936:3441028')
-    implementation fg.deobf('curse.maven:placebo-283644:3750838')
-    implementation fg.deobf('curse.maven:elenai-dodge-2-442962:3343309')
-    implementation fg.deobf('curse.maven:l_ender-s-cataclysm-551586:4418434')
-    implementation fg.deobf('curse.maven:the-undergarden-379849:3477594')
-    implementation fg.deobf('curse.maven:randompatches-forge-285612:3211323')
-    implementation fg.deobf("curse.maven:crackers-wither-storm-mod-621405:4403153")
-    implementation fg.deobf("curse.maven:supplementaries-412082:4351390")
-    implementation fg.deobf("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
-    implementation fg.deobf("curse.maven:kiwi-303657:3536245")
     implementation fg.deobf("curse.maven:rubidium-574856:4397474")
-    implementation fg.deobf("curse.maven:xaeros-world-map-317780:4492949")
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492919")
-
-    implementation fg.deobf("curse.maven:female-gender-forge-481655:3459078")
-    implementation fg.deobf("curse.maven:corpse-316582:3447907")
 
     implementation fg.deobf("curse.maven:ars-nouveau-401955:4300733")
+    implementation fg.deobf('curse.maven:blue-skies-312918:3411324')
+    implementation fg.deobf('curse.maven:l_ender-s-cataclysm-551586:4418434')
+    implementation fg.deobf('curse.maven:citadel-331936:3441028')
+    implementation fg.deobf("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
+    implementation fg.deobf('curse.maven:elenai-dodge-2-442962:3343309')
+    implementation fg.deobf("curse.maven:female-gender-forge-481655:3459078")
+    implementation fg.deobf('curse.maven:headshot-forge-538264:3501178')
+    implementation fg.deobf('curse.maven:inspirations-284007:3414517')
+    implementation fg.deobf('curse.maven:jump-over-fences-forge-423421:3125998')
+    implementation fg.deobf("curse.maven:kiwi-303657:3536245")
+    implementation fg.deobf("curse.maven:ldlib-626676:4124863")
+    implementation fg.deobf('curse.maven:oculus-581495:4300427')
+    implementation fg.deobf('curse.maven:ost-overhaul-504439:3390987')
+    implementation fg.deobf('curse.maven:placebo-283644:3750838')
+    implementation fg.deobf('curse.maven:quark-243121:3642325')
+    implementation fg.deobf('curse.maven:randompatches-forge-285612:3211323')
+    implementation fg.deobf("curse.maven:supplementaries-412082:4351390")
+    implementation fg.deobf('curse.maven:the-undergarden-379849:3477594')
+    implementation fg.deobf("curse.maven:crackers-wither-storm-mod-621405:4403153")
+    implementation fg.deobf("curse.maven:xaeros-world-map-317780:4492949")
+    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492919")
 }
 
 jar {
