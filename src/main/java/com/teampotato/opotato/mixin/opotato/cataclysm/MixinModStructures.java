@@ -16,7 +16,6 @@ import static com.teampotato.opotato.config.PotatoCommonConfig.*;
 public abstract class MixinModStructures {
     @Shadow
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand) {}
-
     @Shadow @Final public static RegistryObject<Structure<NoFeatureConfig>> SOUL_BLACK_SMITH;
     @Shadow @Final public static RegistryObject<Structure<NoFeatureConfig>> RUINED_CITADEL;
     @Shadow @Final public static RegistryObject<Structure<NoFeatureConfig>> BURNING_ARENA;

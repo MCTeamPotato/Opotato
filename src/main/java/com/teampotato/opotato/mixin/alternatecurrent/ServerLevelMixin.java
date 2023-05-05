@@ -6,7 +6,7 @@ import net.minecraft.world.server.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ServerWorld.class)
-public class ServerLevelMixin implements IServerLevel {
+public abstract class ServerLevelMixin implements IServerLevel {
 
     private final WireHandler wireHandler = new WireHandler((ServerWorld)(Object)this);
 

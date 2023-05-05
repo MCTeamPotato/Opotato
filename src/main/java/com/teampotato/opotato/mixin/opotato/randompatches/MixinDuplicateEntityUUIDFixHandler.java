@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = DuplicateEntityUUIDFixHandler.class, remap = false)
-public class MixinDuplicateEntityUUIDFixHandler {
+public abstract class MixinDuplicateEntityUUIDFixHandler {
     @Inject(method = "onChunkLoad", at = @At("HEAD"), cancellable = true)
     private static void noFix(ChunkEvent.Load event, CallbackInfo ci) {
         ci.cancel();

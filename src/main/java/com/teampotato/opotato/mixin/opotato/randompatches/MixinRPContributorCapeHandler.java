@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = RPContributorCapeHandler.class, remap = false)
-public class MixinRPContributorCapeHandler {
+public abstract class MixinRPContributorCapeHandler {
     @Redirect(method = "onPreRenderPlayer", at = @At(value = "INVOKE", target = "Lcom/therandomlabs/randompatches/client/RPContributorCapeHandler;downloadContributorList()V"))
     private static void onDownload() {}
 }

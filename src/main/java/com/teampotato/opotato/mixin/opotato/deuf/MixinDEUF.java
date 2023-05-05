@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = DEUF.class, remap = false)
-public class MixinDEUF {
+public abstract class MixinDEUF {
     @Inject(method = "fix", at = @At("HEAD"), cancellable = true)
     private void noFix(ChunkEvent.Load event, CallbackInfo ci) {
         ci.cancel();

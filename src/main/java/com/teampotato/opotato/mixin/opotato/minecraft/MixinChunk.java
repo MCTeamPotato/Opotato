@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Mixin(Chunk.class)
-public class MixinChunk {
+public abstract class MixinChunk {
     @Shadow @Final private World level;
     @Shadow @Final private ClassInheritanceMultiMap<Entity>[] entitySections;
 

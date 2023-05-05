@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import java.util.stream.StreamSupport;
 
 @Mixin(value = ClientEventHandler.class, remap = false)
-public class ClientEventHandlerMixin {
+public abstract class ClientEventHandlerMixin {
     /**
      * @author Kasualix
      * @reason Optimize fence check

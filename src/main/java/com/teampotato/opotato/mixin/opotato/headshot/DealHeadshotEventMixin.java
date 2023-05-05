@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(value = DealHeadshotEvent.class, remap = false)
-public class DealHeadshotEventMixin {
+public abstract class DealHeadshotEventMixin {
     /**
      * @author Kasualix
      * @reason Optimize someone's shit

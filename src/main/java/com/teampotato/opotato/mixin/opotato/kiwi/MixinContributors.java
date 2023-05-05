@@ -8,7 +8,7 @@ import snownee.kiwi.contributor.Contributors;
 import snownee.kiwi.contributor.ITierProvider;
 
 @Mixin(value = Contributors.class, remap = false)
-public class MixinContributors {
+public abstract class MixinContributors {
     @Inject(method = "registerTierProvider", at = @At("HEAD"), cancellable = true)
     private static void disableInit(ITierProvider rewardProvider, CallbackInfo ci) {
         ci.cancel();

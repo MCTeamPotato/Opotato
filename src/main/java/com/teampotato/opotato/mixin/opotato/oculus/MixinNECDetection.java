@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(value = Iris.class, remap = false)
-public class MixinNECDetection {
+public abstract class MixinNECDetection {
     /**
      * @author Kasualix
      * @reason Remove NEC check

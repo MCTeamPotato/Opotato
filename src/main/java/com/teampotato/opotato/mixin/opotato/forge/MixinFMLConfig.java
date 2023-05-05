@@ -4,7 +4,7 @@ import net.minecraftforge.fml.loading.FMLConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(value = FMLConfig.class, remap = false)
-public class MixinFMLConfig {
+public abstract class MixinFMLConfig {
     /**
      * @author Kasualix
      * @reason no more stupid version checker

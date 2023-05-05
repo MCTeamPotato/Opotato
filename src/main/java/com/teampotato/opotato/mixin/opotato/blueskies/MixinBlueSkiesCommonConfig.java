@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = BlueSkiesConfig.CommonConfig.class, remap = false)
-public class MixinBlueSkiesCommonConfig {
+public abstract class MixinBlueSkiesCommonConfig {
     @Inject(method = "isModAllowedForFeatureGen", at = @At("HEAD"), cancellable = true)
     private void everyModFeatureGen(String mod, CallbackInfoReturnable<Boolean> cir) {
         if (PotatoCommonConfig.ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM.get()) {

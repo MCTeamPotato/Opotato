@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.quark.base.handler.ContributorRewardHandler;
 
 @Mixin(value = ContributorRewardHandler.class, remap = false)
-public class MixinContributorRewardHandler {
+public abstract class MixinContributorRewardHandler {
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
     private static void onInit(CallbackInfo ci) {
         ci.cancel();

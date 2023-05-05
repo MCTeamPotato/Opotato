@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = MLSupporter.GetSupportersThread.class, remap = false)
-public class MixinMLSupporters {
+public abstract class MixinMLSupporters {
     @Inject(method = "run", at = @At("HEAD"), cancellable = true)
     private void run(CallbackInfo ci) {
         ci.cancel();

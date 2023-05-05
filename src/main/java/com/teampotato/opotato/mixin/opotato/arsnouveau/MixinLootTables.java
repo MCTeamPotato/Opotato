@@ -19,7 +19,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 @Mixin(value = LootTables.class, remap = false)
-public class MixinLootTables {
+public abstract class MixinLootTables {
     @Shadow
     public static Random r;
     private static final List<Supplier<ItemStack>> NEW_BASIC_LOOT = new ArrayList<>();

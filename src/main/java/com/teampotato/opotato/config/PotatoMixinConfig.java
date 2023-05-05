@@ -16,30 +16,31 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", true);
         this.addMixinRule("mixintrace", true);
-        this.addMixinRule("opotato.arsnouveau", true);
-        this.addMixinRule("opotato.blueskies", true);
-        this.addMixinRule("opotato.cataclysm", true);
-        this.addMixinRule("opotato.citadel", true);
-        this.addMixinRule("opotato.deuf", true);
-        this.addMixinRule("opotato.elenaidodge", true);
+        this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
+        this.addMixinRule("opotato.blueskies", isLoaded("blueskies"));
+        this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
+        this.addMixinRule("opotato.citadel", isLoaded("citadel"));
+        this.addMixinRule("opotato.deuf", isLoaded("deuf"));
+        this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge"));
         this.addMixinRule("opotato.forge", true);
-        this.addMixinRule("opotato.gender", true);
-        this.addMixinRule("opotato.headshot", true);
-        this.addMixinRule("opotato.inspirations", true);
-        this.addMixinRule("opotato.jumpoverfences", true);
-        this.addMixinRule("opotato.kiwi", true);
-        this.addMixinRule("opotato.ldlib", true);
+        this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
+        this.addMixinRule("opotato.headshot", isLoaded("headshot"));
+        this.addMixinRule("opotato.inspirations", isLoaded("inspirations") && isLoaded("rubidium"));
+        this.addMixinRule("opotato.jumpoverfences", isLoaded("jumpoverfences"));
+        this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
+        this.addMixinRule("opotato.ldlib", isLoaded("ldlib") && isLoaded("modernfix"));
         this.addMixinRule("opotato.minecraft", true);
-        this.addMixinRule("opotato.modernui", true);
-        this.addMixinRule("opotato.oculus", true);
-        this.addMixinRule("opotato.ostoverhaul", true);
-        this.addMixinRule("opotato.placebo", true);
-        this.addMixinRule("opotato.quark", true);
-        this.addMixinRule("opotato.randompatches", true);
-        this.addMixinRule("opotato.supplementaries", true);
-        this.addMixinRule("opotato.undergarden", true);
+        this.addMixinRule("opotato.modernui", isLoaded("modernui") && isLoaded("rubidium"));
+        this.addMixinRule("opotato.oculus", isLoaded("oculus"));
+        this.addMixinRule("opotato.ostoverhaul", isLoaded("ostoverhaul"));
+        this.addMixinRule("opotato.placebo", isLoaded("placebo"));
+        this.addMixinRule("opotato.quark", isLoaded("quark"));
+        this.addMixinRule("opotato.randompatches", isLoaded("randompatches"));
+        this.addMixinRule("opotato.supplementaries", isLoaded("supplementaries"));
+        this.addMixinRule("opotato.undergarden", isLoaded("undergarden"));
         this.addMixinRule("opotato.witherstormmod", false);
-        this.addMixinRule("opotato.xaero", true);
+        this.addMixinRule("opotato.xaerominimap", isLoaded("xaerominimap"));
+        this.addMixinRule("opotato.xaeroworldmap", isLoaded("xaeroworldmap"));
         this.addMixinRule("smoothmenu", true);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
@@ -50,6 +51,10 @@ public class PotatoMixinConfig {
         for(String id : ids) {
             if(FMLLoader.getLoadingModList().getModFileById(id) != null) this.options.get(configName).addModOverride(false, id);
         }
+    }
+
+    private boolean isLoaded(String modID) {
+        return FMLLoader.getLoadingModList().getModFileById(modID) != null;
     }
 
     private void addMixinRule(String mixin, boolean enabled) {

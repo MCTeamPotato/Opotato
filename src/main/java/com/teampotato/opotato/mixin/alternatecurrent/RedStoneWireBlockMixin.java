@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RedstoneWireBlock.class)
-public class RedStoneWireBlockMixin {
+public abstract class RedStoneWireBlockMixin {
     @Inject(method = "updatePowerStrength", cancellable = true, at = @At(value = "HEAD"))
     private void onUpdate(World world, BlockPos pos, BlockState state, CallbackInfo ci) {
         ci.cancel();

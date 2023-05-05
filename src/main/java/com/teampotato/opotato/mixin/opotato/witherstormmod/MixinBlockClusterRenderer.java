@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = BlockClusterRenderer.class, remap = false)
-public class MixinBlockClusterRenderer {
+public abstract class MixinBlockClusterRenderer {
     @Inject(method = "shouldRender(Lnonamecrackers2/witherstormmod/common/entity/BlockClusterEntity;Lnet/minecraft/client/renderer/culling/ClippingHelper;DDD)Z", at = @At("HEAD"), cancellable = true)
     private void extraShouldRender(BlockClusterEntity entity, ClippingHelper p_225626_2_, double p_225626_3_, double p_225626_5_, double p_225626_7_, CallbackInfoReturnable<Boolean> cir) {
         if (PotatoCommonConfig.BLOCK_CLUSTER_RENDER_OPTIMIZATION.get() && (entity.level.random.nextInt(4) < 2 || entity.level.players().stream().noneMatch(player -> player.canSee(entity)))) {

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = SkiesHooks.class, remap = false)
-public class MixinSkiesHooks {
+public abstract class MixinSkiesHooks {
     @Inject(method = "breakSpeedHook", at = @At("HEAD"), cancellable = true)
     private static void configurableBreakHook(float speed, BlockState state, BlockPos pos, PlayerEntity player, CallbackInfoReturnable<Float> cir) {
         if (PotatoCommonConfig.ENABLE_BLUE_SKIES_NERF.get()) return;

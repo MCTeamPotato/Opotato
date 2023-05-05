@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = PortalColorHandler.class, remap = false)
-public class MixinPortalColorHandler {
+public abstract class MixinPortalColorHandler {
     @Inject(method = "getColor", at = @At("HEAD"), cancellable = true)
     private void rbCompat(BlockState state, IBlockDisplayReader world, BlockPos pos, int tintValue, CallbackInfoReturnable<Integer> cir) {
         if (!ModList.get().isLoaded("rubidium")) return;

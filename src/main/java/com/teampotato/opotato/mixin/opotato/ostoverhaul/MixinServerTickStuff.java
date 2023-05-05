@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(value = ServerTickStuff.class, remap = false)
-public class MixinServerTickStuff {
+public abstract class MixinServerTickStuff {
     @Shadow
     public static int ticksorsmthn = 0;
     /**

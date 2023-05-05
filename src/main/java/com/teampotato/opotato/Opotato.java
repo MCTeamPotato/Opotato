@@ -3,6 +3,9 @@ package com.teampotato.opotato;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.schwarz.ChunkCommandHandler;
 import net.minecraft.command.CommandSource;
@@ -11,8 +14,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ClassInheritanceMultiMap;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.AbstractChunkProvider;
 import net.minecraft.world.chunk.Chunk;
@@ -26,7 +31,10 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalLong;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -89,4 +97,33 @@ public class Opotato {
         }
         return list;
     }
-}
+
+    public static <N extends Number & Comparable<N>> Function<N, DataResult<N>> checkCodecRange(final N minInclusive, final N maxInclusive) {
+        return value -> {
+            if (value.compareTo(minInclusive) >= 0 && value.compareTo(maxInclusive) <= 0) return DataResult.success(value);
+            return DataResult.error("Value " + value + " outside of range [" + minInclusive + ":" + maxInclusive + "]", value);
+        };
+    }
+/*
+    public static final Codec<DimensionType> DIRECT_CODEC = RecordCodecBuilder
+            .create(
+                    (p_236026_0_) -> p_236026_0_
+                            .group(Codec.LONG.optionalFieldOf("fixed_time")
+                                    .xmap(
+                                            (p_236028_0_) -> p_236028_0_.map(OptionalLong::of).orElseGet(OptionalLong::empty),
+                                            (p_236029_0_) -> p_236029_0_.isPresent() ? Optional.of(p_236029_0_.getAsLong()) : Optional.empty())
+                                    .forGetter((p_236044_0_) -> p_236044_0_.fixedTime), Codec.BOOL.fieldOf("has_skylight")
+                                    .forGetter(DimensionType::hasSkyLight), Codec.BOOL.fieldOf("has_ceiling")
+                                    .forGetter(DimensionType::hasCeiling), Codec.BOOL.fieldOf("ultrawarm")
+                                    .forGetter(DimensionType::ultraWarm), Codec.BOOL.fieldOf("natural")
+                                    .forGetter(DimensionType::natural), Codec.doubleRange((double)1.0E-5F, 3.0E7D).fieldOf("coordinate_scale")
+                                    .forGetter(DimensionType::coordinateScale), Codec.BOOL.fieldOf("piglin_safe")
+                                    .forGetter(DimensionType::piglinSafe), Codec.BOOL.fieldOf("bed_works")
+                                    .forGetter(DimensionType::bedWorks), Codec.BOOL.fieldOf("respawn_anchor_works")
+                                    .forGetter(DimensionType::respawnAnchorWorks), Codec.BOOL.fieldOf("has_raids")
+                                    .forGetter(DimensionType::hasRaids), Codec.intRange(0, 256).fieldOf("logical_height")
+                                    .forGetter(DimensionType::logicalHeight), ResourceLocation.CODEC.fieldOf("infiniburn")
+                                    .forGetter((p_241508_0_) -> p_241508_0_.infiniburn), ResourceLocation.CODEC.fieldOf("effects").orElse(OVERWORLD_EFFECTS)
+                                    .forGetter((p_242721_0_) -> p_242721_0_.effectsLocation), Codec.FLOAT.fieldOf("ambient_light")
+                                    .forGetter((p_236042_0_) -> p_236042_0_.ambientLight)).apply(p_236026_0_, DimensionType::new));
+*/}

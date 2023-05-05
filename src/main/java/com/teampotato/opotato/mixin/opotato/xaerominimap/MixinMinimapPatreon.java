@@ -1,4 +1,4 @@
-package com.teampotato.opotato.mixin.opotato.xaero;
+package com.teampotato.opotato.mixin.opotato.xaerominimap;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

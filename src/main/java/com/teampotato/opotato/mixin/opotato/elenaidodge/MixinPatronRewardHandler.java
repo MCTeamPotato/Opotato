@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = PatronRewardHandler.class, remap = false)
-public class MixinPatronRewardHandler {
+public abstract class MixinPatronRewardHandler {
     @Shadow
     private static Thread thread;
 

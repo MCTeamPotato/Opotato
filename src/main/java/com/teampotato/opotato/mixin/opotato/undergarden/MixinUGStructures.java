@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import quek.undergarden.registry.UGStructures;
 
 @Mixin(value = UGStructures.class, remap = false)
-public class MixinUGStructures {
+public abstract class MixinUGStructures {
     @Shadow private static <F extends Structure<?>> void setupStructure(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand) {}
     @Shadow @Final public static RegistryObject<Structure<NoFeatureConfig>> CATACOMBS;
 

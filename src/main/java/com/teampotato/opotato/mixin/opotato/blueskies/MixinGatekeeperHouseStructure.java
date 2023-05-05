@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = GatekeeperHouseStructure.class, remap = false)
-public class MixinGatekeeperHouseStructure {
+public abstract class MixinGatekeeperHouseStructure {
 
     @Inject(method = "getSpacing", at = @At("HEAD"), cancellable = true)
     private void getSpacing(CallbackInfoReturnable<Integer> cir) {

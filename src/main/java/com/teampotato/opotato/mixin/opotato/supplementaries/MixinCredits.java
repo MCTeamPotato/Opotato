@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(value = Credits.class, remap = false)
-public class MixinCredits {
+public abstract class MixinCredits {
     /**
      * @author Kasualix
      * @reason Remove Internet connection behavior

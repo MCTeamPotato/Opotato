@@ -20,7 +20,7 @@ import static com.teampotato.opotato.config.PotatoCommonConfig.LET_ANIMALS_IMMUN
 import static com.teampotato.opotato.config.PotatoCommonConfig.LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS;
 
 @Mixin(value = WitherSicknessEvents.class, remap = false)
-public class MixinWitherSicknessEvents {
+public abstract class MixinWitherSicknessEvents {
     /**
      * @author Kasualix
      * @reason Optimize someone's shit
