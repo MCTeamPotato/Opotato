@@ -5,10 +5,14 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.fml.RegistryObject;
+import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 import static com.teampotato.opotato.config.PotatoCommonConfig.*;
 
@@ -30,4 +34,7 @@ public abstract class MixinModStructures {
         setupMapSpacingAndLand(RUINED_CITADEL.get(), new StructureSeparationSettings(RUINED_CITADEL_SPACING.get(), RUINED_CITADEL_SEPARATION.get(), 367895146), false);
         setupMapSpacingAndLand(BURNING_ARENA.get(), new StructureSeparationSettings(BURNING_ARENA_SPACING.get(), BURNING_ARENA_SEPARATION.get(), 1923456789), false);
     }
+
+    @Redirect(method = "addDimensionalSpacing", at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;)V"))
+    private static void onLog(Logger instance, String s) {}
 }
