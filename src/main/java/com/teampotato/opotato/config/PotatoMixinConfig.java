@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+import static com.teampotato.opotato.Opotato.isLoaded;
+
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
 
@@ -53,9 +55,6 @@ public class PotatoMixinConfig {
         }
     }
 
-    private boolean isLoaded(String modID) {
-        return FMLLoader.getLoadingModList().getModFileById(modID) != null;
-    }
 
     private void addMixinRule(String mixin, boolean enabled) {
         String name = getMixinRuleName(mixin);
@@ -146,7 +145,6 @@ public class PotatoMixinConfig {
         try (Writer writer = new FileWriter(file)) {
             writer.write("# This is the configuration file for Opotato.\n");
             writer.write("#\n");
-            writer.write("# The following options can be enabled or disabled if there is a compatibility issue.\n");
             writer.write("# Add a line mixin.example_name=true/false without the # sign to enable/disable a rule.\n");
             List<String> lines = this.options.keySet().stream().filter(key -> !key.equals("mixin.core")).sorted().map(key -> "#   " + key + "\n").collect(Collectors.toList());
             for(String line : lines) {
