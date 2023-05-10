@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 public abstract class DealHeadshotEventMixin {
     /**
      * @author Kasualix
-     * @reason Optimize someone's shit
+     * @reason Optimize event
      */
     @Overwrite
     @SubscribeEvent
