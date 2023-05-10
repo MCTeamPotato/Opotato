@@ -52,7 +52,6 @@
     "opotato.supplementaries.MixinCredits",
     "opotato.undergarden.MixinUGStructures",
     "opotato.witherstormmod.MixinWitherSicknessEvents",
-    "opotato.witherstormmod.MixinWitherStormChunkLoader",
     "opotato.xaerominimap.MixinMinimapInternet",
     "opotato.xaerominimap.MixinMinimapPatreon",
     "opotato.xaeroworldmap.MixinWorldMapInternet",
@@ -60,6 +59,7 @@
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
+    "opotato.epicfight.MixinEpicFightRenderTypes",
     "opotato.gender.MixinGenderLayer",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.modernui.MixinMinecraftMainWindow",

@@ -25,7 +25,6 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
     mappings channel: 'parchment', version: '2021.10.17-1.16.5'
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
             workingDirectory project.file('run')
@@ -100,6 +99,7 @@ dependencies {
     implementation fg.deobf('curse.maven:citadel-331936:3441028')
     implementation fg.deobf("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
     implementation fg.deobf('curse.maven:elenai-dodge-2-442962:3343309')
+    implementation fg.deobf('curse.maven:epic-fight-mod-405076:4029362')
     implementation fg.deobf("curse.maven:female-gender-forge-481655:3459078")
     implementation fg.deobf('curse.maven:headshot-forge-538264:3501178')
     implementation fg.deobf('curse.maven:inspirations-284007:3414517')

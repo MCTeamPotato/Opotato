@@ -22,6 +22,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.citadel", isLoaded("citadel"));
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));
         this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge"));
+        this.addMixinRule("opotato.epicfight", isLoaded("epicfight"));
         this.addMixinRule("opotato.forge", true);
         this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
         this.addMixinRule("opotato.headshot", isLoaded("headshot"));
@@ -38,7 +39,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.randompatches", isLoaded("randompatches"));
         this.addMixinRule("opotato.supplementaries", isLoaded("supplementaries"));
         this.addMixinRule("opotato.undergarden", isLoaded("undergarden"));
-        this.addMixinRule("opotato.witherstormmod", false);
+        this.addMixinRule("opotato.witherstormmod", isLoaded("witherstormmod"));
         this.addMixinRule("opotato.xaerominimap", isLoaded("xaerominimap"));
         this.addMixinRule("opotato.xaeroworldmap", isLoaded("xaeroworldmap"));
         this.addMixinRule("smoothmenu", true);

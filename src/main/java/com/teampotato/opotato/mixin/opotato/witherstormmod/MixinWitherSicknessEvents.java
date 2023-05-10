@@ -16,25 +16,23 @@ import nonamecrackers2.witherstormmod.common.init.WitherStormModEntityTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static com.teampotato.opotato.config.PotatoCommonConfig.LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM;
-import static com.teampotato.opotato.config.PotatoCommonConfig.LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS;
+import static com.teampotato.opotato.config.PotatoCommonConfig.*;
 
 @Mixin(value = WitherSicknessEvents.class, remap = false)
 public abstract class MixinWitherSicknessEvents {
     /**
      * @author Kasualix
-     * @reason Optimize someone's shit
+     * @reason Optimize event
      */
     @Overwrite
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.world.isClientSide || !WitherStormModConfig.SERVER.witherSicknessEnabled.get()) return;
         ServerWorld world = (ServerWorld) event.world;
-        world
-                .getEntities()
+        world.getEntities()
                 .filter(entity -> entity instanceof LivingEntity && entity.getCapability(WitherStormModCapabilities.WITHER_SICKNESS_TRACKER).isPresent())
                 .forEach(entity -> {
-                    if ((LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS.get() && !(entity instanceof PlayerEntity)) || (LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get() && entity instanceof MonsterEntity) || (LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get() && entity instanceof AnimalEntity)) return;
+                    if ((LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS.get() && !(entity instanceof PlayerEntity)) || (LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get() && entity instanceof MonsterEntity) || (LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get() && entity instanceof AnimalEntity)) return;
                     entity.getCapability(WitherStormModCapabilities.WITHER_SICKNESS_TRACKER).ifPresent((tracker) -> {
                         if (!tracker.isActuallyImmune()) {
                             boolean nearby = entity.level.dimension().location().equals(WitherStormMod.bowelsLocation());
