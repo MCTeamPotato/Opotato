@@ -36,6 +36,7 @@
     "opotato.citadel.MixinWebHelper",
     "opotato.deuf.MixinDEUF",
     "opotato.elenaidodge.MixinPatronRewardHandler",
+    "opotato.flowingagony.MixinCoolDownHandler",
     "opotato.forge.MixinFMLConfig",
     "opotato.headshot.DealHeadshotEventMixin",
     "opotato.inspirations.MixinPortalColorHandler",

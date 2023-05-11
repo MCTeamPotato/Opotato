@@ -49,7 +49,7 @@ public abstract class MixinLootTables {
     }
 
     @Redirect(method = "getRandomRoll", at = @At(value = "FIELD", target = "Lcom/hollingsworth/arsnouveau/api/loot/LootTables;BASIC_LOOT:Ljava/util/List;"))
-    private static List<Supplier<ItemStack>> onGetRandomBasicLot() {
+    private static List<Supplier<ItemStack>> onGetRandomBasicLoot() {
         return NEW_BASIC_LOOT;
     }
 }

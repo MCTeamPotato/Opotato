@@ -25,6 +25,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));
         this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge"));
         this.addMixinRule("opotato.epicfight", isLoaded("epicfight"));
+        this.addMixinRule("opotato.flowingagony", isLoaded("flowingagony"));
         this.addMixinRule("opotato.forge", true);
         this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
         this.addMixinRule("opotato.headshot", isLoaded("headshot"));
