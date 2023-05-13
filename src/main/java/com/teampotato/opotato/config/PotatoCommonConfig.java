@@ -8,16 +8,15 @@ import java.util.List;
 public class PotatoCommonConfig {
     public static ForgeConfigSpec COMMON_CONFIG;
     public static ForgeConfigSpec.BooleanValue ALLOW_LIMIT_MAX_SPAWN, ENABLE_BLUE_SKIES_NERF, ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM, ENABLE_HEADSHOT_SOUND_DING, KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES, LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS, LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM, LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM, BLOCK_CLUSTER_RENDER_OPTIMIZATION, ENABLE_CREATIVE_ONE_POUCH, DISABLE_ARS_NOUVEAU_MANA_GEM_IN_BASIC_LOOT, IGNITIUM_ARMOR_HAS_DAMAGE, FINAL_FRACTAL_HAS_DAMAGE, INFERNAL_FORGE_HAS_DAMAGE, MONSTROUS_HELM_HAS_DAMAGE, ZWEIENDER_HAS_DAMAGE;
-    public static ForgeConfigSpec.IntValue GATE_KEEPER_HOUSE_SPACING, MAX_ENTITIES_NUMBER_PER_CHUNK, SOUL_BLACK_SMITH_SPACING, SOUL_BLACK_SMITH_SEPARATION, RUINED_CITADEL_SPACING, RUINED_CITADEL_SEPARATION, BURNING_ARENA_SPACING, BURNING_ARENA_SEPARATION, CATACOMB_SPACING, CATACOMB_SEPARATION, INCINERATOR_COOL_DOWN, INFERNAL_FORGE_COOL_DOWN, VOID_CORE_COOL_DOWN, APPRENTICE_ARMOR_MAX_MANA_BOOST, APPRENTICE_ARMOR_MANA_REGEN_BONUS, MASTER_ARMOR_MAX_MANA_BOOST, NOVICE_ARMOR_MAX_MANA_BOOST, MASTER_ARMOR_MANA_REGEN_BONUS, NOVICE_ARMOR_MANA_REGEN_BONUS, MANA_BOOST_ENCHANTMENT_MAX_LEVEL;
-    public static ForgeConfigSpec.ConfigValue<Float> HEADSHOT_VOLUME, HEADSHOT_PITCH;
+    public static ForgeConfigSpec.IntValue GATE_KEEPER_HOUSE_SPACING, MAX_ENTITIES_NUMBER_PER_CHUNK, SOUL_BLACK_SMITH_SPACING, SOUL_BLACK_SMITH_SEPARATION, RUINED_CITADEL_SPACING, RUINED_CITADEL_SEPARATION, BURNING_ARENA_SPACING, BURNING_ARENA_SEPARATION, CATACOMB_SPACING, CATACOMB_SEPARATION, INCINERATOR_COOL_DOWN, INFERNAL_FORGE_COOL_DOWN, VOID_CORE_COOL_DOWN, APPRENTICE_ARMOR_MAX_MANA_BOOST, APPRENTICE_ARMOR_MANA_REGEN_BONUS, MASTER_ARMOR_MAX_MANA_BOOST, NOVICE_ARMOR_MAX_MANA_BOOST, MASTER_ARMOR_MANA_REGEN_BONUS, NOVICE_ARMOR_MANA_REGEN_BONUS, MANA_BOOST_ENCHANTMENT_MAX_LEVEL, MORIRS_DEATH_WISH_DURABILITY_AMOUNT, DURABILITY_MORIRS_DEATH_WISH_GIVE_ON_DEATH, MORIRS_DEATH_WISH_COOL_DOWN_TICKS,MORIRS_LIFE_BOUND_DURABILITY_GIVE_ON_HEAL, MORIRS_LIFE_BOUND_DURABILITY_LOST_ON_DEATH, GUIDENS_REGRET_DURABILITY_GIVE_ON_KILL, ENVIOUS_KIND_EFFECT_DURATION;
+    public static ForgeConfigSpec.ConfigValue<Float> HEADSHOT_VOLUME, HEADSHOT_PITCH, LAST_SWEET_DREAM_DISAPPEAR_PERCENT;
+    public static ForgeConfigSpec.DoubleValue MORIRS_DEATH_WISH_MAX_DAMAGE_IN_COUNT, MORIRS_LIFE_BOUND_MAX_DAMAGE_IN_COUNT, ENVIOUS_KIND_DIFF_HEALTH;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLIST;
 
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
 
-        CONFIG_BUILDER
-                .comment("Opotato Common Config")
-                .push("Opotato Settings");
+        CONFIG_BUILDER.comment("Opotato Common Config").push("Opotato Settings");
         ALLOW_LIMIT_MAX_SPAWN = CONFIG_BUILDER
                 .define("allow entities spawn limit", false);
         MAX_ENTITIES_NUMBER_PER_CHUNK = CONFIG_BUILDER
@@ -28,8 +27,42 @@ public class PotatoCommonConfig {
                 .define("enable creative one pouch", true);
         CONFIG_BUILDER.pop();
 
-        CONFIG_BUILDER
-                .push("Blue Skies Extra Settings");
+        CONFIG_BUILDER.push("MarbleGate's Exotic Enchantment: Flowing Agony Extra Settings");
+        CONFIG_BUILDER.push("Morir's Deathwish");
+        MORIRS_DEATH_WISH_DURABILITY_AMOUNT = CONFIG_BUILDER
+                .defineInRange("The max durability Morir's Deathwish will give on hurt", 3, 1, Integer.MAX_VALUE);
+        MORIRS_DEATH_WISH_MAX_DAMAGE_IN_COUNT = CONFIG_BUILDER
+                .defineInRange("The max damage that will be counted in Morir's Deathwish", 100.0, 1.0, Double.MAX_VALUE);
+        DURABILITY_MORIRS_DEATH_WISH_GIVE_ON_DEATH = CONFIG_BUILDER
+                .defineInRange("The durability Morir's Deathwish will give on death", 64, 1, Integer.MAX_VALUE);
+        MORIRS_DEATH_WISH_COOL_DOWN_TICKS = CONFIG_BUILDER
+                .defineInRange("Cooldown ticks of Morir's Deathwish", 12000, 1, Integer.MAX_VALUE);
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.push("Morir's Lifebound");
+        MORIRS_LIFE_BOUND_DURABILITY_GIVE_ON_HEAL = CONFIG_BUILDER
+                .defineInRange("The max durability Morir's Lifebound will give on heal", 10, 1, Integer.MAX_VALUE);
+        MORIRS_LIFE_BOUND_MAX_DAMAGE_IN_COUNT = CONFIG_BUILDER
+                .defineInRange("The max heal amount that will be counted in Morirs' Life bound", 100.0, 1.0, Double.MAX_VALUE);
+        MORIRS_LIFE_BOUND_DURABILITY_LOST_ON_DEATH = CONFIG_BUILDER
+                .defineInRange("The durability Morir's Lifebound will take on death", 32, 1, Integer.MAX_VALUE);
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.push("Guiden's Regret");
+        GUIDENS_REGRET_DURABILITY_GIVE_ON_KILL = CONFIG_BUILDER
+                .defineInRange("The max durability Guiden's Regret will give on killing an entity", 3, 1, Integer.MAX_VALUE);
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.push("Last Sweet Dream");
+        LAST_SWEET_DREAM_DISAPPEAR_PERCENT = CONFIG_BUILDER
+                .define("How many percents of durability will the item with this enchantment disappear on toss", 0.1F);
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.push("Envious Kind");
+        ENVIOUS_KIND_DIFF_HEALTH = CONFIG_BUILDER
+                .defineInRange("How much health will be one buff level", 10.0, 1.0, Double.MAX_VALUE);
+        ENVIOUS_KIND_EFFECT_DURATION = CONFIG_BUILDER
+                .defineInRange("How long will the Envious Being effect be given (ticks)", 200, 1, Integer.MAX_VALUE);
+        CONFIG_BUILDER.pop();
+        CONFIG_BUILDER.pop();
+
+        CONFIG_BUILDER.push("Blue Skies Extra Settings");
         ENABLE_BLUE_SKIES_NERF = CONFIG_BUILDER
                 .define("enable blue skies nerf", true);
         ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM = CONFIG_BUILDER
@@ -58,8 +91,7 @@ public class PotatoCommonConfig {
                 .defineInRange("Mana Boost Enchantment Max Level", 3, 1, Integer.MAX_VALUE);
         CONFIG_BUILDER.pop();
 
-        CONFIG_BUILDER
-                .push("Headshot Extra Settings");
+        CONFIG_BUILDER.push("Headshot Extra Settings");
         ENABLE_HEADSHOT_SOUND_DING = CONFIG_BUILDER
                 .define("enable 'Ding' on Headshot", true);
         HEADSHOT_VOLUME = CONFIG_BUILDER
@@ -70,9 +102,7 @@ public class PotatoCommonConfig {
                 .define("'Ding' pitch", 1.0F);
         CONFIG_BUILDER.pop();
 
-        CONFIG_BUILDER
-                .push("Cracker's Wither Storm Mod Optimization Settings")
-                .comment("Every settings here will improve performance a lot as the mod is really laggy");
+        CONFIG_BUILDER.push("Cracker's Wither Storm Mod Optimization Settings").comment("Every settings here will improve performance a lot as the mod is really laggy");
         LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS = CONFIG_BUILDER
                 .define("let wither sickness ticking system only take effect on players", false);
         LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM = CONFIG_BUILDER
@@ -88,8 +118,7 @@ public class PotatoCommonConfig {
                 .define("kill witherstormmod entities after command block dies", false);
         CONFIG_BUILDER.pop();
 
-        CONFIG_BUILDER
-                .push("L_Ender's Cataclysm Extra Settings");
+        CONFIG_BUILDER.push("L_Ender's Cataclysm Extra Settings");
         IGNITIUM_ARMOR_HAS_DAMAGE = CONFIG_BUILDER
                 .define("Ignitium Armor has damage", false);
         FINAL_FRACTAL_HAS_DAMAGE = CONFIG_BUILDER
@@ -120,8 +149,7 @@ public class PotatoCommonConfig {
                 .defineInRange("burning arena separation", 70, 5, Integer.MAX_VALUE);
         CONFIG_BUILDER.pop();
 
-        CONFIG_BUILDER
-                .push("The Undergarden Extra Settings");
+        CONFIG_BUILDER.push("The Undergarden Extra Settings");
         CATACOMB_SPACING = CONFIG_BUILDER
                 .defineInRange("catacomb spacing", 24, 5, Integer.MAX_VALUE);
         CATACOMB_SEPARATION = CONFIG_BUILDER

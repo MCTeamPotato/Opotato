@@ -36,7 +36,10 @@
     "opotato.citadel.MixinWebHelper",
     "opotato.deuf.MixinDEUF",
     "opotato.elenaidodge.MixinPatronRewardHandler",
+    "opotato.entityculling.MixinCullTask",
     "opotato.flowingagony.MixinCoolDownHandler",
+    "opotato.flowingagony.MixinFlameOfEnvyEnchantmentEventHandler",
+    "opotato.flowingagony.MixinLastWishEnchantmentEventHandler",
     "opotato.forge.MixinFMLConfig",
     "opotato.headshot.DealHeadshotEventMixin",
     "opotato.inspirations.MixinPortalColorHandler",
@@ -64,6 +67,7 @@
     "smoothmenu.SmoothMenuMixin"
   ],
   "client": [
+    "opotato.cataclysm.MixinMinecraftCapeLayer",
     "opotato.epicfight.MixinEpicFightRenderTypes",
     "opotato.gender.MixinGenderLayer",
     "opotato.jumpoverfences.ClientEventHandlerMixin",

@@ -38,20 +38,20 @@ public abstract class MixinServerTickStuff {
                 return false;
             })) {
                 OstOverhaul.serverPlayerEntityStructureFeatureMap.put(playerList.get(index.get()), Structure.STRONGHOLD);
-                OstOverhaul.INSTANCE.send(PacketDistributor.PLAYER.with(()->playerList.get(index.get())), new StructureMessage(1));
+                OstOverhaul.INSTANCE.send(PacketDistributor.PLAYER.with(()-> playerList.get(index.get())), new StructureMessage(1));
             } else if (playerList.stream().anyMatch(playerEntity -> {
                 if (LocationPredicate.inFeature(Structure.BASTION_REMNANT).matches(playerEntity.getLevel(), playerEntity.getX(), playerEntity.getY(), playerEntity.getZ()) && !OstOverhaul.serverPlayerEntityStructureFeatureMap.getOrDefault(playerEntity, Structure.STRONGHOLD).equals(Structure.BASTION_REMNANT)) return indexSetter(index, playerList, playerEntity);
                 return false;
             })) {
                 OstOverhaul.serverPlayerEntityStructureFeatureMap.put(playerList.get(index.get()), Structure.BASTION_REMNANT);
-                OstOverhaul.INSTANCE.send(PacketDistributor.PLAYER.with(()->playerList.get(index.get())),new StructureMessage(2));
+                OstOverhaul.INSTANCE.send(PacketDistributor.PLAYER.with(()-> playerList.get(index.get())),new StructureMessage(2));
             } else {
                 if (playerList.stream().anyMatch(playerEntity -> {
                     if (OstOverhaul.serverPlayerEntityStructureFeatureMap.getOrDefault(playerEntity, null) != null) return indexSetter(index, playerList, playerEntity);
                     return false;
                 })) {
                     OstOverhaul.serverPlayerEntityStructureFeatureMap.remove(playerList.get(index.get()));
-                    OstOverhaul.INSTANCE.send(PacketDistributor.PLAYER.with(()->playerList.get(index.get())),new StructureMessage(0));
+                    OstOverhaul.INSTANCE.send(PacketDistributor.PLAYER.with(()-> playerList.get(index.get())),new StructureMessage(0));
                 }
             }
         }
