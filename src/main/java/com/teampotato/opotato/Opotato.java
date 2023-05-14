@@ -3,6 +3,7 @@ package com.teampotato.opotato;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.serialization.DataResult;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.util.schwarz.ChunkCommandHandler;
 import net.minecraft.command.CommandSource;
@@ -20,7 +21,6 @@ import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.loading.FMLLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,8 @@ public class Opotato {
 
     public Opotato() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PotatoCommonConfig.COMMON_CONFIG);
-        ModList.get().getMods().forEach(modInfo -> LOGGER.info("[Opotato] Mod " + modInfo.getOwningFile().getFile().getFileName() + " loaded!"));
+        if (PotatoCommonConfig.PRINT_MOD_LIST_WHEN_LAUNCHING_GAME.get()) ModList.get().getMods().forEach(modInfo -> LOGGER.info("Mod " + modInfo.getOwningFile().getFile().getFileName() + " loaded!"));
+        LOGGER.info("Oh, potato!");
     }
 
     public static class OpotatoCommand {
@@ -60,7 +62,7 @@ public class Opotato {
     }
 
     public static boolean isLoaded(String modID) {
-        return FMLLoader.getLoadingModList().getModFileById(modID) != null;
+        return ModList.get().isLoaded(modID);
     }
 
     public static void exeCmd(MinecraftServer server, String cmd) {
@@ -72,10 +74,10 @@ public class Opotato {
     }
 
     public static <T extends Entity> void getEntitiesOfClass(Class<? extends T> cs, AxisAlignedBB aabb, List<T> list, @Nullable Predicate<? super T> predicate, World level, ClassInheritanceMultiMap<Entity>[] entitySections) {
-        for(int k = MathHelper.clamp(MathHelper.floor((aabb.minY - level.getMaxEntityRadius()) / 16.0D), 0, entitySections.length - 1); k <= MathHelper.clamp(MathHelper.floor((aabb.maxY + level.getMaxEntityRadius()) / 16.0D), 0, entitySections.length - 1); ++k) {
+        for(int k = MathHelper.clamp(MathHelper.floor((aabb.minY - level.getMaxEntityRadius()) / 16.0D), 0, entitySections.length - 1);
+            k <= MathHelper.clamp(MathHelper.floor((aabb.maxY + level.getMaxEntityRadius()) / 16.0D), 0, entitySections.length - 1); ++k) {
             list.addAll(entitySections[k].find(cs).stream().filter(t -> t.getBoundingBox().intersects(aabb) && (predicate == null || predicate.test(t))).collect(Collectors.toList()));
-        }
-    }
+        }    }
 
     public static <T extends Entity> @NotNull List<T> getEntitiesOfClass(@NotNull Class<? extends T> cs, AxisAlignedBB aabb, @Nullable Predicate<? super T> predicate, IProfiler profiler, double maxEntityRadius, AbstractChunkProvider chunkSource) {
         profiler.incrementCounter("getEntities");
@@ -87,5 +89,13 @@ public class Opotato {
             }
         }
         return list;
+    }
+
+    public static <N extends Number & Comparable<N>> Function<N, DataResult<N>> checkCodecRange(final N minInclusive, final N maxInclusive) {
+        return value -> {
+            if (value.compareTo(minInclusive) >= 0 && value.compareTo(maxInclusive) <= 0)
+                return DataResult.success(value);
+            return DataResult.error("Value " + value + " outside of range [" + minInclusive + ":" + maxInclusive + "]", value);
+        };
     }
 }
