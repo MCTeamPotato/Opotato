@@ -1,9 +1,22 @@
 package com.teampotato.opotato.mixin.opotato.flowingagony;
 
+import love.marblegate.flowingagony.capibility.cooldown.CoolDown;
+import love.marblegate.flowingagony.capibility.cooldown.CoolDownType;
+import love.marblegate.flowingagony.capibility.cooldown.ICoolDown;
 import love.marblegate.flowingagony.eventhandler.enchantment.LastWishEnchantmentEventHandler;
+import love.marblegate.flowingagony.registry.EnchantmentRegistry;
+import love.marblegate.flowingagony.util.EnchantmentUtil;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+
+import java.util.List;
 
 import static com.teampotato.opotato.config.PotatoCommonConfig.*;
 
@@ -19,14 +32,27 @@ public abstract class MixinLastWishEnchantmentEventHandler {
         return MORIRS_DEATH_WISH_MAX_DAMAGE_IN_COUNT.get();
     }
 
-    @ModifyConstant(method = "doMorirsDeathwishEnchantmentEvent_mendOnDeath", constant = @Constant(intValue = 64))
-    private static int morirsDeathWishGiveOnDeath(int constant) {
-         return DURABILITY_MORIRS_DEATH_WISH_GIVE_ON_DEATH.get();
-    }
-
-    @ModifyConstant(method = "doMorirsDeathwishEnchantmentEvent_mendOnDeath", constant = @Constant(intValue = 12000))
-    private static int morirsDeathWishCoolDown(int constant) {
-        return MORIRS_DEATH_WISH_COOL_DOWN_TICKS.get();
+    /**
+     * @author Kasualix
+     * @reason implement config
+     */
+    @Overwrite
+    @SubscribeEvent
+    public static void doMorirsDeathwishEnchantmentEvent_mendOnDeath(LivingDeathEvent event) {
+        if (!event.getEntityLiving().level.isClientSide() && !event.isCanceled() && event.getEntityLiving() instanceof PlayerEntity) {
+            List<ItemStack> items = EnchantmentUtil.getItemStackWithEnchantment((PlayerEntity)event.getEntityLiving(), EnchantmentRegistry.MORIRS_DEATHWISH.get());
+            if (!items.isEmpty()) {
+                LazyOptional<ICoolDown> coolDownCap = event.getEntityLiving().getCapability(CoolDown.COOL_DOWN_CAPABILITY);
+                coolDownCap.ifPresent((cap) -> {
+                    if (cap.isReady(CoolDownType.MORIRS_DEATHWISH_DEATHMENDING)) {
+                        for (ItemStack item : items) {
+                            item.setDamageValue(item.getDamageValue() - DURABILITY_MORIRS_DEATH_WISH_GIVE_ON_DEATH.get());
+                        }
+                        cap.set(CoolDownType.MORIRS_DEATHWISH_DEATHMENDING, MORIRS_DEATH_WISH_COOL_DOWN_TICKS.get());
+                    }
+                });
+            }
+        }
     }
 
     @ModifyConstant(method = "doMorirsLifeboundEnchantmentEvent_mendOnHeal", constant = @Constant(doubleValue = 100.0))

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 import static com.teampotato.opotato.config.PotatoCommonConfig.*;
 
-@Mixin(value = ThornInFleshImplicitEffect.class, remap = false)
+@Mixin(value = ThornInFleshImplicitEffect.class)
 public abstract class MixinThornInFleshImplicitEffect {
     @ModifyConstant(method = "applyEffectTick", constant = @Constant(floatValue = 1.0F))
     private static float onPlayerDamage(float constant) {
