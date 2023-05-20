@@ -29,7 +29,6 @@
   ],
   "client": [
     "opotato.jumpoverfences.ClientEventHandlerMixin",
-    "opotato.modernui.MixinMinecraftMainWindow",
     "opotato.witherstormmod.MixinBlockClusterRenderer"
   ]
 }

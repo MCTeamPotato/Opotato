@@ -20,13 +20,11 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.inspirations", true);
         this.addMixinRule("opotato.jumpoverfences", true);
         this.addMixinRule("opotato.kiwi", true);
-        this.addMixinRule("opotato.modernui", true);
         this.addMixinRule("opotato.placebo", true);
         this.addMixinRule("opotato.quark", true);
         this.addMixinRule("opotato.witherstormmod", false);
         this.addMixinRule("opotato.xaero", true);
         disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
-        disableIfModPresent("mixin.opotato.modernui", "essential");
     }
 
     private void disableIfModPresent(String configName, String... ids) {
