@@ -105,7 +105,7 @@ In 1.18.2, Opotato development is inactive and features are limited.
 ### Other Features
 Duplicate Entity UUID Fix(You don't need [DEUF](https://www.curseforge.com/minecraft/mc-mods/deuf-duplicate-entity-uuid-fix) or the DEUF feature of [RandomPatches](https://www.curseforge.com/minecraft/mc-mods/randompatches) anymore with this mod installed. And this mod will auto-disable these two mods' DEUF feature when they're installed. Difference: performance improvements on event listening & Don't spam log)
 
-Add incompatible warnings for several mods when you incorrectly install them(Well the warnings in 1182 is quite limited).
+Add incompatible warnings for several mods when you incorrectly install them (Well the warnings in 1182 is quite limited as I'm not familiar with or interested in 1.18.2's mods ecology).
 
 Support killing all types of entities in Wither Storm Mod when Command Block dies (when the Command Block dies, the player is teleported to the overworld, but the entities in Wither Storm's Bowels keep ticking for a long time, affecting TPS) (Disabled by default, inspired by the Lag Removal mod)
 
