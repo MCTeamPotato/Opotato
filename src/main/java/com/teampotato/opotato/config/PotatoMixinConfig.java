@@ -31,7 +31,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
         this.addMixinRule("opotato.ldlib", isLoaded("ldlib") && isLoaded("modernfix"));
         this.addMixinRule("opotato.minecraft", true);
-        this.addMixinRule("opotato.modernui", isLoaded("modernui") && isLoaded("rubidium"));
         this.addMixinRule("opotato.oculus", isLoaded("oculus"));
         this.addMixinRule("opotato.ostoverhaul", isLoaded("ostoverhaul"));
         this.addMixinRule("opotato.placebo", isLoaded("placebo"));
@@ -44,7 +43,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.xaeroworldmap", isLoaded("xaeroworldmap"));
         this.addMixinRule("smoothmenu", true);
         disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
-        disableIfModPresent("mixin.opotato.modernui", "essential");
     }
 
     private void disableIfModPresent(String configName, String... ids) {

@@ -62,7 +62,6 @@
     "opotato.epicfight.MixinEpicFightRenderTypes",
     "opotato.gender.MixinGenderLayer",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
-    "opotato.modernui.MixinMinecraftMainWindow",
     "opotato.witherstormmod.MixinBlockClusterRenderer"
   ]
 }
