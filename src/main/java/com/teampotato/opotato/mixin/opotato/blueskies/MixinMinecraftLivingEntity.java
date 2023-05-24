@@ -17,9 +17,8 @@ public abstract class MixinMinecraftLivingEntity {
     public abstract double getAttributeValue(Attribute attribute);
 
     @Inject(at = @At("HEAD"), method = "getArmorValue", cancellable = true)
-    private void getArmorValue(CallbackInfoReturnable<Integer> callback) {
-        if (!PotatoCommonConfig.ENABLE_BLUE_SKIES_NERF.get()) {
-            callback.setReturnValue(MathHelper.floor(this.getAttributeValue(Attributes.ARMOR)));
-        }
+    private void getArmorValue(CallbackInfoReturnable<Integer> cir) {
+        if (PotatoCommonConfig.ENABLE_BLUE_SKIES_NERF.get()) return;
+        cir.setReturnValue(MathHelper.floor(this.getAttributeValue(Attributes.ARMOR)));
     }
 }

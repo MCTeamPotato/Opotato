@@ -16,7 +16,7 @@ public abstract class MixinPatronRewardHandler {
 
     /**
      * @author Kasualix
-     * @reason Remove Elenai Dodge 2 Internet connection behavior
+     * @reason Remove Internet connection behavior
      */
     @Overwrite
     public static void init() {
