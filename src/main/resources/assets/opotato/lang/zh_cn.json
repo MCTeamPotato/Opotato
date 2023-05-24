@@ -9,5 +9,7 @@
   "opotato.mcdoom.without_fix": "Opotato 抛出警告：你安装了 MC Doom 但没有安装 MCDoom Hotfixes，游戏将会在渲染 Dread Knight 时崩溃！",
   "opotato.magnesium": "Opotato 抛出警告：检测到你安装了镁：原作者已经停止更新镁，开源模组的兼容性都是随更新时间提高的，镁移植的对应钠版本也已经落后很多，如果你想获得更好的优化，请转用依然活跃更新的铷！",
   "opotato.optnotfine": "Opotato 抛出警告：检测到你安装了高清修复：它是闭源的，破坏了其他很多模组，还会大大延长你的启动时间，请转用铷和 Oculus！",
-  "opotato.incompatible.rubidium.betterbiomeblend": "Opotato 抛出警告：Better Biome Blend 与铷不兼容，请删除 Better Biome Blend！"
+  "opotato.incompatible.rubidium.betterbiomeblend": "Opotato 抛出警告：Better Biome Blend 与铷不兼容，请删除 Better Biome Blend！",
+  "opotato.duplicate.potatocurrent": "Opotato 抛出警告：Opotato 已经包含了 PotatoCurrent 的全部功能，请删除 PotatoCurrent！",
+  "opotato.duplicate.cataclysmfixer": "Opotato 抛出警告：Opotato 已经包含了 Cataclysm Fixer 的全部功能，请删除 Cataclysm Fixer！"
 }

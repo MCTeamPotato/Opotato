@@ -78,6 +78,8 @@ public class CommonEvents {
                 addIncompatibleWarn(event, "opotato.magnesium");
             }
         }
+        if (isLoaded("potatocurrent")) addIncompatibleWarn(event, "opotato.duplicate.potatocurrent");
+        if (isLoaded("cataclysmfixer")) addIncompatibleWarn(event, "opotato.duplicate.cataclysmfixer");
     }
 
     @SubscribeEvent

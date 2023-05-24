@@ -25,7 +25,7 @@
     "opotato.cataclysm.MixinIgnitiumArmor",
     "opotato.cataclysm.MixinIgnitiumFlytraChestplate",
     "opotato.cataclysm.MixinInfernalForge",
-    "opotato.cataclysm.MixinModStructures",
+    "opotato.cataclysm.cataclysmfixer.MixinModStructures",
     "opotato.cataclysm.MixinMonstrousHelm",
     "opotato.cataclysm.MixinTheIncinerator",
     "opotato.cataclysm.MixinVoidCore",

@@ -1,7 +1,6 @@
 package com.teampotato.opotato.config;
 
 import com.teampotato.opotato.Opotato;
-import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.io.*;
 import java.util.HashMap;
@@ -14,11 +13,12 @@ public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
 
     private PotatoMixinConfig() {
-        this.addMixinRule("alternatecurrent", true);
+        this.addMixinRule("alternatecurrent", !isLoaded("potatocurrent"));
         this.addMixinRule("mixintrace", true);
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueskies", isLoaded("blueskies"));
         this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
+        this.addMixinRule("opotato.cataclysm.cataclysmfixer", isLoaded("cataclysm") && !isLoaded("cataclysmfixer"));
         this.addMixinRule("opotato.citadel", isLoaded("citadel"));
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));
         this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge"));
@@ -40,18 +40,11 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.witherstormmod", isLoaded("witherstormmod"));
         this.addMixinRule("opotato.xaerominimap", isLoaded("xaerominimap"));
         this.addMixinRule("opotato.xaeroworldmap", isLoaded("xaeroworldmap"));
-        this.addMixinRule("smoothmenu", true);
-        disableIfModPresent("mixin.smoothmenu", "forgery", "konkrete");
-    }
-
-    private void disableIfModPresent(String configName, String... ids) {
-        for(String id : ids) {
-            if(FMLLoader.getLoadingModList().getModFileById(id) != null) this.options.get(configName).addModOverride(false, id);
-        }
+        this.addMixinRule("smoothmenu", !isLoaded("forgery") && !isLoaded("konkrete"));
     }
 
     private boolean isLoaded(String modID) {
-        return FMLLoader.getLoadingModList().getModFileById(modID) != null;
+        return Opotato.isLoaded(modID);
     }
 
     private void addMixinRule(String mixin, boolean enabled) {

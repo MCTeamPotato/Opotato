@@ -1,4 +1,4 @@
-package com.teampotato.opotato.mixin.opotato.cataclysm;
+package com.teampotato.opotato.mixin.opotato.cataclysm.cataclysmfixer;
 
 import L_Ender.cataclysm.init.ModStructures;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
