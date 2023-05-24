@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[36,)"
-license = "MIT"
+license = "GNU LESSER GENERAL PUBLIC LICENSE Version 3"
 issueTrackerURL = "https://github.com/MCTeamPotato/Opotato/issues"
 
 [[mods]]

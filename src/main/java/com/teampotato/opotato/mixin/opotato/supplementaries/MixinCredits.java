@@ -14,7 +14,5 @@ public abstract class MixinCredits {
     @Overwrite
     public static void fetchFromServer() {
         Opotato.LOGGER.info("Opotato: remove supplementaries Internet connection behavior");
-        Thread creditsFetcher = new Thread(() -> {});
-        creditsFetcher.start();
     }
 }

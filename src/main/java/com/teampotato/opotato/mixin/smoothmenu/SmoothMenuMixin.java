@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
 public abstract class SmoothMenuMixin {
-    @Inject(at=@At("HEAD"), method = "getFramerateLimit()I", cancellable = true)
+    @Inject(method = "getFramerateLimit", at = @At("HEAD"), cancellable = true)
     private void onGetFramerateLimit(CallbackInfoReturnable<Integer> ci) {
         ci.setReturnValue(((Minecraft)(Object)this).getWindow().getFramerateLimit());
     }
