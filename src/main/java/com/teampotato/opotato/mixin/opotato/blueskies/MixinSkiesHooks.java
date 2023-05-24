@@ -16,6 +16,5 @@ public abstract class MixinSkiesHooks {
     private static void configurableBreakHook(float speed, BlockState state, BlockPos pos, PlayerEntity player, CallbackInfoReturnable<Float> cir) {
         if (PotatoCommonConfig.ENABLE_BLUE_SKIES_NERF.get()) return;
         cir.setReturnValue(speed);
-        cir.cancel();
     }
 }

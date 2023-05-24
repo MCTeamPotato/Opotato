@@ -31,16 +31,14 @@ public abstract class MixinWitherSicknessEvents {
         ServerWorld world = (ServerWorld) event.world;
         world.getEntities()
                 .filter(entity -> entity instanceof LivingEntity && entity.getCapability(WitherStormModCapabilities.WITHER_SICKNESS_TRACKER).isPresent())
-                .forEach(entity -> {
-                    if ((LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS.get() && !(entity instanceof PlayerEntity)) || (LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get() && entity instanceof MonsterEntity) || (LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get() && entity instanceof AnimalEntity)) return;
-                    entity.getCapability(WitherStormModCapabilities.WITHER_SICKNESS_TRACKER).ifPresent((tracker) -> {
-                        if (!tracker.isActuallyImmune()) {
-                            boolean nearby = entity.level.dimension().location().equals(WitherStormMod.bowelsLocation());
-                            if (!world.getEntities(WitherStormModEntityTypes.WITHER_STORM, storm -> storm instanceof WitherStormEntity && ((WitherStormEntity)storm).getPhase() > 1 && ((WitherStormEntity)storm).isEntityNearby(entity)).isEmpty()) nearby = true;
-                            tracker.setNearStorm(nearby);
-                        }
-                        tracker.tick();
-                    });
-                });
+                .filter(entity -> (LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS.get() && !(entity instanceof PlayerEntity)) || (LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get() && entity instanceof MonsterEntity) || (LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get() && entity instanceof AnimalEntity))
+                .forEach(entity -> entity.getCapability(WitherStormModCapabilities.WITHER_SICKNESS_TRACKER).ifPresent((tracker) -> {
+                    if (!tracker.isActuallyImmune()) {
+                        boolean nearby = entity.level.dimension().location().equals(WitherStormMod.bowelsLocation());
+                        if (!world.getEntities(WitherStormModEntityTypes.WITHER_STORM, storm -> storm instanceof WitherStormEntity && ((WitherStormEntity)storm).getPhase() > 1 && ((WitherStormEntity)storm).isEntityNearby(entity)).isEmpty()) nearby = true;
+                        tracker.setNearStorm(nearby);
+                    }
+                    tracker.tick();
+                }));
     }
 }

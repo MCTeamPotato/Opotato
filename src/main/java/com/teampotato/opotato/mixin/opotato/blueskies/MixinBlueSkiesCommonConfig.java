@@ -13,7 +13,6 @@ public abstract class MixinBlueSkiesCommonConfig {
     private void everyModFeatureGen(String mod, CallbackInfoReturnable<Boolean> cir) {
         if (PotatoCommonConfig.ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM.get()) {
             cir.setReturnValue(true);
-            cir.cancel();
         }
     }
 }

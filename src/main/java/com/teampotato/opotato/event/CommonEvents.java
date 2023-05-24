@@ -13,13 +13,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -40,11 +38,6 @@ public class CommonEvents {
         ServerPlayerEntity player = (ServerPlayerEntity) source;
         if (!player.isCreative()) return;
         event.getEntityLiving().setHealth(0.0F);
-    }
-
-    @SubscribeEvent
-    public static void registerCommands(RegisterCommandsEvent event) {
-        Opotato.OpotatoCommand.register(event.getDispatcher());
     }
 
     @SubscribeEvent
@@ -74,7 +67,8 @@ public class CommonEvents {
         if (rb) {
             if (isLoaded("betterfpsdist")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterfpsdist");
             if (isLoaded("immersive_portals")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.immersive_portals");
-            if (isLoaded("chunkanimator"))addIncompatibleWarn(event, "opotato.incompatible.rubidium.chunkanimator");
+            if (isLoaded("chunkanimator")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.chunkanimator");
+            if (isLoaded("betterbiomeblend")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterbiomeblend");
         }
         if (isLoaded("mcdoom") && !isLoaded("mcdoomfix")) addIncompatibleWarn(event, "opotato.mcdoom.without_fix");
         if (isLoaded("magnesium")) {
@@ -96,7 +90,7 @@ public class CommonEvents {
         Arrays.stream(new String[]{"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"}).forEach(obj -> exeCmd(server, "/kill @e[type=witherstormmod:" + obj + "]"));
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent
     public static void ctrlSpawn(LivingSpawnEvent.CheckSpawn event) {
         LivingEntity entity = event.getEntityLiving();
         IWorld world = event.getWorld();

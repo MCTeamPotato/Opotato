@@ -10,13 +10,14 @@ import java.util.HashMap;
 
 @Mixin(value = Patreon.class, remap = false)
 public abstract class MixinWorldMapPatreon {
-    @Shadow private static HashMap<Integer, ArrayList<String>> patrons;
     @Shadow private static boolean loaded;
     @Shadow private static HashMap<String, Object> mods;
     @Shadow public static void loadSettings() {}
     @Shadow public static HashMap<String, Object> getMods() {
         return mods;
     }
+
+    @Shadow private static HashMap<Integer, ArrayList<String>> patrons;
 
     /**
      * @author Kasualix
