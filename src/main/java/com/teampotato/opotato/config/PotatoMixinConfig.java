@@ -15,6 +15,7 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", !isLoaded("potatocurrent"));
         this.addMixinRule("mixintrace", true);
+        this.addMixinRule("opotato.abnormal", isLoaded("abnormals_core"));
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueskies", isLoaded("blueskies"));
         this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
