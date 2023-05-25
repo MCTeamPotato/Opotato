@@ -1,6 +1,8 @@
 package com.teampotato.opotato.util.schwarz.chunk;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -78,13 +80,14 @@ public class ChunkStatus implements Comparable<ChunkStatus> {
     }
 
     public void genScore() {
+        for (TileEntity blockEntity : chunk.getBlockEntities().values()) {
+            if (blockEntityScore.get(blockEntity.getType()) != null) score += blockEntityScore.get(blockEntity.getType());
+        }
+
         ChunkPos pos = chunk.getPos();
-        chunk.getBlockEntities().values().stream()
-                .filter(blockEntity -> blockEntityScore.get(blockEntity.getType()) != null)
-                .forEach(blockEntity -> score += blockEntityScore.get(blockEntity.getType()));
-        chunk.getLevel().getEntities(null, new AxisAlignedBB(pos.getMinBlockX(), 0, pos.getMinBlockZ(), pos.getMaxBlockX(), 256, pos.getMaxBlockZ())).stream()
-                .filter(entity -> livingEntityScore.get(entity.getType()) != null)
-                .forEach(entity -> score += livingEntityScore.get(entity.getType()));
+        for(Entity entity : chunk.getLevel().getEntities(null, new AxisAlignedBB(pos.getMinBlockX(), 0, pos.getMinBlockZ(), pos.getMaxBlockX(), 256, pos.getMaxBlockZ()))) {
+            if (livingEntityScore.get(entity.getType()) != null) score += livingEntityScore.get(entity.getType());
+        }
     }
 
     public StringTextComponent genText() {

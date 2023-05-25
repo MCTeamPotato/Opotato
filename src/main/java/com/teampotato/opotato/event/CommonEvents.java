@@ -1,5 +1,6 @@
 package com.teampotato.opotato.event;
 
+import com.google.common.collect.Lists;
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import net.minecraft.entity.Entity;
@@ -24,7 +25,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.versions.forge.ForgeVersion;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 import static com.teampotato.opotato.Opotato.*;
@@ -89,7 +89,7 @@ public class CommonEvents {
         MinecraftServer server = world.getServer();
         ResourceLocation name = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get() || world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
-        Arrays.stream(new String[]{"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"}).forEach(obj -> exeCmd(server, "/kill @e[type=witherstormmod:" + obj + "]"));
+        Lists.newArrayList("block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont").forEach(target -> exeCmd(server, "/kill @e[type=witherstormmod:" + target + "]"));
     }
 
     @SubscribeEvent
@@ -99,6 +99,13 @@ public class CommonEvents {
         ResourceLocation regName = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.ALLOW_LIMIT_MAX_SPAWN.get() || regName == null || world.isClientSide() || PotatoCommonConfig.BLACKLIST.get().contains(regName.toString())) return;
         ChunkPos chunk = world.getChunk(entity.blockPosition()).getPos();
-        if (world.getEntitiesOfClass(entity.getClass(), new AxisAlignedBB(chunk.getMinBlockX(), 0, chunk.getMinBlockZ(), chunk.getMaxBlockX(), 256, chunk.getMaxBlockX())).size() > PotatoCommonConfig.MAX_ENTITIES_NUMBER_PER_CHUNK.get()) event.setResult(Event.Result.DENY);
+        if (world.getEntitiesOfClass(entity.getClass(), new AxisAlignedBB(
+                chunk.getMinBlockX(),
+                0,
+                chunk.getMinBlockZ(),
+                chunk.getMaxBlockX(),
+                256,
+                chunk.getMaxBlockX()
+        )).size() > PotatoCommonConfig.MAX_ENTITIES_NUMBER_PER_CHUNK.get()) event.setResult(Event.Result.DENY);
     }
 }
