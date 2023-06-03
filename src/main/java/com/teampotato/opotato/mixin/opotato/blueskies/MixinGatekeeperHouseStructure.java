@@ -13,5 +13,6 @@ public abstract class MixinGatekeeperHouseStructure {
     @Inject(method = "getSpacing", at = @At("HEAD"), cancellable = true)
     private void getSpacing(CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(PotatoCommonConfig.GATE_KEEPER_HOUSE_SPACING.get());
+        cir.cancel();
     }
 }

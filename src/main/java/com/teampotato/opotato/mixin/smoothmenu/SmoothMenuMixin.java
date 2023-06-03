@@ -11,5 +11,6 @@ public abstract class SmoothMenuMixin {
     @Inject(method = "getFramerateLimit", at = @At("HEAD"), cancellable = true)
     private void onGetFramerateLimit(CallbackInfoReturnable<Integer> ci) {
         ci.setReturnValue(((Minecraft)(Object)this).getWindow().getFramerateLimit());
+        cir.cancel();
     }
 }

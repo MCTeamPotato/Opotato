@@ -16,5 +16,6 @@ public abstract class MixinPortalColorHandler {
     private void rbCompat(BlockState state, IBlockDisplayReader world, BlockPos pos, int tintValue, CallbackInfoReturnable<Integer> cir) {
         if (!Opotato.isLoaded("rubidium")) return;
         cir.setReturnValue(-1);
+        cir.cancel();
     }
 }

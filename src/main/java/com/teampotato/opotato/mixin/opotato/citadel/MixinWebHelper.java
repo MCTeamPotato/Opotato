@@ -13,5 +13,6 @@ public abstract class MixinWebHelper {
     @Inject(method = "getURLContents", at = @At("HEAD"), cancellable = true)
     private static void on_getURLContents(String urlString, String backupFileLoc, CallbackInfoReturnable<BufferedReader> cir) {
         cir.setReturnValue(null);
+        cir.cancel();
     }
 }

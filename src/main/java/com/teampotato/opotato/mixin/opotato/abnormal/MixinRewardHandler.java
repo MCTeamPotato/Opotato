@@ -16,7 +16,6 @@ public abstract class MixinRewardHandler {
      */
     @Overwrite
     public static void clientSetup(FMLClientSetupEvent event) {
-        Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap().values()
-                .forEach(renderer -> renderer.addLayer(new SlabfishHatLayerRenderer(renderer, new SlabfishHatModel())));
+        Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap().values().forEach(renderer -> renderer.addLayer(new SlabfishHatLayerRenderer(renderer, new SlabfishHatModel())));
     }
 }

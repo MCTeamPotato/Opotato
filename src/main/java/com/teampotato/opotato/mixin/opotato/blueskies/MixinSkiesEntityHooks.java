@@ -15,6 +15,7 @@ public abstract class MixinSkiesEntityHooks {
     private static void configurableNerfDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
         if (PotatoCommonConfig.ENABLE_BLUE_SKIES_NERF.get()) return;
         cir.setReturnValue(amount);
+        cir.cancel();
     }
 
 
@@ -22,5 +23,6 @@ public abstract class MixinSkiesEntityHooks {
     private static void configurableNerfIndirectDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
         if (PotatoCommonConfig.ENABLE_BLUE_SKIES_NERF.get()) return;
         cir.setReturnValue(Math.min(5.0F, amount));
+        cir.cancel();
     }
 }

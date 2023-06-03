@@ -22,5 +22,6 @@ public abstract class MixinEpicFightRenderTypes {
     private static void onGetArmorVertexBuilder(IRenderTypeBuffer buffer, RenderType renderType, boolean withGlint, CallbackInfoReturnable<IVertexBuilder> cir) {
         if (buffer.getBuffer(enchantedAnimatedArmor()) != buffer.getBuffer(renderType)) return;
         cir.setReturnValue(buffer.getBuffer(renderType));
+        cir.cancel();
     }
 }

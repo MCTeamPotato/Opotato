@@ -20,5 +20,6 @@ public abstract class MixinMinecraftLivingEntity {
     private void getArmorValue(CallbackInfoReturnable<Integer> cir) {
         if (PotatoCommonConfig.ENABLE_BLUE_SKIES_NERF.get()) return;
         cir.setReturnValue(MathHelper.floor(this.getAttributeValue(Attributes.ARMOR)));
+        cir.cancel();
     }
 }

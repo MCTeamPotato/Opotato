@@ -15,6 +15,7 @@ public abstract class MixinBlockClusterRenderer {
     private void extraShouldRender(BlockClusterEntity entity, ClippingHelper p_225626_2_, double p_225626_3_, double p_225626_5_, double p_225626_7_, CallbackInfoReturnable<Boolean> cir) {
         if (PotatoCommonConfig.BLOCK_CLUSTER_RENDER_OPTIMIZATION.get() && (entity.level.random.nextInt(4) < 2 || entity.level.players().stream().noneMatch(player -> player.canSee(entity)))) {
             cir.setReturnValue(false);
+            cir.cancel();
         }
     }
 }

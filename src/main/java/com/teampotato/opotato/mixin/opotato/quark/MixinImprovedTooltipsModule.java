@@ -18,6 +18,7 @@ public abstract class MixinImprovedTooltipsModule {
             if (mod.equals("apotheosis") || mod.equals("immersive_armors")) cir.setReturnValue(true);
         } else {
             cir.setReturnValue(true);
+            cir.cancel();
         }
     }
 }
