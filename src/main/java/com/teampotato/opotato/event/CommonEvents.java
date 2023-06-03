@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.ChunkPos;
@@ -53,16 +54,21 @@ public class CommonEvents {
         entity.setUUID(newUUID);
     }
 
-    @SubscribeEvent
-    public static void onCommonSetup(FMLCommonSetupEvent event) {
+    @SuppressWarnings("ConstantValue")
+    private static final boolean USING_OPTIFINE = new LazyValue<>(() -> {
         try {
-            Class.forName("net.optifine.Config");
-            addIncompatibleWarn(event, "opotato.optnotfine");
-        } catch (ClassNotFoundException ignored) {}
+            return Class.forName("net.optifine.Config") != null;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }).get();
+
+    @SubscribeEvent
+    public static void onCommonSetup(FMLCommonSetupEvent event)  {
+        if (USING_OPTIFINE) addIncompatibleWarn(event, "opotato.optnotfine");
         boolean rb = isLoaded("rubidium");
-        if (isLoaded("epicfight")) {
-            if (!ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4"))
-                addIncompatibleWarn(event, "opotato.epicfight.wrong_forge_version");
+        if (isLoaded("epicfight") && !ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4")) {
+            addIncompatibleWarn(event, "opotato.epicfight.wrong_forge_version");
         }
         if (rb) {
             if (isLoaded("betterfpsdist")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterfpsdist");
