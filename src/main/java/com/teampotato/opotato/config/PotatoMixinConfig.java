@@ -1,5 +1,6 @@
 package com.teampotato.opotato.config;
 
+import com.google.common.collect.Lists;
 import com.teampotato.opotato.Opotato;
 import net.minecraftforge.fml.loading.FMLLoader;
 
@@ -24,7 +25,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.quark", true);
         this.addMixinRule("opotato.witherstormmod", false);
         this.addMixinRule("opotato.xaero", true);
-        disableIfModPresent("mixin.ksyxis", "dragora", "ksyxis");
     }
 
     private void disableIfModPresent(String configName, String... ids) {
@@ -124,9 +124,10 @@ public class PotatoMixinConfig {
             writer.write("#\n");
             writer.write("# The following options can be enabled or disabled if there is a compatibility issue.\n");
             writer.write("# Add a line mixin.example_name=true/false without the # sign to enable/disable a rule.\n");
-            List<String> lines = this.options.keySet().stream().filter(key -> !key.equals("mixin.core")).sorted().map(key -> "#   " + key + "\n").collect(Collectors.toList());
+            writer.write("# All the mixins: \n");
+            List<String> lines = Lists.newArrayList(this.options.keySet());
             for(String line : lines) {
-                writer.write(line);
+                writer.write("# " + line + "\n");
             }
             for (Map.Entry<Object, Object> entry : props.entrySet()) {
                 String key = (String) entry.getKey();
