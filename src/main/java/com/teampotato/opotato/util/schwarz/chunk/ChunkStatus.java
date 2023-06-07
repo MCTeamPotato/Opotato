@@ -16,12 +16,12 @@ import java.util.HashMap;
 
 public class ChunkStatus implements Comparable<ChunkStatus> {
     private int score = 0;
-    private int[] coords = new int[2];
+    private final int[] coords = new int[2];
 
-    private Chunk chunk;
+    private final Chunk chunk;
     private String world;
 
-    private final HashMap<TileEntityType<?>, Integer> blockEntityScore = new HashMap<TileEntityType<?>, Integer>(){{
+    private final HashMap<TileEntityType<?>, Integer> blockEntityScore = new HashMap<TileEntityType<?>, Integer>() {{
             put(TileEntityType.CHEST, 1);
             put(TileEntityType.TRAPPED_CHEST, 2);
             put(TileEntityType.BLAST_FURNACE, 3);

@@ -7,10 +7,51 @@ import java.util.List;
 
 public class PotatoCommonConfig {
     public static ForgeConfigSpec COMMON_CONFIG;
-    public static ForgeConfigSpec.BooleanValue ALLOW_LIMIT_MAX_SPAWN, ENABLE_BLUE_SKIES_NERF, ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM, ENABLE_HEADSHOT_SOUND_DING, KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES, LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS, LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM, LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM, BLOCK_CLUSTER_RENDER_OPTIMIZATION, ENABLE_CREATIVE_ONE_POUCH, DISABLE_ARS_NOUVEAU_MANA_GEM_IN_BASIC_LOOT, IGNITIUM_ARMOR_HAS_DAMAGE, FINAL_FRACTAL_HAS_DAMAGE, INFERNAL_FORGE_HAS_DAMAGE, MONSTROUS_HELM_HAS_DAMAGE, ZWEIENDER_HAS_DAMAGE;
-    public static ForgeConfigSpec.IntValue GATE_KEEPER_HOUSE_SPACING, MAX_ENTITIES_NUMBER_PER_CHUNK, SOUL_BLACK_SMITH_SPACING, SOUL_BLACK_SMITH_SEPARATION, RUINED_CITADEL_SPACING, RUINED_CITADEL_SEPARATION, BURNING_ARENA_SPACING, BURNING_ARENA_SEPARATION, CATACOMB_SPACING, CATACOMB_SEPARATION, INCINERATOR_COOL_DOWN, INFERNAL_FORGE_COOL_DOWN, VOID_CORE_COOL_DOWN, INCINERATOR_USE_DURATION, INCINERATOR_ENCHANTMENT_VALUE;
-    public static ForgeConfigSpec.ConfigValue<Float> HEADSHOT_VOLUME, HEADSHOT_PITCH;
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLIST;
+
+    public static ForgeConfigSpec.BooleanValue
+            ALLOW_LIMIT_MAX_SPAWN,
+            ENABLE_BLUE_SKIES_NERF,
+            ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM,
+            ENABLE_HEADSHOT_SOUND_DING,
+            KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES,
+            LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS,
+            LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM,
+            LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM,
+            BLOCK_CLUSTER_RENDER_OPTIMIZATION,
+            ENABLE_CREATIVE_ONE_POUCH,
+            DISABLE_ARS_NOUVEAU_MANA_GEM_IN_BASIC_LOOT,
+            IGNITIUM_ARMOR_HAS_DAMAGE,
+            FINAL_FRACTAL_HAS_DAMAGE,
+            INFERNAL_FORGE_HAS_DAMAGE,
+            MONSTROUS_HELM_HAS_DAMAGE,
+            ZWEIENDER_HAS_DAMAGE;
+
+    public static ForgeConfigSpec.IntValue
+            GATE_KEEPER_HOUSE_SPACING,
+            MAX_ENTITIES_NUMBER_PER_CHUNK,
+            SOUL_BLACK_SMITH_SPACING,
+            SOUL_BLACK_SMITH_SEPARATION,
+            RUINED_CITADEL_SPACING,
+            RUINED_CITADEL_SEPARATION,
+            BURNING_ARENA_SPACING,
+            BURNING_ARENA_SEPARATION,
+            CATACOMB_SPACING,
+            CATACOMB_SEPARATION,
+            INCINERATOR_COOL_DOWN,
+            INFERNAL_FORGE_COOL_DOWN,
+            VOID_CORE_COOL_DOWN,
+            INCINERATOR_USE_DURATION,
+            INCINERATOR_ENCHANTMENT_VALUE, BLAZING_BRAND_EFFECT_DURATION_ON_FLAME_STRIKE;
+
+    public static ForgeConfigSpec.ConfigValue<Float>
+            HEADSHOT_VOLUME,
+            HEADSHOT_PITCH,
+            FLAME_STRIKE_OF_INCINERATOR_BASIC_DAMAGE;
+
+    public static ForgeConfigSpec.ConfigValue<Double> FLAME_STRIKE_EXTRA_DAMAGE_PERCENT;
+
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>>
+            BLACKLIST;
 
     static {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
@@ -50,10 +91,10 @@ public class PotatoCommonConfig {
                 .define("enable 'Ding' on Headshot", true);
         HEADSHOT_VOLUME = CONFIG_BUILDER
                 .comment("Range: 0.0F ~ 1.0F. Type: Float")
-                .define("'Ding' volume", 1.0F);
+                .defineInRange("'Ding' volume", (float)1.0, (float)0.0, (float)1.0, Float.class);
         HEADSHOT_PITCH = CONFIG_BUILDER
                 .comment("Range: 0.5F ~ 2.0F. Type: Float")
-                .define("'Ding' pitch", 1.0F);
+                .defineInRange("'Ding' pitch", (float)1.0, (float)0.0, (float)1.0, Float.class);
         CONFIG_BUILDER.pop();
 
         CONFIG_BUILDER
@@ -109,6 +150,12 @@ public class PotatoCommonConfig {
         INCINERATOR_ENCHANTMENT_VALUE = CONFIG_BUILDER
                 .comment("About enchantability factor, see enchantability in https://minecraft.fandom.com/wiki/Tiers.")
                 .defineInRange("Incinerator's enchantability factor", 16, 12, Integer.MAX_VALUE);
+        BLAZING_BRAND_EFFECT_DURATION_ON_FLAME_STRIKE = CONFIG_BUILDER
+                .defineInRange("How many ticks will blazing brand effect caused by incinerator's flame strike ability exist on the attacked entities", 200, 1, Integer.MAX_VALUE);
+        FLAME_STRIKE_OF_INCINERATOR_BASIC_DAMAGE = CONFIG_BUILDER
+                .defineInRange("How many damage will the flame strike caused by incinerator's ability give on the attacked entities", (float)6.0, (float)1.0, Float.MAX_VALUE, Float.class);
+        FLAME_STRIKE_EXTRA_DAMAGE_PERCENT = CONFIG_BUILDER
+                .define("The incinerator's flame strike ability also does extra damages, which is a percentage of the attacked's max health, here it is", 0.02);
         CONFIG_BUILDER.pop();
 
         CONFIG_BUILDER

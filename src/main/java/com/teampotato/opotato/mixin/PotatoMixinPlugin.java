@@ -20,12 +20,7 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
 
     public PotatoMixinPlugin() {
         instance = this;
-        try {
-            config = PotatoMixinConfig.load(new File("./config/opotato-mixins.properties"));
-        } catch (Exception e) {
-            throw new RuntimeException("Could not load configuration file for Opotato", e);
-        }
-
+        this.onLoad(MIXIN_PACKAGE_ROOT);
         this.logger.info("Loaded configuration file for Opotato: {} options available, {} override(s) found", config.getOptionCount(), config.getOptionOverrideCount());
     }
 

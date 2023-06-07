@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.ChunkPos;
@@ -54,14 +53,16 @@ public class CommonEvents {
         entity.setUUID(newUUID);
     }
 
-    @SuppressWarnings("ConstantValue")
-    private static final boolean USING_OPTIFINE = new LazyValue<>(() -> {
+    private static final boolean USING_OPTIFINE;
+
+    static {
+        boolean hasOfClass = false;
         try {
-            return Class.forName("net.optifine.Config") != null;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-    }).get();
+            Class.forName("optifine.OptiFineTransformationService");
+            hasOfClass = true;
+        } catch (ClassNotFoundException ignored) {}
+        USING_OPTIFINE = hasOfClass;
+    }
 
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event)  {
@@ -86,6 +87,8 @@ public class CommonEvents {
         }
         if (isLoaded("potatocurrent")) addIncompatibleWarn(event, "opotato.duplicate.potatocurrent");
         if (isLoaded("cataclysmfixer")) addIncompatibleWarn(event, "opotato.duplicate.cataclysmfixer");
+        if (isLoaded("mixininheaven")) addIncompatibleWarn(event, "opotato.duplicate.mixininheaven");
+        if (isLoaded("blueprintinternetconnectiondisabler")) addIncompatibleWarn(event, "opotato.duplicate.blueprintinternetconnectiondisabler");
     }
 
     @SubscribeEvent
@@ -95,7 +98,9 @@ public class CommonEvents {
         MinecraftServer server = world.getServer();
         ResourceLocation name = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get() || world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
-        Lists.newArrayList("block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont").forEach(target -> exeCmd(server, "/kill @e[type=witherstormmod:" + target + "]"));
+        for (String target : Lists.newArrayList("block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont")) {
+            exeCmd(server, "/kill @e[type=witherstormmod:" + target + "]");
+        }
     }
 
     @SubscribeEvent

@@ -4,18 +4,18 @@ import com.teampotato.opotato.Opotato;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.stream.Collectors;
+
+import static com.teampotato.opotato.Opotato.isLoaded;
 
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
 
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", !isLoaded("potatocurrent"));
-        this.addMixinRule("mixintrace", true);
-        this.addMixinRule("opotato.abnormal", isLoaded("abnormals_core"));
+        this.addMixinRule("mixintrace", !isLoaded("mixininheaven"));
+        this.addMixinRule("opotato.abnormal", isLoaded("abnormals_core") && !isLoaded("blueprintinternetconnectiondisabler"));
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueskies", isLoaded("blueskies"));
         this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
@@ -42,10 +42,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.xaerominimap", isLoaded("xaerominimap"));
         this.addMixinRule("opotato.xaeroworldmap", isLoaded("xaeroworldmap"));
         this.addMixinRule("smoothmenu", !isLoaded("forgery") && !isLoaded("konkrete"));
-    }
-
-    private boolean isLoaded(String modID) {
-        return Opotato.isLoaded(modID);
     }
 
     private void addMixinRule(String mixin, boolean enabled) {
@@ -139,9 +135,9 @@ public class PotatoMixinConfig {
             writer.write("#\n");
             writer.write("# The following options can be enabled or disabled if there is a compatibility issue.\n");
             writer.write("# Add a line mixin.example_name=true/false without the # sign to enable/disable a rule.\n");
-            List<String> lines = this.options.keySet().stream().filter(key -> !key.equals("mixin.core")).sorted().map(key -> "#   " + key + "\n").collect(Collectors.toList());
-            for(String line : lines) {
-                writer.write(line);
+            writer.write("# All the mixins: \n");
+            for(String line : this.options.keySet()) {
+                writer.write("# " + line + "\n");
             }
             for (Map.Entry<Object, Object> entry : props.entrySet()) {
                 String key = (String) entry.getKey();
