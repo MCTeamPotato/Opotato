@@ -24,7 +24,8 @@ public class PotatoCommonConfig {
             FINAL_FRACTAL_HAS_DAMAGE,
             INFERNAL_FORGE_HAS_DAMAGE,
             MONSTROUS_HELM_HAS_DAMAGE,
-            ZWEIENDER_HAS_DAMAGE;
+            ZWEIENDER_HAS_DAMAGE,
+            ONLY_ONE_WITHER_STORM;
 
     public static ForgeConfigSpec.IntValue
             GATE_KEEPER_HOUSE_SPACING,
@@ -113,6 +114,12 @@ public class PotatoCommonConfig {
                 .comment("Entities that will be killed: Block Cluster, Sickened Skeleton, Sickened Creeper, Sickened Spider, Sickened Zombie, Tentacle, Withered Symbiont.",
                         "Inspired by Lag Removal mod.")
                 .define("kill witherstormmod entities after command block dies", false);
+        ONLY_ONE_WITHER_STORM = CONFIG_BUILDER
+                .comment(
+                        "If this is turned on, a cache optimization will be applied to optimize the mod",
+                        "If you summon multiple wither storms, they will be removed."
+                )
+                .define("only one wither storm", false);
         CONFIG_BUILDER.pop();
 
         CONFIG_BUILDER

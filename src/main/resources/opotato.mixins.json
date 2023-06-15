@@ -11,6 +11,7 @@
   "mixins": [
     "alternatecurrent.RedStoneWireBlockMixin",
     "alternatecurrent.ServerLevelMixin",
+    "api.ServerWorldImpl",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
     "opotato.abnormal.MixinRewardHandler",

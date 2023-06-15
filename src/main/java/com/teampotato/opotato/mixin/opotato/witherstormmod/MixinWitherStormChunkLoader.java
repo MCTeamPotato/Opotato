@@ -28,7 +28,8 @@ public abstract class MixinWitherStormChunkLoader {
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
         if (event.phase != TickEvent.Phase.END || !(event.world instanceof ServerWorld)) return;
         ServerWorld world = (ServerWorld) event.world;
-        world.getCapability(WitherStormModCapabilities.WITHER_STORM_CHUNKS_CAPABILITY).ifPresent(stormChunkHolder -> handleStromChunkHoldLogic(world, stormChunkHolder));
+        world.getCapability(WitherStormModCapabilities.WITHER_STORM_CHUNKS_CAPABILITY)
+                .ifPresent(stormChunkHolder -> handleStromChunkHoldLogic(world, stormChunkHolder));
     }
 
     private static void handleStromChunkHoldLogic(ServerWorld world, WitherStormChunkHolder stormChunkHolder) {
@@ -62,7 +63,6 @@ public abstract class MixinWitherStormChunkLoader {
         }
 
         //Multiple Wither Storms? Are you sure???
-
         for (Map.Entry<UUID, BlockPos> uuidBlockPosEntry : posSet) {
             UUID uuid = uuidBlockPosEntry.getKey();
             for (Entity entity : world.getAllEntities()) {

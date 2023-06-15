@@ -14,6 +14,7 @@ public class PotatoMixinConfig {
 
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", !isLoaded("potatocurrent"));
+        this.addMixinRule("api", !isLoaded("witherstormmod"));
         this.addMixinRule("mixintrace", !isLoaded("mixininheaven"));
         this.addMixinRule("opotato.abnormal", isLoaded("abnormals_core") && !isLoaded("blueprintinternetconnectiondisabler"));
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));

@@ -1,5 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstormmod;
 
+import com.teampotato.opotato.api.ExtendedServerWorld;
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,6 +18,9 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
+import static com.teampotato.opotato.event.WitherStormCacheEvent.initialUUID;
+import static com.teampotato.opotato.event.WitherStormCacheEvent.witherStormUUID;
+
 @Mixin(value = WitherSicknessEvents.class, remap = false)
 public abstract class MixinWitherSicknessEvents {
     /**
@@ -29,23 +33,34 @@ public abstract class MixinWitherSicknessEvents {
         if (event.phase != TickEvent.Phase.END || !(event.world instanceof ServerWorld)) return;
         ServerWorld world = (ServerWorld) event.world;
         for (Entity entity : world.getEntities(null, entity -> {
-            boolean capPresent = entity.getCapability(WitherStormModCapabilities.WITHER_SICKNESS_TRACKER).isPresent();
             boolean isLiving = entity instanceof LivingEntity;
-            if (PotatoCommonConfig.LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS.get()) return (entity instanceof PlayerEntity && capPresent);
-            if (PotatoCommonConfig.LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get()) return (isLiving && !(entity instanceof MonsterEntity) && capPresent);
-            if (PotatoCommonConfig.LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get()) return (isLiving && !(entity instanceof AnimalEntity) && capPresent);
-            return entity instanceof LivingEntity;
+            if (PotatoCommonConfig.LET_WITHER_SICKNESS_ONLY_TAKE_EFFECT_ON_PLAYERS.get())
+                return (entity instanceof PlayerEntity);
+            if (PotatoCommonConfig.LET_MOBS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get())
+                return (isLiving && !(entity instanceof MonsterEntity));
+            if (PotatoCommonConfig.LET_ANIMALS_IMMUNE_TO_WITHER_SICKNESS_TICKING_SYSTEM.get())
+                return (isLiving && !(entity instanceof AnimalEntity));
+            return (entity instanceof LivingEntity);
         })) {
             entity.getCapability(WitherStormModCapabilities.WITHER_SICKNESS_TRACKER).ifPresent(tracker -> {
                 if (!tracker.isActuallyImmune()) {
                     boolean nearby = entity.level.dimension().location().equals(WitherStormMod.bowelsLocation());
-                    WitherStormEntity witherStormEntity = getWitherStorm(world);
+                    WitherStormEntity witherStormEntity;
+                    if (PotatoCommonConfig.ONLY_ONE_WITHER_STORM.get() && !witherStormUUID.equals(initialUUID)) {
+                        witherStormEntity = getWitherStormByUUID(world);
+                    } else {
+                        witherStormEntity = getWitherStorm(world);
+                    }
                     if (witherStormEntity != null) nearby = witherStormEntity.isEntityNearby(entity);
                     tracker.setNearStorm(nearby);
                 }
                 tracker.tick();
             });
         }
+    }
+
+    private static @Nullable WitherStormEntity getWitherStormByUUID(ServerWorld world) {
+        return (WitherStormEntity) ((ExtendedServerWorld)world).findAddedOrPendingEntityPublic(witherStormUUID);
     }
 
     private static @Nullable WitherStormEntity getWitherStorm(ServerWorld world) {

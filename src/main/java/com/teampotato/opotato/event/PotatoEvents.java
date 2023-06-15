@@ -25,12 +25,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.versions.forge.ForgeVersion;
 
+import java.util.List;
 import java.util.UUID;
 
 import static com.teampotato.opotato.Opotato.*;
 
 @Mod.EventBusSubscriber(modid = Opotato.ID)
-public class CommonEvents {
+public class PotatoEvents {
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
         Entity source = event.getSource().getDirectEntity();
@@ -91,6 +92,8 @@ public class CommonEvents {
         if (isLoaded("blueprintinternetconnectiondisabler")) addIncompatibleWarn(event, "opotato.duplicate.blueprintinternetconnectiondisabler");
     }
 
+    private static final List<String> targets = Lists.newArrayList("block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont");
+
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
         LivingEntity entity = event.getEntityLiving();
@@ -98,7 +101,7 @@ public class CommonEvents {
         MinecraftServer server = world.getServer();
         ResourceLocation name = entity.getType().getRegistryName();
         if (!PotatoCommonConfig.KILL_WITHER_STORM_MOD_ENTITIES_AFTER_COMMAND_BLOCK_DIES.get() || world.isClientSide || name == null || server == null || !name.toString().equals("witherstormmod:command_block")) return;
-        for (String target : Lists.newArrayList("block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont")) {
+        for (String target : targets) {
             exeCmd(server, "/kill @e[type=witherstormmod:" + target + "]");
         }
     }

@@ -2,6 +2,7 @@ package com.teampotato.opotato;
 
 import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.event.OstEvents;
+import com.teampotato.opotato.event.WitherStormCacheEvent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,6 +30,7 @@ public class Opotato {
         FMLLoader.getLoadingModList().getModFiles().forEach(modInfo -> LOGGER.info("Opotato: Mod " + modInfo.getFile().getFileName() + " loaded!"));
         LOGGER.info("Oh, potato!");
         if (isLoaded("ostoverhaul")) MinecraftForge.EVENT_BUS.register(OstEvents.class);
+        if (isLoaded("witherstormmod")) MinecraftForge.EVENT_BUS.register(WitherStormCacheEvent.class);
     }
 
     public static class EmptyThread extends Thread {
