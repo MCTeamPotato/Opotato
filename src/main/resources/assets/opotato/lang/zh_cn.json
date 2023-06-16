@@ -13,5 +13,6 @@
   "opotato.duplicate.potatocurrent": "Opotato 抛出警告：Opotato 已经包含了 PotatoCurrent 的全部功能，请删除 PotatoCurrent！",
   "opotato.duplicate.cataclysmfixer": "Opotato 抛出警告：Opotato 已经包含了 Cataclysm Fixer 的全部功能，请删除 Cataclysm Fixer！",
   "opotato.duplicate.mixininheaven": "Opotato 抛出警告：Opotato 已经包含了 Mixin In Heaven 的全部功能，请删除 Mixin In Heaven！",
-  "opotato.duplicate.blueprintinternetconnectiondisabler": "Opotato 抛出警告：Opotato 已经包含了 Blueprint Internet Connection Disabler 的全部功能，请删除 Blueprint Internet Connection Disabler！"
+  "opotato.duplicate.blueprintinternetconnectiondisabler": "Opotato 抛出警告：Opotato 已经包含了 Blueprint Internet Connection Disabler 的全部功能，请删除 Blueprint Internet Connection Disabler！",
+  "opotato.helium.dangerous": "Opotato 抛出警告：Helium 已经停更 & 严重过时，且兼容不佳，不推荐再使用，如果你想获得更好的内存优化，请尝试 FerriteCore。"
 }

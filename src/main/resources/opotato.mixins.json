@@ -63,6 +63,7 @@
   "client": [
     "opotato.epicfight.MixinEpicFightRenderTypes",
     "opotato.gender.MixinGenderLayer",
+    "opotato.itemstage.MixinPluginItemStages",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.witherstormmod.MixinBlockClusterRenderer"
   ]

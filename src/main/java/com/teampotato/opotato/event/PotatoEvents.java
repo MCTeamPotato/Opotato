@@ -90,6 +90,7 @@ public class PotatoEvents {
         if (isLoaded("cataclysmfixer")) addIncompatibleWarn(event, "opotato.duplicate.cataclysmfixer");
         if (isLoaded("mixininheaven")) addIncompatibleWarn(event, "opotato.duplicate.mixininheaven");
         if (isLoaded("blueprintinternetconnectiondisabler")) addIncompatibleWarn(event, "opotato.duplicate.blueprintinternetconnectiondisabler");
+        if (isLoaded("helium")) addIncompatibleWarn(event, "opotato.helium.dangerous");
     }
 
     private static final List<String> targets = Lists.newArrayList("block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont");

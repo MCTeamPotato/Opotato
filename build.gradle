@@ -116,6 +116,7 @@ dependencies {
     implementation fg.deobf("curse.maven:xaeros-world-map-317780:4492949")
     implementation fg.deobf("curse.maven:xaeros-minimap-263420:4492919")
     implementation fg.deobf("curse.maven:blueprint-382216:3607198")
+    implementation fg.deobf("curse.maven:item-stages-280316:3482955")
 
     implementation fg.deobf("curse.maven:jei-238222:4371666")
 }
