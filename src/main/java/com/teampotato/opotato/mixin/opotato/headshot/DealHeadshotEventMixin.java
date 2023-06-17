@@ -43,7 +43,7 @@ public abstract class DealHeadshotEventMixin {
         PlayerEntity sourcePlayer = (trueSource instanceof PlayerEntity) ? (PlayerEntity) trueSource : null;
         if (sourcePlayer != null) sourcePlayer.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_entity"), true);
 
-        double headshotDamage = event.getAmount() * HeadshotConfig.HEADSHOT_DAMAGE_MULTIPLIER.get();
+        double headshotDamage = HeadshotConfig.HEADSHOT_DAMAGE_MULTIPLIER.get() * ((double)event.getAmount());
         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.PROJECTILE_PROTECTION, entity) > 0) {
             event.setAmount((float) (headshotDamage * HeadshotConfig.HEADSHOT_PROJECTILE_PROTECTION_DAMAGE_REDUCTION.get()));
             entity.getItemBySlot(EquipmentSlotType.HEAD).hurt((int) (headshotDamage / 4), world.random, null);
