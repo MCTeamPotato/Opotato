@@ -18,7 +18,7 @@ public abstract class MixinPluginItemStages {
     @Shadow protected abstract void updateHiddenItems();
 
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/eventbus/api/IEventBus;addListener(Lnet/minecraftforge/eventbus/api/EventPriority;ZLjava/lang/Class;Ljava/util/function/Consumer;)V", ordinal = 1))
-    private void onListen(IEventBus instance, EventPriority eventPriority, boolean b, Class tClass, Consumer tConsumer) {}
+    private void onListen(IEventBus instance, EventPriority eventPriority, boolean b, Class<?> tClass, Consumer<?> tConsumer) {}
 
     @Inject(method = "onRuntimeAvailable", at = @At("HEAD"))
     private void onAvailable(IJeiRuntime jeiRuntime, CallbackInfo ci) {

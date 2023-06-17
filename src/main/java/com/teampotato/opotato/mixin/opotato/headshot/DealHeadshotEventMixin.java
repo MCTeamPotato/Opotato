@@ -34,7 +34,11 @@ public abstract class DealHeadshotEventMixin {
         World world = entity.level;
         DamageSource eventSource = event.getSource();
         Vector3d srcPos = eventSource.getSourcePosition();
-        if (world.isClientSide || !eventSource.isProjectile() || srcPos == null || entity.isInvulnerableTo(eventSource) || srcPos.y <= entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85, 0.0).y - 0.17 || !(!HeadshotConfig.HELMET_MITIGATION.get() || entity.getItemBySlot(EquipmentSlotType.HEAD).isEmpty())) return;
+        if (world.isClientSide || !eventSource.isProjectile() || srcPos == null ||
+                entity.isInvulnerableTo(eventSource) ||
+                srcPos.y <= entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85, 0.0).y - 0.17 ||
+                !(!HeadshotConfig.HELMET_MITIGATION.get() || entity.getItemBySlot(EquipmentSlotType.HEAD).isEmpty())
+        ) return;
 
         PlayerEntity player = (entity instanceof PlayerEntity) ? (PlayerEntity) entity : null;
         if (player != null) player.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_player"), true);
@@ -50,9 +54,13 @@ public abstract class DealHeadshotEventMixin {
         } else {
             event.setAmount((float) headshotDamage);
             entity.getItemBySlot(EquipmentSlotType.HEAD).hurt((int) (headshotDamage / 2), world.random, null);
-            if (HeadshotConfig.DO_BLINDNESS.get()) entity.addEffect(new EffectInstance(Effects.BLINDNESS, HeadshotConfig.BLIND_TICKS.get(), 3));
-            if (HeadshotConfig.DO_NAUSEA.get()) entity.addEffect(new EffectInstance(Effects.CONFUSION, HeadshotConfig.NAUSEA_TICKS.get(), 2));
+
+            if (HeadshotConfig.DO_BLINDNESS.get())
+                entity.addEffect(new EffectInstance(Effects.BLINDNESS, HeadshotConfig.BLIND_TICKS.get(), 3));
+            if (HeadshotConfig.DO_NAUSEA.get())
+                entity.addEffect(new EffectInstance(Effects.CONFUSION, HeadshotConfig.NAUSEA_TICKS.get(), 2));
         }
-        if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get() && entity instanceof PlayerEntity) entity.playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
+        if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get() && entity instanceof PlayerEntity)
+            entity.playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
     }
 }

@@ -29,7 +29,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
         this.addMixinRule("opotato.headshot", isLoaded("headshot"));
         this.addMixinRule("opotato.inspirations", isLoaded("inspirations") && isLoaded("rubidium"));
-        this.addMixinRule("opotato.itemstage", isLoaded("itemstage") && isLoaded("modernfix"));
+        this.addMixinRule("opotato.itemstage", isLoaded("itemstages") && isLoaded("modernfix"));
         this.addMixinRule("opotato.jumpoverfences", isLoaded("jumpoverfences"));
         this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
         this.addMixinRule("opotato.ldlib", isLoaded("ldlib") && isLoaded("modernfix"));
