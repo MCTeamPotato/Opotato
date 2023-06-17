@@ -1146,9 +1146,9 @@ public class WireHandler {
 	}
 
 	@FunctionalInterface
-	public static interface NodeProvider {
+	public interface NodeProvider {
 
-		public Node getNeighbor(Node node, int iDir);
+		Node getNeighbor(Node node, int iDir);
 
 	}
 }
