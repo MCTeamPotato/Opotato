@@ -30,17 +30,17 @@ public abstract class DealHeadshotEventMixin {
     @Overwrite
     @SubscribeEvent
     public static void onHeadshotIfApplicable(LivingDamageEvent event) {
-        LivingEntity entity = event.getEntityLiving();
-        World world = entity.level;
+        LivingEntity damaged = event.getEntityLiving();
+        World world = damaged.level;
         DamageSource eventSource = event.getSource();
         Vector3d srcPos = eventSource.getSourcePosition();
         if (world.isClientSide || !eventSource.isProjectile() || srcPos == null ||
-                entity.isInvulnerableTo(eventSource) ||
-                srcPos.y <= entity.position().add(0.0, entity.getDimensionsForge(entity.getPose()).height * 0.85, 0.0).y - 0.17 ||
-                !(!HeadshotConfig.HELMET_MITIGATION.get() || entity.getItemBySlot(EquipmentSlotType.HEAD).isEmpty())
+                damaged.isInvulnerableTo(eventSource) ||
+                srcPos.y <= damaged.position().add(0.0, 0.85 * (double) damaged.getDimensionsForge(damaged.getPose()).height, 0.0).y - 0.17 ||
+                !(!HeadshotConfig.HELMET_MITIGATION.get() || damaged.getItemBySlot(EquipmentSlotType.HEAD).isEmpty())
         ) return;
 
-        PlayerEntity player = (entity instanceof PlayerEntity) ? (PlayerEntity) entity : null;
+        PlayerEntity player = (damaged instanceof PlayerEntity) ? (PlayerEntity) damaged : null;
         if (player != null) player.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_player"), true);
 
         Entity trueSource = eventSource.getEntity();
@@ -48,19 +48,19 @@ public abstract class DealHeadshotEventMixin {
         if (sourcePlayer != null) sourcePlayer.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_entity"), true);
 
         double headshotDamage = HeadshotConfig.HEADSHOT_DAMAGE_MULTIPLIER.get() * ((double)event.getAmount());
-        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.PROJECTILE_PROTECTION, entity) > 0) {
+        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.PROJECTILE_PROTECTION, damaged) > 0) {
             event.setAmount((float) (headshotDamage * HeadshotConfig.HEADSHOT_PROJECTILE_PROTECTION_DAMAGE_REDUCTION.get()));
-            entity.getItemBySlot(EquipmentSlotType.HEAD).hurt((int) (headshotDamage / 4), world.random, null);
+            damaged.getItemBySlot(EquipmentSlotType.HEAD).hurt((int) (headshotDamage / 4), world.random, null);
         } else {
             event.setAmount((float) headshotDamage);
-            entity.getItemBySlot(EquipmentSlotType.HEAD).hurt((int) (headshotDamage / 2), world.random, null);
+            damaged.getItemBySlot(EquipmentSlotType.HEAD).hurt((int) (headshotDamage / 2), world.random, null);
 
             if (HeadshotConfig.DO_BLINDNESS.get())
-                entity.addEffect(new EffectInstance(Effects.BLINDNESS, HeadshotConfig.BLIND_TICKS.get(), 3));
+                damaged.addEffect(new EffectInstance(Effects.BLINDNESS, HeadshotConfig.BLIND_TICKS.get(), 3));
             if (HeadshotConfig.DO_NAUSEA.get())
-                entity.addEffect(new EffectInstance(Effects.CONFUSION, HeadshotConfig.NAUSEA_TICKS.get(), 2));
+                damaged.addEffect(new EffectInstance(Effects.CONFUSION, HeadshotConfig.NAUSEA_TICKS.get(), 2));
         }
-        if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get() && entity instanceof PlayerEntity)
-            entity.playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
+        if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get() && damaged instanceof PlayerEntity)
+            damaged.playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
     }
 }

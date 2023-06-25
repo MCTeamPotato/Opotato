@@ -13,6 +13,7 @@ import nonamecrackers2.witherstormmod.common.init.WitherStormModCapabilities;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -29,10 +30,10 @@ public abstract class MixinWitherStormChunkLoader {
         if (event.phase != TickEvent.Phase.END || !(event.world instanceof ServerWorld)) return;
         ServerWorld world = (ServerWorld) event.world;
         world.getCapability(WitherStormModCapabilities.WITHER_STORM_CHUNKS_CAPABILITY)
-                .ifPresent(stormChunkHolder -> handleStromChunkHoldLogic(world, stormChunkHolder));
+                .ifPresent(stormChunkHolder -> handleStormChunkHoldLogic(world, stormChunkHolder));
     }
 
-    private static void handleStromChunkHoldLogic(ServerWorld world, WitherStormChunkHolder stormChunkHolder) {
+    private static void handleStormChunkHoldLogic(ServerWorld world, WitherStormChunkHolder stormChunkHolder) {
         boolean flag = true;
         if (world.getServer().getPlayerCount() == 0) {
             stormChunkHolder.tick();
@@ -84,8 +85,9 @@ public abstract class MixinWitherStormChunkLoader {
     }
 
     private static UUID findFirst(Set<Map.Entry<UUID, BlockPos>> posSet) {
-        for (Map.Entry<UUID, BlockPos> entry : posSet) {
-            return entry.getKey();
+        Iterator<Map.Entry<UUID, BlockPos>> iterator = posSet.iterator();
+        if (iterator.hasNext()) {
+            return iterator.next().getKey();
         }
         return null;
     }

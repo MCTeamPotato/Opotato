@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
+
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldImpl implements ExtendedServerWorld {
     @Shadow @Nullable protected abstract Entity findAddedOrPendingEntity(UUID uuid);
