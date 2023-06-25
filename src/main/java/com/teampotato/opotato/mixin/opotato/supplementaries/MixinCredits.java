@@ -1,6 +1,5 @@
 package com.teampotato.opotato.mixin.opotato.supplementaries;
 
-import com.teampotato.opotato.Opotato;
 import net.mehvahdjukaar.supplementaries.common.Credits;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -12,7 +11,5 @@ public abstract class MixinCredits {
      * @reason Remove Internet connection behavior
      */
     @Overwrite
-    public static void fetchFromServer() {
-        Opotato.LOGGER.info("Opotato: remove supplementaries Internet connection behavior");
-    }
+    public static void fetchFromServer() {}
 }
