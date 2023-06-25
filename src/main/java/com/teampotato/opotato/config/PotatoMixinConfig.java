@@ -14,7 +14,7 @@ public class PotatoMixinConfig {
 
     private PotatoMixinConfig() {
         this.addMixinRule("alternatecurrent", !isLoaded("potatocurrent"));
-        this.addMixinRule("api", !isLoaded("witherstormmod"));
+        this.addMixinRule("api", true);
         this.addMixinRule("mixintrace", !isLoaded("mixininheaven"));
         this.addMixinRule("opotato.abnormal", isLoaded("abnormals_core") && !isLoaded("blueprintinternetconnectiondisabler"));
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
@@ -23,6 +23,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.cataclysm.cataclysmfixer", isLoaded("cataclysm") && !isLoaded("cataclysmfixer"));
         this.addMixinRule("opotato.citadel", isLoaded("citadel"));
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));
+        this.addMixinRule("opotato.dynamictrees", isLoaded("dynamictrees"));
         this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge"));
         this.addMixinRule("opotato.epicfight", isLoaded("epicfight"));
         this.addMixinRule("opotato.forge", true);

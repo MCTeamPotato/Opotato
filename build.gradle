@@ -79,7 +79,6 @@ repositories {
             includeGroup "curse.maven"
         }
     }
-    maven { url = 'https://maven.minecraftforge.net' }
 }
 
 dependencies {
