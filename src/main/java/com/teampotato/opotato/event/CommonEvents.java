@@ -45,9 +45,12 @@ public class CommonEvents {
         if (Float.isNaN(entity.getHealth())) entity.setHealth(0.0F);
         if (Float.isNaN(event.getAmount())) event.setCanceled(true);
 
-        if (!(source instanceof ServerPlayer player) || !PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get() || !player.isCreative()) return;
+        if (!(source instanceof ServerPlayer player) || !(PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get() && creativeOnePunch) || !player.isCreative()) return;
         event.getEntityLiving().setHealth(0.0F);
     }
+
+    public static boolean creativeOnePunch;
+
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (!(event.getWorld() instanceof ServerLevel world)) return;
@@ -62,6 +65,7 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event) {
+        creativeOnePunch = PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get();
         try {
             Class.forName("net.optifine.Config");
             addIncompatibleWarn(event, "opotato.optnotfine");

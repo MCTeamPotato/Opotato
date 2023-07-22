@@ -11,18 +11,21 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+import static com.teampotato.opotato.util.opotato.EventUtil.isLoaded;
+
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
     private PotatoMixinConfig() {
+        this.addMixinRule("keybind", true);
         this.addMixinRule("mixintrace", true);
-        this.addMixinRule("opotato.citadel", true);
-        this.addMixinRule("opotato.deuf", true);
+        this.addMixinRule("opotato.citadel", isLoaded("citadel"));
+        this.addMixinRule("opotato.deuf", isLoaded("deuf"));
         this.addMixinRule("opotato.forge", true);
-        this.addMixinRule("opotato.inspirations", true);
-        this.addMixinRule("opotato.jumpoverfences", true);
-        this.addMixinRule("opotato.kiwi", true);
-        this.addMixinRule("opotato.placebo", true);
-        this.addMixinRule("opotato.quark", true);
+        this.addMixinRule("opotato.inspirations", isLoaded("inspirations"));
+        this.addMixinRule("opotato.jumpoverfences", isLoaded("jumpoverfences"));
+        this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
+        this.addMixinRule("opotato.placebo", isLoaded("placebo"));
+        this.addMixinRule("opotato.quark", isLoaded("quark"));
         this.addMixinRule("opotato.witherstormmod", false);
         this.addMixinRule("opotato.xaero", true);
     }

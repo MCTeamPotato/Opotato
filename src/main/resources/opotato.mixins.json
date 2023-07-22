@@ -28,6 +28,9 @@
     "opotato.xaero.MixinWorldMapPatreon"
   ],
   "client": [
+    "keybind.MixinClientPlayerEntity",
+    "keybind.MixinGameSettings",
+    "keybind.MixinMinecraft",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.witherstormmod.MixinBlockClusterRenderer"
   ]
