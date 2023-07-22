@@ -13,6 +13,7 @@ public class PotatoMixinConfig {
     private final Map<String, Option> options = new HashMap<>();
 
     private PotatoMixinConfig() {
+        this.addMixinRule("keybind", true);
         this.addMixinRule("alternatecurrent", !isLoaded("potatocurrent"));
         this.addMixinRule("api", true);
         this.addMixinRule("mixintrace", !isLoaded("mixininheaven"));

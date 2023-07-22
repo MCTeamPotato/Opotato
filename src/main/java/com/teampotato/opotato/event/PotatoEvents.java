@@ -35,11 +35,13 @@ public class PotatoEvents {
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
         Entity source = event.getSource().getDirectEntity();
-        if (!(source instanceof ServerPlayerEntity) || !PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get()) return;
+        if (!(source instanceof ServerPlayerEntity) || !(PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get() && creativeOnePunch)) return;
         ServerPlayerEntity player = (ServerPlayerEntity) source;
         if (!player.isCreative()) return;
         event.getEntityLiving().setHealth(0.0F);
     }
+
+    public static boolean creativeOnePunch;
 
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
@@ -67,6 +69,7 @@ public class PotatoEvents {
 
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event)  {
+        creativeOnePunch = PotatoCommonConfig.ENABLE_CREATIVE_ONE_POUCH.get();
         if (USING_OPTIFINE) addIncompatibleWarn(event, "opotato.optnotfine");
         boolean rb = isLoaded("rubidium");
         if (isLoaded("epicfight") && !ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4")) {
