@@ -21,7 +21,7 @@ version = '1.16.5-' + mod_version
 group = 'com.teampotato.opotato'
 archivesBaseName = 'opotato'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
 
 minecraft {
     mappings channel: 'parchment', version: '2021.10.17-1.16.5'
@@ -125,7 +125,7 @@ jar {
     manifest {
         attributes([
             "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
+            "Implementation-Version": mod_version,
             "Implementation-Vendor" :"teampotato",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "MixinConfigs": "opotato.mixins.json"
