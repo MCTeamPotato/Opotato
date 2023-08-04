@@ -14,10 +14,12 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 import javax.annotation.Nullable;
 
 import static com.teampotato.opotato.config.PotatoCommonConfig.*;
+
 
 @Mixin(value = Flame_Strike_Entity.class, remap = false)
 public abstract class MixinFlameStrikeEntity extends Entity {
@@ -33,53 +35,52 @@ public abstract class MixinFlameStrikeEntity extends Entity {
      * @reason impl config
      */
     @Overwrite
-    private void damage(LivingEntity attacked) {
-        LivingEntity attacker = this.getOwner();
-        float maxHealthOfTheAttacked = attacked.getMaxHealth();
-        if (attacked.isAlive() && !attacked.isInvulnerable() && attacked != attacker && this.tickCount % 2 == 0) {
-            if (attacker == null) {
-                if (attacked.hurt(DamageSource.MAGIC, (float) ((this.isSoul() ? 8.0F : 6.0F) + maxHealthOfTheAttacked * 0.06))) {
-                    EffectInstance blazingBrand = attacked.getEffect(BLAZING_BRAND);
+    private void damage(LivingEntity Hitentity) {
+        LivingEntity caster = this.getOwner();
+        boolean playerIsTheCaster = caster instanceof PlayerEntity;
+        if (Hitentity.isAlive() && !Hitentity.isInvulnerable() && Hitentity != caster && this.tickCount % 2 == 0) {
+            float damage = playerIsTheCaster ? FLAME_STRIKE_OF_INCINERATOR_BASIC_DAMAGE.get() : (this.isSoul() ? 8.0F : 6.0F);
+            if (caster == null) {
+                boolean flag = Hitentity.hurt(DamageSource.MAGIC, damage + Hitentity.getMaxHealth() * 0.06F);
+                if (flag) {
+                    EffectInstance effectinstance1 = Hitentity.getEffect(BLAZING_BRAND);
                     int i = 1;
-                    if (blazingBrand != null) {
-                        i += blazingBrand.getAmplifier();
-                        attacked.removeEffectNoUpdate(BLAZING_BRAND);
+                    if (effectinstance1 != null) {
+                        i += effectinstance1.getAmplifier();
+                        Hitentity.removeEffectNoUpdate(BLAZING_BRAND);
                     } else {
                         --i;
                     }
 
                     i = MathHelper.clamp(i, 0, 4);
-                    attacked.addEffect(new EffectInstance(BLAZING_BRAND, 200, i, false, false, true));
+                    EffectInstance effectinstance = new EffectInstance(BLAZING_BRAND, 200, i, false, false, true);
+                    Hitentity.addEffect(effectinstance);
                 }
             } else {
-                boolean isPlayerAttack = attacker instanceof PlayerEntity;
-                if (attacker.isAlliedTo(attacked)) return;
-                float damage;
-                if (isPlayerAttack) {
-                    damage = FLAME_STRIKE_OF_INCINERATOR_BASIC_DAMAGE.get();
-                } else {
-                    damage = this.isSoul() ? 8.0F : 6.0F;
+                float hpDmg = (float)(playerIsTheCaster ? FLAME_STRIKE_EXTRA_DAMAGE_PERCENT.get() : 0.06);
+                if (caster.isAlliedTo(Hitentity)) {
+                    return;
                 }
 
-                if (attacked.hurt(DamageSource.indirectMagic(this, attacker), (float) (damage + maxHealthOfTheAttacked * (isPlayerAttack ? FLAME_STRIKE_EXTRA_DAMAGE_PERCENT.get() : 0.06)))) {
-                    EffectInstance blazingBrand = attacked.getEffect(BLAZING_BRAND);
+                boolean flag = Hitentity.hurt(DamageSource.indirectMagic(this, caster), damage + Hitentity.getMaxHealth() * hpDmg);
+                if (flag) {
+                    EffectInstance effectinstance1 = Hitentity.getEffect(BLAZING_BRAND);
                     int i = 1;
-                    if (blazingBrand != null) {
-                        i += blazingBrand.getAmplifier();
-                        attacked.removeEffectNoUpdate(BLAZING_BRAND);
+                    if (effectinstance1 != null) {
+                        i += effectinstance1.getAmplifier();
+                        Hitentity.removeEffectNoUpdate(BLAZING_BRAND);
                     } else {
                         --i;
                     }
+
                     i = MathHelper.clamp(i, 0, 4);
-                    if (isPlayerAttack) {
-                        attacked.addEffect(new EffectInstance(BLAZING_BRAND, BLAZING_BRAND_EFFECT_DURATION_ON_FLAME_STRIKE.get(), i, false, false, true));
-                    } else {
-                        attacked.addEffect(new EffectInstance(BLAZING_BRAND, 200, i, false, false, true));
-                    }
+                    EffectInstance effectinstance = new EffectInstance(BLAZING_BRAND, playerIsTheCaster ? BLAZING_BRAND_EFFECT_DURATION_ON_FLAME_STRIKE.get() : 200, i, false, false, true);
+                    Hitentity.addEffect(effectinstance);
                 }
             }
         }
     }
 
+    @Unique
     private static final Effect BLAZING_BRAND = ModEffect.EFFECTBLAZING_BRAND.get();
 }

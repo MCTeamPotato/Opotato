@@ -6,9 +6,9 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.util.List;
 
 public class PotatoCommonConfig {
-    public static ForgeConfigSpec COMMON_CONFIG;
+    public static final ForgeConfigSpec COMMON_CONFIG;
 
-    public static ForgeConfigSpec.BooleanValue
+    public static final ForgeConfigSpec.BooleanValue
             ALLOW_LIMIT_MAX_SPAWN,
             ENABLE_BLUE_SKIES_NERF,
             ALLOW_EVERY_MOD_GEN_FEATURE_IN_DIM,
@@ -27,7 +27,7 @@ public class PotatoCommonConfig {
             ZWEIENDER_HAS_DAMAGE,
             ONLY_ONE_WITHER_STORM;
 
-    public static ForgeConfigSpec.IntValue
+    public static final ForgeConfigSpec.IntValue
             GATE_KEEPER_HOUSE_SPACING,
             MAX_ENTITIES_NUMBER_PER_CHUNK,
             SOUL_BLACK_SMITH_SPACING,
@@ -42,16 +42,17 @@ public class PotatoCommonConfig {
             INFERNAL_FORGE_COOL_DOWN,
             VOID_CORE_COOL_DOWN,
             INCINERATOR_USE_DURATION,
-            INCINERATOR_ENCHANTMENT_VALUE, BLAZING_BRAND_EFFECT_DURATION_ON_FLAME_STRIKE;
+            INCINERATOR_ENCHANTMENT_VALUE,
+            BLAZING_BRAND_EFFECT_DURATION_ON_FLAME_STRIKE;
 
-    public static ForgeConfigSpec.ConfigValue<Float>
+    public static final ForgeConfigSpec.ConfigValue<Float>
             HEADSHOT_VOLUME,
             HEADSHOT_PITCH,
             FLAME_STRIKE_OF_INCINERATOR_BASIC_DAMAGE;
 
-    public static ForgeConfigSpec.ConfigValue<Double> FLAME_STRIKE_EXTRA_DAMAGE_PERCENT;
+    public static final ForgeConfigSpec.ConfigValue<Double> FLAME_STRIKE_EXTRA_DAMAGE_PERCENT;
 
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>>
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>>
             BLACKLIST;
 
     static {
@@ -160,9 +161,9 @@ public class PotatoCommonConfig {
         BLAZING_BRAND_EFFECT_DURATION_ON_FLAME_STRIKE = CONFIG_BUILDER
                 .defineInRange("How many ticks will blazing brand effect caused by incinerator's flame strike ability exist on the attacked entities", 200, 1, Integer.MAX_VALUE);
         FLAME_STRIKE_OF_INCINERATOR_BASIC_DAMAGE = CONFIG_BUILDER
-                .defineInRange("How many damage will the flame strike caused by incinerator's ability give on the attacked entities", (float)6.0, (float)1.0, Float.MAX_VALUE, Float.class);
+                .defineInRange("How many damage will the flame strike caused by incinerator's ability give on the attacked entities", 6.0F, 1.0F, Float.MAX_VALUE, Float.class);
         FLAME_STRIKE_EXTRA_DAMAGE_PERCENT = CONFIG_BUILDER
-                .define("The incinerator's flame strike ability also does extra damages, which is a percentage of the attacked's max health, here it is", 0.02);
+                .defineInRange("The incinerator's flame strike ability also does extra damages, which is a percentage of the attacked's max health, here it is", 0.02, 0.01, 0.99, Double.class);
         CONFIG_BUILDER.pop();
 
         CONFIG_BUILDER
