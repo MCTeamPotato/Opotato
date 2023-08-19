@@ -20,20 +20,18 @@ public abstract class DealHeadshotEventMixin {
     private static void onHeadshot(LivingDamageEvent event, CallbackInfo ci) {
         if (event.getSource().getSourcePosition() == null) ci.cancel();
     }
-
-    @Inject(method = "onHeadshotIfApplicable", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/ServerPlayerEntity;displayClientMessage(Lnet/minecraft/util/text/ITextComponent;Z)V", shift = At.Shift.BEFORE))
-    private static void playSound(LivingDamageEvent event, CallbackInfo ci) {
-        if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get() && event.getEntityLiving() instanceof PlayerEntity)
-            event.getEntityLiving().playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
-    }
-
+    
     @Redirect(method = "onHeadshotIfApplicable", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/ServerPlayerEntity;displayClientMessage(Lnet/minecraft/util/text/ITextComponent;Z)V", ordinal = 0))
     private static void onDisplayMessage1(ServerPlayerEntity instance, ITextComponent pChatComponent, boolean pActionBar) {
         instance.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_player"), true);
+        if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get())
+            event.getEntityLiving().playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
     }
 
     @Redirect(method = "onHeadshotIfApplicable", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/ServerPlayerEntity;displayClientMessage(Lnet/minecraft/util/text/ITextComponent;Z)V", ordinal = 1))
     private static void onDisplayMessage2(ServerPlayerEntity instance, ITextComponent pChatComponent, boolean pActionBar) {
         instance.displayClientMessage(new TranslationTextComponent("headshot.opotato.on_entity"), true);
+        if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get())
+            event.getEntityLiving().playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
     }
 }
