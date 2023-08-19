@@ -5,7 +5,6 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import xaero.common.patreon.Patreon;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Mixin(value = Patreon.class, remap = false)
@@ -13,11 +12,6 @@ public abstract class MixinWorldMapPatreon {
     @Shadow private static boolean loaded;
     @Shadow private static HashMap<String, Object> mods;
     @Shadow public static void loadSettings() {}
-    @Shadow public static HashMap<String, Object> getMods() {
-        return mods;
-    }
-
-    @Shadow private static HashMap<Integer, ArrayList<String>> patrons;
 
     /**
      * @author Kasualix
@@ -25,11 +19,11 @@ public abstract class MixinWorldMapPatreon {
      */
     @Overwrite
     public static void checkPatreon() {
-        synchronized(patrons) {
+        synchronized(mods) {
             if (!loaded) {
                 loadSettings();
-                patrons.clear();
-                getMods().clear();
+                mods.clear();
+                loaded = true;
             }
         }
     }

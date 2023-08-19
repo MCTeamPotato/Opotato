@@ -47,9 +47,9 @@ public abstract class MixinWitherSicknessEvents {
                     boolean nearby = entity.level.dimension().location().equals(WitherStormMod.bowelsLocation());
                     WitherStormEntity witherStormEntity;
                     if (PotatoCommonConfig.ONLY_ONE_WITHER_STORM.get() && !witherStormUUID.equals(initialUUID)) {
-                        witherStormEntity = getWitherStormByUUID(world);
+                        witherStormEntity = opotato$getWitherStormByUUID(world);
                     } else {
-                        witherStormEntity = getWitherStorm(world);
+                        witherStormEntity = opotato$getWitherStorm(world);
                     }
                     if (witherStormEntity != null) nearby = witherStormEntity.isEntityNearby(entity);
                     tracker.setNearStorm(nearby);
@@ -59,11 +59,11 @@ public abstract class MixinWitherSicknessEvents {
         }
     }
 
-    private static @Nullable WitherStormEntity getWitherStormByUUID(ServerWorld world) {
+    private static @Nullable WitherStormEntity opotato$getWitherStormByUUID(ServerWorld world) {
         return (WitherStormEntity) ((ExtendedServerWorld)world).findAddedOrPendingEntityPublic(witherStormUUID);
     }
 
-    private static @Nullable WitherStormEntity getWitherStorm(ServerWorld world) {
+    private static @Nullable WitherStormEntity opotato$getWitherStorm(ServerWorld world) {
         for (Entity entity : world.getAllEntities()) {
             if (entity instanceof WitherStormEntity && ((WitherStormEntity)entity).getPhase() > 1) return (WitherStormEntity) entity;
         }

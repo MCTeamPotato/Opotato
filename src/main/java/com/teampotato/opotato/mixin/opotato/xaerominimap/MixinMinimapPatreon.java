@@ -5,16 +5,17 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import xaero.map.patreon.Patreon;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Mixin(value = Patreon.class, remap = false)
 public abstract class MixinMinimapPatreon {
     @Shadow private static boolean shouldRedirectToMinimap;
-    @Shadow public static void loadSettings() {}
-    @Shadow private static boolean loaded;
-    @Shadow private static HashMap<Integer, ArrayList<String>> patrons;
+
     @Shadow private static HashMap<String, Object> mods;
+
+    @Shadow private static boolean loaded;
+
+    @Shadow public static void loadSettings() {}
 
     /**
      * @author Kasualix
@@ -25,11 +26,11 @@ public abstract class MixinMinimapPatreon {
         if (shouldRedirectToMinimap) {
             xaero.common.patreon.Patreon.checkPatreon();
         } else {
-            synchronized(patrons) {
+            synchronized(mods) {
                 if (!loaded) {
                     loadSettings();
-                    patrons.clear();
                     mods.clear();
+                    loaded = true;
                 }
             }
         }
