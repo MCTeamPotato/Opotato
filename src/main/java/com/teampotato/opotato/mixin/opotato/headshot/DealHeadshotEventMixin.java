@@ -21,7 +21,7 @@ public abstract class DealHeadshotEventMixin {
         if (event.getSource().getSourcePosition() == null) ci.cancel();
     }
 
-    @Inject(method = "onHeadshotIfApplicable", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/ServerPlayerEntity;displayClientMessage(Lnet/minecraft/util/text/ITextComponent;Z)V", shift = At.Shift.BEFORE))
+    @Inject(method = "onHeadshotIfApplicable", at = @At(remap = false, value = "INVOKE", target = "Lnet/minecraft/entity/player/ServerPlayerEntity;displayClientMessage(Lnet/minecraft/util/text/ITextComponent;Z)V", shift = At.Shift.BEFORE))
     private static void playSound(LivingDamageEvent event, CallbackInfo ci) {
         if (PotatoCommonConfig.ENABLE_HEADSHOT_SOUND_DING.get() && event.getEntityLiving() instanceof PlayerEntity)
             event.getEntityLiving().playSound(SoundEvents.ARROW_HIT_PLAYER, PotatoCommonConfig.HEADSHOT_VOLUME.get(), PotatoCommonConfig.HEADSHOT_PITCH.get());
