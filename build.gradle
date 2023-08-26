@@ -3,7 +3,6 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
@@ -14,25 +13,23 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.16.5-' + mod_version
+version = mod_version
 group = 'com.teampotato.opotato'
 archivesBaseName = 'opotato'
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
 
 minecraft {
-    mappings channel: 'parchment', version: '2021.10.17-1.16.5'
+    mappings channel: 'parchment', version: '2022.03.06-1.16.5'
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
             workingDirectory project.file('run')
-            arg "-mixin.config=opotato.mixins.json"
             property 'forge.logging.markers', 'REGISTRIES'
-            properties 'mixin.env.remapRefMap': 'true'
-            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.console.level', 'info'
+
             mods {
                 opotato {
                     source sourceSets.main
@@ -42,11 +39,9 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=opotato.mixins.json"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'info'
-            properties 'mixin.env.remapRefMap': 'true'
-            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+
             mods {
                 opotato {
                     source sourceSets.main
@@ -57,10 +52,9 @@ minecraft {
         data {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
-            properties 'mixin.env.remapRefMap': 'true'
-            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            property 'forge.logging.console.level', 'debug'
             args '--mod', 'opotato', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
             mods {
                 opotato {
                     source sourceSets.main
@@ -72,54 +66,14 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-repositories {
-    maven {
-        url = "https://www.cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-}
-
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation 'org.jetbrains:annotations:24.0.1'
+}
 
-    implementation fg.deobf('curse.maven:structure-gel-api-378802:3498310')
-    implementation fg.deobf('curse.maven:mantle-74924:3631982')
-    implementation fg.deobf('curse.maven:autoreglib-250363:3326041')
-    implementation fg.deobf("curse.maven:rubidium-574856:4397474")
-
-    implementation fg.deobf("curse.maven:ars-nouveau-401955:4300733")
-    implementation fg.deobf('curse.maven:blue-skies-312918:3411324')
-    implementation fg.deobf('curse.maven:l_ender-s-cataclysm-551586:4418434')
-    implementation fg.deobf('curse.maven:citadel-331936:3441028')
-    implementation fg.deobf("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
-    implementation fg.deobf('curse.maven:elenai-dodge-2-442962:3343309')
-    implementation fg.deobf('curse.maven:epic-fight-mod-405076:4029362')
-    implementation fg.deobf("curse.maven:female-gender-forge-481655:3459078")
-    implementation fg.deobf('curse.maven:headshot-forge-538264:3501178')
-    implementation fg.deobf('curse.maven:inspirations-284007:3414517')
-    implementation fg.deobf('curse.maven:jump-over-fences-forge-423421:3125998')
-    implementation fg.deobf("curse.maven:kiwi-303657:3536245")
-    implementation fg.deobf("curse.maven:ldlib-626676:4124863")
-    implementation fg.deobf('curse.maven:oculus-581495:4300427')
-    implementation fg.deobf('curse.maven:ost-overhaul-504439:3390987')
-    implementation fg.deobf('curse.maven:placebo-283644:3750838')
-    implementation fg.deobf('curse.maven:quark-243121:3642325')
-    implementation fg.deobf('curse.maven:randompatches-forge-285612:3211323')
-    implementation fg.deobf("curse.maven:supplementaries-412082:4351390")
-    implementation fg.deobf('curse.maven:the-undergarden-379849:3477594')
-    implementation fg.deobf("curse.maven:crackers-wither-storm-mod-621405:4403153")
-    implementation fg.deobf("curse.maven:blueprint-382216:3607198")
-    implementation fg.deobf("curse.maven:item-stages-280316:3482955")
-    implementation fg.deobf("curse.maven:dynamictrees-252818:4457951")
-
-    implementation fg.deobf("curse.maven:jei-238222:4371666")
-
-    implementation fg.deobf("curse.maven:xaeros-world-map-317780:4705937")
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:4705913")
+mixin {
+    add sourceSets.main, "opotato.refmap.json"
+    config "opotato.mixins.json"
 }
 
 jar {
@@ -134,22 +88,4 @@ jar {
     }
 }
 
-mixin {
-    add sourceSets.main, "opotato.refmap.json"
-    config "opotato.mixins.json"
-}
-
-jar.finalizedBy('reobfJar')
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
-}
+jar.finalizedBy('reobfJar') 

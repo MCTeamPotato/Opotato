@@ -1,13 +1,12 @@
-modLoader = "javafml"
-loaderVersion = "[36,)"
-license = "GNU LESSER GENERAL PUBLIC LICENSE Version 3"
-issueTrackerURL = "https://github.com/MCTeamPotato/Opotato/issues"
+modLoader="javafml"
+loaderVersion="[36,)"
+license="LGPL-v3"
 
 [[mods]]
-modId = "opotato"
-version = "${file.jarVersion}"
-displayName = "Opotato"
-authors="Team Potato"
-description = '''
-Not just an optimization mod.
+modId="opotato"
+version="${file.jarVersion}"
+displayName="Lead"
+authors="TeamPotato"
+description='''
+A Minecraft mod.
 '''
