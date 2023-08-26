@@ -1,10 +1,26 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.teampotato.opotato.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "opotato.refmap.json",
+  "minVersion": "0.8",
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "alternatecurrent.RedstoneWireBlockMixin",
+    "alternatecurrent.ServerLevelMixin",
+    "mixintrace.MixinCrashReport",
+    "mixintrace.MixinCrashReportSection",
+    "opotato.arsnouveau.MixinLootTables",
+    "opotato.blueskies.MixinBlueSkiesCommonConfig",
+    "opotato.blueskies.MixinGatekeeperHouseStructure",
+    "opotato.blueskies.MixinMCLivingEntity",
+    "opotato.blueskies.MixinMLSupporters",
+    "opotato.blueskies.MixinSkiesEntityHooks",
+    "opotato.blueskies.MixinSkiesHooks"
+  ],
+  "client": [
+    "opotato.blueprint.MixinRewardHandler",
+    "smoothmenu.SmoothMenuMixin"
+  ]
 }
