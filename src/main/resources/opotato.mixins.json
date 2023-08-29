@@ -3,6 +3,7 @@
   "package": "com.teampotato.opotato.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "opotato.refmap.json",
+  "plugin": "com.teampotato.opotato.mixin.PotatoMixinPlugin",
   "minVersion": "0.8",
   "injectors": {
     "defaultRequire": 1
@@ -34,7 +35,9 @@
     "opotato.elenaidodge.MixinPatronRewardHandler",
     "opotato.forge.MixinFMLConfig",
     "opotato.headshot.MixinDealHeadshotEvent",
+    "opotato.industrialforegoing.MixinCommonProxy",
     "opotato.inspirations.MixinPortalColorHandler",
+    "opotato.itemstages.MixinPluginItemStages",
     "opotato.jumpoverfences.ClientEventHandlerMixin",
     "opotato.kiwi.MixinContributors",
     "opotato.ldlib.MixinJEIClientEventHandler",
@@ -72,7 +75,6 @@
     "opotato.blueprint.MixinRewardHandler",
     "opotato.epicfight.MixinEpicFightRenderTypes",
     "opotato.gender.MixinGenderLayer",
-    "opotato.itemstages.MixinPluginItemStages",
     "opotato.minecraft.MixinRenderType",
     "opotato.witherstorm.MixinBlockClusterRenderer",
     "opotato.witherstorm.MixinBlockRenderingUtil",

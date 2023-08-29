@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
 import com.teampotato.opotato.api.IGoalSelector;
-import com.teampotato.opotato.events.WitherStormCacheEvents;
+import com.teampotato.opotato.events.WitherStormEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -28,7 +28,7 @@ public abstract class MixinWitherStormEntity extends Monster {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(EntityType<? extends WitherStormEntity> entityTypeIn, Level worldIn, CallbackInfo ci) {
-        WitherStormCacheEvents.witherStormUUID = this.uuid;
+        WitherStormEvents.witherStormUUID = this.uuid;
     }
 
     @Redirect(method = "readAdditionalSaveData", at = @At(value = "INVOKE", target = "Lnonamecrackers2/witherstormmod/common/util/PlayDeadManager$State;values()[Lnonamecrackers2/witherstormmod/common/util/PlayDeadManager$State;", remap = false))

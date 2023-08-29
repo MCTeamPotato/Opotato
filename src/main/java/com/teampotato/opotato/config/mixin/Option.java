@@ -1,4 +1,5 @@
-package com.teampotato.opotato.config;
+package com.teampotato.opotato.config.mixin;
+
 
 import lombok.Getter;
 
@@ -6,7 +7,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 @Getter
 public class Option {
     private final String name;

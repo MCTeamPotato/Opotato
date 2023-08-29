@@ -65,6 +65,8 @@ dependencies {
     modCompileOnly("curse.maven:crackers-wither-storm-mod-621405:4403153")
     modCompileOnly("curse.maven:xaeros-world-map-317780:4716743")
     modCompileOnly("curse.maven:xaeros-minimap-263420:4716688")
+    modCompileOnly("curse.maven:industrial-foregoing-266515:3525789")
+    modCompileOnly("curse.maven:titanium-287342:3525770")
 }
 
 processResources {

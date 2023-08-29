@@ -11,16 +11,21 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(Opotato.MOD_ID)
 public class Opotato {
     public static final String MOD_ID = "opotato";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static boolean isRubidiumLoaded;
 
     public static final Direction[] DIRECTIONS = Direction.values();
     public static final EquipmentSlot[] EQUIPMENT_SLOTS = EquipmentSlot.values();
 
     public Opotato() {
+        FMLLoader.getLoadingModList().getMods().stream().sorted()
+                .forEach(modInfo -> LOGGER.info("Mod " + modInfo.getOwningFile().getFile().getFileName() + " loaded!"));
         isRubidiumLoaded = isLoaded("rubidium");
         ModConfig.Type common = ModConfig.Type.COMMON;
         ModLoadingContext ctx = ModLoadingContext.get();
@@ -39,7 +44,7 @@ public class Opotato {
         ctx.registerConfig(common, PotatoCommonConfig.potatoConfig, MOD_ID + "/opotato-common.toml");
     }
 
-    private static boolean isLoaded(String mod) {
+    public static boolean isLoaded(String mod) {
         return FMLLoader.getLoadingModList().getModFileById(mod) != null;
     }
 }

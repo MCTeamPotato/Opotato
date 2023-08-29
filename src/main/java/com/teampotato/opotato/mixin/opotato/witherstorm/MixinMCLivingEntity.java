@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.events.WitherStormCacheEvents;
+import com.teampotato.opotato.events.WitherStormEvents;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -35,8 +35,8 @@ public abstract class MixinMCLivingEntity extends Entity {
             this.getCapability(WitherStormModCapabilities.WITHER_SICKNESS_TRACKER).ifPresent(tracker -> {
                 if (!tracker.isActuallyImmune()) {
                     boolean nearby = serverLevel.dimension().location().equals(WitherStormMod.bowelsLocation());
-                    WitherStormEntity witherStormEntity = (WitherStormEntity) serverLevel.getEntity(WitherStormCacheEvents.witherStormUUID);
-                    if (WitherStormCacheEvents.witherStormUUID != null && witherStormEntity != null && witherStormEntity.getPhase() > 1) {
+                    WitherStormEntity witherStormEntity = (WitherStormEntity) serverLevel.getEntity(WitherStormEvents.witherStormUUID);
+                    if (WitherStormEvents.witherStormUUID != null && witherStormEntity != null && witherStormEntity.getPhase() > 1) {
                         nearby = witherStormEntity.isEntityNearby((LivingEntity) (Object) this);
                     }
                     tracker.setNearStorm(nearby);

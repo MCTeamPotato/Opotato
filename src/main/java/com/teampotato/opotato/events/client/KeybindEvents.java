@@ -2,6 +2,7 @@ package com.teampotato.opotato.events.client;
 
 import L_Ender.cataclysm.init.ModItems;
 import com.teampotato.opotato.Opotato;
+import com.teampotato.opotato.config.PotatoCommonConfig;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -23,10 +24,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class KeybindEvents {
     public static final KeyMapping voidCoreTriggerKey = new KeyMapping("opotato.key.cataclysm.voidCore", GLFW.GLFW_KEY_J, "opotato.key.cataclysm");
     public static final KeyMapping switchOnePunchKey = new KeyMapping("opotato.key.one_punch", GLFW.GLFW_KEY_C, "opotato.key.category");
-    public static boolean creativeOnePunch = false;
+    public static boolean creativeOnePunch;
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        creativeOnePunch = PotatoCommonConfig.enableCreativeOnePouch.get();
         event.enqueueWork(() -> {
             ClientRegistry.registerKeyBinding(voidCoreTriggerKey);
             ClientRegistry.registerKeyBinding(switchOnePunchKey);

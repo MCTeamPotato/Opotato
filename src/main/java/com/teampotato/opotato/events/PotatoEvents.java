@@ -1,14 +1,37 @@
 package com.teampotato.opotato.events;
 
-public class PotatoEvents {
-    private static final boolean USING_OPTIFINE;
+import com.teampotato.opotato.Opotato;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.*;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.versions.forge.ForgeVersion;
 
-    static {
-        boolean hasOfClass = false;
-        try {
-            Class.forName("optifine.OptiFineTransformationService");
-            hasOfClass = true;
-        } catch (ClassNotFoundException ignored) {}
-        USING_OPTIFINE = hasOfClass;
+import static com.teampotato.opotato.Opotato.isLoaded;
+
+public class PotatoEvents {
+    @SubscribeEvent
+    public static void onCommonSetup(FMLCommonSetupEvent event)  {
+        if (isLoaded("epicfight") && !ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4")) {
+            addIncompatibleWarn(event, "opotato.epicfight.wrong_forge_version");
+        }
+        if (Opotato.isRubidiumLoaded) {
+            if (isLoaded("betterfpsdist")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterfpsdist");
+            if (isLoaded("immersive_portals")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.immersive_portals");
+            if (isLoaded("chunkanimator")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.chunkanimator");
+            if (isLoaded("betterbiomeblend")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterbiomeblend");
+        }
+        if (isLoaded("mcdoom") && !isLoaded("mcdoomfix")) addIncompatibleWarn(event, "opotato.mcdoom.without_fix");
+        if (isLoaded("magnesium")) {
+            if (Opotato.isRubidiumLoaded) {
+                addIncompatibleWarn(event, "opotato.incompatible.magnesium.rubidium");
+            } else {
+                addIncompatibleWarn(event, "opotato.magnesium");
+            }
+        }
+        if (isLoaded("helium")) addIncompatibleWarn(event, "opotato.helium.dangerous");
+    }
+
+    private static void addIncompatibleWarn(FMLCommonSetupEvent event, String translationKey) {
+        event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, translationKey)));
     }
 }
