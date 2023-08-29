@@ -3,7 +3,7 @@ package com.teampotato.opotato.mixin.opotato.headshot;
 import chronosacaria.headshot.config.HeadshotConfig;
 import chronosacaria.headshot.events.DealHeadshotEvent;
 import com.teampotato.opotato.api.ILivingEntity;
-import com.teampotato.opotato.config.HeadshotExtraConfig;
+import com.teampotato.opotato.config.mods.HeadshotExtraConfig;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;

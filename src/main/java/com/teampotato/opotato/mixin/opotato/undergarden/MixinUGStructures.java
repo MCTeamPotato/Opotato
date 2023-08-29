@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import quek.undergarden.registry.UGStructures;
 
-import static com.teampotato.opotato.config.UndergardenExtraConfig.*;
+import static com.teampotato.opotato.config.mods.UndergardenExtraConfig.*;
 
 @Mixin(UGStructures.class)
 public abstract class MixinUGStructures {

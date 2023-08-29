@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.blueskies;
 
-import com.teampotato.opotato.config.BlueSkiesExtraConfig;
+import com.teampotato.opotato.config.mods.BlueSkiesExtraConfig;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;

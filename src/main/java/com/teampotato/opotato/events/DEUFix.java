@@ -11,9 +11,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import java.util.UUID;
 
 public class DEUFix {
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent(priority = EventPriority.LOW)
     public static void onEntityJoinWold(EntityJoinWorldEvent event) {
-        if (event.getWorld() instanceof ServerLevel) {
+        if (event.getWorld() instanceof ServerLevel && !event.isCanceled()) {
             Entity entity = event.getEntity();
             if (entity instanceof ServerPlayer) return;
             ServerLevel serverLevel = (ServerLevel) event.getWorld();

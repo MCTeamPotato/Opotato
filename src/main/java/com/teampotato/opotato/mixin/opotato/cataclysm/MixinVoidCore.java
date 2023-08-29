@@ -1,8 +1,9 @@
 package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.items.void_core;
+import com.teampotato.opotato.api.IItem;
 import com.teampotato.opotato.api.IVoidCore;
-import com.teampotato.opotato.config.CataclysmExtraConfig;
+import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -46,12 +48,8 @@ public abstract class MixinVoidCore extends Item implements ICurioItem, IVoidCor
         return this.spawnFangs(x, y, z, lowestYCheck, rotationYaw, warmupDelayTicks, world, player);
     }
 
-    @ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;<init>(Lnet/minecraft/world/item/Item$Properties;)V"))
-    private static Item.Properties modifyProperties(Item.Properties arg) {
-        if (CataclysmExtraConfig.voidCoreCanBeDamaged.get()) {
-            return arg.durability(CataclysmExtraConfig.voidCoreDurability.get());
-        } else {
-            return arg;
-        }
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void onInit(Properties group, CallbackInfo ci) {
+        if (CataclysmExtraConfig.voidCoreCanBeDamaged.get()) ((IItem)this).potato$setMaxDamage(CataclysmExtraConfig.voidCoreDurability.get());
     }
 }

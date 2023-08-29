@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.config.WitherStormExtraConfig;
+import com.teampotato.opotato.config.mods.WitherStormExtraConfig;
 import net.minecraft.client.renderer.culling.Frustum;
 import nonamecrackers2.witherstormmod.client.renderer.entity.BlockClusterRenderer;
 import nonamecrackers2.witherstormmod.common.entity.BlockClusterEntity;

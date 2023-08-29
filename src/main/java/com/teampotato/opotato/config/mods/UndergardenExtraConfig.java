@@ -1,4 +1,4 @@
-package com.teampotato.opotato.config;
+package com.teampotato.opotato.config.mods;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 

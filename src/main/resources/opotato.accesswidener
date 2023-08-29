@@ -1,0 +1,4 @@
+accessWidener   v2  named
+
+accessible class net/minecraft/world/level/chunk/storage/IOWorker$PendingStore
+accessible method net/minecraft/world/level/biome/BiomeGenerationSettings <init> (Ljava/util/function/Supplier;Ljava/util/Map;Ljava/util/List;Ljava/util/List;)V

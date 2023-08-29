@@ -1,4 +1,4 @@
-package com.teampotato.opotato.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
 import com.teampotato.opotato.util.alternatecurrent.BlockUtil;
 

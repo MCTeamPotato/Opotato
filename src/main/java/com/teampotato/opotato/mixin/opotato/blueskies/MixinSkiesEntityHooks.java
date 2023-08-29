@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.blueskies;
 
 import com.legacy.blue_skies.entities.util.SkiesEntityHooks;
-import com.teampotato.opotato.config.BlueSkiesExtraConfig;
+import com.teampotato.opotato.config.mods.BlueSkiesExtraConfig;
 import net.minecraft.world.damagesource.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

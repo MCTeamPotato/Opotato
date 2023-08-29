@@ -1,4 +1,4 @@
-package com.teampotato.opotato.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
 import java.util.Iterator;
 import java.util.Queue;
@@ -301,7 +301,7 @@ public class WireHandler {
 	}
 
 	/**
-	 * Retrieve the {@link com.teampotato.opotato.wire.Node Node} that represents the
+	 * Retrieve the {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} that represents the
 	 * block at the given position in the level.
 	 */
 	private Node getOrAddNode(BlockPos pos) {
@@ -320,7 +320,7 @@ public class WireHandler {
 	}
 
 	/**
-	 * Remove and return the {@link com.teampotato.opotato.wire.Node Node} at the given
+	 * Remove and return the {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} at the given
 	 * position.
 	 */
 	private Node removeNode(BlockPos pos) {
@@ -328,7 +328,7 @@ public class WireHandler {
 	}
 
 	/**
-	 * Return a {@link com.teampotato.opotato.wire.Node Node} that represents the block
+	 * Return a {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} that represents the block
 	 * at the given position.
 	 */
 	private Node getNextNode(BlockPos pos) {
@@ -337,8 +337,8 @@ public class WireHandler {
 
 	/**
 	 * Return a node that represents the given position and block state. If it is a
-	 * wire, then create a new {@link com.teampotato.opotato.wire.WireNode WireNode}.
-	 * Otherwise, grab the next {@link com.teampotato.opotato.wire.Node Node} from the
+	 * wire, then create a new {@link com.teampotato.opotato.util.alternatecurrent.wire.WireNode WireNode}.
+	 * Otherwise, grab the next {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} from the
 	 * cache and update it.
 	 */
 	private Node getNextNode(BlockPos pos, BlockState state) {

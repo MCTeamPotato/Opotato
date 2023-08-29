@@ -41,6 +41,8 @@
   "opotato.key.cataclysm.voidCore": "Trigger Void Core",
   "opotato.key.cataclysm": "Cataclysm",
 
+  "opotato.multiple_wither_storm.remove": "The cache optimization system of Opotato does not allow you to summon multiple Wither Storms at the same time. It has been removed.",
+
   "opotato.epicfight.wrong_forge_version": "Warn throwed by Opotato: You are using a out-dated forge version! Epic Fight are incompatible with any Forge version except for 36.2.39!",
   "opotato.incompatible.rubidium.betterfpsdist": "Warn throwed by Opotato: Better Fps - Render Distance is not compatible with Rubidium, pls remove betterfpsdist!",
   "opotato.incompatible.rubidium.immersive_portals": "Warn throwed by Opotato: Immersive Portals is not compatible with Rubidium, pls remove Immersive Portals!",

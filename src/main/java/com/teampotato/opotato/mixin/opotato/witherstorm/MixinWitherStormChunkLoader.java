@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.events.WitherStormEvents;
+import com.teampotato.opotato.events.WitherStormCaches;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
@@ -28,12 +28,12 @@ public abstract class MixinWitherStormChunkLoader {
             ServerLevel world = (ServerLevel) event.world;
             world.getCapability(WitherStormModCapabilities.WITHER_STORM_CHUNKS_CAPABILITY).ifPresent(stormChunks -> {
                 if (!world.players().isEmpty()) {
-                    boolean flag = true;
+                    boolean shouldRemoveStorm = true;
                     for (Map.Entry<UUID, BlockPos> uuidBlockPosEntry : stormChunks.getStormPositions().entrySet()) {
                         UUID uuid = uuidBlockPosEntry.getKey();
-                        if (WitherStormEvents.witherStormUUID != null){
-                            WitherStormEntity entity = (WitherStormEntity) world.getEntity(WitherStormEvents.witherStormUUID);
-                            if (entity != null && entity.getUUID().equals(uuid)) {
+                        for (UUID witherStormUUID : WitherStormCaches.witherStorms.keySet()){
+                            WitherStormEntity entity = (WitherStormEntity) world.getEntity(witherStormUUID);
+                            if (entity != null && witherStormUUID.equals(uuid)) {
                                 if (!entity.isDeadOrDying()) {
                                     ChunkPos prevChunk = world.getChunk(stormChunks.getPrevStormPositions().get(uuid)).getPos();
                                     ChunkPos chunk = world.getChunk(stormChunks.getStormPositions().get(uuid)).getPos();
@@ -42,11 +42,11 @@ public abstract class MixinWitherStormChunkLoader {
                                 } else if (entity.isDeadOrDying() || !entity.isAddedToWorld()) {
                                     stormChunks.removeStorm(entity);
                                 }
-                                flag = false;
+                                shouldRemoveStorm = false;
                             }
                         }
 
-                        if (flag) stormChunks.removeStorm(uuid);
+                        if (shouldRemoveStorm) stormChunks.removeStorm(uuid);
                     }
                 }
 

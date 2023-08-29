@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.items.infernal_forge;
-import com.teampotato.opotato.config.CataclysmExtraConfig;
+import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;

@@ -1,7 +1,8 @@
 package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.items.The_Incinerator;
-import com.teampotato.opotato.config.CataclysmExtraConfig;
+import com.teampotato.opotato.api.IItem;
+import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -32,13 +33,9 @@ public abstract class MixinTheIncinerator extends Item {
         return Rarity.EPIC;
     }
 
-    @ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;<init>(Lnet/minecraft/world/item/Item$Properties;)V"))
-    private static Properties modifyProperties(Properties arg) {
-        if (CataclysmExtraConfig.incineratorCanBeDamaged.get()) {
-            return arg.durability(CataclysmExtraConfig.incineratorDurability.get());
-        } else {
-            return arg;
-        }
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void onInit(Properties group, CallbackInfo ci) {
+        if (CataclysmExtraConfig.incineratorCanBeDamaged.get()) ((IItem)this).potato$setMaxDamage(CataclysmExtraConfig.incineratorDurability.get());
     }
 
     @ModifyConstant(method = "releaseUsing", constant = @Constant(intValue = 60))

@@ -2,7 +2,7 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.init.ModEffect;
-import com.teampotato.opotato.config.CataclysmExtraConfig;
+import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;

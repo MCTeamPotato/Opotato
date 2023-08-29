@@ -41,6 +41,8 @@
   "opotato.key.cataclysm.voidCore": "触发虚空核心",
   "opotato.key.cataclysm": "灾变",
 
+  "opotato.multiple_wither_storm.remove": "Opotato的缓存优化系统不允许你同时召唤多只凋灵风暴，已经将其删除。",
+
   "opotato.epicfight.wrong_forge_version": "Opotato 抛出警告：你的 Forge 不是最新的 36.2.39 版本！史诗战斗 16.6.4+ 版本不兼容旧版本 Forge！",
   "opotato.incompatible.rubidium.betterfpsdist": "Opotato 抛出警告：Better Fps Render Distance 与铷不兼容，请删除 betterfpsdist！",
   "opotato.incompatible.rubidium.immersive_portals": "Opotato 抛出警告：Immersive Portals 与铷不兼容，请删除 Immersive Portals！",

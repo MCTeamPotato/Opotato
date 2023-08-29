@@ -27,7 +27,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
-import static com.teampotato.opotato.config.ArsNouveauLootConfig.*;
+import static com.teampotato.opotato.config.mods.ArsNouveauLootConfig.*;
 
 @Mixin(value = LootTables.class, remap = false)
 public abstract class MixinLootTables {
@@ -47,22 +47,22 @@ public abstract class MixinLootTables {
     @Redirect(method = "getRandomRoll", at = @At(value = "FIELD", target = "Lcom/hollingsworth/arsnouveau/api/loot/LootTables;BASIC_LOOT:Ljava/util/List;"))
     private static List<Supplier<ItemStack>> onGetBasicLoot() {
         if (NEW_BASIC_LOOT.isEmpty()) {
-            if(manaGem.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.manaGem, manaGemBasicCount.get() + potato$randomGen.nextInt(manaGemMaxCount.get())));
-            if(wildenHorn.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_HORN, wildenHornBasicCount.get() + potato$randomGen.nextInt(wildenHornMaxCount.get())));
-            if(wildenSpike.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_SPIKE, wildenSpikeBasicCount.get() + potato$randomGen.nextInt(wildenSpikeMaxCount.get())));
-            if(wildenWing.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_WING, wildenWingBasicCount.get() + potato$randomGen.nextInt(wildenWingMaxCount.get())));
-            if(manaBerryBush.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(BlockRegistry.MANA_BERRY_BUSH, manaBerryBushBasicCount.get() + potato$randomGen.nextInt(manaBerryBushMaxCount.get())));
-            if(longManaRegenPotion.get()) NEW_BASIC_LOOT.add(() -> {
+            if (manaGem.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.manaGem, manaGemBasicCount.get() + potato$randomGen.nextInt(manaGemMaxCount.get())));
+            if (wildenHorn.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_HORN, wildenHornBasicCount.get() + potato$randomGen.nextInt(wildenHornMaxCount.get())));
+            if (wildenSpike.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_SPIKE, wildenSpikeBasicCount.get() + potato$randomGen.nextInt(wildenSpikeMaxCount.get())));
+            if (wildenWing.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_WING, wildenWingBasicCount.get() + potato$randomGen.nextInt(wildenWingMaxCount.get())));
+            if (manaBerryBush.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(BlockRegistry.MANA_BERRY_BUSH, manaBerryBushBasicCount.get() + potato$randomGen.nextInt(manaBerryBushMaxCount.get())));
+            if (longManaRegenPotion.get()) NEW_BASIC_LOOT.add(() -> {
                 ItemStack stack = new ItemStack(Items.POTION);
                 PotionUtils.setPotion(stack, ModPotions.LONG_MANA_REGEN_POTION);
                 return stack;
             });
-            if(strongManaRegenPotion.get()) NEW_BASIC_LOOT.add(() -> {
+            if (strongManaRegenPotion.get()) NEW_BASIC_LOOT.add(() -> {
                 ItemStack stack = new ItemStack(Items.POTION);
                 PotionUtils.setPotion(stack, ModPotions.STRONG_MANA_REGEN_POTION);
                 return stack;
             });
-            if(manaRegenPotion.get()) NEW_BASIC_LOOT.add(() -> {
+            if (manaRegenPotion.get()) NEW_BASIC_LOOT.add(() -> {
                 ItemStack stack = new ItemStack(Items.POTION);
                 PotionUtils.setPotion(stack, ModPotions.MANA_REGEN_POTION);
                 return stack;
@@ -74,15 +74,15 @@ public abstract class MixinLootTables {
     @Redirect(method = "getRandomRoll", at = @At(value = "FIELD", target = "Lcom/hollingsworth/arsnouveau/api/loot/LootTables;UNCOMMON_LOOT:Ljava/util/List;"))
     private static List<Supplier<ItemStack>> onGetUncommonLoot() {
         if (NEW_UNCOMMON_LOOT.isEmpty()) {
-            if(warpScroll.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.warpScroll, warpScrollBasicCount.get() + potato$randomGen.nextInt(warpScrollMaxCount.get())));
-            if(carbuncleShard.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.carbuncleShard));
-            if(sylphShard.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.sylphShard));
-            if(drygmyShard.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.DRYGMY_SHARD));
-            if(wixieShard.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.WIXIE_SHARD));
-            if(amplifyArrow.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.AMPLIFY_ARROW, amplifyArrowBasicCount.get() + potato$randomGen.nextInt(amplifyArrowMaxCount.get())));
-            if(splitArrow.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.SPLIT_ARROW, splitArrowBasicCount.get() + potato$randomGen.nextInt(splitArrowMaxCount.get())));
-            if(pierceArrow.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.PIERCE_ARROW, pierceArrowBasicCount.get() + potato$randomGen.nextInt(pierceArrowMaxCount.get())));
-            if(ritualTablets.get()) NEW_UNCOMMON_LOOT.add(() -> {
+            if (warpScroll.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.warpScroll, warpScrollBasicCount.get() + potato$randomGen.nextInt(warpScrollMaxCount.get())));
+            if (carbuncleShard.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.carbuncleShard));
+            if (sylphShard.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.sylphShard));
+            if (drygmyShard.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.DRYGMY_SHARD));
+            if (wixieShard.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.WIXIE_SHARD));
+            if (amplifyArrow.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.AMPLIFY_ARROW, amplifyArrowBasicCount.get() + potato$randomGen.nextInt(amplifyArrowMaxCount.get())));
+            if (splitArrow.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.SPLIT_ARROW, splitArrowBasicCount.get() + potato$randomGen.nextInt(splitArrowMaxCount.get())));
+            if (pierceArrow.get()) NEW_UNCOMMON_LOOT.add(() -> new ItemStack(ItemsRegistry.PIERCE_ARROW, pierceArrowBasicCount.get() + potato$randomGen.nextInt(pierceArrowMaxCount.get())));
+            if (ritualTablets.get()) NEW_UNCOMMON_LOOT.add(() -> {
                 Collection<RitualTablet> ritualTablets = ArsNouveauAPI.getInstance().getRitualItemMap().values();
                 return new ItemStack(ritualTablets.stream().skip(potato$randomGen.nextInt(ritualTablets.size())).findFirst().orElse(null));
             });

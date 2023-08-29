@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.init.ModStructures;
-import com.teampotato.opotato.config.CataclysmExtraConfig;
+import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;

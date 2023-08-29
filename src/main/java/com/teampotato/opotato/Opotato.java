@@ -1,19 +1,18 @@
 package com.teampotato.opotato;
 
-import com.teampotato.opotato.config.*;
-import com.teampotato.opotato.events.DEUFix;
-import com.teampotato.opotato.events.VoidCoreTriggerEvents;
+import com.teampotato.opotato.config.PotatoCommonConfig;
+import com.teampotato.opotato.config.mods.*;
+import com.teampotato.opotato.events.*;
 import com.teampotato.opotato.events.client.KeybindEvents;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.fml.loading.moddiscovery.ModFile;
-import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,17 +27,33 @@ public class Opotato {
 
 
     public Opotato() {
-        FMLLoader.getLoadingModList().getModFiles().stream().map(ModFileInfo::getFile).map(ModFile::getFileName).sorted().forEach(name -> LOGGER.info("Mod " + name + " loaded!"));
         isRubidiumLoaded = isLoaded("rubidium");
-        ModConfig.Type common = ModConfig.Type.COMMON;
-        ModLoadingContext ctx = ModLoadingContext.get();
 
-        MinecraftForge.EVENT_BUS.register(DEUFix.class);
+        initEvents();
+        initConfigs(ModLoadingContext.get());
+    }
+
+    private static void initEvents() {
+        IEventBus bus = MinecraftForge.EVENT_BUS;
+        bus.register(DEUFix.class);
+
         if (isLoaded("cataclysm") && isLoaded("curios")) {
-            if(FMLLoader.getDist().isClient()) MinecraftForge.EVENT_BUS.register(KeybindEvents.class);
-            MinecraftForge.EVENT_BUS.register(VoidCoreTriggerEvents.class);
+            if(FMLLoader.getDist().isClient()) bus.register(KeybindEvents.VoidCore.class);
+            bus.register(VoidCoreTriggerEvents.class);
         }
 
+        bus.register(KeybindEvents.OnePunch.class);
+        bus.register(CreativeOnePunch.class);
+        bus.register(DEUFix.class);
+        bus.register(PotatoEvents.class);
+
+        if (isLoaded("witherstormmod")) {
+            bus.register(WitherStormCaches.class);
+        }
+    }
+
+    private static void initConfigs(ModLoadingContext ctx) {
+        ModConfig.Type common = ModConfig.Type.COMMON;
         if (isLoaded("ars_nouveau")) ctx.registerConfig(common, ArsNouveauLootConfig.arsNouveauConfig, MOD_ID + "/mods/arsNouveau-loot.toml");
         if (isLoaded("blue_skies")) ctx.registerConfig(common, BlueSkiesExtraConfig.blueSkiesExtraConfig, MOD_ID + "/mods/blueSkies-extra.toml");
         if (isLoaded("cataclysm")) ctx.registerConfig(common, CataclysmExtraConfig.cataclysmExtraConfig, MOD_ID + "/mods/cataclysm-extra.toml");

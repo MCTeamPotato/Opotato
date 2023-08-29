@@ -3,7 +3,7 @@ package com.teampotato.opotato.mixin.alternatecurrent;
 import org.spongepowered.asm.mixin.Mixin;
 
 import com.teampotato.opotato.api.IServerLevel;
-import com.teampotato.opotato.wire.WireHandler;
+import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler;
 
 import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Unique;

@@ -1,9 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.minecraft;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.UpgradeData;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -14,14 +12,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Set;
 
-@Mixin(Entity.class)
-public abstract class MixinEntity {
-    @Mutable @Shadow @Final private Set<String> tags;
+@Mixin(UpgradeData.class)
+public abstract class MixinUpgradeData {
+    @Mutable @Shadow @Final private static Set<UpgradeData.BlockFixer> CHUNKY_FIXERS;
 
-    @Shadow public Level level;
-
-    @Inject(method = "<init>", at = @At("RETURN"))
-    private void optimizeTags(EntityType<?> arg, Level arg2, CallbackInfo ci) {
-        this.tags = new ObjectOpenHashSet<>(this.tags);
+    @Inject(method = {"<init>()V", "<init>(Lnet/minecraft/nbt/CompoundTag;)V"}, at = @At("RETURN"))
+    private void onInit(CallbackInfo ci) {
+        CHUNKY_FIXERS = new ObjectOpenHashSet<>(CHUNKY_FIXERS);
     }
 }

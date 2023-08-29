@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(BlockRenderingUtil.class)
 public abstract class MixinBlockRenderingUtil {
-
     @Redirect(method = "renderModelFlat", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Direction;values()[Lnet/minecraft/core/Direction;"))
     private static Direction[] avoidEnumValues() {
         return Opotato.DIRECTIONS;

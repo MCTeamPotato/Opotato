@@ -1,7 +1,7 @@
-package com.teampotato.opotato.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
-import com.teampotato.opotato.wire.WireHandler.Directions;
-import com.teampotato.opotato.wire.WireHandler.NodeProvider;
+import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler.Directions;
+import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler.NodeProvider;
 
 import java.util.Arrays;
 import java.util.function.Consumer;

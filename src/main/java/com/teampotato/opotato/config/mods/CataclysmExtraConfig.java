@@ -1,4 +1,4 @@
-package com.teampotato.opotato.config;
+package com.teampotato.opotato.config.mods;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -89,10 +89,10 @@ public class CataclysmExtraConfig {
         incineratorDurability = builder.defineInRange("incineratorDurability", 4096, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("InfernalForge");
+        infernalForgeCanBeDamaged = builder.define("infernalForgeCanBeDamaged", false);
         canInfernalForgeDisableShield = builder.comment("Turn this on to allow the right-click of Internal Forge to ignore shield in player's offhand.").define("canInfernalForgeDisableShield", true);
         infernalForgeEarthQuakeRadius = builder.comment("Right click Infernal Forge to trigger Earth Quake, and here is its radius.").defineInRange("infernalForgeEarthQuakeRadius", 4.0, 1.0, Double.MAX_VALUE);
         infernalForgeFireDuration = builder.comment("When the player's health is below half of their maximum health, Infernal Forge's attack will set them on fire.").defineInRange("infernalForgeFireSeconds", 5, 1, Integer.MAX_VALUE);
-        infernalForgeCanBeDamaged = builder.define("infernalForgeCanBeDamaged", false);
         infernalForgeCoolDown = builder.defineInRange("infernalForgeCoolDown", 80, 1, Integer.MAX_VALUE);
         infernalForgeAttackKnockBack = builder.defineInRange("infernalForgeAttackKnockBackStrength", 1.0, 0.1, Double.MAX_VALUE);
         infernalForgeEnchantmentValue = builder.comment("Take a loot at Minecraft Wiki to learn more about EnchantmentValue (aka Enchantability) based on item tiers (Pay attention to that table.): https://minecraft.fandom.com/wiki/Tiers").defineInRange("infernalForgeEnchantmentValue", 16, 1, Integer.MAX_VALUE);
@@ -112,8 +112,7 @@ public class CataclysmExtraConfig {
         monstrousHelmetExplosionBlockInteraction = builder.comment("Three values are allowed: NONE, BREAK, DESTROY", "Any other value will lead to a crash.").define("monstrousHelmetExplosionBlockInteraction", "NONE");
         monstrousHelmetExplosionRadius = builder.defineInRange("monstrousHelmetExplosionAbilityRadius", 4.00, 1.00, Double.MAX_VALUE);
         monstrousHelmetValidRepairItem = builder.comment("If you want one item to repair Monstrous Helm, then write it here.").defineList("monstrousHelmetValidRepairItem", new ObjectArrayList<>(), o -> true);
-        builder.pop();
-        builder.pop();
+        builder.pop(2);
         builder.push("Structures");
         builder.push("SoulBlackSmith");
         soulBlackSmithSpacing = builder.defineInRange("soulBlackSmithSpacing", 90, 1, Integer.MAX_VALUE);
@@ -132,9 +131,7 @@ public class CataclysmExtraConfig {
         burningArenaSeparation = builder.defineInRange("burningArenaSeparation", 70, 1, Integer.MAX_VALUE);
         burningArenaSalt = builder.defineInRange("burningArenaSalt", 1923456789L, 1L, Long.MAX_VALUE);
         burningArenaTransformSurroundingLand = builder.define("burningArenaTransformSurroundingLand", false);
-        builder.pop();
-        builder.pop();
-        builder.pop();
+        builder.pop(3);
         cataclysmExtraConfig = builder.build();
     }
 }

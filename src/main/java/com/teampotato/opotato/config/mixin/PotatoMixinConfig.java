@@ -33,6 +33,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
         this.addMixinRule("opotato.ldlib", isLoaded("ldlib"));
         this.addMixinRule("opotato.minecraft", true);
+        this.addMixinRule("opotato.modernui", isLoaded("modernui"));
         this.addMixinRule("opotato.oculus", isLoaded("oculus"));
         this.addMixinRule("opotato.placebo", isLoaded("placebo"));
         this.addMixinRule("opotato.quark", isLoaded("quark"));

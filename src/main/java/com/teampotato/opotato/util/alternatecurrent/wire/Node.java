@@ -1,8 +1,8 @@
-package com.teampotato.opotato.wire;
+package com.teampotato.opotato.util.alternatecurrent.wire;
 
 import java.util.Arrays;
 
-import com.teampotato.opotato.wire.WireHandler.Directions;
+import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler.Directions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

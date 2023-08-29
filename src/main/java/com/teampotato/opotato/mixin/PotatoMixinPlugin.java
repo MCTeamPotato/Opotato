@@ -2,6 +2,9 @@ package com.teampotato.opotato.mixin;
 
 import com.teampotato.opotato.config.mixin.Option;
 import com.teampotato.opotato.config.mixin.PotatoMixinConfig;
+import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.fml.loading.moddiscovery.ModFile;
+import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
@@ -19,6 +22,11 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
     public static PotatoMixinPlugin instance;
 
     public PotatoMixinPlugin() {
+        FMLLoader.getLoadingModList().getModFiles().stream()
+                .map(ModFileInfo::getFile)
+                .map(ModFile::getFileName)
+                .sorted()
+                .forEach(name -> logger.info("Mod " + name + " loaded!"));
         instance = this;
         this.onLoad(MIXIN_PACKAGE_ROOT);
         this.logger.info("Loaded configuration file for Opotato: {} options available, {} override(s) found", config.getOptionCount(), config.getOptionOverrideCount());
@@ -69,15 +77,8 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
     }
 
 
-    @Override
-    public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
-
-    @Override
-    public List<String> getMixins() {return null;}
-
-    @Override
-    public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
-
-    @Override
-    public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
+    @Override public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
+    @Override public List<String> getMixins() {return null;}
+    @Override public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
+    @Override public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
 }

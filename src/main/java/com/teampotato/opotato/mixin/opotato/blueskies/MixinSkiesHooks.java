@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.blueskies;
 
 import com.legacy.blue_skies.events.SkiesHooks;
-import com.teampotato.opotato.config.BlueSkiesExtraConfig;
+import com.teampotato.opotato.config.mods.BlueSkiesExtraConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;

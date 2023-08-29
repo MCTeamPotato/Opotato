@@ -4,7 +4,7 @@ import L_Ender.cataclysm.init.ModItems;
 import L_Ender.cataclysm.items.void_core;
 import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.api.IVoidCore;
-import com.teampotato.opotato.config.CataclysmExtraConfig;
+import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
