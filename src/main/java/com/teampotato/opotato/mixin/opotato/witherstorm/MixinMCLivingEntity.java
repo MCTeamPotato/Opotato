@@ -36,7 +36,7 @@ public abstract class MixinMCLivingEntity extends Entity {
                 if (!tracker.isActuallyImmune()) {
                     boolean nearby = serverLevel.dimension().location().equals(WitherStormMod.bowelsLocation());
                     WitherStormEntity witherStormEntity = (WitherStormEntity) serverLevel.getEntity(WitherStormEvents.witherStormUUID);
-                    if (WitherStormEvents.witherStormUUID != null && witherStormEntity != null && witherStormEntity.getPhase() > 1) {
+                    if (WitherStormEvents.witherStormUUID != null && witherStormEntity != null && witherStormEntity.getPhase() > 1 && !nearby) {
                         nearby = witherStormEntity.isEntityNearby((LivingEntity) (Object) this);
                     }
                     tracker.setNearStorm(nearby);

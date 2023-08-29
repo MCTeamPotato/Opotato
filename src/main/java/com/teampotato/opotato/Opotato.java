@@ -7,10 +7,13 @@ import com.teampotato.opotato.events.client.KeybindEvents;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.fml.loading.moddiscovery.ModFile;
+import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,9 +26,9 @@ public class Opotato {
     public static final Direction[] DIRECTIONS = Direction.values();
     public static final EquipmentSlot[] EQUIPMENT_SLOTS = EquipmentSlot.values();
 
+
     public Opotato() {
-        FMLLoader.getLoadingModList().getMods().stream().sorted()
-                .forEach(modInfo -> LOGGER.info("Mod " + modInfo.getOwningFile().getFile().getFileName() + " loaded!"));
+        FMLLoader.getLoadingModList().getModFiles().stream().map(ModFileInfo::getFile).map(ModFile::getFileName).sorted().forEach(name -> LOGGER.info("Mod " + name + " loaded!"));
         isRubidiumLoaded = isLoaded("rubidium");
         ModConfig.Type common = ModConfig.Type.COMMON;
         ModLoadingContext ctx = ModLoadingContext.get();
@@ -45,6 +48,6 @@ public class Opotato {
     }
 
     public static boolean isLoaded(String mod) {
-        return FMLLoader.getLoadingModList().getModFileById(mod) != null;
+        return ModList.get().isLoaded(mod);
     }
 }

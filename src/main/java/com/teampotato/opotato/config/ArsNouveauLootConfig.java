@@ -52,8 +52,8 @@ public class ArsNouveauLootConfig {
         builder.push("ArsNouveauLootConfig");
         builder.comment("Part of ArsNouveau loot data was hard-coded, but now you can tweak them here",
                 "TheNumberOfItems = basicCount + aRandomNumberBetweenZeroAndMaxCount",
-                "Another example, if you turn 'manaGem' off, this items will not appear in loots anymore.",
-                "### BasicLoot");
+                "Another example, if you turn 'manaGem' off, this items will not appear in loots anymore.");
+        builder.push("BasicLoot");
         manaGem = builder.define("manaGem", true);
         manaGemBasicCount = builder.defineInRange("manaGemBasicCount", 1, 0, 64);
         manaGemMaxCount = builder.defineInRange("manaGemMaxCount", 5, 1, 64);
@@ -72,7 +72,8 @@ public class ArsNouveauLootConfig {
         longManaRegenPotion = builder.define("longManaRegenPotion", true);
         strongManaRegenPotion = builder.define("strongManaRegenPotion", true);
         manaRegenPotion = builder.define("manaRegenPotion", true);
-        builder.comment("### UncommonLoot");
+        builder.pop();
+        builder.push("UncommonLoot");
         warpScroll = builder.define("warpScroll", true);
         warpScrollBasicCount = builder.defineInRange("warpScrollBasicCount", 1, 0, 64);
         warpScrollMaxCount = builder.defineInRange("warpScrollMaxCount", 2, 1, 64);
@@ -90,9 +91,10 @@ public class ArsNouveauLootConfig {
         pierceArrowBasicCount = builder.defineInRange("pierceArrowBasicCount", 16, 0, 64);
         pierceArrowMaxCount = builder.defineInRange("pierceArrowMaxCount", 16, 0, 64);
         ritualTablets = builder.define("ritualTablets", true);
-        builder.comment("### RareLoot");
+        builder.pop();
+        builder.push("RareLoot");
         xacrisTinyHut = builder.define("xacrisTinyHut", true);
-        glowTrap = builder.define("", true);
+        glowTrap = builder.define("glowTrap", true);
         baileysBovineRocket = builder.define("baileysBovineRocket", true);
         arachnesWeaving = builder.define("arachnesWeaving", true);
         warpImpact = builder.define("warpImpact", true);
@@ -105,6 +107,7 @@ public class ArsNouveauLootConfig {
         runeOfRenewing = builder.define("runeOfRenewing", true);
         knockedOutOfOrbit = builder.define("knockedOutOfOrbit", true);
         takeoff = builder.define("takeoff", true);
+        builder.pop();
         builder.pop();
         arsNouveauConfig = builder.build();
     }

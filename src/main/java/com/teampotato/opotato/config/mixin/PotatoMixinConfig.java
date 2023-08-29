@@ -2,24 +2,27 @@ package com.teampotato.opotato.config.mixin;
 
 import com.teampotato.opotato.Opotato;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.io.*;
 import java.util.Map;
 import java.util.Properties;
 
-import static com.teampotato.opotato.Opotato.isLoaded;
-
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new Object2ObjectOpenHashMap<>();
 
+    private static boolean isLoaded(String mod) {
+        return FMLLoader.getLoadingModList().getModFileById(mod) != null;
+    }
     private PotatoMixinConfig() {
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueprint", isLoaded("abnormals_core"));
         this.addMixinRule("opotato.blueskies", isLoaded("blueskies"));
         this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
+        this.addMixinRule("opotato.cataclysm.rubidium", isLoaded("cataclysm") && isLoaded("rubidium"));
         this.addMixinRule("opotato.citadel", isLoaded("citadel"));
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));
-        this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge"));
+        this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge2"));
         this.addMixinRule("opotato.epicfight", isLoaded("epicfight"));
         this.addMixinRule("opotato.forge", true);
         this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
@@ -27,7 +30,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.industrialforegoing", isLoaded("industrialforegoing"));
         this.addMixinRule("opotato.inspirations", isLoaded("inspirations"));
         this.addMixinRule("opotato.itemstages", isLoaded("itemstages"));
-        this.addMixinRule("opotato.jumpoverfences", isLoaded("jumpoverfences"));
         this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
         this.addMixinRule("opotato.ldlib", isLoaded("ldlib"));
         this.addMixinRule("opotato.minecraft", true);
@@ -36,6 +38,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.quark", isLoaded("quark"));
         this.addMixinRule("opotato.randompatches", isLoaded("randompatches"));
         this.addMixinRule("opotato.supplementaries", isLoaded("supplementaries"));
+        this.addMixinRule("opotato.titanium", isLoaded("titanium"));
         this.addMixinRule("opotato.undergarden", isLoaded("undergarden"));
         this.addMixinRule("opotato.witherstorm", isLoaded("witherstormmod"));
         this.addMixinRule("opotato.xaerominimap", isLoaded("xaerominimap"));

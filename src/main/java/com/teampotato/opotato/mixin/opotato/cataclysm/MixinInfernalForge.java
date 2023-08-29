@@ -2,15 +2,19 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.items.infernal_forge;
 import com.teampotato.opotato.config.CataclysmExtraConfig;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -33,9 +37,9 @@ public abstract class MixinInfernalForge extends PickaxeItem {
         }
     }
 
-    @Redirect(method = "EarthQuake", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setSecondsOnFire(I)V"), remap = false)
-    private void onSetOnFire(Entity instance, int i) {
-        instance.setSecondsOnFire(CataclysmExtraConfig.infernalForgeFireDuration.get());
+    @ModifyConstant(method = "EarthQuake", constant = @Constant(intValue = 5))
+    private int onSetOnFire(int constant) {
+        return CataclysmExtraConfig.infernalForgeFireDuration.get();
     }
 
     @ModifyConstant(method = "EarthQuake", constant = @Constant(doubleValue = 4.0, ordinal = 0), remap = false)

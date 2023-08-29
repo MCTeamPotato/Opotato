@@ -33,7 +33,7 @@ repositories {
 dependencies {
     implementation "org.projectlombok:lombok:1.18.28"
     annotationProcessor "org.projectlombok:lombok:1.18.28"
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.officialMojangMappings()
     forge "net.minecraftforge:forge:${project.forge_version}"
 
@@ -45,7 +45,6 @@ dependencies {
     modCompileOnly("curse.maven:citadel-331936:3441028")
     modCompileOnly("top.theillusivec4.curios:curios-forge:1.16.5-4.1.0.0")
     modCompileOnly("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
-    modCompileOnly("curse.maven:citadel-331936:3441028")
     modCompileOnly("curse.maven:elenai-dodge-2-442962:3343309")
     modCompileOnly("curse.maven:epic-fight-mod-405076:4029362")
     modCompileOnly("curse.maven:female-gender-forge-481655:3459078")
@@ -53,7 +52,6 @@ dependencies {
     modCompileOnly("curse.maven:inspirations-284007:3414517")
     modCompileOnly("curse.maven:item-stages-280316:3482955")
     modCompileOnly("curse.maven:jei-238222:4371666")
-    modCompileOnly("curse.maven:jump-over-fences-forge-423421:3125998")
     modCompileOnly("curse.maven:kiwi-303657:3536245")
     modCompileOnly("curse.maven:ldlib-626676:4124863")
     modCompileOnly("curse.maven:oculus-581495:4300427")
@@ -67,6 +65,7 @@ dependencies {
     modCompileOnly("curse.maven:xaeros-minimap-263420:4716688")
     modCompileOnly("curse.maven:industrial-foregoing-266515:3525789")
     modCompileOnly("curse.maven:titanium-287342:3525770")
+    modCompileOnly("curse.maven:rubidium-574856:4568759")
 }
 
 processResources {

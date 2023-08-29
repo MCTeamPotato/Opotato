@@ -92,7 +92,7 @@ public abstract class MixinTheIncinerator extends Item {
         return CataclysmExtraConfig.flameStrikeSummonedByIncineratorDuration.get();
     }
 
-    @ModifyConstant(method = "releaseUsing", constant = @Constant(floatValue = 1.0F))
+    @ModifyConstant(method = "releaseUsing", constant = @Constant(floatValue = 1.0F, ordinal = 0))
     private float onGetFlameStrikeRadius(float constant) {
         return CataclysmExtraConfig.flameStrikeSummonedByIncineratorRadius.get().floatValue();
     }

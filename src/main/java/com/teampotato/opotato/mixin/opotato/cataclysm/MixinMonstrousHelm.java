@@ -63,8 +63,8 @@ public abstract class MixinMonstrousHelm extends ArmorItem {
         }
     }
 
-    @Redirect(method = "onArmorTick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/Explosion$BlockInteraction;NONE:Lnet/minecraft/world/level/Explosion$BlockInteraction;"), remap = false)
-    private Explosion.BlockInteraction onInteractBlock() {
+    @ModifyArg(method = "onArmorTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;DDDFLnet/minecraft/world/level/Explosion$BlockInteraction;)Lnet/minecraft/world/level/Explosion;"))
+    private Explosion.BlockInteraction onInteractBlock(Explosion.BlockInteraction blockInteraction) {
         return Explosion.BlockInteraction.valueOf(CataclysmExtraConfig.monstrousHelmetExplosionBlockInteraction.get());
     }
 

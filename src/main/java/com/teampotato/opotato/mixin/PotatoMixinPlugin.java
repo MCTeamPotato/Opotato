@@ -68,6 +68,7 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
         return option.isEnabled();
     }
 
+
     @Override
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
 

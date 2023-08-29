@@ -31,7 +31,7 @@ public abstract class MixinVoidCore extends Item implements ICurioItem, IVoidCor
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V",shift = At.Shift.AFTER))
     private void reduceDurability(Level world, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         if (CataclysmExtraConfig.voidCoreCanBeDamaged.get()) {
-            ItemStack stack = cir.getReturnValue().getObject();
+            ItemStack stack = player.getItemInHand(hand);
             int damage = stack.getDamageValue();
             if (damage + 1 >= CataclysmExtraConfig.voidCoreDurability.get()) {
                 stack.shrink(1);

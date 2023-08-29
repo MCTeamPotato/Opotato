@@ -1,4 +1,4 @@
-package com.teampotato.opotato.mixin.opotato.supplementaris;
+package com.teampotato.opotato.mixin.opotato.supplementaries;
 
 import net.mehvahdjukaar.supplementaries.common.Credits;
 import org.spongepowered.asm.mixin.Mixin;
