@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.mixintrace;
 
-import com.teampotato.opotato.TraceUtils;
+import com.teampotato.opotato.util.mixintrace.TraceUtils;
 import net.minecraft.CrashReport;
 import org.apache.commons.lang3.StringUtils;
 import org.spongepowered.asm.mixin.Mixin;

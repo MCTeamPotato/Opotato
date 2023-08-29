@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SkiesHooks.class)
+@Mixin(value = SkiesHooks.class, remap = false)
 public class MixinSkiesHooks {
     @Inject(method = "breakSpeedHook", at = @At("HEAD"), cancellable = true)
     private static void disableNerf(float speed, BlockState state, BlockPos pos, Player player, CallbackInfoReturnable<Float> cir) {

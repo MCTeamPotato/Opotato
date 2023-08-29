@@ -4,7 +4,7 @@ import java.util.AbstractQueue;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import com.teampotato.opotato.util.Redstone;
+import com.teampotato.opotato.util.alternatecurrent.Redstone;
 
 public class PriorityQueue extends AbstractQueue<Node> {
 

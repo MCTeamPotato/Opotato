@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SkiesEntityHooks.class)
+@Mixin(value = SkiesEntityHooks.class, remap = false)
 public class MixinSkiesEntityHooks {
     @Inject(method = "nerfDamage", at = @At("HEAD"), cancellable = true)
     private static void disableNerf(DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {

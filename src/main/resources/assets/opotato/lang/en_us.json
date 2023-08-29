@@ -1,4 +1,13 @@
 {
+  "opotato.key.one_punch": "Switch Creative One Punch",
+  "opotato.key.category": "Opotato",
+  "opotato.creativeOnePunch": "Creative One Punch: ",
+  "opotato.creativeOnePunch.true": "ON",
+  "opotato.creativeOnePunch.false": "OFF",
+
+  "headshot.opotato.on_entity": "Headshot!",
+  "headshot.opotato.on_player": "You got headshot!",
+
   "opotato.arsnouveau.tome.xacris_tiny_hut": "Xacris' Tiny Hut",
   "opotato.arsnouveau.tome.xacris_tiny_hut.flavorText": "Snares the target and grants other targets Glowing.",
   "opotato.arsnouveau.tome.glow_trap": "Glow Trap",
@@ -25,5 +34,10 @@
   "opotato.arsnouveau.tome.knocked_out_of_orbit": "Knocked out of Orbit",
   "opotato.arsnouveau.tome.knocked_out_of_orbit.flavorText": "Summons orbiting projectiles that will launch nearby enemies.",
   "opotato.arsnouveau.tome.takeoff": "Takeoff!",
-  "opotato.arsnouveau.tome.takeoff.flavorText": "Launches the caster into the air and grants temporary elytra flight!"
+  "opotato.arsnouveau.tome.takeoff.flavorText": "Launches the caster into the air and grants temporary elytra flight!",
+
+  "opotato.catatclysm.incinerator.ready": "Flame Strike: ready",
+  "opotato.cataclysm.incinerator.desc": "Full charge takes %d seconds, and if you stop holding right click after this",
+  "opotato.key.cataclysm.voidCore": "Trigger Void Core",
+  "opotato.key.cataclysm": "Cataclysm"
 }

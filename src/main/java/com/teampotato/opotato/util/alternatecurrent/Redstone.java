@@ -1,4 +1,4 @@
-package com.teampotato.opotato.util;
+package com.teampotato.opotato.util.alternatecurrent;
 
 public class Redstone {
 

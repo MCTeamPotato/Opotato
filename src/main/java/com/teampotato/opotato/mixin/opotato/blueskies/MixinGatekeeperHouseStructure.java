@@ -5,7 +5,7 @@ import com.teampotato.opotato.config.BlueSkiesExtraConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(GatekeeperHouseStructure.class)
+@Mixin(value = GatekeeperHouseStructure.class, remap = false)
 public abstract class MixinGatekeeperHouseStructure {
     /**
      * @author Kasualix

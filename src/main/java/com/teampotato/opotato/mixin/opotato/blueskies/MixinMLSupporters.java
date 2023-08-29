@@ -4,7 +4,7 @@ import com.legacy.blue_skies.MLSupporter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(MLSupporter.GetSupportersThread.class)
+@Mixin(value = MLSupporter.GetSupportersThread.class, remap = false)
 public class MixinMLSupporters {
     /**
      * @author Kasualix

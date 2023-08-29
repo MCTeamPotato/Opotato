@@ -1,7 +1,7 @@
 package com.teampotato.opotato.wire;
 
-import com.teampotato.opotato.util.BlockUtil;
-import com.teampotato.opotato.util.Redstone;
+import com.teampotato.opotato.util.alternatecurrent.BlockUtil;
+import com.teampotato.opotato.util.alternatecurrent.Redstone;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

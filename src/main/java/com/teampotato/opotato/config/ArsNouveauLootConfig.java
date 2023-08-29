@@ -15,10 +15,15 @@ public class ArsNouveauLootConfig {
     public static final ForgeConfigSpec.BooleanValue strongManaRegenPotion;
     public static final ForgeConfigSpec.BooleanValue manaRegenPotion;
     public static final ForgeConfigSpec.IntValue manaGemMaxCount;
+    public static final ForgeConfigSpec.IntValue manaGemBasicCount;
     public static final ForgeConfigSpec.IntValue wildenHornMaxCount;
+    public static final ForgeConfigSpec.IntValue wildenHornBasicCount;
     public static final ForgeConfigSpec.IntValue wildenSpikeMaxCount;
+    public static final ForgeConfigSpec.IntValue wildenSpikeBasicCount;
     public static final ForgeConfigSpec.IntValue wildenWingMaxCount;
+    public static final ForgeConfigSpec.IntValue wildenWingBasicCount;
     public static final ForgeConfigSpec.IntValue manaBerryBushMaxCount;
+    public static final ForgeConfigSpec.IntValue manaBerryBushBasicCount;
 
     public static final ForgeConfigSpec.BooleanValue warpScroll;
     public static final ForgeConfigSpec.BooleanValue carbuncleShard;
@@ -39,21 +44,30 @@ public class ArsNouveauLootConfig {
     public static final ForgeConfigSpec.IntValue pierceArrowBasicCount;
     public static final ForgeConfigSpec.IntValue pierceArrowMaxCount;
 
+    public static final ForgeConfigSpec.BooleanValue xacrisTinyHut, glowTrap, baileysBovineRocket, arachnesWeaving, warpImpact, farfallasFrostyFlames, gootasticsTelekineticFishingRod, potentToxin, theShadowsTemporaryTunnel, vault, fireball, runeOfRenewing, knockedOutOfOrbit, takeoff;
+
+
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         builder.push("ArsNouveauLootConfig");
         builder.comment("Part of ArsNouveau loot data was hard-coded, but now you can tweak them here",
-                "The maxCount value is exclusive, and the basicCount value means that the items will at least be more than it.",
+                "TheNumberOfItems = basicCount + aRandomNumberBetweenZeroAndMaxCount",
+                "Another example, if you turn 'manaGem' off, this items will not appear in loots anymore.",
                 "### BasicLoot");
         manaGem = builder.define("manaGem", true);
+        manaGemBasicCount = builder.defineInRange("manaGemBasicCount", 1, 0, 64);
         manaGemMaxCount = builder.defineInRange("manaGemMaxCount", 5, 1, 64);
         wildenHorn = builder.define("wildenHorn", true);
+        wildenHornBasicCount = builder.defineInRange("wildenHornBasicCount", 1, 0, 64);
         wildenHornMaxCount = builder.defineInRange("wildenHornMaxCount", 3, 1, 64);
         wildenSpike = builder.define("wildenSpike", true);
+        wildenSpikeBasicCount = builder.defineInRange("wildenSpikeBasicCount", 1, 0, 64);
         wildenSpikeMaxCount = builder.defineInRange("wildenSpikeMaxCount", 3, 1, 64);
         wildenWing = builder.define("wildenWing", true);
+        wildenWingBasicCount = builder.defineInRange("wildenWingBasicCount", 1, 0, 64);
         wildenWingMaxCount = builder.defineInRange("wildenWingMaxCount", 3, 1, 64);
         manaBerryBush = builder.define("manaBerryBush", true);
+        manaBerryBushBasicCount = builder.defineInRange("manaBerryBushBasicCount", 1, 0, 64);
         manaBerryBushMaxCount = builder.defineInRange("manaBerryBushMaxCount", 3, 1, 64);
         longManaRegenPotion = builder.define("longManaRegenPotion", true);
         strongManaRegenPotion = builder.define("strongManaRegenPotion", true);
@@ -76,6 +90,21 @@ public class ArsNouveauLootConfig {
         pierceArrowBasicCount = builder.defineInRange("pierceArrowBasicCount", 16, 0, 64);
         pierceArrowMaxCount = builder.defineInRange("pierceArrowMaxCount", 16, 0, 64);
         ritualTablets = builder.define("ritualTablets", true);
+        builder.comment("### RareLoot");
+        xacrisTinyHut = builder.define("xacrisTinyHut", true);
+        glowTrap = builder.define("", true);
+        baileysBovineRocket = builder.define("baileysBovineRocket", true);
+        arachnesWeaving = builder.define("arachnesWeaving", true);
+        warpImpact = builder.define("warpImpact", true);
+        farfallasFrostyFlames = builder.define("farfallasFrostyFlames", true);
+        gootasticsTelekineticFishingRod = builder.define("gootasticsTelekineticFishingRod", true);
+        potentToxin = builder.define("potentToxin", true);
+        theShadowsTemporaryTunnel = builder.define("theShadowsTemporaryTunnel", true);
+        fireball = builder.define("fireball", true);
+        vault = builder.define("vault", true);
+        runeOfRenewing = builder.define("runeOfRenewing", true);
+        knockedOutOfOrbit = builder.define("knockedOutOfOrbit", true);
+        takeoff = builder.define("takeoff", true);
         builder.pop();
         arsNouveauConfig = builder.build();
     }

@@ -1,6 +1,5 @@
 package com.teampotato.opotato.mixin.opotato.arsnouveau;
 
-import com.google.common.collect.Lists;
 import com.hollingsworth.arsnouveau.api.ArsNouveauAPI;
 import com.hollingsworth.arsnouveau.api.loot.LootTables;
 import com.hollingsworth.arsnouveau.api.spell.Spell;
@@ -11,6 +10,7 @@ import com.hollingsworth.arsnouveau.common.spell.effect.*;
 import com.hollingsworth.arsnouveau.common.spell.method.*;
 import com.hollingsworth.arsnouveau.setup.BlockRegistry;
 import com.hollingsworth.arsnouveau.setup.ItemsRegistry;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,7 +29,7 @@ import java.util.function.Supplier;
 
 import static com.teampotato.opotato.config.ArsNouveauLootConfig.*;
 
-@Mixin(LootTables.class)
+@Mixin(value = LootTables.class, remap = false)
 public abstract class MixinLootTables {
     @Shadow public static ItemStack makeTome(String name, Spell spell) {
         throw new RuntimeException();
@@ -39,25 +39,19 @@ public abstract class MixinLootTables {
         throw new RuntimeException();
     }
 
-    @Unique
-    private static final Random potato$randomGen = ThreadLocalRandom.current();
-    @Unique
-    private static final List<Supplier<ItemStack>> NEW_BASIC_LOOT = Lists.newArrayList();
-
-    @Unique
-    private static final List<Supplier<ItemStack>> NEW_UNCOMMON_LOOT = Lists.newArrayList();
-
-    @Unique
-    private static final List<Supplier<ItemStack>> NEW_RARE_LOOT = Lists.newArrayList();
+    @Unique private static final Random potato$randomGen = ThreadLocalRandom.current();
+    @Unique private static final List<Supplier<ItemStack>> NEW_BASIC_LOOT = new ObjectArrayList<>();
+    @Unique private static final List<Supplier<ItemStack>> NEW_UNCOMMON_LOOT = new ObjectArrayList<>();
+    @Unique private static final List<Supplier<ItemStack>> NEW_RARE_LOOT = new ObjectArrayList<>();
 
     @Redirect(method = "getRandomRoll", at = @At(value = "FIELD", target = "Lcom/hollingsworth/arsnouveau/api/loot/LootTables;BASIC_LOOT:Ljava/util/List;"))
     private static List<Supplier<ItemStack>> onGetBasicLoot() {
         if (NEW_BASIC_LOOT.isEmpty()) {
-            if(manaGem.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.manaGem, 1 + potato$randomGen.nextInt(manaGemMaxCount.get())));
-            if(wildenHorn.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_HORN, 1 + potato$randomGen.nextInt(wildenHornMaxCount.get())));
-            if(wildenSpike.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_SPIKE, 1 + potato$randomGen.nextInt(wildenSpikeMaxCount.get())));
-            if(wildenWing.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_WING, 1 + potato$randomGen.nextInt(wildenWingMaxCount.get())));
-            if(manaBerryBush.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(BlockRegistry.MANA_BERRY_BUSH, 1 + potato$randomGen.nextInt(manaBerryBushMaxCount.get())));
+            if(manaGem.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.manaGem, manaGemBasicCount.get() + potato$randomGen.nextInt(manaGemMaxCount.get())));
+            if(wildenHorn.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_HORN, wildenHornBasicCount.get() + potato$randomGen.nextInt(wildenHornMaxCount.get())));
+            if(wildenSpike.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_SPIKE, wildenSpikeBasicCount.get() + potato$randomGen.nextInt(wildenSpikeMaxCount.get())));
+            if(wildenWing.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(ItemsRegistry.WILDEN_WING, wildenWingBasicCount.get() + potato$randomGen.nextInt(wildenWingMaxCount.get())));
+            if(manaBerryBush.get()) NEW_BASIC_LOOT.add(() -> new ItemStack(BlockRegistry.MANA_BERRY_BUSH, manaBerryBushBasicCount.get() + potato$randomGen.nextInt(manaBerryBushMaxCount.get())));
             if(longManaRegenPotion.get()) NEW_BASIC_LOOT.add(() -> {
                 ItemStack stack = new ItemStack(Items.POTION);
                 PotionUtils.setPotion(stack, ModPotions.LONG_MANA_REGEN_POTION);
@@ -99,75 +93,20 @@ public abstract class MixinLootTables {
     @Redirect(method = "getRandomRoll", at = @At(value = "FIELD", target = "Lcom/hollingsworth/arsnouveau/api/loot/LootTables;RARE_LOOT:Ljava/util/List;"))
     private static List<Supplier<ItemStack>> onGetRareLoot() {
         if (NEW_RARE_LOOT.isEmpty()) {
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.xacris_tiny_hut"),
-                            (new Spell()).add(MethodUnderfoot.INSTANCE).add(EffectPhantomBlock.INSTANCE).add(AugmentAOE.INSTANCE, 3).add(AugmentPierce.INSTANCE, 3),
-                            I18n.get("opotato.arsnouveau.tome.xacris_tiny_hut.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.glow_trap"),
-                    (new Spell()).add(MethodTouch.INSTANCE).add(EffectRune.INSTANCE).add(EffectSnare.INSTANCE).add(AugmentExtendTime.INSTANCE).add(EffectLight.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.glow_trap.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.baileys_bovine_rocket"),
-                    (new Spell()).add(MethodProjectile.INSTANCE).add(EffectLaunch.INSTANCE).add(AugmentAmplify.INSTANCE, 2).add(EffectDelay.INSTANCE).add(EffectExplosion.INSTANCE).add(AugmentAmplify.INSTANCE)
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.arachnes_weaving"),
-                    (new Spell()).add(MethodProjectile.INSTANCE).add(AugmentSplit.INSTANCE, 2).add(EffectSnare.INSTANCE).add(AugmentExtendTime.INSTANCE).add(AugmentExtendTime.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.arachnes_weaving.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.warp_impact"),
-                    (new Spell()).add(MethodProjectile.INSTANCE).add(EffectBlink.INSTANCE).add(EffectExplosion.INSTANCE).add(AugmentAOE.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.warp_impact.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.ffff"),
-                    (new Spell()).add(MethodProjectile.INSTANCE).add(EffectIgnite.INSTANCE).add(EffectDelay.INSTANCE).add(EffectConjureWater.INSTANCE).add(EffectFreeze.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.ffff.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.gootastics_telekinetic_fishing_rod"),
-                    (new Spell()).add(MethodProjectile.INSTANCE).add(EffectLaunch.INSTANCE).add(AugmentAmplify.INSTANCE, 2).add(EffectDelay.INSTANCE).add(EffectPull.INSTANCE).add(AugmentAmplify.INSTANCE, 2),
-                    I18n.get("opotato.arsnouveau.tome.gootastics_telekinetic_fishing_rod.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.potent_toxin"),
-                    (new Spell()).add(MethodProjectile.INSTANCE).add(EffectHex.INSTANCE).add(EffectHarm.INSTANCE).add(AugmentExtendTime.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.potent_toxin.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.the_shadows_temp_tunnel"),
-                    (new Spell()).add(MethodTouch.INSTANCE).add(EffectIntangible.INSTANCE).add(AugmentAOE.INSTANCE, 2).add(AugmentPierce.INSTANCE, 5).add(AugmentExtendTime.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.the_shadows_temp_tunnel.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.vault"),
-                    (new Spell()).add(MethodSelf.INSTANCE).add(EffectLaunch.INSTANCE).add(EffectDelay.INSTANCE).add(EffectLeap.INSTANCE).add(EffectSlowfall.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.vault.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.fireball"),
-                    (new Spell()).add(MethodProjectile.INSTANCE).add(EffectIgnite.INSTANCE).add(EffectExplosion.INSTANCE).add(AugmentAmplify.INSTANCE, 2).add(AugmentAOE.INSTANCE, 2),
-                    I18n.get("opotato.arsnouveau.tome.fireball.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.rune_of_renewing"),
-                    (new Spell()).add(MethodTouch.INSTANCE).add(EffectRune.INSTANCE).add(EffectDispel.INSTANCE).add(EffectHeal.INSTANCE).add(AugmentExtendTime.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.rune_of_renewing.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.knocked_out_of_orbit"),
-                    (new Spell()).add(MethodOrbit.INSTANCE).add(EffectLaunch.INSTANCE).add(AugmentAmplify.INSTANCE, 2).add(EffectDelay.INSTANCE).add(EffectKnockback.INSTANCE).add(AugmentAmplify.INSTANCE, 2),
-                    I18n.get("opotato.arsnouveau.tome.knocked_out_of_orbit.flavorText")
-            ));
-            NEW_RARE_LOOT.add(() -> makeTome(
-                    I18n.get("opotato.arsnouveau.tome.takeoff"),
-                    (new Spell()).add(MethodSelf.INSTANCE).add(EffectLaunch.INSTANCE, 2).add(EffectGlide.INSTANCE).add(AugmentDurationDown.INSTANCE),
-                    I18n.get("opotato.arsnouveau.tome.takeoff.flavorText")
-            ));
+            if (xacrisTinyHut.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.xacris_tiny_hut"), (new Spell()).add(MethodUnderfoot.INSTANCE).add(EffectPhantomBlock.INSTANCE).add(AugmentAOE.INSTANCE, 3).add(AugmentPierce.INSTANCE, 3), I18n.get("opotato.arsnouveau.tome.xacris_tiny_hut.flavorText")));
+            if (glowTrap.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.glow_trap"), (new Spell()).add(MethodTouch.INSTANCE).add(EffectRune.INSTANCE).add(EffectSnare.INSTANCE).add(AugmentExtendTime.INSTANCE).add(EffectLight.INSTANCE), I18n.get("opotato.arsnouveau.tome.glow_trap.flavorText")));
+            if (baileysBovineRocket.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.baileys_bovine_rocket"), (new Spell()).add(MethodProjectile.INSTANCE).add(EffectLaunch.INSTANCE).add(AugmentAmplify.INSTANCE, 2).add(EffectDelay.INSTANCE).add(EffectExplosion.INSTANCE).add(AugmentAmplify.INSTANCE)));
+            if (arachnesWeaving.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.arachnes_weaving"), (new Spell()).add(MethodProjectile.INSTANCE).add(AugmentSplit.INSTANCE, 2).add(EffectSnare.INSTANCE).add(AugmentExtendTime.INSTANCE).add(AugmentExtendTime.INSTANCE), I18n.get("opotato.arsnouveau.tome.arachnes_weaving.flavorText")));
+            if (warpImpact.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.warp_impact"), (new Spell()).add(MethodProjectile.INSTANCE).add(EffectBlink.INSTANCE).add(EffectExplosion.INSTANCE).add(AugmentAOE.INSTANCE), I18n.get("opotato.arsnouveau.tome.warp_impact.flavorText")));
+            if (farfallasFrostyFlames.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.ffff"), (new Spell()).add(MethodProjectile.INSTANCE).add(EffectIgnite.INSTANCE).add(EffectDelay.INSTANCE).add(EffectConjureWater.INSTANCE).add(EffectFreeze.INSTANCE), I18n.get("opotato.arsnouveau.tome.ffff.flavorText")));
+            if (gootasticsTelekineticFishingRod.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.gootastics_telekinetic_fishing_rod"), (new Spell()).add(MethodProjectile.INSTANCE).add(EffectLaunch.INSTANCE).add(AugmentAmplify.INSTANCE, 2).add(EffectDelay.INSTANCE).add(EffectPull.INSTANCE).add(AugmentAmplify.INSTANCE, 2), I18n.get("opotato.arsnouveau.tome.gootastics_telekinetic_fishing_rod.flavorText")));
+            if (potentToxin.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.potent_toxin"), (new Spell()).add(MethodProjectile.INSTANCE).add(EffectHex.INSTANCE).add(EffectHarm.INSTANCE).add(AugmentExtendTime.INSTANCE), I18n.get("opotato.arsnouveau.tome.potent_toxin.flavorText")));
+            if (theShadowsTemporaryTunnel.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.the_shadows_temp_tunnel"), (new Spell()).add(MethodTouch.INSTANCE).add(EffectIntangible.INSTANCE).add(AugmentAOE.INSTANCE, 2).add(AugmentPierce.INSTANCE, 5).add(AugmentExtendTime.INSTANCE), I18n.get("opotato.arsnouveau.tome.the_shadows_temp_tunnel.flavorText")));
+            if (vault.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.vault"), (new Spell()).add(MethodSelf.INSTANCE).add(EffectLaunch.INSTANCE).add(EffectDelay.INSTANCE).add(EffectLeap.INSTANCE).add(EffectSlowfall.INSTANCE), I18n.get("opotato.arsnouveau.tome.vault.flavorText")));
+            if (fireball.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.fireball"), (new Spell()).add(MethodProjectile.INSTANCE).add(EffectIgnite.INSTANCE).add(EffectExplosion.INSTANCE).add(AugmentAmplify.INSTANCE, 2).add(AugmentAOE.INSTANCE, 2), I18n.get("opotato.arsnouveau.tome.fireball.flavorText")));
+            if (runeOfRenewing.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.rune_of_renewing"), (new Spell()).add(MethodTouch.INSTANCE).add(EffectRune.INSTANCE).add(EffectDispel.INSTANCE).add(EffectHeal.INSTANCE).add(AugmentExtendTime.INSTANCE), I18n.get("opotato.arsnouveau.tome.rune_of_renewing.flavorText")));
+            if (knockedOutOfOrbit.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.knocked_out_of_orbit"), (new Spell()).add(MethodOrbit.INSTANCE).add(EffectLaunch.INSTANCE).add(AugmentAmplify.INSTANCE, 2).add(EffectDelay.INSTANCE).add(EffectKnockback.INSTANCE).add(AugmentAmplify.INSTANCE, 2), I18n.get("opotato.arsnouveau.tome.knocked_out_of_orbit.flavorText")));
+            if (takeoff.get()) NEW_RARE_LOOT.add(() -> makeTome(I18n.get("opotato.arsnouveau.tome.takeoff"), (new Spell()).add(MethodSelf.INSTANCE).add(EffectLaunch.INSTANCE, 2).add(EffectGlide.INSTANCE).add(AugmentDurationDown.INSTANCE), I18n.get("opotato.arsnouveau.tome.takeoff.flavorText")));
         }
         return NEW_RARE_LOOT;
     }

@@ -1,4 +1,13 @@
 {
+  "opotato.key.one_punch": "切换创造模式生物秒杀",
+  "opotato.key.category": "哦，土豆！",
+  "opotato.creativeOnePunch": "创造模式生物秒杀：",
+  "opotato.creativeOnePunch.true": "已开启",
+  "opotato.creativeOnePunch.false": "已关闭",
+
+  "headshot.opotato.on_entity": "爆头！",
+  "headshot.opotato.on_player": "你被爆头了！",
+
   "opotato.arsnouveau.tome.xacris_tiny_hut": "Xacris' Tiny Hut",
   "opotato.arsnouveau.tome.xacris_tiny_hut.flavorText": "Snares the target and grants other targets Glowing.",
   "opotato.arsnouveau.tome.glow_trap": "Glow Trap",
@@ -25,5 +34,10 @@
   "opotato.arsnouveau.tome.knocked_out_of_orbit": "Knocked out of Orbit",
   "opotato.arsnouveau.tome.knocked_out_of_orbit.flavorText": "Summons orbiting projectiles that will launch nearby enemies.",
   "opotato.arsnouveau.tome.takeoff": "Takeoff!",
-  "opotato.arsnouveau.tome.takeoff.flavorText": "Launches the caster into the air and grants temporary elytra flight!"
+  "opotato.arsnouveau.tome.takeoff.flavorText": "Launches the caster into the air and grants temporary elytra flight!",
+
+  "opotato.catatclysm.incinerator.ready": "火焰轰击：准备完毕",
+  "opotato.cataclysm.incinerator.desc": "长按鼠标右键%d秒以充能，而后若松开右键，",
+  "opotato.key.cataclysm.voidCore": "触发虚空核心",
+  "opotato.key.cataclysm": "灾变"
 }

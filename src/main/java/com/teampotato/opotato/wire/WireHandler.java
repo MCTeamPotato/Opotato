@@ -5,8 +5,8 @@ import java.util.Queue;
 import java.util.function.Consumer;
 
 //import alternate.current.AlternateCurrentMod;
-import com.teampotato.opotato.util.BlockUtil;
-import com.teampotato.opotato.util.Redstone;
+import com.teampotato.opotato.util.alternatecurrent.BlockUtil;
+import com.teampotato.opotato.util.alternatecurrent.Redstone;
 //import com.teampotato.opotato.util.profiler.Profiler;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
