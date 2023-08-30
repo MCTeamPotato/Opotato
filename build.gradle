@@ -39,16 +39,20 @@ dependencies {
     implementation "org.projectlombok:lombok:1.18.28"
     annotationProcessor "org.projectlombok:lombok:1.18.28"
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.officialMojangMappings()
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
+    }
+
     forge "net.minecraftforge:forge:${project.forge_version}"
 
+    modCompileOnly("top.theillusivec4.curios:curios-forge:1.16.5-4.1.0.0")
     modCompileOnly("curse.maven:blueprint-382216:3607198")
     modCompileOnly("curse.maven:ars-nouveau-401955:4300733")
     modCompileOnly("curse.maven:blue-skies-312918:3411324")
     modCompileOnly("curse.maven:structure-gel-api-378802:3498310")
     modCompileOnly("curse.maven:l_ender-s-cataclysm-551586:4418434")
     modCompileOnly("curse.maven:citadel-331936:3441028")
-    modCompileOnly("top.theillusivec4.curios:curios-forge:1.16.5-4.1.0.0")
     modCompileOnly("curse.maven:deuf-duplicate-entity-uuid-fix-296646:3885123")
     modCompileOnly("curse.maven:elenai-dodge-2-442962:3343309")
     modCompileOnly("curse.maven:epic-fight-mod-405076:4029362")
