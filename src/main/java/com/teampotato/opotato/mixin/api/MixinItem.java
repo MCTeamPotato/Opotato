@@ -1,4 +1,4 @@
-package com.teampotato.opotato.mixin.opotato.minecraft;
+package com.teampotato.opotato.mixin.api;
 
 import com.teampotato.opotato.api.IItem;
 import net.minecraft.world.item.Item;

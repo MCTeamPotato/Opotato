@@ -20,10 +20,24 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.blueskies", isLoaded("blueskies"));
         this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
         this.addMixinRule("opotato.cataclysm.rubidium", isLoaded("cataclysm") && isLoaded("rubidium"));
+        this.addMixinRule("opotato.cataclysm.rubidium.extra", isLoaded("cataclysm") && isLoaded("rubidium") && isLoaded("sodiumextra"));
         this.addMixinRule("opotato.citadel", isLoaded("citadel"));
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));
         this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge2"));
         this.addMixinRule("opotato.epicfight", isLoaded("epicfight"));
+        this.addMixinRule("opotato.flowingagony", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.diceoffraud", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.flameofenvy", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.gloomyera", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.innerpotenial", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.lastwish", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.lensofmalice", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.madeofmadness", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.madeofsuffering", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.rootedinhatred", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.survivaltricks", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.themistakens", isLoaded("flowingagony"));
+        this.addMixinRule("opotato.flowingagony.themistakens.curse", isLoaded("flowingagony"));
         this.addMixinRule("opotato.forge", true);
         this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
         this.addMixinRule("opotato.headshot", isLoaded("headshot"));
@@ -38,6 +52,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.placebo", isLoaded("placebo"));
         this.addMixinRule("opotato.quark", isLoaded("quark"));
         this.addMixinRule("opotato.randompatches", isLoaded("randompatches"));
+        this.addMixinRule("opotato.spark", isLoaded("spark"));
         this.addMixinRule("opotato.supplementaries", isLoaded("supplementaries"));
         this.addMixinRule("opotato.titanium", isLoaded("titanium"));
         this.addMixinRule("opotato.undergarden", isLoaded("undergarden"));
@@ -46,6 +61,8 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.xaeroworldmap", isLoaded("xaeroworldmap"));
         this.addMixinRule("alternatecurrent", !isLoaded("potatocurrent"));
         this.addMixinRule("mixintrace", !isLoaded("mixininheaven"));
+        this.addMixinRule("api", true);
+        this.addMixinRule("api.cataclysm", isLoaded("cataclysm"));
         this.addMixinRule("smoothmenu", !isLoaded("konkrete") && !isLoaded("forgery"));
     }
 

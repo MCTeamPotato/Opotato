@@ -15,9 +15,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -32,9 +30,11 @@ public abstract class MixinCommandBlockEntity  extends LivingEntity {
 
     @Shadow(remap = false) public abstract void setState(CommandBlockEntity.State state);
 
-    @Shadow @Nullable public abstract UUID getOwnerUUID();
+    @Shadow(remap = false) @Nullable public abstract UUID getOwnerUUID();
 
-    @Shadow public abstract void setOwner(@org.jetbrains.annotations.Nullable WitherStormEntity entity);
+    @Shadow(remap = false) public abstract void setOwner(@org.jetbrains.annotations.Nullable WitherStormEntity entity);
+
+    @Shadow(remap = false) @Nullable public abstract WitherStormEntity getOwner();
 
     @Unique
     private static final CommandBlockEntity.Mode[] ALL_MODES = CommandBlockEntity.Mode.values();
@@ -63,18 +63,35 @@ public abstract class MixinCommandBlockEntity  extends LivingEntity {
         if (getState().ordinal() + 1 < states_length) setState(ALL_STATES[getState().ordinal() + 1]);
     }
 
-    @Inject(method = "findOwner", remap = false, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getServer()Lnet/minecraft/server/MinecraftServer;", shift = At.Shift.BEFORE), cancellable = true)
-    private void onFindOwner(CallbackInfo ci) {
-        ci.cancel();
-        MinecraftServer server = this.level.getServer();
-        if (server == null) return;
-        for (ResourceKey<Level> resourceKey : WitherStormCaches.witherStorms.values()) {
-            ServerLevel serverLevel = server.getLevel(resourceKey);
-            if (serverLevel == null) continue;
-            Entity entity = serverLevel.getEntity(this.getOwnerUUID());
-            if (entity instanceof WitherStormEntity) {
-                this.setOwner((WitherStormEntity) entity);
-                break;
+    /**
+     * @author Kasualix
+     * @reason impl cache
+     */
+    @Overwrite(remap = false)
+    public void findOwner() {
+        if (this.getOwnerUUID() != null && this.getOwner() == null) {
+            MinecraftServer server = this.level.getServer();
+            if (this.getState() != CommandBlockEntity.State.BOSSFIGHT && this.level instanceof ServerLevel) {
+
+                for (UUID witherStormUUID : WitherStormCaches.witherStorms.keySet()) {
+                    WitherStormEntity witherStormEntity = (WitherStormEntity) ((ServerLevel) this.level).getEntity(witherStormUUID);
+                    if (witherStormEntity == null) continue;
+                    if (witherStormEntity.getUUID().equals(this.getOwnerUUID())) {
+                        this.setOwner(witherStormEntity);
+                        witherStormEntity.getPlayDeadManager().setCommandBlock((CommandBlockEntity) (Object)this);
+                    }
+                }
+            } else if (server != null) {
+
+                for (ResourceKey<Level> resourceKey : WitherStormCaches.witherStorms.values()) {
+                    ServerLevel serverLevel = server.getLevel(resourceKey);
+                    if (serverLevel == null) continue;
+                    Entity entity = serverLevel.getEntity(this.getOwnerUUID());
+                    if (entity instanceof WitherStormEntity) {
+                        this.setOwner((WitherStormEntity) entity);
+                        break;
+                    }
+                }
             }
         }
     }

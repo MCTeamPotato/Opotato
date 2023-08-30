@@ -36,12 +36,11 @@
   "opotato.arsnouveau.tome.takeoff": "Takeoff!",
   "opotato.arsnouveau.tome.takeoff.flavorText": "Launches the caster into the air and grants temporary elytra flight!",
 
+  "opotato.catatclysm.incinerator.fogHint": "如果你发现火焰轰击纹理渲染异常，请尝试前往视频设置→显示处关闭全局迷雾。此提醒仅会在此世界为你出现一次。",
   "opotato.catatclysm.incinerator.ready": "火焰轰击：准备完毕",
-  "opotato.cataclysm.incinerator.desc": "长按鼠标右键%d秒以充能，而后若松开右键，",
+  "opotato.cataclysm.incinerator.desc": "长按鼠标右键%d刻以充能，而后若松开右键，",
   "opotato.key.cataclysm.voidCore": "触发虚空核心",
   "opotato.key.cataclysm": "灾变",
-
-  "opotato.multiple_wither_storm.remove": "Opotato的缓存优化系统不允许你同时召唤多只凋灵风暴，已经将其删除。",
 
   "opotato.epicfight.wrong_forge_version": "Opotato 抛出警告：你的 Forge 不是最新的 36.2.39 版本！史诗战斗 16.6.4+ 版本不兼容旧版本 Forge！",
   "opotato.incompatible.rubidium.betterfpsdist": "Opotato 抛出警告：Better Fps Render Distance 与铷不兼容，请删除 betterfpsdist！",

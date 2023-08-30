@@ -14,11 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Set;
 
-@Mixin(Entity.class)
+@Mixin(value = Entity.class, priority = 1)
 public abstract class MixinEntity {
     @Mutable @Shadow @Final private Set<String> tags;
-
-    @Shadow public Level level;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void optimizeTags(EntityType<?> arg, Level arg2, CallbackInfo ci) {

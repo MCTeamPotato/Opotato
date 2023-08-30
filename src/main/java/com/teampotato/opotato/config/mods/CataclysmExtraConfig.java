@@ -56,12 +56,14 @@ public class CataclysmExtraConfig {
     public static final ForgeConfigSpec.BooleanValue voidCoreCanBeDamaged;
     public static final ForgeConfigSpec.IntValue voidCoreDurability;
     public static final ForgeConfigSpec.BooleanValue zweienderCanBeDamaged;
+    public static final ForgeConfigSpec.DoubleValue flameStrikeSummonedByIgnisUltimateAttackRadius;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         builder.push("CataclysmExtraConfig");
         builder.push("Entities");
         flameStrikeSummonedByIncineratorRadius = builder.defineInRange("flameStrikeSummonedByIncineratorRadius", 1.00, 0.10, Double.MAX_VALUE);
+        flameStrikeSummonedByIgnisUltimateAttackRadius = builder.defineInRange("flameStrikeSummonedByIgnisUltimateAttackRadius", 2.00, 0.10, Double.MAX_VALUE);
         flameStrikeSummonedByIncineratorDuration = builder.defineInRange("flameStrikeSummonedByIncineratorDuration", 40, 1, Integer.MAX_VALUE);
         flameStrikeSoulDamage = builder.defineInRange("flameStrikeSoulDamage", 8.00, 0.00, Double.MAX_VALUE);
         flameStrikeNormalDamage = builder.defineInRange("flameStrikeNormalDamage", 6.00, 0.00, Double.MAX_VALUE);
@@ -83,7 +85,7 @@ public class CataclysmExtraConfig {
         incineratorCanBeDamaged = builder.define("incineratorCanBeDamaged", false);
         showStatusMessageWhenIncineratorFlameStrikeIsReady = builder.define("showStatusMessageWhenIncineratorFlameStrikeIsReady", true);
         incineratorCoolDownTicks = builder.defineInRange("incineratorCoolDownTicks", 400, 1, Integer.MAX_VALUE);
-        incineratorEnchantmentValue = builder.comment("Take a loot at Minecraft Wiki to learn more about EnchantmentValue (aka Enchantability) based on item tiers (Pay attention to that table.): https://minecraft.fandom.com/wiki/Tiers").defineInRange("incineratorEnchantmentValue", 16, 1, Integer.MAX_VALUE);
+        incineratorEnchantmentValue = builder.comment("Take a look at Minecraft Wiki to learn more about EnchantmentValue (aka Enchantability) based on item tiers (Pay attention to that table.): https://minecraft.fandom.com/wiki/Tiers").defineInRange("incineratorEnchantmentValue", 16, 1, Integer.MAX_VALUE);
         incineratorAnimationWhenCharging = builder.comment("Seven values are allowed: NONE, EAT, DRINK, BLOCK, BOW, SPEAR, CROSSBOW").define("incineratorAnimationWhenCharging", "BOW");
         incineratorChargeTicks = builder.defineInRange("incineratorChargeTicks", 60, 1, Integer.MAX_VALUE);
         incineratorDurability = builder.defineInRange("incineratorDurability", 4096, 1, Integer.MAX_VALUE);
@@ -95,7 +97,7 @@ public class CataclysmExtraConfig {
         infernalForgeFireDuration = builder.comment("When the player's health is below half of their maximum health, Infernal Forge's attack will set them on fire.").defineInRange("infernalForgeFireSeconds", 5, 1, Integer.MAX_VALUE);
         infernalForgeCoolDown = builder.defineInRange("infernalForgeCoolDown", 80, 1, Integer.MAX_VALUE);
         infernalForgeAttackKnockBack = builder.defineInRange("infernalForgeAttackKnockBackStrength", 1.0, 0.1, Double.MAX_VALUE);
-        infernalForgeEnchantmentValue = builder.comment("Take a loot at Minecraft Wiki to learn more about EnchantmentValue (aka Enchantability) based on item tiers (Pay attention to that table.): https://minecraft.fandom.com/wiki/Tiers").defineInRange("infernalForgeEnchantmentValue", 16, 1, Integer.MAX_VALUE);
+        infernalForgeEnchantmentValue = builder.comment("Take a look at Minecraft Wiki to learn more about EnchantmentValue (aka Enchantability) based on item tiers (Pay attention to that table.): https://minecraft.fandom.com/wiki/Tiers").defineInRange("infernalForgeEnchantmentValue", 16, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("FinalFractal");
         finalFractalCanBeDamaged = builder.define("finalFractalCanBeDamage", false);

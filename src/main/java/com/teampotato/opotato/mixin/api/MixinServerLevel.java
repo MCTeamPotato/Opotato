@@ -1,4 +1,4 @@
-package com.teampotato.opotato.mixin.alternatecurrent;
+package com.teampotato.opotato.mixin.api;
 
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ServerLevel.class)
-public class ServerLevelMixin implements IServerLevel {
+public class MixinServerLevel implements IServerLevel {
 
 	@Unique
 	private final WireHandler opotato$wireHandler = new WireHandler((ServerLevel)(Object)this);

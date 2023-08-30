@@ -35,7 +35,9 @@ public abstract class MixinTheIncinerator extends Item {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(Properties group, CallbackInfo ci) {
-        if (CataclysmExtraConfig.incineratorCanBeDamaged.get()) ((IItem)this).potato$setMaxDamage(CataclysmExtraConfig.incineratorDurability.get());
+        if (CataclysmExtraConfig.incineratorCanBeDamaged.get()) {
+            ((IItem)this).potato$setMaxDamage(CataclysmExtraConfig.incineratorDurability.get());
+        }
     }
 
     @ModifyConstant(method = "releaseUsing", constant = @Constant(intValue = 60))
@@ -50,7 +52,9 @@ public abstract class MixinTheIncinerator extends Item {
 
     @Inject(method = "onUsingTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", shift = At.Shift.AFTER))
     private void displayMessage(ItemStack stack, LivingEntity player, int count, CallbackInfo ci) {
-        if (CataclysmExtraConfig.showStatusMessageWhenIncineratorFlameStrikeIsReady.get() && player instanceof Player) ((Player)player).displayClientMessage(new TranslatableComponent("opotato.catatclysm.incinerator.ready"), true);
+        if (CataclysmExtraConfig.showStatusMessageWhenIncineratorFlameStrikeIsReady.get() && player instanceof Player) {
+            ((Player)player).displayClientMessage(new TranslatableComponent("opotato.catatclysm.incinerator.ready"), true);
+        }
     }
 
     /**
@@ -100,7 +104,7 @@ public abstract class MixinTheIncinerator extends Item {
      */
     @Overwrite
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add((new TranslatableComponent("opotato.cataclysm.incinerator.desc", CataclysmExtraConfig.incineratorChargeTicks.get() / 20)).withStyle(ChatFormatting.DARK_GREEN));
+        tooltip.add((new TranslatableComponent("opotato.cataclysm.incinerator.desc", CataclysmExtraConfig.incineratorChargeTicks.get())).withStyle(ChatFormatting.DARK_GREEN));
         tooltip.add((new TranslatableComponent("item.cataclysm.incinerator2.desc")).withStyle(ChatFormatting.DARK_GREEN));
         tooltip.add((new TranslatableComponent("item.cataclysm.incinerator3.desc")).withStyle(ChatFormatting.DARK_GREEN));
     }

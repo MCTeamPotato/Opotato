@@ -38,7 +38,7 @@ public class Opotato {
         bus.register(DEUFix.class);
 
         if (isLoaded("cataclysm") && isLoaded("curios")) {
-            if(FMLLoader.getDist().isClient()) bus.register(KeybindEvents.VoidCore.class);
+            if (FMLLoader.getDist().isClient()) bus.register(KeybindEvents.VoidCore.class);
             bus.register(VoidCoreTriggerEvents.class);
         }
 

@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinEntityLighter {
     @Unique
     private static final int MAX_LIGHT = 240;
+
     @Inject(method = "getBlendedLight", at = @At("HEAD"), cancellable = true)
     private static <T extends Entity> void onGetLight(EntityLightSampler<T> lighter, T entity, float tickDelta, CallbackInfoReturnable<Integer> cir) {
         if (entity instanceof Flame_Strike_Entity) {
