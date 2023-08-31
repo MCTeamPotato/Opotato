@@ -51,6 +51,8 @@ public abstract class MixinWitherStormEntity extends Monster implements Unupdata
 
     @Inject(method = "tick", at = @At("RETURN"))
     private void onTick(CallbackInfo ci) {
-        if (((IEntity)this).shouldMove() && !this.shouldTrackUltimateTarget() && this.getPhase() > 3) ((IEntity)this).setShouldMove(false);
+        if (this.getPhase() > 3) {
+            ((IEntity)this).setShouldMove(this.shouldTrackUltimateTarget() && !((IEntity) this).shouldMove());
+        }
     }
 }
