@@ -39,7 +39,6 @@ public class Opotato {
 
     private static void initEvents() {
         IEventBus bus = MinecraftForge.EVENT_BUS;
-        bus.register(DuplicateUUIDFix.class);
 
         if (isLoaded("cataclysm")) {
             bus.register(FlameStrikeDamageEvent.class);
@@ -49,9 +48,7 @@ public class Opotato {
             }
         }
 
-        if (isLoaded("witherstormmods")) {
-            bus.register(WitherSicknessUpdate.class);
-        }
+        if (isLoaded("witherstormmods")) bus.register(WitherSicknessUpdate.class);
 
         bus.register(KeybindEvents.OnePunch.class);
         bus.register(CreativeOnePunch.class);

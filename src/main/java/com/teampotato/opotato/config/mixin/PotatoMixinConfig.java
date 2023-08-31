@@ -17,7 +17,7 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueprint", isLoaded("abnormals_core"));
-        this.addMixinRule("opotato.blueskies", isLoaded("blueskies"));
+        this.addMixinRule("opotato.blueskies", isLoaded("blue_skies"));
         this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
         this.addMixinRule("opotato.cataclysm.rubidium", isLoaded("cataclysm") && isLoaded("rubidium"));
         this.addMixinRule("opotato.cataclysm.rubidium.extra", isLoaded("cataclysm") && isLoaded("rubidium") && isLoaded("sodiumextra"));

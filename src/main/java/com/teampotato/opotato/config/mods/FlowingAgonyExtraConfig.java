@@ -4,8 +4,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class FlowingAgonyExtraConfig {
     public static final ForgeConfigSpec flowingAgonyConfig;
-    public static final ForgeConfigSpec.DoubleValue commonUndeadDamageReductionPercent, rareUndeadDamageReductionPercent, witherDamageReductionPercent, fungalSpreadingRadius, fungalSpreadingHeight, maxSuccessfulInfectionProbability, fungalInfectionEffectDuration, maxFallDamageReduction, maxExplosionDamageReduction, maxFireDamageReduction, lighthurnFungalInfectionHurtDamageAmounts, burialObjectDetectionRadius, burialObjectDetectionHeight, originalSinErosionMinDamageReduction, originalSinErosionBaseBonus, originalSinErosionBonusInterval, prototypeChaoticTypeBetaExtraDurationBonus, prototypeChaoticTypeBetaWithProtoTypeChaoticExtraDurationBonus, scholarOfOriginalSinMinPlayerHurtBonusPercentage, scholarOfOriginalSinPlayerHurtBonusPerLevel, scholarOfOriginalSinMaxPlayerHurtBonus, scholarOfOriginalSinMinNegativeEffectDurationBonus, scholarOfOriginalSinNegativeEffectDurationBonusPerLevel;
-    public static final ForgeConfigSpec.IntValue lighthurnFungalInfectionHurtInterval, prototypeChaoticMaxHealthBonus, prototypeChaoticMaxHealthBonusDuration, prototypeChaoticPerHealthBonus;
+    public static final ForgeConfigSpec.DoubleValue commonUndeadDamageReductionPercent, rareUndeadDamageReductionPercent, witherDamageReductionPercent, fungalSpreadingRadius, fungalSpreadingHeight, maxSuccessfulInfectionProbability, fungalInfectionEffectDuration, maxFallDamageReduction, maxExplosionDamageReduction, maxFireDamageReduction, lighthurnFungalInfectionHurtDamageAmounts, burialObjectDetectionRadius, burialObjectDetectionHeight, originalSinErosionMinDamageReduction, originalSinErosionBaseBonus, originalSinErosionBonusInterval, prototypeChaoticTypeBetaExtraDurationBonus, prototypeChaoticTypeBetaWithProtoTypeChaoticExtraDurationBonus, scholarOfOriginalSinMinPlayerHurtBonusPercentage, scholarOfOriginalSinPlayerHurtBonusPerLevel, scholarOfOriginalSinMaxPlayerHurtBonus, scholarOfOriginalSinMinNegativeEffectDurationBonus, scholarOfOriginalSinNegativeEffectDurationBonusPerLevel, scholarOfOriginalSinMaxExtraExp, scholarOfOriginalSinExtraExpBonusPerLevel;
+    public static final ForgeConfigSpec.IntValue lighthurnFungalInfectionHurtInterval, prototypeChaoticMaxHealthBonus, prototypeChaoticMaxHealthBonusDuration, prototypeChaoticPerHealthBonus, shadowBornNightVisionDuration, shadowBornLightLevelOnNightVision, shadowBornLightLevelOnImmuningToBlindness;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -52,6 +52,13 @@ public class FlowingAgonyExtraConfig {
         scholarOfOriginalSinMaxPlayerHurtBonus = builder.defineInRange("maxPlayerHurtBonus",10.00, 0.00, Double.MAX_VALUE);
         scholarOfOriginalSinMinNegativeEffectDurationBonus = builder.defineInRange("minNegativeEffectDurationBonus", 0.80, 0.00, Double.MAX_VALUE);
         scholarOfOriginalSinNegativeEffectDurationBonusPerLevel = builder.defineInRange("scholarOfOriginalSinNegativeEffectDurationBonusPerLevel", 0.10, 0.00, Double.MAX_VALUE);
+        scholarOfOriginalSinMaxExtraExp = builder.defineInRange("scholarOfOriginalSinMaxExtraExp", 0.80, 0.00, Double.MAX_VALUE);
+        scholarOfOriginalSinExtraExpBonusPerLevel = builder.defineInRange("scholarOfOriginalSinExtraExpBonusPerLevel", 0.15, 0.0, Double.MAX_VALUE);
+        builder.pop();
+        builder.push("Shadowborn");
+        shadowBornNightVisionDuration = builder.defineInRange("shadowBornNightVisionDuration", 1200, 1, Integer.MAX_VALUE);
+        shadowBornLightLevelOnNightVision = builder.defineInRange("shadowBornLightLevelOnNightVision", 5, 0, Integer.MAX_VALUE);
+        shadowBornLightLevelOnImmuningToBlindness = builder.defineInRange("shadowBornLightLevelOnImmuningToBlindness", 5, 0, Integer.MAX_VALUE);
         builder.pop();
         builder.pop();
         builder.pop();

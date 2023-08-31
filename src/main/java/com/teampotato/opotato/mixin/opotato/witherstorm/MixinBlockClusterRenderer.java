@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class MixinBlockClusterRenderer {
     @Inject(method = "shouldRender(Lnonamecrackers2/witherstormmod/common/entity/BlockClusterEntity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z", at = @At("HEAD"), cancellable = true)
     private void reduceRendering(BlockClusterEntity entity, Frustum frustum, double p_225626_3_, double p_225626_5_, double p_225626_7_, CallbackInfoReturnable<Boolean> cir) {
-        if (WitherStormExtraConfig.shouldRandomlyReduceBlockClusterRendering.get() && ThreadLocalRandom.current().nextInt(4) < 2) {
+        if (WitherStormExtraConfig.shouldRandomlyReduceBlockClusterRendering.get() && ThreadLocalRandom.current().nextInt(4) <= 2) {
             cir.setReturnValue(false);
             cir.cancel();
         }

@@ -11,12 +11,14 @@ import love.marblegate.flowingagony.registry.EnchantmentRegistry;
 import love.marblegate.flowingagony.util.EffectUtil;
 import love.marblegate.flowingagony.util.EnchantmentUtil;
 import love.marblegate.flowingagony.util.EntityUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.AbstractVillager;
@@ -24,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
@@ -41,6 +44,29 @@ import java.util.function.Predicate;
 
 @Mixin(TheMistakensEnchantmentEventHandler.class)
 public abstract class MixinTheMistakensEnchantmentEventHandler {
+    /**
+     * @author Kasualix
+     * @reason remove strange allocation and impl config
+     */
+    @Overwrite(remap = false)
+    @SubscribeEvent
+    public static void doShadowbornEnchantmentEvent_applyAndRemoveEffect(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        Level level = player.level;
+        if (event.phase == TickEvent.Phase.START && player instanceof ServerPlayer) {
+            BlockPos playerPos = player.blockPosition();
+            boolean hasShadowBorn = EnchantmentUtil.isPlayerItemEnchanted(player, EnchantmentRegistry.SHADOWBORN.get(), EquipmentSlot.HEAD, EnchantmentUtil.ItemEncCalOp.GENERAL) == 1;
+            if (player.hasEffect(MobEffects.BLINDNESS) && level.getMaxLocalRawBrightness(playerPos) >= FlowingAgonyExtraConfig.shadowBornLightLevelOnImmuningToBlindness.get() && hasShadowBorn) {
+                player.removeEffectNoUpdate(MobEffects.BLINDNESS);
+                Networking.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)player), new RemoveEffectSyncToClientPacket(MobEffects.BLINDNESS));
+            }
+
+            if (level.getMaxLocalRawBrightness(playerPos) <= FlowingAgonyExtraConfig.shadowBornLightLevelOnNightVision.get() && hasShadowBorn && !player.hasEffect(MobEffects.NIGHT_VISION)) {
+                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, FlowingAgonyExtraConfig.shadowBornNightVisionDuration.get()));
+            }
+        }
+    }
+
     @Inject(method = "doCorruptedKindredEnchantmentEvent", remap = false, at = @At(value = "INVOKE", target = "Lnet/minecraftforge/event/entity/living/LivingDamageEvent;setAmount(F)V", ordinal = 0, remap = false), cancellable = true, locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private static void compatWithApotheosis(LivingDamageEvent event, CallbackInfo ci, int enchantLvl, Random temp) {
         if (enchantLvl > 5) {
@@ -204,5 +230,15 @@ public abstract class MixinTheMistakensEnchantmentEventHandler {
     @ModifyConstant(method = "doScholarOfOriginalSinEnchantmentEvent_extendHarmfulEffect", remap = false, constant = @Constant(doubleValue = 0.1))
     private static double getDurationBonusInterval(double constant) {
         return FlowingAgonyExtraConfig.scholarOfOriginalSinNegativeEffectDurationBonusPerLevel.get();
+    }
+
+    @ModifyConstant(method = "doScholarOfOriginalSinEnchantmentEvent_extraEXP", remap = false, constant = @Constant(doubleValue = 0.35))
+    private static double getBasicExtraExp(double constant) {
+        return FlowingAgonyExtraConfig.scholarOfOriginalSinMaxExtraExp.get() - (double)EnchantmentRegistry.SCHOLAR_OF_ORIGINAL_SIN.get().getMaxLevel() * FlowingAgonyExtraConfig.scholarOfOriginalSinExtraExpBonusPerLevel.get();
+    }
+
+    @ModifyConstant(method = "doScholarOfOriginalSinEnchantmentEvent_extraEXP", remap = false, constant = @Constant(doubleValue = 0.15))
+    private static double getBonusIntervalExp(double constant) {
+        return FlowingAgonyExtraConfig.scholarOfOriginalSinExtraExpBonusPerLevel.get();
     }
 }
