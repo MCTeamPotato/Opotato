@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.events.WitherStormCaches;
+import com.teampotato.opotato.events.EntitiesCacheEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -36,7 +36,7 @@ public abstract class MixinWitherStormSegmentEntity extends WitherStormEntity {
     public void tick() {
         super.tick();
         if (this.getParent() == null && this.getParentUUID() != null) {
-            for (UUID witherStormUUID : WitherStormCaches.witherStorms.keySet()) {
+            for (UUID witherStormUUID : EntitiesCacheEvent.witherStorms.keySet()) {
                 if (this.getParentUUID().equals(witherStormUUID) && this.level instanceof ServerLevel) {
                     this.setParent((WitherStormEntity) ((ServerLevel) this.level).getEntity(witherStormUUID));
                 }

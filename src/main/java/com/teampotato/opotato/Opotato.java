@@ -20,14 +20,18 @@ import org.apache.logging.log4j.Logger;
 public class Opotato {
     public static final String MOD_ID = "opotato";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+
     public static boolean isRubidiumLoaded;
+    public static boolean isWitherStormModLoaded;
+    public static boolean isCataclysmLoaded;
 
     public static final Direction[] DIRECTIONS = Direction.values();
     public static final EquipmentSlot[] EQUIPMENT_SLOTS = EquipmentSlot.values();
 
-
     public Opotato() {
         isRubidiumLoaded = isLoaded("rubidium");
+        isWitherStormModLoaded = isLoaded("witherstormmod");
+        isCataclysmLoaded = isLoaded("cataclysm");
 
         initEvents();
         initConfigs(ModLoadingContext.get());
@@ -35,21 +39,25 @@ public class Opotato {
 
     private static void initEvents() {
         IEventBus bus = MinecraftForge.EVENT_BUS;
-        bus.register(DEUFix.class);
+        bus.register(DuplicateUUIDFix.class);
 
-        if (isLoaded("cataclysm") && isLoaded("curios")) {
-            if (FMLLoader.getDist().isClient()) bus.register(KeybindEvents.VoidCore.class);
-            bus.register(VoidCoreTriggerEvents.class);
+        if (isLoaded("cataclysm")) {
+            bus.register(FlameStrikeDamageEvent.class);
+            if (isLoaded("curios")) {
+                if (FMLLoader.getDist().isClient()) bus.register(KeybindEvents.VoidCore.class);
+                bus.register(VoidCoreTriggerEvents.class);
+            }
+        }
+
+        if (isLoaded("witherstormmods")) {
+            bus.register(WitherSicknessUpdate.class);
         }
 
         bus.register(KeybindEvents.OnePunch.class);
         bus.register(CreativeOnePunch.class);
-        bus.register(DEUFix.class);
+        bus.register(DuplicateUUIDFix.class);
         bus.register(PotatoEvents.class);
-
-        if (isLoaded("witherstormmod")) {
-            bus.register(WitherStormCaches.class);
-        }
+        bus.register(EntitiesCacheEvent.class);
     }
 
     private static void initConfigs(ModLoadingContext ctx) {

@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.events.WitherStormCaches;
+import com.teampotato.opotato.events.EntitiesCacheEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
@@ -31,7 +31,7 @@ public abstract class MixinWitherStormChunkLoader {
                     boolean shouldRemoveStorm = true;
                     for (Map.Entry<UUID, BlockPos> uuidBlockPosEntry : stormChunks.getStormPositions().entrySet()) {
                         UUID uuid = uuidBlockPosEntry.getKey();
-                        for (UUID witherStormUUID : WitherStormCaches.witherStorms.keySet()){
+                        for (UUID witherStormUUID : EntitiesCacheEvent.witherStorms.keySet()){
                             WitherStormEntity entity = (WitherStormEntity) world.getEntity(witherStormUUID);
                             if (entity != null && witherStormUUID.equals(uuid)) {
                                 if (!entity.isDeadOrDying()) {

@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.events.WitherStormCaches;
+import com.teampotato.opotato.events.EntitiesCacheEvent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -73,7 +73,7 @@ public abstract class MixinCommandBlockEntity  extends LivingEntity {
             MinecraftServer server = this.level.getServer();
             if (this.getState() != CommandBlockEntity.State.BOSSFIGHT && this.level instanceof ServerLevel) {
 
-                for (UUID witherStormUUID : WitherStormCaches.witherStorms.keySet()) {
+                for (UUID witherStormUUID : EntitiesCacheEvent.witherStorms.keySet()) {
                     WitherStormEntity witherStormEntity = (WitherStormEntity) ((ServerLevel) this.level).getEntity(witherStormUUID);
                     if (witherStormEntity == null) continue;
                     if (witherStormEntity.getUUID().equals(this.getOwnerUUID())) {
@@ -83,7 +83,7 @@ public abstract class MixinCommandBlockEntity  extends LivingEntity {
                 }
             } else if (server != null) {
 
-                for (ResourceKey<Level> resourceKey : WitherStormCaches.witherStorms.values()) {
+                for (ResourceKey<Level> resourceKey : EntitiesCacheEvent.witherStorms.values()) {
                     ServerLevel serverLevel = server.getLevel(resourceKey);
                     if (serverLevel == null) continue;
                     Entity entity = serverLevel.getEntity(this.getOwnerUUID());

@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.events.WitherStormCaches;
+import com.teampotato.opotato.events.EntitiesCacheEvent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -29,8 +29,8 @@ public abstract class MixinWitherStormBowelsManager {
     @Overwrite
     @Nullable
     private WitherStormEntity findStorm(UUID uuid) {
-        for (UUID witherStormUUID : WitherStormCaches.witherStorms.keySet()) {
-            ResourceKey<Level> resourceKey = WitherStormCaches.witherStorms.get(witherStormUUID);
+        for (UUID witherStormUUID : EntitiesCacheEvent.witherStorms.keySet()) {
+            ResourceKey<Level> resourceKey = EntitiesCacheEvent.witherStorms.get(witherStormUUID);
             ServerLevel serverLevel = this.world.getServer().getLevel(resourceKey);
             if (witherStormUUID.equals(uuid) && serverLevel != null) return (WitherStormEntity) serverLevel.getEntity(witherStormUUID);
         }

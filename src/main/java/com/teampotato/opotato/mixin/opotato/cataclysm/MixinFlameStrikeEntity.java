@@ -3,9 +3,12 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
+import com.teampotato.opotato.api.LightestEntity;
+import com.teampotato.opotato.api.UnupdatableInWaterEntity;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -23,25 +26,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-@Mixin(value = Flame_Strike_Entity.class, remap = false)
-public abstract class MixinFlameStrikeEntity extends Entity {
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;", shift = At.Shift.BEFORE), cancellable = true, remap = true)
+@Mixin(Flame_Strike_Entity.class)
+public abstract class MixinFlameStrikeEntity extends Entity implements LightestEntity, UnupdatableInWaterEntity {
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;", shift = At.Shift.BEFORE), cancellable = true)
     private void onTick(CallbackInfo ci) {
-        if (this.level.isClientSide) ci.cancel();
-    }
-
-    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextGaussian()D", remap = false), remap = true)
-    private double onGetGaussian(Random instance) {
-        return gaussianList.get(ThreadLocalRandom.current().nextInt(gaussianList.size()));
+        ci.cancel();
     }
 
     /**
      * @author Kasualix
      * @reason cache radius to avoid the additional overhead in getEntityData.
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public float getRadius() {
         if (this.isPlayerTheOwner) {
             return CataclysmExtraConfig.flameStrikeSummonedByIncineratorRadius.get().floatValue();
@@ -53,27 +52,33 @@ public abstract class MixinFlameStrikeEntity extends Entity {
     }
 
     @Unique
-    private static final ObjectArrayList<Double> gaussianList = new ObjectArrayList<>();
+    private static ThreadLocalRandom random = null;
 
-    static {
-        for (int i = 0; i < 10; i++) {
-            double randomGaussian = ThreadLocalRandom.current().nextGaussian();
-            gaussianList.add(randomGaussian);
-        }
+    @Unique
+    private static final double NO_PARTICLE = 0D;
+
+
+    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextGaussian()D", remap = false))
+    private double onGetGaussian(Random instance) {
+        if (this.getRadius() > 10) return NO_PARTICLE;
+        if (random == null) random = ThreadLocalRandom.current();
+        return random.nextGaussian();
     }
-
-    @Shadow @Nullable public abstract LivingEntity getOwner();
 
     /**
      * @author Kasualix
      * @reason impl cache
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public boolean isSoul() {
         return this.isSoul;
     }
 
-    @Shadow @Final private static EntityDataAccessor<Float> DATA_RADIUS;
+    @Shadow(remap = false) @Final private static EntityDataAccessor<Float> DATA_RADIUS;
+
+    @Shadow private LivingEntity owner;
+
+    @Shadow(remap = false) private UUID ownerUUID;
 
     public MixinFlameStrikeEntity(EntityType<?> arg, Level arg2) {
         super(arg, arg2);
@@ -83,7 +88,7 @@ public abstract class MixinFlameStrikeEntity extends Entity {
      * @author Kasualix
      * @reason impl config
      */
-    @Overwrite
+    @Overwrite(remap = false)
     private void damage(LivingEntity hitEntity) {
         LivingEntity owner = this.getOwner();
         final MobEffect blazingBrand = ModEffect.EFFECTBLAZING_BRAND.get();
@@ -131,13 +136,37 @@ public abstract class MixinFlameStrikeEntity extends Entity {
     @Unique
     private boolean isSoul;
 
-    @Inject(method = "setOwner", at = @At("HEAD"))
+    @Inject(method = "setOwner", at = @At("HEAD"), remap = false)
     private void onSetOwner(LivingEntity ownerIn, CallbackInfo ci) {
-        this.isIgnisTheOwner = ownerIn.getType().equals(ModEntities.IGNIS.get());
-        this.isPlayerTheOwner = ownerIn instanceof Player;
+        ResourceLocation type = ownerIn.getType().getRegistryName();
+        if (type == null) return;
+        this.isIgnisTheOwner = type.equals(ModEntities.IGNIS.get().getRegistryName());
+        this.isPlayerTheOwner = type.equals(EntityType.PLAYER.getRegistryName());
     }
 
-    @Inject(method = "setSoul", at = @At("HEAD"))
+    /**
+     * @author Kasualix
+     * @reason impl cache
+     */
+    @Overwrite(remap = false)
+    @Nullable
+    public LivingEntity getOwner() {
+        if (this.owner == null && this.ownerUUID != null && this.level instanceof ServerLevel) {
+            Entity entity = ((ServerLevel)this.level).getEntity(this.ownerUUID);
+            if (entity instanceof LivingEntity) {
+                ResourceLocation type = entity.getType().getRegistryName();
+                if (type != null) {
+                    this.isIgnisTheOwner = type.equals(ModEntities.IGNIS.get().getRegistryName());
+                    this.isPlayerTheOwner = type.equals(EntityType.PLAYER.getRegistryName());
+                }
+                this.owner = (LivingEntity)entity;
+            }
+        }
+
+        return this.owner;
+    }
+
+    @Inject(method = "setSoul", at = @At("HEAD"), remap = false)
     private void onSetSoul(boolean Soul, CallbackInfo ci) {
         this.isSoul = Soul;
     }

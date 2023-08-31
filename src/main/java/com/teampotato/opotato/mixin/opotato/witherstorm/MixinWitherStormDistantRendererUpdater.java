@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.events.WitherStormCaches;
+import com.teampotato.opotato.events.EntitiesCacheEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -24,7 +24,7 @@ public abstract class MixinWitherStormDistantRendererUpdater {
     public static void sendInformationToDistantRenderer(ServerPlayer player) {
         ServerLevel world = player.getLevel();
 
-        for (UUID uuid : WitherStormCaches.witherStorms.keySet()) {
+        for (UUID uuid : EntitiesCacheEvent.witherStorms.keySet()) {
             WitherStormEntity entity = (WitherStormEntity) world.getEntity(uuid);
             if (entity != null) {
                 WitherStormToDistantRendererMessage witherStormMessage = new WitherStormToDistantRendererMessage(entity);

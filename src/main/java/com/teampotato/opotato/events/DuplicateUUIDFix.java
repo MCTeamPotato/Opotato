@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.UUID;
 
-public class DEUFix {
+public class DuplicateUUIDFix {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onEntityJoinWold(EntityJoinWorldEvent event) {
         if (event.getWorld() instanceof ServerLevel && !event.isCanceled()) {

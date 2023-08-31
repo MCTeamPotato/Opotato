@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
-import com.teampotato.opotato.events.WitherStormCaches;
+import com.teampotato.opotato.events.EntitiesCacheEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
@@ -62,7 +62,7 @@ public abstract class MixinWitheredSymbiontEntity extends Monster {
     @Nullable
     public WitherStormEntity getOwner() {
         if (this.level instanceof ServerLevel) {
-            for (UUID uuid : WitherStormCaches.witherStorms.keySet()) {
+            for (UUID uuid : EntitiesCacheEvent.witherStorms.keySet()) {
                 WitherStormEntity witherStormEntity = (WitherStormEntity) ((ServerLevel) this.level).getEntity(uuid);
                 if (witherStormEntity == null) continue;
                 if (uuid.equals(this.summoner)) return witherStormEntity;

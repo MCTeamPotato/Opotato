@@ -37,7 +37,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.flowingagony.rootedinhatred", isLoaded("flowingagony"));
         this.addMixinRule("opotato.flowingagony.survivaltricks", isLoaded("flowingagony"));
         this.addMixinRule("opotato.flowingagony.themistakens", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.themistakens.curse", isLoaded("flowingagony"));
         this.addMixinRule("opotato.forge", true);
         this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
         this.addMixinRule("opotato.headshot", isLoaded("headshot"));

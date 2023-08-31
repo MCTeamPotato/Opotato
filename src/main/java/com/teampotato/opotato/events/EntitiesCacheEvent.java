@@ -1,5 +1,7 @@
 package com.teampotato.opotato.events;
 
+import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
+import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.mods.WitherStormExtraConfig;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -19,24 +21,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class WitherStormCaches {
+public class EntitiesCacheEvent {
     private static final String[] targets = new String[]{"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"};
+
     public static Map<UUID, ResourceKey<Level>> witherStorms = new Object2ObjectOpenHashMap<>();
     public static List<UUID> dataSyncableEntities = new ObjectArrayList<>();
+    public static List<UUID> flameStrikes = new ObjectArrayList<>();
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onEntityLeaveWorld(EntityLeaveWorldEvent event) {
         Entity entity = event.getEntity();
         MinecraftServer server = entity.getServer();
+        UUID uuid = entity.getUUID();
         if (server == null) return;
-        if (entity instanceof IEntitySyncableData) {
-            dataSyncableEntities.remove(entity.getUUID());
-            if (entity instanceof WitherStormEntity) {
-                witherStorms.remove(entity.getUUID());
-                if (WitherStormExtraConfig.killAllWitherStormModEntitiesWhenTheCommandBlockDies.get()) {
-                    for (String target : targets) server.getCommands().performCommand(server.createCommandSourceStack().withSuppressedOutput(), "/kill @e[type=witherstormmod:" + target + "]");
+        if (Opotato.isWitherStormModLoaded) {
+            if (entity instanceof IEntitySyncableData) {
+                dataSyncableEntities.remove(uuid);
+                if (entity instanceof WitherStormEntity) {
+                    witherStorms.remove(uuid);
+                    if (WitherStormExtraConfig.killAllWitherStormModEntitiesWhenTheCommandBlockDies.get()) {
+                        for (String target : targets) server.getCommands().performCommand(server.createCommandSourceStack().withSuppressedOutput(), "/kill @e[type=witherstormmod:" + target + "]");
+                    }
                 }
+                return;
             }
+        }
+        if (Opotato.isCataclysmLoaded) {
+            if (entity instanceof Flame_Strike_Entity) flameStrikes.remove(uuid);
         }
     }
 
@@ -45,9 +56,18 @@ public class WitherStormCaches {
         if (event.isCanceled()) return;
         Entity entity = event.getEntity();
         Level level = event.getWorld();
+        UUID uuid = entity.getUUID();
         if (level instanceof ServerLevel) {
-            if (entity instanceof WitherStormEntity) witherStorms.put(entity.getUUID(), entity.level.dimension());
-            if (entity instanceof IEntitySyncableData) dataSyncableEntities.add(entity.getUUID());
+            if (Opotato.isWitherStormModLoaded) {
+                if (entity instanceof IEntitySyncableData) {
+                    if (entity instanceof WitherStormEntity) witherStorms.put(uuid, entity.level.dimension());
+                    dataSyncableEntities.add(uuid);
+                    return;
+                }
+            }
+            if (Opotato.isCataclysmLoaded) {
+                if (entity instanceof Flame_Strike_Entity) flameStrikes.add(uuid);
+            }
         }
     }
 }
