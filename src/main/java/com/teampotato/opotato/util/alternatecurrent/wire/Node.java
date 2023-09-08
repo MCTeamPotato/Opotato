@@ -1,13 +1,13 @@
 package com.teampotato.opotato.util.alternatecurrent.wire;
 
-import java.util.Arrays;
-
 import com.teampotato.opotato.util.alternatecurrent.wire.WireHandler.Directions;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 /**
  * A Node represents a block in the world. It also holds a few other pieces of
@@ -63,7 +63,7 @@ public class Node {
 		return pos.hashCode();
 	}
 
-	Node set(BlockPos pos, BlockState state, boolean clearNeighbors) {
+	Node set(BlockPos pos, @NotNull BlockState state, boolean clearNeighbors) {
 		if (state.is(Blocks.REDSTONE_WIRE)) {
 			throw new IllegalStateException("Cannot update a regular Node to a WireNode!");
 		}

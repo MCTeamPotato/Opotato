@@ -3,6 +3,7 @@ package com.teampotato.opotato.mixin.opotato.epicfight;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,7 +20,7 @@ public abstract class MixinEpicFightRenderTypes {
     @Shadow @Final private static RenderType ANIMATED_ARMOR_GLINT;
 
     @Inject(method = "getArmorVertexBuilder", at = @At("HEAD"), cancellable = true)
-    private static void onGetArmorVertexBuilder(MultiBufferSource buffer, RenderType renderType, boolean withGlint, CallbackInfoReturnable<VertexConsumer> cir) {
+    private static void onGetArmorVertexBuilder(@NotNull MultiBufferSource buffer, RenderType renderType, boolean withGlint, CallbackInfoReturnable<VertexConsumer> cir) {
         if (buffer.getBuffer(enchantedAnimatedArmor()) != buffer.getBuffer(renderType)) return;
         cir.setReturnValue(buffer.getBuffer(renderType));
         cir.cancel();

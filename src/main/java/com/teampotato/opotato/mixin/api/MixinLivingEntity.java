@@ -11,7 +11,7 @@ public abstract class MixinLivingEntity implements ILivingEntity {
     @Shadow protected abstract boolean isDamageSourceBlocked(DamageSource arg);
 
     @Override
-    public boolean potato$isDamageSourceBlocked(DamageSource arg) {
+    public boolean _isDamageSourceBlocked(DamageSource arg) {
         return this.isDamageSourceBlocked(arg);
     }
 }

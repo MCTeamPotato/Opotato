@@ -12,7 +12,7 @@ public class MixinItem implements IItem {
     @Mutable @Shadow @Final private int maxDamage;
 
     @Override
-    public void potato$setMaxDamage(int maxDamage) {
+    public void _setMaxDamage(int maxDamage) {
         this.maxDamage = maxDamage;
     }
 }

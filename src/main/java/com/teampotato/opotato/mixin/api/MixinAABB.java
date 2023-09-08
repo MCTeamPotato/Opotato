@@ -1,7 +1,9 @@
 package com.teampotato.opotato.mixin.api;
 
-import com.teampotato.opotato.api.IAABB;
+import com.teampotato.opotato.api.mutable.IAABB;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -17,44 +19,127 @@ public abstract class MixinAABB implements IAABB {
     @Mutable @Shadow @Final public double maxZ;
 
     @Override
-    public AABB inflate(double value) {
-        this.minX = this.minX - value;
-        this.minY = this.minY - value;
-        this.minZ = this.minZ - value;
-        this.maxX = this.maxX + value;
-        this.maxY = this.maxY + value;
-        this.maxZ = this.maxZ + value;
+    public AABB _contract(double x, double y, double z) {
+        if (x < 0.0) {
+            this.minX -= x;
+        } else if (x > 0.0) {
+            this.maxX -= x;
+        }
+
+        if (y < 0.0) {
+            this.minY -= y;
+        } else if (y > 0.0) {
+            this.maxY -= y;
+        }
+
+        if (z < 0.0) {
+            this.minZ -= z;
+        } else if (z > 0.0) {
+            this.maxZ -= z;
+        }
+
         return (AABB) (Object) this;
     }
 
+
     @Override
-    public AABB inflate(double x, double y, double z) {
-        this.minX = this.minX - x;
-        this.minY = this.minY - y;
-        this.minZ = this.minZ - z;
-        this.maxX = this.maxX + x;
-        this.maxY = this.maxY + y;
-        this.maxZ = this.maxZ + z;
-        return (AABB) (Object) this;
+    public AABB _expandTowards(Vec3 vector) {
+        return this._expandTowards(vector.x, vector.y, vector.z);
     }
 
     @Override
-    public AABB expandTowards(double x, double y, double z) {
+    public AABB _expandTowards(double x, double y, double z) {
         if (x < 0.0) {
             this.minX += x;
         } else if (x > 0.0) {
             this.maxX += x;
         }
+
         if (y < 0.0) {
             this.minY += y;
         } else if (y > 0.0) {
             this.maxY += y;
         }
+
         if (z < 0.0) {
             this.minZ += z;
         } else if (z > 0.0) {
             this.maxZ += z;
         }
+
         return (AABB) (Object) this;
+    }
+
+    @Override
+    public AABB _inflate(double x, double y, double z) {
+        this.minX = Math.min(this.minX - x, this.maxX + x);
+        this.minY = Math.min(this.minY - y, this.maxY + y);
+        this.minZ = Math.min(this.minZ - z, this.maxZ + z);
+        this.maxX = Math.max(this.minX - x, this.maxX + x);
+        this.maxY = Math.max(this.minY - y, this.maxY + y);
+        this.maxZ = Math.max(this.minZ - z, this.maxZ + z);
+        return (AABB) (Object) this;
+    }
+
+    @Override
+    public AABB _inflate(double value) {
+        return this._inflate(value, value, value);
+    }
+
+    @Override
+    public AABB _intersect(AABB other) {
+        this.minX = Math.max(this.minX, other.minX);
+        this.minY = Math.max(this.minY, other.minY);
+        this.minZ = Math.max(this.minZ, other.minZ);
+        this.maxX = Math.min(this.maxX, other.maxX);
+        this.maxY = Math.min(this.maxY, other.maxY);
+        this.maxZ = Math.min(this.maxZ, other.maxZ);
+        return (AABB) (Object) this;
+    }
+
+    @Override
+    public AABB _minmax(AABB other) {
+        this.minX = Math.min(this.minX, other.minX);
+        this.minY = Math.min(this.minY, other.minY);
+        this.minZ = Math.min(this.minZ, other.minZ);
+        this.maxX = Math.max(this.maxX, other.maxX);
+        this.maxY = Math.max(this.maxY, other.maxY);
+        this.maxZ = Math.max(this.maxZ, other.maxZ);
+        return (AABB) (Object) this;
+    }
+
+    @Override
+    public AABB _move(double x, double y, double z) {
+        this.minX += x;
+        this.minY += y;
+        this.minZ += z;
+        this.maxX += x;
+        this.maxY += y;
+        this.maxZ += z;
+        return (AABB) (Object) this;
+    }
+
+    @Override
+    public AABB _move(BlockPos pos) {
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
+        this.minX += x;
+        this.minY += y;
+        this.minZ += z;
+        this.maxX += x;
+        this.maxY += y;
+        this.maxZ += z;
+        return (AABB) (Object) this;
+    }
+
+    @Override
+    public AABB _move(Vec3 vec) {
+        return this._move(vec.x, vec.y, vec.z);
+    }
+
+    @Override
+    public AABB _deflate(double value) {
+        return this._inflate(-value);
     }
 }

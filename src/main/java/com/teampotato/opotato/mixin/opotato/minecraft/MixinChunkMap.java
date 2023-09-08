@@ -6,6 +6,7 @@ import net.minecraft.server.level.PlayerMap;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ChunkPos;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,12 +27,12 @@ public abstract class MixinChunkMap {
      * @reason avoid stream
      */
     @Overwrite
-    boolean noPlayersCloseForSpawning(ChunkPos chunkPos) {
+    boolean noPlayersCloseForSpawning(@NotNull ChunkPos chunkPos) {
         return !this.distanceManager.hasPlayersNearby(chunkPos.toLong()) || noneMath((IPlayerMap) this.playerMap, chunkPos);
     }
 
     @Unique
-    private boolean noneMath(IPlayerMap map, ChunkPos chunkPos) {
+    private boolean noneMath(@NotNull IPlayerMap map, ChunkPos chunkPos) {
         for (ServerPlayer player : map.getPlayerSet()) {
             if (!player.isSpectator() && euclideanDistanceSquared(chunkPos, player) < 16384.0) return true;
         }

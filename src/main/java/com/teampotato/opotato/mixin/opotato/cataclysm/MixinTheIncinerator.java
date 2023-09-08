@@ -13,6 +13,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.*;
@@ -36,7 +37,7 @@ public abstract class MixinTheIncinerator extends Item {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(Properties group, CallbackInfo ci) {
         if (CataclysmExtraConfig.incineratorCanBeDamaged.get()) {
-            ((IItem)this).potato$setMaxDamage(CataclysmExtraConfig.incineratorDurability.get());
+            ((IItem)this)._setMaxDamage(CataclysmExtraConfig.incineratorDurability.get());
         }
     }
 
@@ -103,7 +104,7 @@ public abstract class MixinTheIncinerator extends Item {
      * @reason adapt charge ticks config
      */
     @Overwrite
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, TooltipFlag flagIn) {
         tooltip.add((new TranslatableComponent("opotato.cataclysm.incinerator.desc", CataclysmExtraConfig.incineratorChargeTicks.get())).withStyle(ChatFormatting.DARK_GREEN));
         tooltip.add((new TranslatableComponent("item.cataclysm.incinerator2.desc")).withStyle(ChatFormatting.DARK_GREEN));
         tooltip.add((new TranslatableComponent("item.cataclysm.incinerator3.desc")).withStyle(ChatFormatting.DARK_GREEN));

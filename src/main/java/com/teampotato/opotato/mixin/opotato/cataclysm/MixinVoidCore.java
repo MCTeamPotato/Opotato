@@ -47,6 +47,6 @@ public abstract class MixinVoidCore extends Item implements ICurioItem {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(Properties group, CallbackInfo ci) {
-        if (CataclysmExtraConfig.voidCoreCanBeDamaged.get()) ((IItem)this).potato$setMaxDamage(CataclysmExtraConfig.voidCoreDurability.get());
+        if (CataclysmExtraConfig.voidCoreCanBeDamaged.get()) ((IItem)this)._setMaxDamage(CataclysmExtraConfig.voidCoreDurability.get());
     }
 }

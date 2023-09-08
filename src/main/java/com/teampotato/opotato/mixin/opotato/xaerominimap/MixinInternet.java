@@ -1,5 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.xaerominimap;
 
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import xaero.common.IXaeroMinimap;
@@ -12,7 +13,7 @@ public abstract class MixinInternet {
      * @reason Remove Internet connection behavior
      */
     @Overwrite(remap = false)
-    public static void checkModVersion(IXaeroMinimap modMain) {
+    public static void checkModVersion(@NotNull IXaeroMinimap modMain) {
         modMain.setOutdated(false);
     }
 }

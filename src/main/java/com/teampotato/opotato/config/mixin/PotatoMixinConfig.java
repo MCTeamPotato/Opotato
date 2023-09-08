@@ -15,6 +15,7 @@ public class PotatoMixinConfig {
         return FMLLoader.getLoadingModList().getModFileById(mod) != null;
     }
     private PotatoMixinConfig() {
+        this.addMixinRule("opotato", true);
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueprint", isLoaded("abnormals_core"));
         this.addMixinRule("opotato.blueskies", isLoaded("blue_skies"));
@@ -25,18 +26,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));
         this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge2"));
         this.addMixinRule("opotato.epicfight", isLoaded("epicfight"));
-        this.addMixinRule("opotato.flowingagony", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.diceoffraud", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.flameofenvy", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.gloomyera", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.innerpotenial", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.lastwish", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.lensofmalice", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.madeofmadness", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.madeofsuffering", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.rootedinhatred", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.survivaltricks", isLoaded("flowingagony"));
-        this.addMixinRule("opotato.flowingagony.themistakens", isLoaded("flowingagony"));
         this.addMixinRule("opotato.forge", true);
         this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
         this.addMixinRule("opotato.headshot", isLoaded("headshot"));
@@ -46,6 +35,9 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
         this.addMixinRule("opotato.ldlib", isLoaded("ldlib"));
         this.addMixinRule("opotato.minecraft", true);
+        this.addMixinRule("opotato.minecraft.ai", true);
+        this.addMixinRule("opotato.minecraft.entity", true);
+        this.addMixinRule("opotato.minecraft.client", true);
         this.addMixinRule("opotato.modernui", isLoaded("modernui"));
         this.addMixinRule("opotato.oculus", isLoaded("oculus"));
         this.addMixinRule("opotato.placebo", isLoaded("placebo"));

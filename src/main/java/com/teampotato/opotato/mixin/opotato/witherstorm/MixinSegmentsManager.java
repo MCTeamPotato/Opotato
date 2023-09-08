@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Entity;
 import nonamecrackers2.witherstormmod.common.entity.WitherStormEntity;
 import nonamecrackers2.witherstormmod.common.entity.WitherStormSegmentEntity;
 import nonamecrackers2.witherstormmod.common.util.SegmentsManager;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,7 +27,7 @@ public abstract class MixinSegmentsManager {
      * @reason impl cache and optimization
      */
     @Overwrite
-    public void findSegments(ServerLevel world) {
+    public void findSegments(@NotNull ServerLevel world) {
         for (Entity entity : world.getAllEntities()) {
             if (entity instanceof WitherStormSegmentEntity) {
                 WitherStormSegmentEntity segment = (WitherStormSegmentEntity)entity;

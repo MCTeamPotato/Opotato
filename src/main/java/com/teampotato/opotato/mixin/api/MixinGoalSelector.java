@@ -21,7 +21,7 @@ public abstract class MixinGoalSelector implements IGoalSelector {
     @Mutable @Shadow @Final private Set<WrappedGoal> availableGoals;
 
     @Override
-    public Set<WrappedGoal> potato$getAvailableGoals() {
+    public Set<WrappedGoal> _getAvailableGoals() {
         return this.availableGoals;
     }
 

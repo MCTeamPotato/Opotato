@@ -1,10 +1,12 @@
 package com.teampotato.opotato.util.alternatecurrent.wire;
 
+import com.teampotato.opotato.util.alternatecurrent.Redstone;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.AbstractQueue;
 import java.util.Arrays;
 import java.util.Iterator;
-
-import com.teampotato.opotato.util.alternatecurrent.Redstone;
 
 public class PriorityQueue extends AbstractQueue<Node> {
 
@@ -116,7 +118,7 @@ public class PriorityQueue extends AbstractQueue<Node> {
 		insert(node, priority);
 	}
 
-	private void remove(Node node) {
+	private void remove(@NotNull Node node) {
 		Node prev = node.prev_node;
 		Node next = node.next_node;
 
@@ -148,7 +150,7 @@ public class PriorityQueue extends AbstractQueue<Node> {
 		size--;
 	}
 
-	private void insert(Node node, int priority) {
+	private void insert(@NotNull Node node, int priority) {
 		node.priority = priority;
 
 		// nodes are sorted by priority (highest to lowest)
@@ -171,13 +173,13 @@ public class PriorityQueue extends AbstractQueue<Node> {
 		size++;
 	}
 
-	private void linkHead(Node node) {
+	private void linkHead(@NotNull Node node) {
 		node.next_node = head;
 		head.prev_node = node;
 		head = node;
 	}
 
-	private void linkTail(Node node) {
+	private void linkTail(@NotNull Node node) {
 		tail.next_node = node;
 		node.prev_node = tail;
 		tail = node;
@@ -187,7 +189,7 @@ public class PriorityQueue extends AbstractQueue<Node> {
 		linkBetween(prev, node, prev.next_node);
 	}
 
-	private void linkBetween(Node prev, Node node, Node next) {
+	private void linkBetween(@NotNull Node prev, @NotNull Node node, @NotNull Node next) {
 		prev.next_node = node;
 		node.prev_node = prev;
 
@@ -195,7 +197,8 @@ public class PriorityQueue extends AbstractQueue<Node> {
 		next.prev_node = node;
 	}
 
-	private Node findPrev(Node node) {
+	@Contract(pure = true)
+	private Node findPrev(@NotNull Node node) {
 		Node prev = null;
 
 		for (int i = node.priority + OFFSET; i < tails.length; i++) {

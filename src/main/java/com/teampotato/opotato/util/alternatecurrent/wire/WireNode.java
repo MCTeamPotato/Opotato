@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A WireNode is a Node that represents a wire in the world. It stores all the
@@ -48,7 +49,7 @@ public class WireNode extends Node {
 	/** The next wire in the simple queue. */
 	WireNode next_wire;
 
-	WireNode(ServerLevel level, BlockPos pos, BlockState state) {
+	WireNode(ServerLevel level, @NotNull BlockPos pos, BlockState state) {
 		super(level);
 
 		this.pos = pos.immutable();
@@ -61,7 +62,7 @@ public class WireNode extends Node {
 	}
 
 	@Override
-	Node set(BlockPos pos, BlockState state, boolean clearNeighbors) {
+	Node set(BlockPos pos, @NotNull BlockState state, boolean clearNeighbors) {
 		throw new UnsupportedOperationException("Cannot update a WireNode!");
 	}
 

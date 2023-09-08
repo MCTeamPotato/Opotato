@@ -3,8 +3,8 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
-import com.teampotato.opotato.api.LightestEntity;
-import com.teampotato.opotato.api.UnupdatableInWaterEntity;
+import com.teampotato.opotato.api.entity.LightestEntity;
+import com.teampotato.opotato.api.entity.UnupdatableInWaterEntity;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +18,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,7 +33,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Mixin(Flame_Strike_Entity.class)
 public abstract class MixinFlameStrikeEntity extends Entity implements LightestEntity, UnupdatableInWaterEntity {
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;", shift = At.Shift.BEFORE), cancellable = true)
-    private void onTick(CallbackInfo ci) {
+    private void onTick(@NotNull CallbackInfo ci) {
         ci.cancel();
     }
 
@@ -89,7 +90,7 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
      * @reason impl config
      */
     @Overwrite(remap = false)
-    private void damage(LivingEntity hitEntity) {
+    private void damage(@NotNull LivingEntity hitEntity) {
         LivingEntity owner = this.getOwner();
         final MobEffect blazingBrand = ModEffect.EFFECTBLAZING_BRAND.get();
         if (!hitEntity.isAlive() || hitEntity.isInvulnerable() || hitEntity == owner || tickCount % 2 != 0) return;
@@ -137,7 +138,7 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
     private boolean isSoul;
 
     @Inject(method = "setOwner", at = @At("HEAD"), remap = false)
-    private void onSetOwner(LivingEntity ownerIn, CallbackInfo ci) {
+    private void onSetOwner(@NotNull LivingEntity ownerIn, CallbackInfo ci) {
         ResourceLocation type = ownerIn.getType().getRegistryName();
         if (type == null) return;
         this.isIgnisTheOwner = type.equals(ModEntities.IGNIS.get().getRegistryName());

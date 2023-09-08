@@ -1,5 +1,7 @@
 package com.teampotato.opotato.util.alternatecurrent.wire;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.AbstractQueue;
 import java.util.Iterator;
 
@@ -74,7 +76,7 @@ public class SimpleQueue extends AbstractQueue<WireNode> {
 	}
 
 	@Override
-	public Iterator<WireNode> iterator() {
+	public @NotNull Iterator<WireNode> iterator() {
 		return new SimpleIterator();
 	}
 

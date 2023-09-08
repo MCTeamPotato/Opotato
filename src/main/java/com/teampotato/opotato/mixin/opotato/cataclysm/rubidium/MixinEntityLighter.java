@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.cataclysm.rubidium;
 
-import com.teampotato.opotato.api.LightestEntity;
+import com.teampotato.opotato.api.entity.LightestEntity;
 import me.jellysquid.mods.sodium.client.model.light.EntityLighter;
 import me.jellysquid.mods.sodium.client.render.entity.EntityLightSampler;
 import net.minecraft.world.entity.Entity;

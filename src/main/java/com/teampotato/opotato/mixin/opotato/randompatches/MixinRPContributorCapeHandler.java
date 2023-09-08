@@ -1,6 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.randompatches;
 
 import com.therandomlabs.randompatches.client.RPContributorCapeHandler;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,7 +13,7 @@ public abstract class MixinRPContributorCapeHandler {
     @Shadow private static boolean attemptingDownload;
 
     @Inject(method = "downloadContributorList", at = @At("HEAD"), cancellable = true)
-    private static void onConnect(CallbackInfo ci) {
+    private static void onConnect(@NotNull CallbackInfo ci) {
         attemptingDownload = true;
         ci.cancel();
     }

@@ -8,6 +8,7 @@ import nonamecrackers2.witherstormmod.common.entity.WitherStormEntity;
 import nonamecrackers2.witherstormmod.common.event.WitherStormDebrisUpdater;
 import nonamecrackers2.witherstormmod.common.init.WitherStormModPacketHandlers;
 import nonamecrackers2.witherstormmod.common.packet.CreateDebrisMessage;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -20,7 +21,7 @@ public abstract class MixinWitherStormDebrisUpdater {
      * @reason impl cache and optimization
      */
     @Overwrite
-    public static void createDebris(ServerPlayer player) {
+    public static void createDebris(@NotNull ServerPlayer player) {
         ServerLevel world = player.getLevel();
         for (UUID uuid : EntitiesCacheEvent.witherStorms.keySet()) {
             WitherStormEntity storm = (WitherStormEntity) world.getEntity(uuid);

@@ -2,6 +2,7 @@ package com.teampotato.opotato.mixin.opotato.minecraft;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.DataFixUtils;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
@@ -35,18 +36,26 @@ public abstract class MixinBiomeGenerationSettings {
         return false;
     }
 
+    /**
+     * @author Kasualix
+     * @reason avoid stream
+     */
+    @Overwrite
+    public ConfiguredStructureFeature<?, ?> withBiomeConfig(ConfiguredStructureFeature<?, ?> structure) {
+        for (Supplier<ConfiguredStructureFeature<?, ?>> featureSupplier : this.structureStarts) {
+            ConfiguredStructureFeature<?, ?> feature = featureSupplier.get();
+            if (feature.feature == structure.feature) return DataFixUtils.orElse(Optional.of(feature), structure);
+        }
+        return structure;
+    }
+
     @Mixin(BiomeGenerationSettings.Builder.class)
     public abstract static class MixinBiomeGenerationSettingsBuilder {
 
         @Shadow @Final protected Map<GenerationStep.Carving, List<Supplier<ConfiguredWorldCarver<?>>>> carvers;
-
         @Shadow @Final protected List<List<Supplier<ConfiguredFeature<?, ?>>>> features;
-
         @Shadow @Final protected List<Supplier<ConfiguredStructureFeature<?, ?>>> structureStarts;
-
-        @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-        @Shadow protected Optional<Supplier<ConfiguredSurfaceBuilder<?>>> surfaceBuilder;
-
+        @SuppressWarnings("OptionalUsedAsFieldOrParameterType") @Shadow protected Optional<Supplier<ConfiguredSurfaceBuilder<?>>> surfaceBuilder;
 
         /**
          * @author Kasualix

@@ -10,6 +10,7 @@ import nonamecrackers2.witherstormmod.common.event.EntitySyncableDataEvents;
 import nonamecrackers2.witherstormmod.common.init.WitherStormModPacketHandlers;
 import nonamecrackers2.witherstormmod.common.packet.EntitySyncableDataMessage;
 import nonamecrackers2.witherstormmod.common.util.IEntitySyncableData;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -22,7 +23,7 @@ public abstract class MixinEntitySyncableDataEvents {
      * @reason impl cache
      */
     @Overwrite
-    public static void sendChanges(ServerPlayer player) {
+    public static void sendChanges(@NotNull ServerPlayer player) {
         ServerLevel world = player.getLevel();
         for (UUID uuid : EntitiesCacheEvent.dataSyncableEntities) {
             Entity entity = world.getEntity(uuid);

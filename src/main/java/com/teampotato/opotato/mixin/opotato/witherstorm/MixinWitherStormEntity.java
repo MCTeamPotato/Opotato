@@ -2,7 +2,7 @@ package com.teampotato.opotato.mixin.opotato.witherstorm;
 
 import com.teampotato.opotato.api.IEntity;
 import com.teampotato.opotato.api.IGoalSelector;
-import com.teampotato.opotato.api.UnupdatableInWaterEntity;
+import com.teampotato.opotato.api.entity.UnupdatableInWaterEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -43,7 +43,7 @@ public abstract class MixinWitherStormEntity extends Monster implements Unupdata
      */
     @Overwrite(remap = false)
     public boolean isAttractingFormidibomb() {
-        for (WrappedGoal prioritizedGoal : ((IGoalSelector)this.goalSelector).potato$getAvailableGoals()) {
+        for (WrappedGoal prioritizedGoal : ((IGoalSelector)this.goalSelector)._getAvailableGoals()) {
             if (prioritizedGoal.isRunning() && prioritizedGoal.getGoal() instanceof LookAtFormidibombGoal && ((LookAtFormidibombGoal) prioritizedGoal.getGoal()).hasTarget()) return true;
         }
         return false;

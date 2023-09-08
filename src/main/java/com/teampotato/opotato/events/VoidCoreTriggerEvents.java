@@ -3,7 +3,7 @@ package com.teampotato.opotato.events;
 import L_Ender.cataclysm.init.ModItems;
 import L_Ender.cataclysm.items.void_core;
 import com.teampotato.opotato.Opotato;
-import com.teampotato.opotato.api.IVoidCore;
+import com.teampotato.opotato.api.cataclysm.IVoidCore;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -31,21 +31,21 @@ public class VoidCoreTriggerEvents {
                     float rotatedYaw;
                     for(k = 0; k < 5; ++k) {
                         rotatedYaw = yawRadians + (float)k * 3.1415927F * 0.4F;
-                        if (((IVoidCore)voidCore).potato$spawnFangs(player.getX() + (double)Mth.cos(rotatedYaw) * 1.5, headY, player.getZ() + (double)Mth.sin(rotatedYaw) * 1.5, standingOnY, rotatedYaw, 0, world, player)) {
+                        if (((IVoidCore)voidCore)._spawnFangs(player.getX() + (double)Mth.cos(rotatedYaw) * 1.5, headY, player.getZ() + (double)Mth.sin(rotatedYaw) * 1.5, standingOnY, rotatedYaw, 0, world, player)) {
                             hasSucceeded = true;
                         }
                     }
 
                     for(k = 0; k < 8; ++k) {
                         rotatedYaw = yawRadians + (float)k * 3.1415927F * 2.0F / 8.0F + 1.2566371F;
-                        if (((IVoidCore)voidCore).potato$spawnFangs(player.getX() + (double)Mth.cos(rotatedYaw) * 2.5, headY, player.getZ() + (double)Mth.sin(rotatedYaw) * 2.5, standingOnY, rotatedYaw, 3, world, player)) {
+                        if (((IVoidCore)voidCore)._spawnFangs(player.getX() + (double)Mth.cos(rotatedYaw) * 2.5, headY, player.getZ() + (double)Mth.sin(rotatedYaw) * 2.5, standingOnY, rotatedYaw, 3, world, player)) {
                             hasSucceeded = true;
                         }
                     }
                 } else {
                     for(k = 0; k < 10; ++k) {
                         double d2 = 1.25 * (double)(k + 1);
-                        if (((IVoidCore)voidCore).potato$spawnFangs(player.getX() + (double)Mth.cos(yawRadians) * d2, headY, player.getZ() + (double)Mth.sin(yawRadians) * d2, standingOnY, yawRadians, k, world, player)) {
+                        if (((IVoidCore)voidCore)._spawnFangs(player.getX() + (double)Mth.cos(yawRadians) * d2, headY, player.getZ() + (double)Mth.sin(yawRadians) * d2, standingOnY, yawRadians, k, world, player)) {
                             hasSucceeded = true;
                         }
                     }

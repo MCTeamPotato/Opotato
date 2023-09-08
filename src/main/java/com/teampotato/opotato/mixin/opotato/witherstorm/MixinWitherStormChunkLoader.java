@@ -9,6 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import nonamecrackers2.witherstormmod.common.entity.WitherStormEntity;
 import nonamecrackers2.witherstormmod.common.event.WitherStormChunkLoader;
 import nonamecrackers2.witherstormmod.common.init.WitherStormModCapabilities;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -23,7 +24,7 @@ public abstract class MixinWitherStormChunkLoader {
      */
     @Overwrite
     @SubscribeEvent
-    public static void onWorldTick(TickEvent.WorldTickEvent event) {
+    public static void onWorldTick(TickEvent.@NotNull WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END && event.world instanceof ServerLevel) {
             ServerLevel world = (ServerLevel) event.world;
             world.getCapability(WitherStormModCapabilities.WITHER_STORM_CHUNKS_CAPABILITY).ifPresent(stormChunks -> {

@@ -7,6 +7,7 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,7 +36,7 @@ public class MixinFinalFractal extends SwordItem {
      * @reason impl config
      */
     @Overwrite
-    public boolean isValidRepairItem(ItemStack itemStack, ItemStack itemStackMaterial) {
+    public boolean isValidRepairItem(@NotNull ItemStack itemStack, ItemStack itemStackMaterial) {
         return CataclysmExtraConfig.finalFractalValidRepairItem.get().contains(Objects.requireNonNull(itemStack.getItem().getRegistryName()).toString()) ||
                 CataclysmExtraConfig.finalFractalValidRepairItem.get().contains(Objects.requireNonNull(itemStackMaterial.getItem().getRegistryName()).toString());
     }

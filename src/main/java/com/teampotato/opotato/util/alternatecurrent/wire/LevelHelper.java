@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.chunk.LevelChunkSection;
+import org.jetbrains.annotations.NotNull;
 
 public class LevelHelper {
 
@@ -20,7 +21,7 @@ public class LevelHelper {
 	 * states, lighting checks, height map updates, and block entity updates are
 	 * omitted.
 	 */
-	static boolean setWireState(ServerLevel level, BlockPos pos, BlockState state, boolean updateNeighborShapes) {
+	static boolean setWireState(ServerLevel level, @NotNull BlockPos pos, BlockState state, boolean updateNeighborShapes) {
 		int y = pos.getY();
 
 		if (y < Y_MIN || y >= Y_MAX) {

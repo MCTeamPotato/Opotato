@@ -41,14 +41,10 @@ public abstract class MixinServerLevel extends Level {
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/stream/Stream;noneMatch(Ljava/util/function/Predicate;)Z", remap = false))
     private boolean onTick(Stream<ServerPlayer> instance, Predicate<ServerPlayer> predicate) {
-        boolean allPlayersMatch = true;
         for (ServerPlayer player : this.players) {
-            if (!player.isSpectator() && !player.isSleepingLongEnough()) {
-                allPlayersMatch = false;
-                break;
-            }
+            if (!player.isSpectator() && !player.isSleepingLongEnough()) return false;
         }
-        return allPlayersMatch;
+        return true;
     }
 
     /**

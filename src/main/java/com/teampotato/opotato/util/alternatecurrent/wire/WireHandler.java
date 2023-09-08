@@ -1,25 +1,23 @@
 package com.teampotato.opotato.util.alternatecurrent.wire;
 
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.function.Consumer;
-
-//import alternate.current.AlternateCurrentMod;
 import com.teampotato.opotato.util.alternatecurrent.BlockUtil;
 import com.teampotato.opotato.util.alternatecurrent.Redstone;
-//import com.teampotato.opotato.util.profiler.Profiler;
-
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap.Entry;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.function.Consumer;
 
 /**
  * This class handles power changes for redstone wire. The algorithm was
@@ -259,10 +257,6 @@ public class WireHandler {
 		{ Directions.EAST , Directions.WEST , Directions.SOUTH, Directions.NORTH },
 		{ Directions.SOUTH, Directions.NORTH, Directions.WEST , Directions.EAST  }
 	};
-	/**
-	 * The default update order of all cardinal directions.
-	 */
-	static final int[] DEFAULT_CARDINAL_UPDATE_ORDER = CARDINAL_UPDATE_ORDERS[0];
 
 	private static final int POWER_MIN = Redstone.SIGNAL_MIN;
 	private static final int POWER_MAX = Redstone.SIGNAL_MAX;
@@ -304,7 +298,7 @@ public class WireHandler {
 	 * Retrieve the {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} that represents the
 	 * block at the given position in the level.
 	 */
-	private Node getOrAddNode(BlockPos pos) {
+	private Node getOrAddNode(@NotNull BlockPos pos) {
 		return nodes.compute(pos.asLong(), (key, node) -> {
 			if (node == null) {
 				// If there is not yet a node at this position, retrieve and
@@ -323,7 +317,7 @@ public class WireHandler {
 	 * Remove and return the {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} at the given
 	 * position.
 	 */
-	private Node removeNode(BlockPos pos) {
+	private Node removeNode(@NotNull BlockPos pos) {
 		return nodes.remove(pos.asLong());
 	}
 
@@ -341,7 +335,7 @@ public class WireHandler {
 	 * Otherwise, grab the next {@link com.teampotato.opotato.util.alternatecurrent.wire.Node Node} from the
 	 * cache and update it.
 	 */
-	private Node getNextNode(BlockPos pos, BlockState state) {
+	private Node getNextNode(BlockPos pos, @NotNull BlockState state) {
 		return state.is(Blocks.REDSTONE_WIRE) ? new WireNode(level, pos, state) : getNextNode().set(pos, state, true);
 	}
 
@@ -378,7 +372,7 @@ public class WireHandler {
 	 * not, or vice versa, a new node must be created/grabbed from the cache.
 	 * Otherwise, the node can be quickly revalidated with the new block state.
 	 */
-	private Node revalidateNode(Node node) {
+	private Node revalidateNode(@NotNull Node node) {
 		BlockPos pos = node.pos;
 		BlockState state = level.getBlockState(pos);
 
@@ -411,7 +405,7 @@ public class WireHandler {
 	 * between the two nodes if they are not yet linked. This link makes accessing
 	 * neighbors of a node signficantly faster.
 	 */
-	private Node getNeighbor(Node node, int iDir) {
+	private Node getNeighbor(@NotNull Node node, int iDir) {
 		Node neighbor = node.neighbors[iDir];
 
 		if (neighbor == null || neighbor.invalid) {
@@ -460,7 +454,7 @@ public class WireHandler {
 	 * be 'forward': { west, east, north, south, down, up } - this is the order of
 	 * shape updates.
 	 */
-	private void forEachNeighbor(WireNode wire, Consumer<Node> consumer) {
+	private void forEachNeighbor(@NotNull WireNode wire, @NotNull Consumer<Node> consumer) {
 		int forward   = wire.iFlowDir;
 		int rightward = (forward + 1) & 0b11;
 		int backward  = (forward + 2) & 0b11;
@@ -655,7 +649,7 @@ public class WireHandler {
 	 * Check if the given wire requires power changes. If it does, queue it for the
 	 * breadth-first search as a root.
 	 */
-	private void findRoot(WireNode wire) {
+	private void findRoot(@NotNull WireNode wire) {
 		// Each wire only needs to be checked once.
 		if (wire.discovered) {
 			return;
@@ -680,7 +674,7 @@ public class WireHandler {
 	 * <br>
 	 * - Find connections to neighboring wires.
 	 */
-	private void discover(WireNode wire) {
+	private void discover(@NotNull WireNode wire) {
 		if (wire.discovered) {
 			return;
 		}
@@ -704,7 +698,7 @@ public class WireHandler {
 	 * neighboring wires has decreased, so as to determine how low the power of the
 	 * wire can fall.
 	 */
-	private void findPower(WireNode wire, boolean ignoreSearched) {
+	private void findPower(@NotNull WireNode wire, boolean ignoreSearched) {
 		// As wire power is (re-)computed, flow information must be reset.
 		wire.virtualPower = wire.externalPower;
 		wire.flowIn = 0;
@@ -728,7 +722,7 @@ public class WireHandler {
 	 * Determine the power the given wire receives from connected neighboring wires
 	 * and update the virtual power accordingly.
 	 */
-	private void findWirePower(WireNode wire, boolean ignoreSearched) {
+	private void findWirePower(@NotNull WireNode wire, boolean ignoreSearched) {
 		wire.connections.forEach(connection -> {
 			if (!connection.accept) {
 				return;
@@ -749,7 +743,7 @@ public class WireHandler {
 	 * Determine the redstone signal the given wire receives from non-wire
 	 * components and update the virtual power accordingly.
 	 */
-	private void findExternalPower(WireNode wire) {
+	private void findExternalPower(@NotNull WireNode wire) {
 		// If the wire is removed or going to break, its power level should always be
 		// the minimum value. Thus external power need not be computed.
 		// In other cases external power need only be computed once.
@@ -782,7 +776,7 @@ public class WireHandler {
 			// Since 1.16 there is a block that is both a conductor and a signal
 			// source: the target block!
 			if (neighbor.isConductor()) {
-				power = Math.max(power, getDirectSignalTo(wire, neighbor, Directions.iOpposite(iDir)));
+				power = Math.max(power, getDirectSignalTo(neighbor, Directions.iOpposite(iDir)));
 			}
 			if (neighbor.isSignalSource()) {
 				power = Math.max(power, neighbor.state.getSignal(level, neighbor.pos, Directions.ALL[iDir]));
@@ -800,7 +794,7 @@ public class WireHandler {
 	 * Determine the direct signal the given wire receives from neighboring blocks
 	 * through the given conductor node.
 	 */
-	private int getDirectSignalTo(WireNode wire, Node node, int except) {
+	private int getDirectSignalTo(Node node, int except) {
 		int power = POWER_MIN;
 
 		for (int iDir : Directions.I_EXCEPT[except]) {
@@ -821,14 +815,15 @@ public class WireHandler {
 	/**
 	 * Check if the given wire needs to update its state in the world.
 	 */
-	private boolean needsUpdate(WireNode wire) {
+	@Contract(pure = true)
+	private boolean needsUpdate(@NotNull WireNode wire) {
 		return wire.removed || wire.shouldBreak || wire.virtualPower != wire.currentPower;
 	}
 
 	/**
 	 * Queue the given wire for the breadth-first search as a root.
 	 */
-	private void searchRoot(WireNode wire) {
+	private void searchRoot(@NotNull WireNode wire) {
 		int iBackupFlowDir = Math.max(wire.connections.iFlowDir, 0);
 
         search(wire, true, iBackupFlowDir);
@@ -1035,7 +1030,7 @@ public class WireHandler {
 	 * ambiguous, use the backup value that was set when the wire was first added to
 	 * the network.
 	 */
-	private void findPowerFlow(WireNode wire) {
+	private void findPowerFlow(@NotNull WireNode wire) {
 		int flow = FLOW_IN_TO_FLOW_OUT[wire.flowIn];
 
 		if (flow >= 0) {
@@ -1049,7 +1044,7 @@ public class WireHandler {
 	 * Transmit power from the given wire to neighboring wires and queue updates to
 	 * those wires.
 	 */
-	private void transmitPower(WireNode wire) {
+	private void transmitPower(@NotNull WireNode wire) {
 		wire.connections.forEach(connection -> {
 			if (!connection.offer) {
 				return;
@@ -1069,7 +1064,7 @@ public class WireHandler {
 	/**
 	 * Emit shape updates around the given wire.
 	 */
-	private void updateNeighborShapes(WireNode wire) {
+	private void updateNeighborShapes(@NotNull WireNode wire) {
 		BlockPos wirePos = wire.pos;
 		BlockState wireState = wire.state;
 
@@ -1085,7 +1080,7 @@ public class WireHandler {
 		}
 	}
 
-	private void updateShape(Node node, Direction dir, BlockPos neighborPos, BlockState neighborState) {
+	private void updateShape(@NotNull Node node, Direction dir, BlockPos neighborPos, BlockState neighborState) {
 		BlockPos pos = node.pos;
 		BlockState state = level.getBlockState(pos);
 
@@ -1107,7 +1102,7 @@ public class WireHandler {
 	/**
 	 * Queue the given node for an update from the given neighboring wire.
 	 */
-	private void queueNeighbor(Node node, WireNode neighborWire) {
+	private void queueNeighbor(@NotNull Node node, WireNode neighborWire) {
 		// Updates to wires are queued when power is transmitted.
 		if (!node.isWire()) {
 			node.neighborWire = neighborWire;
@@ -1132,7 +1127,7 @@ public class WireHandler {
 	/**
 	 * Emit a block update to the given node.
 	 */
-	private void updateBlock(Node node, BlockPos neighborPos, Block neighborBlock) {
+	private void updateBlock(@NotNull Node node, BlockPos neighborPos, Block neighborBlock) {
 		BlockPos pos = node.pos;
 		BlockState state = level.getBlockState(pos);
 

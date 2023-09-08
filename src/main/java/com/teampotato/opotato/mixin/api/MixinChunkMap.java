@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ChunkMap.class)
-public abstract class MixinChunkMap implements IChunkMap {
+public  class MixinChunkMap implements IChunkMap {
     @Shadow @Final private PlayerMap playerMap;
 
     @Shadow

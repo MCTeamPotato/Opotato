@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.cataclysm;
 
-import com.teampotato.opotato.api.UnupdatableInWaterEntity;
+import com.teampotato.opotato.api.entity.UnupdatableInWaterEntity;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

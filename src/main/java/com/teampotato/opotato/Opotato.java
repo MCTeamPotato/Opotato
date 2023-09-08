@@ -40,7 +40,7 @@ public class Opotato {
     private static void initEvents() {
         IEventBus bus = MinecraftForge.EVENT_BUS;
 
-        if (isLoaded("cataclysm")) {
+        if (isCataclysmLoaded) {
             bus.register(FlameStrikeDamageEvent.class);
             if (isLoaded("curios")) {
                 if (FMLLoader.getDist().isClient()) bus.register(KeybindEvents.VoidCore.class);
@@ -48,7 +48,7 @@ public class Opotato {
             }
         }
 
-        if (isLoaded("witherstormmods")) bus.register(WitherSicknessUpdate.class);
+        if (isWitherStormModLoaded) bus.register(WitherSicknessUpdate.class);
 
         bus.register(KeybindEvents.OnePunch.class);
         bus.register(CreativeOnePunch.class);
@@ -61,9 +61,10 @@ public class Opotato {
         ModConfig.Type common = ModConfig.Type.COMMON;
         if (isLoaded("ars_nouveau")) ctx.registerConfig(common, ArsNouveauLootConfig.arsNouveauConfig, MOD_ID + "/mods/arsNouveau-loot.toml");
         if (isLoaded("blue_skies")) ctx.registerConfig(common, BlueSkiesExtraConfig.blueSkiesExtraConfig, MOD_ID + "/mods/blueSkies-extra.toml");
-        if (isLoaded("cataclysm")) ctx.registerConfig(common, CataclysmExtraConfig.cataclysmExtraConfig, MOD_ID + "/mods/cataclysm-extra.toml");
+        if (isCataclysmLoaded) ctx.registerConfig(common, CataclysmExtraConfig.cataclysmExtraConfig, MOD_ID + "/mods/cataclysm-extra.toml");
         if (isLoaded("headshot")) ctx.registerConfig(common, HeadshotExtraConfig.headshotConfig, MOD_ID + "/mods/headshot-extra.toml");
         if (isLoaded("undergarden")) ctx.registerConfig(common, UndergardenExtraConfig.undergardenConfig, MOD_ID + "/mods/undergarden-extra.toml");
+        if (isWitherStormModLoaded) ctx.registerConfig(common, WitherStormExtraConfig.witherStormConfig, MOD_ID + "/mods/witherStormMod-extra.toml");
         ctx.registerConfig(common, PotatoCommonConfig.potatoConfig, MOD_ID + "/opotato-common.toml");
     }
 

@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import nonamecrackers2.witherstormmod.common.capability.WitherStormBowelsManager;
 import nonamecrackers2.witherstormmod.common.entity.WitherStormEntity;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -38,7 +39,7 @@ public abstract class MixinWitherStormBowelsManager {
     }
 
     @Inject(method = "onWorldTick", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/common/util/LazyOptional;ifPresent(Lnet/minecraftforge/common/util/NonNullConsumer;)V", remap = false, shift = At.Shift.AFTER), cancellable = true)
-    private static void onWorldTick(TickEvent.WorldTickEvent event, CallbackInfo ci) {
+    private static void onWorldTick(TickEvent.WorldTickEvent event, @NotNull CallbackInfo ci) {
         ci.cancel();
     }
 }

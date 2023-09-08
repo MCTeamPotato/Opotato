@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
@@ -27,6 +28,7 @@ public class EntitiesCacheEvent {
     public static Map<UUID, ResourceKey<Level>> witherStorms = new Object2ObjectOpenHashMap<>();
     public static List<UUID> dataSyncableEntities = new ObjectArrayList<>();
     public static List<UUID> flameStrikes = new ObjectArrayList<>();
+    public static List<UUID> itemEntities = new ObjectArrayList<>();
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onEntityLeaveWorld(EntityLeaveWorldEvent event) {
@@ -34,6 +36,10 @@ public class EntitiesCacheEvent {
         MinecraftServer server = entity.getServer();
         UUID uuid = entity.getUUID();
         if (server == null) return;
+        if (entity instanceof ItemEntity) {
+            itemEntities.remove(uuid);
+            return;
+        }
         if (Opotato.isWitherStormModLoaded) {
             if (entity instanceof IEntitySyncableData) {
                 dataSyncableEntities.remove(uuid);
@@ -58,6 +64,10 @@ public class EntitiesCacheEvent {
         Level level = event.getWorld();
         UUID uuid = entity.getUUID();
         if (level instanceof ServerLevel) {
+            if (entity instanceof ItemEntity) {
+                itemEntities.add(uuid);
+                return;
+            }
             if (Opotato.isWitherStormModLoaded) {
                 if (entity instanceof IEntitySyncableData) {
                     if (entity instanceof WitherStormEntity) witherStorms.put(uuid, entity.level.dimension());

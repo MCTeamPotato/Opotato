@@ -13,6 +13,7 @@ public abstract class MixinAbstractSickenedEntity {
     private EquipmentSlot[] avoidEnumValuesNoRemap() {
         return Opotato.EQUIPMENT_SLOTS;
     }
+
     @Redirect(method = "convertTo", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/EquipmentSlot;values()[Lnet/minecraft/world/entity/EquipmentSlot;"))
     private EquipmentSlot[] avoidEnumValues() {
         return Opotato.EQUIPMENT_SLOTS;
