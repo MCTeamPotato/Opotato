@@ -10,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,9 +24,7 @@ public abstract class MixinVoidCore extends Item implements ICurioItem {
         super(arg);
     }
 
-    @Shadow protected abstract boolean spawnFangs(double x, double y, double z, int lowestYCheck, float rotationYaw, int warmupDelayTicks, Level world, Player player);
-
-    @ModifyConstant(method = "use", constant = @Constant(intValue = 120))
+   @ModifyConstant(method = "use", constant = @Constant(intValue = 120))
     private int onSetCoolDown(int constant) {
         return CataclysmExtraConfig.voidCoreCoolDown.get();
     }

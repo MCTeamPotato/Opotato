@@ -43,9 +43,9 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
      */
     @Overwrite(remap = false)
     public float getRadius() {
-        if (this.isPlayerTheOwner) {
+        if (this.opotato$isPlayerTheOwner) {
             return CataclysmExtraConfig.flameStrikeSummonedByIncineratorRadius.get().floatValue();
-        } else if (this.isIgnisTheOwner) {
+        } else if (this.opotato$isIgnisTheOwner) {
            return CataclysmExtraConfig.flameStrikeSummonedByIgnisUltimateAttackRadius.get().floatValue();
         } else {
             return this.getEntityData().get(DATA_RADIUS);
@@ -53,7 +53,7 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
     }
 
     @Unique
-    private static ThreadLocalRandom random = null;
+    private static ThreadLocalRandom opotato$random = null;
 
     @Unique
     private static final double NO_PARTICLE = 0D;
@@ -62,8 +62,8 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextGaussian()D", remap = false))
     private double onGetGaussian(Random instance) {
         if (this.getRadius() > 10) return NO_PARTICLE;
-        if (random == null) random = ThreadLocalRandom.current();
-        return random.nextGaussian();
+        if (opotato$random == null) opotato$random = ThreadLocalRandom.current();
+        return opotato$random.nextGaussian();
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
      */
     @Overwrite(remap = false)
     public boolean isSoul() {
-        return this.isSoul;
+        return this.opotato$isSoul;
     }
 
     @Shadow(remap = false) @Final private static EntityDataAccessor<Float> DATA_RADIUS;
@@ -131,18 +131,18 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
     }
 
     @Unique
-    private boolean isPlayerTheOwner;
+    private boolean opotato$isPlayerTheOwner;
     @Unique
-    private boolean isIgnisTheOwner;
+    private boolean opotato$isIgnisTheOwner;
     @Unique
-    private boolean isSoul;
+    private boolean opotato$isSoul;
 
     @Inject(method = "setOwner", at = @At("HEAD"), remap = false)
     private void onSetOwner(@NotNull LivingEntity ownerIn, CallbackInfo ci) {
         ResourceLocation type = ownerIn.getType().getRegistryName();
         if (type == null) return;
-        this.isIgnisTheOwner = type.equals(ModEntities.IGNIS.get().getRegistryName());
-        this.isPlayerTheOwner = type.equals(EntityType.PLAYER.getRegistryName());
+        this.opotato$isIgnisTheOwner = type.equals(ModEntities.IGNIS.get().getRegistryName());
+        this.opotato$isPlayerTheOwner = type.equals(EntityType.PLAYER.getRegistryName());
     }
 
     /**
@@ -157,8 +157,8 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
             if (entity instanceof LivingEntity) {
                 ResourceLocation type = entity.getType().getRegistryName();
                 if (type != null) {
-                    this.isIgnisTheOwner = type.equals(ModEntities.IGNIS.get().getRegistryName());
-                    this.isPlayerTheOwner = type.equals(EntityType.PLAYER.getRegistryName());
+                    this.opotato$isIgnisTheOwner = type.equals(ModEntities.IGNIS.get().getRegistryName());
+                    this.opotato$isPlayerTheOwner = type.equals(EntityType.PLAYER.getRegistryName());
                 }
                 this.owner = (LivingEntity)entity;
             }
@@ -169,6 +169,6 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
 
     @Inject(method = "setSoul", at = @At("HEAD"), remap = false)
     private void onSetSoul(boolean Soul, CallbackInfo ci) {
-        this.isSoul = Soul;
+        this.opotato$isSoul = Soul;
     }
 }
