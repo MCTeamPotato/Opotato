@@ -5,13 +5,14 @@ import net.minecraft.world.level.StructureFeatureManager;
 import net.minecraft.world.level.chunk.FeatureAccess;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(StructureFeatureManager.class)
 public class MixinStructureFeatureManager implements IStructureFeatureManager {
 
     @Override
-    public StructureStart<?> getStartForFeature(StructureFeature<?> structure, FeatureAccess reader) {
+    public StructureStart<?> getStartForFeature(StructureFeature<?> structure, @NotNull FeatureAccess reader) {
         return reader.getStartForFeature(structure);
     }
 }

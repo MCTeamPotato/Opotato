@@ -8,6 +8,7 @@ import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.versions.forge.ForgeVersion;
+import org.jetbrains.annotations.NotNull;
 
 import static com.teampotato.opotato.Opotato.isLoaded;
 
@@ -37,7 +38,8 @@ public class PotatoEvents {
         }
         if (isLoaded("helium")) addIncompatibleWarn(event, "opotato.helium.dangerous");
     }
-    private static void addIncompatibleWarn(FMLCommonSetupEvent event, String translationKey) {
+
+    private static void addIncompatibleWarn(@NotNull FMLCommonSetupEvent event, String translationKey) {
         event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, translationKey)));
     }
 }

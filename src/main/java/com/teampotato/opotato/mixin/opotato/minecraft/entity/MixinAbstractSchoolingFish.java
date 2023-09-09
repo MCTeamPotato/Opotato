@@ -2,6 +2,7 @@ package com.teampotato.opotato.mixin.opotato.minecraft.entity;
 
 import com.teampotato.opotato.api.entity.IAbstractSchoolingFish;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -12,7 +13,7 @@ public abstract class MixinAbstractSchoolingFish implements IAbstractSchoolingFi
     @Shadow public abstract int getMaxSchoolSize();
 
     @Override
-    public void addFollowers(Iterable<AbstractSchoolingFish> followers) {
+    public void addFollowers(@NotNull Iterable<AbstractSchoolingFish> followers) {
         int maxToAdd = this.getMaxSchoolSize() - this.schoolSize;
         AbstractSchoolingFish fish = (AbstractSchoolingFish) (Object)this;
 

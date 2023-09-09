@@ -11,11 +11,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.jetbrains.annotations.NotNull;
 import top.theillusivec4.curios.api.CuriosApi;
 
 public class VoidCoreTriggerEvents {
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public static void onPlayerTick(TickEvent.@NotNull PlayerTickEvent event) {
         Player player = event.player;
         Level world = player.level;
         if (event.phase == TickEvent.Phase.END && player.removeTag(Opotato.MOD_ID + ".voidCore") && !world.isClientSide) {

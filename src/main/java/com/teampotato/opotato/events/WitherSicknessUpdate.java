@@ -9,12 +9,13 @@ import nonamecrackers2.witherstormmod.WitherStormMod;
 import nonamecrackers2.witherstormmod.common.capability.WitherStormBowelsManager;
 import nonamecrackers2.witherstormmod.common.entity.WitherStormEntity;
 import nonamecrackers2.witherstormmod.common.init.WitherStormModCapabilities;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class WitherSicknessUpdate {
     @SubscribeEvent
-    public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+    public static void onLivingUpdate(LivingEvent.@NotNull LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;
         if (level instanceof ServerLevel) {

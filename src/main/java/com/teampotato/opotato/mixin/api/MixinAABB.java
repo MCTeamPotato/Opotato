@@ -4,6 +4,7 @@ import com.teampotato.opotato.api.mutable.IAABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -43,7 +44,7 @@ public abstract class MixinAABB implements IAABB {
 
 
     @Override
-    public AABB _expandTowards(Vec3 vector) {
+    public AABB _expandTowards(@NotNull Vec3 vector) {
         return this._expandTowards(vector.x, vector.y, vector.z);
     }
 
@@ -87,7 +88,7 @@ public abstract class MixinAABB implements IAABB {
     }
 
     @Override
-    public AABB _intersect(AABB other) {
+    public AABB _intersect(@NotNull AABB other) {
         this.minX = Math.max(this.minX, other.minX);
         this.minY = Math.max(this.minY, other.minY);
         this.minZ = Math.max(this.minZ, other.minZ);
@@ -98,7 +99,7 @@ public abstract class MixinAABB implements IAABB {
     }
 
     @Override
-    public AABB _minmax(AABB other) {
+    public AABB _minmax(@NotNull AABB other) {
         this.minX = Math.min(this.minX, other.minX);
         this.minY = Math.min(this.minY, other.minY);
         this.minZ = Math.min(this.minZ, other.minZ);
@@ -120,7 +121,7 @@ public abstract class MixinAABB implements IAABB {
     }
 
     @Override
-    public AABB _move(BlockPos pos) {
+    public AABB _move(@NotNull BlockPos pos) {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -134,7 +135,7 @@ public abstract class MixinAABB implements IAABB {
     }
 
     @Override
-    public AABB _move(Vec3 vec) {
+    public AABB _move(@NotNull Vec3 vec) {
         return this._move(vec.x, vec.y, vec.z);
     }
 

@@ -3,6 +3,9 @@ package com.teampotato.opotato.config.mixin;
 import com.teampotato.opotato.Opotato;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.fml.loading.LoadingModList;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.util.Map;
@@ -10,11 +13,14 @@ import java.util.Properties;
 
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new Object2ObjectOpenHashMap<>();
+    private static LoadingModList loadingModList = null;
 
     private static boolean isLoaded(String mod) {
-        return FMLLoader.getLoadingModList().getModFileById(mod) != null;
+        return loadingModList.getModFileById(mod) != null;
     }
+
     private PotatoMixinConfig() {
+        if (loadingModList == null) loadingModList = FMLLoader.getLoadingModList();
         this.addMixinRule("opotato", true);
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueprint", isLoaded("abnormals_core"));
@@ -25,7 +31,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.citadel", isLoaded("citadel"));
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));
         this.addMixinRule("opotato.elenaidodge", isLoaded("elenaidodge2"));
-        this.addMixinRule("opotato.epicfight", isLoaded("epicfight"));
         this.addMixinRule("opotato.forge", true);
         this.addMixinRule("opotato.gender", isLoaded("wildfire_gender"));
         this.addMixinRule("opotato.headshot", isLoaded("headshot"));
@@ -34,12 +39,11 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.itemstages", isLoaded("itemstages"));
         this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
         this.addMixinRule("opotato.ldlib", isLoaded("ldlib"));
-        this.addMixinRule("opotato.minecraft", true);
-        this.addMixinRule("opotato.minecraft.ai", true);
-        this.addMixinRule("opotato.minecraft.entity", true);
-        this.addMixinRule("opotato.minecraft.client", true);
+        this.addMixinRule("opotato.minecraft", false);
+        this.addMixinRule("opotato.minecraft.ai", false);
+        this.addMixinRule("opotato.minecraft.entity", false);
+        this.addMixinRule("opotato.minecraft.client", false);
         this.addMixinRule("opotato.modernui", isLoaded("modernui"));
-        this.addMixinRule("opotato.oculus", isLoaded("oculus"));
         this.addMixinRule("opotato.placebo", isLoaded("placebo"));
         this.addMixinRule("opotato.quark", isLoaded("quark"));
         this.addMixinRule("opotato.randompatches", isLoaded("randompatches"));
@@ -63,7 +67,7 @@ public class PotatoMixinConfig {
         if (this.options.putIfAbsent(name, new Option(name, enabled, false)) != null) throw new IllegalStateException("Mixin rule already defined: " + mixin);
     }
 
-    private void readProperties(Properties props) {
+    private void readProperties(@NotNull Properties props) {
         for (Map.Entry<Object, Object> entry : props.entrySet()) {
             String key = (String) entry.getKey();
             String value = (String) entry.getValue();
@@ -90,7 +94,7 @@ public class PotatoMixinConfig {
         }
     }
 
-    public Option getEffectiveOptionForMixin(String mixinClassName) {
+    public Option getEffectiveOptionForMixin(@NotNull String mixinClassName) {
         int lastSplit = 0;
         int nextSplit;
 
@@ -113,7 +117,7 @@ public class PotatoMixinConfig {
         return rule;
     }
 
-    public static PotatoMixinConfig load(File file) {
+    public static @NotNull PotatoMixinConfig load(@NotNull File file) {
         PotatoMixinConfig config = new PotatoMixinConfig();
         Properties props = new Properties();
         if(file.exists()) {
@@ -134,7 +138,7 @@ public class PotatoMixinConfig {
         return config;
     }
 
-    private void writeConfig(File file, Properties props) throws IOException {
+    private void writeConfig(@NotNull File file, Properties props) throws IOException {
         File dir = file.getParentFile();
 
         if (!dir.exists()) {
@@ -162,7 +166,8 @@ public class PotatoMixinConfig {
         }
     }
 
-    private static String getMixinRuleName(String name) {
+    @Contract(pure = true)
+    private static @NotNull String getMixinRuleName(String name) {
         return "mixin." + name;
     }
 

@@ -14,6 +14,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
@@ -27,7 +28,7 @@ public class KeybindEvents {
         public static final KeyMapping voidCoreTriggerKey = new KeyMapping("opotato.key.cataclysm.voidCore", GLFW.GLFW_KEY_J, "opotato.key.cataclysm");
 
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
+        public static void onClientSetup(@NotNull FMLClientSetupEvent event) {
             event.enqueueWork(() -> ClientRegistry.registerKeyBinding(voidCoreTriggerKey));
         }
 
@@ -38,7 +39,7 @@ public class KeybindEvents {
             if (voidCoreTriggerKey.consumeClick() && hasVoidCore(player)) player.addTag(Opotato.MOD_ID + ".voidCore");
         }
 
-        private static boolean hasVoidCore(LocalPlayer player) {
+        private static boolean hasVoidCore(@NotNull LocalPlayer player) {
             AtomicBoolean has = new AtomicBoolean(false);
             player.getCapability(CuriosCapability.INVENTORY).ifPresent(handler -> {
                 Map<String, ICurioStacksHandler> curios = handler.getCurios();
@@ -74,7 +75,7 @@ public class KeybindEvents {
         }
 
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
+        public static void onClientSetup(@NotNull FMLClientSetupEvent event) {
             CreativeOnePunch.creativeOnePunch = PotatoCommonConfig.enableCreativeOnePouch.get();
             event.enqueueWork(() -> ClientRegistry.registerKeyBinding(switchOnePunchKey));
         }

@@ -11,6 +11,7 @@ import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,7 +25,7 @@ import java.util.Random;
 @Mixin(LakeFeature.class)
 public abstract class MixinLakeFeature {
     @Inject(method = "place(Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/chunk/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/levelgen/feature/configurations/BlockStateConfiguration;)Z", at = @At(value = "INVOKE", target = "Ljava/util/Optional;isPresent()Z", remap = false, shift = At.Shift.BEFORE), cancellable = true)
-    private void onPlace(WorldGenLevel worldGenLevel, ChunkGenerator chunkGenerator, Random random, BlockPos pos, BlockStateConfiguration configuration, CallbackInfoReturnable<Boolean> cir) {
+    private void onPlace(@NotNull WorldGenLevel worldGenLevel, ChunkGenerator chunkGenerator, Random random, @NotNull BlockPos pos, BlockStateConfiguration configuration, CallbackInfoReturnable<Boolean> cir) {
         StructureFeatureManager manager = worldGenLevel.getLevel().structureFeatureManager();
         ServerLevel serverLevel = worldGenLevel.getLevel();
         for (long longPos : serverLevel.getChunk(pos.getX() >> 4, pos.getZ() >> 4, ChunkStatus.STRUCTURE_REFERENCES).getReferencesForFeature(StructureFeature.VILLAGE)) {

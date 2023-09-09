@@ -7,12 +7,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class DuplicateUUIDFix {
     @SubscribeEvent(priority = EventPriority.LOW)
-    public static void onEntityJoinWold(EntityJoinWorldEvent event) {
+    public static void onEntityJoinWold(@NotNull EntityJoinWorldEvent event) {
         if (event.getWorld() instanceof ServerLevel && !event.isCanceled()) {
             Entity entity = event.getEntity();
             if (entity instanceof ServerPlayer) return;

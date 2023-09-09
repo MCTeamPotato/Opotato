@@ -8,12 +8,13 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class FlameStrikeDamageEvent {
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLivingTick(LivingEvent.LivingUpdateEvent event) {
+    public static void onLivingTick(LivingEvent.@NotNull LivingUpdateEvent event) {
         if (event.isCanceled()) return;
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;

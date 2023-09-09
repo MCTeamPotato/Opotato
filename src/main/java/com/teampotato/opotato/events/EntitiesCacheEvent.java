@@ -17,6 +17,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import nonamecrackers2.witherstormmod.common.entity.WitherStormEntity;
 import nonamecrackers2.witherstormmod.common.util.IEntitySyncableData;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class EntitiesCacheEvent {
     public static List<UUID> itemEntities = new ObjectArrayList<>();
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onEntityLeaveWorld(EntityLeaveWorldEvent event) {
+    public static void onEntityLeaveWorld(@NotNull EntityLeaveWorldEvent event) {
         Entity entity = event.getEntity();
         MinecraftServer server = entity.getServer();
         UUID uuid = entity.getUUID();
@@ -58,7 +59,7 @@ public class EntitiesCacheEvent {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
+    public static void onEntityJoinWorld(@NotNull EntityJoinWorldEvent event) {
         if (event.isCanceled()) return;
         Entity entity = event.getEntity();
         Level level = event.getWorld();
