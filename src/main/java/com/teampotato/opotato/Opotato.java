@@ -4,7 +4,6 @@ import com.teampotato.opotato.config.PotatoCommonConfig;
 import com.teampotato.opotato.config.mods.*;
 import com.teampotato.opotato.events.*;
 import com.teampotato.opotato.events.client.KeybindEvents;
-import com.teampotato.opotato.util.stxck.StxckForgeInitializer;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,7 +35,6 @@ public class Opotato {
 
         initEvents();
         initConfigs(ModLoadingContext.get());
-        StxckForgeInitializer.init();
     }
 
     private static void initEvents() {
