@@ -130,6 +130,7 @@
     "opotato.xaeroworldmap.MixinPatreon"
   ],
   "client": [
+    "opotato.cataclysm.MixinTheIncinerator$Client",
     "opotato.blueprint.MixinRewardHandler",
     "opotato.cataclysm.rubidium.MixinEntityLighter",
     "opotato.gender.MixinGenderLayer",

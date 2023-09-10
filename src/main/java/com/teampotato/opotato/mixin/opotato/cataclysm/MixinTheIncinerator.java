@@ -99,14 +99,19 @@ public abstract class MixinTheIncinerator extends Item {
         return CataclysmExtraConfig.flameStrikeSummonedByIncineratorRadius.get().floatValue();
     }
 
-    /**
-     * @author Kasualix
-     * @reason adapt charge ticks config
-     */
-    @Overwrite
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add((new TranslatableComponent("opotato.cataclysm.incinerator.desc", CataclysmExtraConfig.incineratorChargeTicks.get())).withStyle(ChatFormatting.DARK_GREEN));
-        tooltip.add((new TranslatableComponent("item.cataclysm.incinerator2.desc")).withStyle(ChatFormatting.DARK_GREEN));
-        tooltip.add((new TranslatableComponent("item.cataclysm.incinerator3.desc")).withStyle(ChatFormatting.DARK_GREEN));
+
+
+    @Mixin(The_Incinerator.class)
+    public static class Client {
+        /**
+         * @author Kasualix
+         * @reason adapt charge ticks config
+         */
+        @Overwrite
+        public void appendHoverText(ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, TooltipFlag flagIn) {
+            tooltip.add((new TranslatableComponent("opotato.cataclysm.incinerator.desc", CataclysmExtraConfig.incineratorChargeTicks.get())).withStyle(ChatFormatting.DARK_GREEN));
+            tooltip.add((new TranslatableComponent("item.cataclysm.incinerator2.desc")).withStyle(ChatFormatting.DARK_GREEN));
+            tooltip.add((new TranslatableComponent("item.cataclysm.incinerator3.desc")).withStyle(ChatFormatting.DARK_GREEN));
+        }
     }
 }
