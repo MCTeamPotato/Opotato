@@ -27,7 +27,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.placebo", isLoaded("placebo"));
         this.addMixinRule("opotato.quark", isLoaded("quark"));
         this.addMixinRule("opotato.witherstormmod", false);
-        this.addMixinRule("opotato.xaero", true);
+        this.addMixinRule("opotato.xaero", false);
     }
 
     private void disableIfModPresent(String configName, String... ids) {
