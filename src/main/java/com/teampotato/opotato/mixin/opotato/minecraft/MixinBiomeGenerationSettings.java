@@ -31,7 +31,7 @@ public abstract class MixinBiomeGenerationSettings {
     @Overwrite
     public boolean isValidStart(StructureFeature<?> structureFeature) {
         for (Supplier<ConfiguredStructureFeature<?, ?>> featureSupplier : this.structureStarts) {
-            if (featureSupplier.get().feature.equals(structureFeature)) return true;
+            if (featureSupplier.get().feature == structureFeature) return true;
         }
         return false;
     }

@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 @Mixin(CommandBlockEntity.class)
-public abstract class MixinCommandBlockEntity  extends LivingEntity {
+public abstract class MixinCommandBlockEntity extends LivingEntity {
     protected MixinCommandBlockEntity(EntityType<? extends LivingEntity> arg, Level arg2) {
         super(arg, arg2);
     }

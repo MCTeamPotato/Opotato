@@ -22,7 +22,7 @@ public  class MixinChunkMap implements IChunkMap {
     @Shadow private int viewDistance;
 
     @Override
-    public boolean hasNotPlayers(ChunkPos pos, boolean boundaryOnly) {
+    public boolean hasNoPlayers(ChunkPos pos, boolean boundaryOnly) {
         for (ServerPlayer player : ((IPlayerMap)this.playerMap).getPlayerSet()) {
             int i = checkerboardDistance(pos, player, true);
             if (i <= this.viewDistance && (!boundaryOnly || i == this.viewDistance)) return false;

@@ -48,7 +48,7 @@ public abstract class MixinWitherStormChunkHolder {
                 List<ChunkPos> loadedChunks = entry.getValue();
 
                 for (ChunkPos pos : loadedChunks) {
-                    if (((IChunkMap)this.world.getChunkSource().chunkMap).hasNotPlayers(pos, false)) {
+                    if (((IChunkMap)this.world.getChunkSource().chunkMap).hasNoPlayers(pos, false)) {
                         this.world.tickChunk(this.world.getChunk(pos.x, pos.z), tickSpeed);
                     }
                 }
