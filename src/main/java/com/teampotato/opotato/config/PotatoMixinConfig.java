@@ -127,11 +127,6 @@ public class PotatoMixinConfig {
             writer.write("#\n");
             writer.write("# The following options can be enabled or disabled if there is a compatibility issue.\n");
             writer.write("# Add a line mixin.example_name=true/false without the # sign to enable/disable a rule.\n");
-            writer.write("# All the mixins: \n");
-            List<String> lines = Lists.newArrayList(this.options.keySet());
-            for(String line : lines) {
-                writer.write("# " + line + "\n");
-            }
             for (Map.Entry<Object, Object> entry : props.entrySet()) {
                 String key = (String) entry.getKey();
                 String value = (String) entry.getValue();
