@@ -42,9 +42,9 @@ public abstract class MixinBiomeGenerationSettings {
      */
     @Overwrite
     public ConfiguredStructureFeature<?, ?> withBiomeConfig(ConfiguredStructureFeature<?, ?> structure) {
-        for (Supplier<ConfiguredStructureFeature<?, ?>> featureSupplier : this.structureStarts) {
-            ConfiguredStructureFeature<?, ?> feature = featureSupplier.get();
-            if (feature.feature == structure.feature) return DataFixUtils.orElse(Optional.of(feature), structure);
+        for (Supplier<ConfiguredStructureFeature<?, ?>> configuredStructureFeatureSupplier : this.structureStarts) {
+            ConfiguredStructureFeature<?, ?> configuredStructureFeature = configuredStructureFeatureSupplier.get();
+            if (configuredStructureFeature.feature == structure.feature) return DataFixUtils.orElse(Optional.of(configuredStructureFeature), structure);
         }
         return structure;
     }
