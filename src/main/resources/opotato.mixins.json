@@ -56,7 +56,9 @@
     "opotato.itemstages.MixinPluginItemStages",
     "opotato.kiwi.MixinContributors",
     "opotato.kiwi.MixinJsonRewardProvider",
+    "opotato.ldlib.MixinJEIClientEventHandler",
     "opotato.ldlib.MixinJEIPlugin",
+    "opotato.ldlib.MixinJEIStarter",
     "opotato.minecraft.MixinBiomeGenerationSettings",
     "opotato.minecraft.MixinBiomeGenerationSettings$MixinBiomeGenerationSettingsBuilder",
     "opotato.minecraft.MixinBiomeSource",
@@ -128,8 +130,8 @@
     "opotato.xaeroworldmap.MixinPatreon"
   ],
   "client": [
-    "opotato.cataclysm.MixinTheIncinerator$Client",
     "opotato.blueprint.MixinRewardHandler",
+    "opotato.cataclysm.MixinTheIncinerator$Client",
     "opotato.cataclysm.rubidium.MixinEntityLighter",
     "opotato.gender.MixinGenderLayer",
     "opotato.minecraft.client.MixinBubbleColumnAmbientSoundHandler",

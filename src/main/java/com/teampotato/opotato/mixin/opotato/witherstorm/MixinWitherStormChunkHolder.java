@@ -40,7 +40,7 @@ public abstract class MixinWitherStormChunkHolder {
         return 0;
     }
 
-    @Inject(method = "tick", at = @At(value = "FIELD", target = "Lnonamecrackers2/witherstormmod/common/capability/WitherStormChunkHolder;firstTick:Z", shift = At.Shift.BEFORE, remap = false), remap = false)
+    @Inject(method = "tick", at = @At(value = "FIELD", target = "Lnonamecrackers2/witherstormmod/common/capability/WitherStormChunkHolder;firstTick:Z", shift = At.Shift.BEFORE, ordinal = 0, remap = false), remap = false)
     private void tickChunks(CallbackInfo ci) {
         int tickSpeed = this.world.getGameRules().getInt(GameRules.RULE_RANDOMTICKING);
         if (tickSpeed > 0) {
