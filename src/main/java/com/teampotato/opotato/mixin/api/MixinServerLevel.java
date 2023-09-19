@@ -15,7 +15,7 @@ public class MixinServerLevel implements IServerLevel {
 	private final WireHandler opotato$wireHandler = new WireHandler((ServerLevel)(Object)this);
 
 	@Override
-	public WireHandler _getWireHandler() {
+	public WireHandler potato$getWireHandler() {
 		return opotato$wireHandler;
 	}
 }

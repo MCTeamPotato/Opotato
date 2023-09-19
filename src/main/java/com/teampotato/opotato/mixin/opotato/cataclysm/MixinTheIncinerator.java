@@ -16,7 +16,10 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -37,7 +40,7 @@ public abstract class MixinTheIncinerator extends Item {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(Properties group, CallbackInfo ci) {
         if (CataclysmExtraConfig.incineratorCanBeDamaged.get()) {
-            ((IItem)this)._setMaxDamage(CataclysmExtraConfig.incineratorDurability.get());
+            ((IItem)this).potato$setMaxDamage(CataclysmExtraConfig.incineratorDurability.get());
         }
     }
 

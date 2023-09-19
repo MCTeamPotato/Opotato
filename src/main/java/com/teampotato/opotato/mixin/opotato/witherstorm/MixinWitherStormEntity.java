@@ -43,7 +43,7 @@ public abstract class MixinWitherStormEntity extends Monster implements Unupdata
      */
     @Overwrite(remap = false)
     public boolean isAttractingFormidibomb() {
-        for (WrappedGoal prioritizedGoal : ((IGoalSelector)this.goalSelector)._getAvailableGoals()) {
+        for (WrappedGoal prioritizedGoal : ((IGoalSelector)this.goalSelector).potato$getAvailableGoals()) {
             if (prioritizedGoal.isRunning() && prioritizedGoal.getGoal() instanceof LookAtFormidibombGoal && ((LookAtFormidibombGoal) prioritizedGoal.getGoal()).hasTarget()) return true;
         }
         return false;
@@ -52,7 +52,7 @@ public abstract class MixinWitherStormEntity extends Monster implements Unupdata
     @Inject(method = "tick", at = @At("RETURN"))
     private void onTick(CallbackInfo ci) {
         if (this.getPhase() > 3) {
-            ((IEntity)this).setShouldMove(this.shouldTrackUltimateTarget() && !((IEntity) this).shouldMove());
+            ((IEntity)this).potato$setShouldMove(this.shouldTrackUltimateTarget() && !((IEntity) this).potato$shouldMove());
         }
     }
 }

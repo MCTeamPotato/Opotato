@@ -30,9 +30,8 @@ repositories {
             includeGroup "curse.maven"
         }
     }
-    maven {
-        url = "https://maven.theillusivec4.top/"
-    }
+    maven { url = "https://maven.theillusivec4.top/" }
+    maven { url = 'https://maven.parchmentmc.org' }
 }
 
 dependencies {

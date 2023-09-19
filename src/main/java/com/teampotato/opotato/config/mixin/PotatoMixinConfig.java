@@ -39,10 +39,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.itemstages", isLoaded("itemstages"));
         this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
         this.addMixinRule("opotato.ldlib", isLoaded("ldlib"));
-        this.addMixinRule("opotato.minecraft", false);
-        this.addMixinRule("opotato.minecraft.ai", false);
-        this.addMixinRule("opotato.minecraft.entity", false);
-        this.addMixinRule("opotato.minecraft.client", false);
         this.addMixinRule("opotato.modernui", isLoaded("modernui"));
         this.addMixinRule("opotato.placebo", isLoaded("placebo"));
         this.addMixinRule("opotato.quark", isLoaded("quark"));

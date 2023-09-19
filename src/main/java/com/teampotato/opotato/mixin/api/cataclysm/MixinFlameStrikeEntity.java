@@ -11,7 +11,7 @@ public abstract class MixinFlameStrikeEntity implements IFlameStrikeEntity {
     @Shadow protected abstract void damage(LivingEntity entity);
 
     @Override
-    public void _damage(LivingEntity entity) {
+    public void potato$damage(LivingEntity entity) {
         this.damage(entity);
     }
 }

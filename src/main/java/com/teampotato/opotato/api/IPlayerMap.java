@@ -5,5 +5,5 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.Set;
 
 public interface IPlayerMap {
-    Set<ServerPlayer> getPlayerSet();
+    Set<ServerPlayer> potato$getPlayerSet();
 }

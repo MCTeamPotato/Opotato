@@ -5,5 +5,5 @@ import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import java.util.Set;
 
 public interface IGoalSelector {
-    Set<WrappedGoal> _getAvailableGoals();
+    Set<WrappedGoal> potato$getAvailableGoals();
 }

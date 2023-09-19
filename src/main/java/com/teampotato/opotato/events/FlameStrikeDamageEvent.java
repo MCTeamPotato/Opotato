@@ -22,7 +22,7 @@ public class FlameStrikeDamageEvent {
             for (UUID flameStrikeUUID : EntitiesCacheEvent.flameStrikes) {
                 Flame_Strike_Entity flameStrikeEntity = (Flame_Strike_Entity) ((ServerLevel) level).getEntity(flameStrikeUUID);
                 if (flameStrikeEntity == null || flameStrikeEntity.isWaiting()) return;
-                if (flameStrikeEntity.getBoundingBox().contains(entity.position())) ((IFlameStrikeEntity)flameStrikeEntity)._damage(entity);
+                if (flameStrikeEntity.getBoundingBox().contains(entity.position())) ((IFlameStrikeEntity)flameStrikeEntity).potato$damage(entity);
             }
         }
     }

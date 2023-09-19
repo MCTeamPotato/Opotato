@@ -15,7 +15,7 @@ public class MixinPlayerMap implements IPlayerMap {
     @Shadow @Final private Object2BooleanMap<ServerPlayer> players;
 
     @Override
-    public Set<ServerPlayer> getPlayerSet() {
+    public Set<ServerPlayer> potato$getPlayerSet() {
         return this.players.keySet();
     }
 }

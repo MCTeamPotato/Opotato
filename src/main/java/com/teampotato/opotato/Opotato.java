@@ -12,7 +12,6 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.loading.FMLLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,15 +41,11 @@ public class Opotato {
 
         if (isCataclysmLoaded) {
             bus.register(FlameStrikeDamageEvent.class);
-            if (isLoaded("curios")) {
-                if (FMLLoader.getDist().isClient()) bus.register(KeybindEvents.VoidCore.class);
-                bus.register(VoidCoreTriggerEvents.class);
-            }
         }
 
         if (isWitherStormModLoaded) bus.register(WitherSicknessUpdate.class);
 
-        bus.register(KeybindEvents.OnePunch.class);
+        bus.register(KeybindEvents.class);
         bus.register(CreativeOnePunch.class);
         bus.register(DuplicateUUIDFix.class);
         bus.register(PotatoEvents.class);
