@@ -44,7 +44,6 @@
     "opotato.forge.MixinVersionChecker",
     "opotato.headshot.MixinDealHeadshotEvent",
     "opotato.industrialforegoing.MixinCommonProxy",
-    "opotato.inspirations.MixinPortalColorHandler",
     "opotato.itemstages.MixinPluginItemStages",
     "opotato.kiwi.MixinContributors",
     "opotato.kiwi.MixinJsonRewardProvider",

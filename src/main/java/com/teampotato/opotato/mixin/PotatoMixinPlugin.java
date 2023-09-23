@@ -65,8 +65,6 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
             String source = "[unknown]";
             if (option.isUserDefined()) {
                 source = "user configuration";
-            } else if (option.isModDefined()) {
-                source = "mods [" + String.join(", ", option.getDefiningMods()) + "]";
             }
             if (option.isEnabled()) {
                 this.logger.warn("Force-enabling mixin '{}' as rule '{}' (added by {}) enables it", mixin, option.getName(), source);

@@ -53,7 +53,7 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
     }
 
     @Unique
-    private static ThreadLocalRandom opotato$random = null;
+    private static ThreadLocalRandom opotato$random = ThreadLocalRandom.current();
 
     @Unique
     private static final double NO_PARTICLE = 0D;
@@ -62,7 +62,6 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextGaussian()D", remap = false))
     private double onGetGaussian(Random instance) {
         if (this.getRadius() > 10) return NO_PARTICLE;
-        if (opotato$random == null) opotato$random = ThreadLocalRandom.current();
         return opotato$random.nextGaussian();
     }
 
