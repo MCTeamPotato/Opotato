@@ -12,7 +12,6 @@ public class CataclysmExtraConfig {
     public static final ForgeConfigSpec.BooleanValue ignitiumArmorCanBeDamaged;
     public static final ForgeConfigSpec.BooleanValue infernalForgeCanBeDamaged;
     public static final ForgeConfigSpec.BooleanValue monstrousHelmetCanBeDamaged;
-    public static final ForgeConfigSpec.BooleanValue incineratorCanBeDamaged;
     public static final ForgeConfigSpec.BooleanValue soulBlackSmithTransformSurroundingLand;
     public static final ForgeConfigSpec.BooleanValue ruinedCitadelTransformSurroundingLand;
     public static final ForgeConfigSpec.BooleanValue burningArenaTransformSurroundingLand;
@@ -44,7 +43,6 @@ public class CataclysmExtraConfig {
     public static final ForgeConfigSpec.DoubleValue monstrousHelmetExplosionRadius, monstrousHelmetKnockBackRadius;
     public static final ForgeConfigSpec.ConfigValue<String> monstrousHelmetExplosionBlockInteraction;
     public static final ForgeConfigSpec.IntValue monstrousHelmetMonstrousEffectDuration;
-    public static final ForgeConfigSpec.IntValue incineratorDurability;
     public static final ForgeConfigSpec.IntValue incineratorChargeTicks;
     public static final ForgeConfigSpec.ConfigValue<String> incineratorAnimationWhenCharging;
     public static final ForgeConfigSpec.IntValue incineratorEnchantmentValue;
@@ -82,13 +80,11 @@ public class CataclysmExtraConfig {
         voidCoreCoolDown = builder.defineInRange("voidCoreCoolDown", 120, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("TheIncinerator");
-        incineratorCanBeDamaged = builder.comment("MAY NOT WORKING! WIP!").define("incineratorCanBeDamaged", false);
         showStatusMessageWhenIncineratorFlameStrikeIsReady = builder.define("showStatusMessageWhenIncineratorFlameStrikeIsReady", true);
         incineratorCoolDownTicks = builder.defineInRange("incineratorCoolDownTicks", 400, 1, Integer.MAX_VALUE);
         incineratorEnchantmentValue = builder.comment("Take a look at Minecraft Wiki to learn more about EnchantmentValue (aka Enchantability) based on item tiers (Pay attention to that table.): https://minecraft.fandom.com/wiki/Tiers").defineInRange("incineratorEnchantmentValue", 16, 1, Integer.MAX_VALUE);
         incineratorAnimationWhenCharging = builder.comment("Seven values are allowed: NONE, EAT, DRINK, BLOCK, BOW, SPEAR, CROSSBOW").define("incineratorAnimationWhenCharging", "BOW");
         incineratorChargeTicks = builder.defineInRange("incineratorChargeTicks", 60, 1, Integer.MAX_VALUE);
-        incineratorDurability = builder.comment("MAY NOT WORKING! WIP!").defineInRange("incineratorDurability", 4096, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("InfernalForge");
         infernalForgeCanBeDamaged = builder.define("infernalForgeCanBeDamaged", false);

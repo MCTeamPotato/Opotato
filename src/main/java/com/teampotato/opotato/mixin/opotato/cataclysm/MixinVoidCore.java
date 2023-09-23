@@ -16,10 +16,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 @Mixin(void_core.class)
-public abstract class MixinVoidCore extends Item implements ICurioItem {
+public abstract class MixinVoidCore extends Item {
     public MixinVoidCore(Properties arg) {
         super(arg);
     }

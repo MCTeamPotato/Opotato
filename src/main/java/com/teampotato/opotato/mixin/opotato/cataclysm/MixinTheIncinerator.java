@@ -1,7 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.items.The_Incinerator;
-import com.teampotato.opotato.api.IItem;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -9,9 +8,6 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -35,13 +30,6 @@ public abstract class MixinTheIncinerator extends Item {
     @Override
     public Rarity getRarity(ItemStack arg) {
         return Rarity.EPIC;
-    }
-
-    @Inject(method = "<init>", at = @At("RETURN"))
-    private void onInit(Properties group, CallbackInfo ci) {
-        if (CataclysmExtraConfig.incineratorCanBeDamaged.get()) {
-            ((IItem)this).potato$setMaxDamage(CataclysmExtraConfig.incineratorDurability.get());
-        }
     }
 
     @ModifyConstant(method = "releaseUsing", constant = @Constant(intValue = 60))
@@ -77,14 +65,6 @@ public abstract class MixinTheIncinerator extends Item {
     @Overwrite
     public int getEnchantmentValue() {
         return CataclysmExtraConfig.infernalForgeEnchantmentValue.get();
-    }
-
-    @Inject(method = "canApplyAtEnchantingTable", at = @At("HEAD"), cancellable = true, remap = false)
-    private void onCheckEnchant(ItemStack stack, Enchantment enchantment, CallbackInfoReturnable<Boolean> cir) {
-        if (CataclysmExtraConfig.incineratorCanBeDamaged.get()) {
-            cir.setReturnValue((super.canApplyAtEnchantingTable(stack, enchantment) || enchantment.category == EnchantmentCategory.BREAKABLE || enchantment.category == EnchantmentCategory.WEAPON) && enchantment != Enchantments.SWEEPING_EDGE);
-            cir.cancel();
-        }
     }
 
     @ModifyConstant(method = "releaseUsing", constant = @Constant(intValue = 400))

@@ -3,7 +3,6 @@ package com.teampotato.opotato.config.mixin;
 import com.teampotato.opotato.Opotato;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.fml.loading.LoadingModList;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,14 +12,12 @@ import java.util.Properties;
 
 public class PotatoMixinConfig {
     private final Map<String, Option> options = new Object2ObjectOpenHashMap<>();
-    private static LoadingModList loadingModList = null;
 
     private static boolean isLoaded(String mod) {
-        return loadingModList.getModFileById(mod) != null;
+        return FMLLoader.getLoadingModList().getModFileById(mod) != null;
     }
 
     private PotatoMixinConfig() {
-        if (loadingModList == null) loadingModList = FMLLoader.getLoadingModList();
         this.addMixinRule("opotato", true);
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueprint", isLoaded("abnormals_core"));
