@@ -38,6 +38,7 @@
     "opotato.cataclysm.MixinVoidCore",
     "opotato.cataclysm.MixinZweiender",
     "opotato.cataclysm.rubidium.extra.MixinTheIncinerator",
+    "opotato.charm.AutomaticRecipeUnlockMixin",
     "opotato.citadel.MixinWebHelper",
     "opotato.deuf.MixinDEUF",
     "opotato.elenaidodge.MixinPatronRewardHandler",
@@ -53,6 +54,7 @@
     "opotato.modernui.MixinRegistration",
     "opotato.placebo.MixinTrailsManager",
     "opotato.placebo.MixinWingsManager",
+    "opotato.quark.AutomaticRecipeUnlockModuleMixin",
     "opotato.quark.MixinContributorRewardHandler",
     "opotato.quark.MixinImprovedTooltipsModule",
     "opotato.quark.MixinQuarkModule",
@@ -87,6 +89,7 @@
   ],
   "client": [
     "opotato.blueprint.MixinRewardHandler",
+    "opotato.quark.AutomaticRecipeUnlockModuleMixin$Client",
     "opotato.cataclysm.MixinTheIncinerator$Client",
     "opotato.cataclysm.rubidium.MixinEntityLighter",
     "opotato.gender.MixinGenderLayer",

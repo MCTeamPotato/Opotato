@@ -51,8 +51,6 @@ public class CataclysmExtraConfig {
     public static final ForgeConfigSpec.DoubleValue flameStrikeSummonedByIncineratorRadius;
     public static final ForgeConfigSpec.BooleanValue showStatusMessageWhenIncineratorFlameStrikeIsReady;
     public static final ForgeConfigSpec.IntValue voidCoreCoolDown;
-    public static final ForgeConfigSpec.BooleanValue voidCoreCanBeDamaged;
-    public static final ForgeConfigSpec.IntValue voidCoreDurability;
     public static final ForgeConfigSpec.BooleanValue zweienderCanBeDamaged;
     public static final ForgeConfigSpec.DoubleValue flameStrikeSummonedByIgnisUltimateAttackRadius;
 
@@ -75,8 +73,6 @@ public class CataclysmExtraConfig {
         zweienderHelmetValidRepairItem = builder.defineList("zweienderHelmetValidRepairItem", new ObjectArrayList<>(), o -> true);
         builder.pop();
         builder.push("VoidCore");
-        voidCoreCanBeDamaged = builder.comment("MAY NOT WORKING! WIP!").define("voidCoreCanBeDamaged", false);
-        voidCoreDurability = builder.comment("MAY NOT WORKING! WIP!").defineInRange("voidCoreDurability", 200, 1, Integer.MAX_VALUE);
         voidCoreCoolDown = builder.defineInRange("voidCoreCoolDown", 120, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("TheIncinerator");

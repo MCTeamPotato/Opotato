@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 public class KeybindEvents {
-    public static final KeyMapping switchOnePunchKey = new KeyMapping("opotato.key.one_punch", GLFW.GLFW_KEY_C, "opotato.key.category");
+    public static final KeyMapping switchOnePunchKey = new KeyMapping("opotato.key.one_punch", GLFW.GLFW_KEY_UNKNOWN, "opotato.key.category");
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {

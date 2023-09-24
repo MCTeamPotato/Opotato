@@ -23,11 +23,13 @@ public class Opotato {
     public static boolean isRubidiumLoaded;
     public static boolean isWitherStormModLoaded;
     public static boolean isCataclysmLoaded;
+    public static boolean isNotEnoughRecipeBookLoaded;
 
     public static final Direction[] DIRECTIONS = Direction.values();
     public static final EquipmentSlot[] EQUIPMENT_SLOTS = EquipmentSlot.values();
 
     public Opotato() {
+        isNotEnoughRecipeBookLoaded = isLoaded("nerb");
         isRubidiumLoaded = isLoaded("rubidium");
         isWitherStormModLoaded = isLoaded("witherstormmod");
         isCataclysmLoaded = isLoaded("cataclysm");

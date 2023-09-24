@@ -77,6 +77,7 @@ dependencies {
     modCompileOnly("curse.maven:modern-ui-352491:3765938")
     modCompileOnly("curse.maven:spark-361579:3767277")
     modCompileOnly("curse.maven:rubidium-extra-654373:4442564")
+    modCompileOnly("curse.maven:charm-reforged-430988:3214651")
 }
 
 processResources {
