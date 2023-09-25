@@ -53,6 +53,10 @@ public class CataclysmExtraConfig {
     public static final ForgeConfigSpec.IntValue voidCoreCoolDown;
     public static final ForgeConfigSpec.BooleanValue zweienderCanBeDamaged;
     public static final ForgeConfigSpec.DoubleValue flameStrikeSummonedByIgnisUltimateAttackRadius;
+    public static final ForgeConfigSpec.DoubleValue gauntletOfGuardEntitiesDetectionRadius;
+    public static final ForgeConfigSpec.ConfigValue<String> gauntletOfGuardUseAnimation;
+    public static final ForgeConfigSpec.IntValue gauntletOfGuardEnchantmentValue;
+    public static final ForgeConfigSpec.BooleanValue gauntletOfGuardIsEnchantable, canGauntletOfGuardDisableShield;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -68,6 +72,13 @@ public class CataclysmExtraConfig {
         blazingBrandDurationOnFlameStrike = builder.defineInRange("blazingBrandDurationOnFlameStrike", 200, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("Items");
+        builder.push("GauntletOfGuard");
+        gauntletOfGuardEntitiesDetectionRadius = builder.defineInRange("gauntletOfGuardEntitiesDetectionRadius", 11.0, 0.00, Double.MAX_VALUE);
+        canGauntletOfGuardDisableShield = builder.define("gauntletOfGuardCanDisableShield", true);
+        gauntletOfGuardIsEnchantable = builder.define("gauntletOfGuardIsEnchantable", true);
+        gauntletOfGuardEnchantmentValue = builder.comment("Take a look at Minecraft Wiki to learn more about EnchantmentValue (aka Enchantability) based on item tiers (Pay attention to that table.): https://minecraft.fandom.com/wiki/Tiers").defineInRange("gauntletOfGuardEnchantmentValue", 16, 0, Integer.MAX_VALUE);
+        gauntletOfGuardUseAnimation = builder.comment("Seven values are allowed: NONE, EAT, DRINK, BLOCK, BOW, SPEAR, CROSSBOW").define("gauntletOfGuardUseAnimation", "BOW");
+        builder.pop();
         builder.push("Zweiender");
         zweienderCanBeDamaged = builder.define("zweienderCanBeDamaged", false);
         zweienderHelmetValidRepairItem = builder.defineList("zweienderHelmetValidRepairItem", new ObjectArrayList<>(), o -> true);
