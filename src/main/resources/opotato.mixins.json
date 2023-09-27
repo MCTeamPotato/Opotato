@@ -13,7 +13,6 @@
     "api.MixinChunkMap",
     "api.MixinEntity",
     "api.MixinGoalSelector",
-    "api.MixinItem",
     "api.MixinPlayerMap",
     "api.MixinServerLevel",
     "api.cataclysm.MixinFlameStrikeEntity",

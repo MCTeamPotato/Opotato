@@ -1,24 +1,17 @@
 package com.teampotato.opotato.events;
 
 import com.teampotato.opotato.Opotato;
-import it.unimi.dsi.fastutil.objects.ObjectArraySet;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.versions.forge.ForgeVersion;
 import org.jetbrains.annotations.NotNull;
 
 import static com.teampotato.opotato.Opotato.isLoaded;
 
 public class PotatoEvents {
-    public static final ObjectArraySet<VillagerProfession> VILLAGER_PROFESSIONS = new ObjectArraySet<>();
-
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event)  {
-        VILLAGER_PROFESSIONS.addAll(ForgeRegistries.PROFESSIONS.getValues());
-
         if (isLoaded("epicfight") && !ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4")) {
             addIncompatibleWarn(event, "opotato.epicfight.wrong_forge_version");
         }
