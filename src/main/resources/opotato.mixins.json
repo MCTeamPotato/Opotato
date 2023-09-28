@@ -25,6 +25,7 @@
     "opotato.blueskies.MixinMLSupporters",
     "opotato.blueskies.MixinSkiesEntityHooks",
     "opotato.blueskies.MixinSkiesHooks",
+    "opotato.byg.MixinWeightedMasterLayer",
     "opotato.cataclysm.MixinFinalFractal",
     "opotato.cataclysm.MixinFlameStrikeEntity",
     "opotato.cataclysm.MixinGauntletOfGuard",

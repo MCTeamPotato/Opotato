@@ -44,7 +44,7 @@ dependencies {
     }
 
     forge "net.minecraftforge:forge:${project.forge_version}"
-
+    modCompileOnly("curse.maven:oh-the-biomes-youll-go-247560:4024011")
     modCompileOnly("top.theillusivec4.curios:curios-forge:1.16.5-4.1.0.0")
     modCompileOnly("curse.maven:blueprint-382216:3607198")
     modCompileOnly("curse.maven:ars-nouveau-401955:4300733")

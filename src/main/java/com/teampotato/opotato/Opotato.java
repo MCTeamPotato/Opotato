@@ -1,6 +1,7 @@
 package com.teampotato.opotato;
 
 import com.teampotato.opotato.config.PotatoCommonConfig;
+import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mods.*;
 import com.teampotato.opotato.events.*;
 import com.teampotato.opotato.events.client.KeybindEvents;
@@ -12,13 +13,10 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLLoader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod(Opotato.MOD_ID)
 public class Opotato {
     public static final String MOD_ID = "opotato";
-    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static boolean isRubidiumLoaded;
     public static boolean isWitherStormModLoaded;
@@ -29,6 +27,7 @@ public class Opotato {
     public static final EquipmentSlot[] EQUIPMENT_SLOTS = EquipmentSlot.values();
 
     public Opotato() {
+        if (PotatoJsonConfig.initFailed) throw new RuntimeException("Failed to create json config");
         isNotEnoughRecipeBookLoaded = isLoaded("nerb");
         isRubidiumLoaded = isLoaded("rubidium");
         isWitherStormModLoaded = isLoaded("witherstormmod");

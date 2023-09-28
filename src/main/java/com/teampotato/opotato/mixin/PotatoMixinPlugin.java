@@ -1,5 +1,7 @@
 package com.teampotato.opotato.mixin;
 
+import com.teampotato.opotato.Opotato;
+import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mixin.Option;
 import com.teampotato.opotato.config.mixin.PotatoMixinConfig;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -17,20 +19,24 @@ import java.util.List;
 import java.util.Set;
 
 public class PotatoMixinPlugin implements IMixinConfigPlugin {
+    public static final Logger LOGGER = LogManager.getLogger(Opotato.MOD_ID);
     private static final String MIXIN_PACKAGE_ROOT = "com.teampotato.opotato.mixin.";
-    private final Logger logger = LogManager.getLogger("Opotato");
     public static PotatoMixinConfig config;
     public static PotatoMixinPlugin instance;
+    public static PotatoJsonConfig potatoJsonConfig;
 
     public PotatoMixinPlugin() {
-        FMLLoader.getLoadingModList().getModFiles().stream()
-                .map(ModFileInfo::getFile)
-                .map(ModFile::getFileName)
-                .sorted()
-                .forEach(name -> logger.info("Mod " + name + " loaded!"));
+        if (potatoJsonConfig == null) potatoJsonConfig = new PotatoJsonConfig();
+        if (potatoJsonConfig.printModListWhenLaunching) {
+            FMLLoader.getLoadingModList().getModFiles().stream()
+                    .map(ModFileInfo::getFile)
+                    .map(ModFile::getFileName)
+                    .sorted()
+                    .forEach(name -> LOGGER.info("Mod " + name + " loaded!"));
+        }
         instance = this;
         this.onLoad(MIXIN_PACKAGE_ROOT);
-        this.logger.info("Loaded configuration file for Opotato: {} options available, {} override(s) found", config.getOptionCount(), config.getOptionOverrideCount());
+        LOGGER.info("Loaded configuration file for Opotato: {} options available, {} override(s) found", config.getOptionCount(), config.getOptionOverrideCount());
     }
 
     @Override
@@ -50,14 +56,14 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
         if (!mixinClassName.startsWith(MIXIN_PACKAGE_ROOT)) {
-            this.logger.error("Expected mixin '{}' to start with package root '{}', treating as foreign and " + "disabling!", mixinClassName, MIXIN_PACKAGE_ROOT);
+            LOGGER.error("Expected mixin '{}' to start with package root '{}', treating as foreign and " + "disabling!", mixinClassName, MIXIN_PACKAGE_ROOT);
             return false;
         }
 
         String mixin = mixinClassName.substring(MIXIN_PACKAGE_ROOT.length());
         Option option = config.getEffectiveOptionForMixin(mixin);
         if (option == null) {
-            this.logger.error("No rules matched mixin '{}', treating as foreign and disabling!", mixin);
+            LOGGER.error("No rules matched mixin '{}', treating as foreign and disabling!", mixin);
             return false;
         }
 
@@ -67,9 +73,9 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
                 source = "user configuration";
             }
             if (option.isEnabled()) {
-                this.logger.warn("Force-enabling mixin '{}' as rule '{}' (added by {}) enables it", mixin, option.getName(), source);
+                LOGGER.warn("Force-enabling mixin '{}' as rule '{}' (added by {}) enables it", mixin, option.getName(), source);
             } else {
-                this.logger.warn("Force-disabling mixin '{}' as rule '{}' (added by {}) disables it and children", mixin, option.getName(), source);
+                LOGGER.warn("Force-disabling mixin '{}' as rule '{}' (added by {}) disables it and children", mixin, option.getName(), source);
             }
         }
         return option.isEnabled();

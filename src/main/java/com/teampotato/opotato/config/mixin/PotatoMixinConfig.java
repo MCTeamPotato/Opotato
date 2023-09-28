@@ -1,6 +1,6 @@
 package com.teampotato.opotato.config.mixin;
 
-import com.teampotato.opotato.Opotato;
+import com.teampotato.opotato.mixin.PotatoMixinPlugin;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.Contract;
@@ -22,6 +22,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
         this.addMixinRule("opotato.blueprint", isLoaded("abnormals_core"));
         this.addMixinRule("opotato.blueskies", isLoaded("blue_skies"));
+        this.addMixinRule("opotato.byg", isLoaded("byg"));
         this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
         this.addMixinRule("opotato.cataclysm.rubidium", isLoaded("cataclysm") && isLoaded("rubidium"));
         this.addMixinRule("opotato.cataclysm.rubidium.extra", isLoaded("cataclysm") && isLoaded("rubidium") && isLoaded("sodiumextra"));
@@ -68,7 +69,7 @@ public class PotatoMixinConfig {
             Option option = this.options.get(key);
 
             if (option == null) {
-                Opotato.LOGGER.warn("No configuration key exists with name '{}', ignoring", key);
+                PotatoMixinPlugin.LOGGER.warn("No configuration key exists with name '{}', ignoring", key);
                 continue;
             }
 
@@ -79,7 +80,7 @@ public class PotatoMixinConfig {
             } else if (value.equalsIgnoreCase("false")) {
                 enabled = false;
             } else {
-                Opotato.LOGGER.warn("Invalid value '{}' encountered for configuration key '{}', ignoring", value, key);
+                PotatoMixinPlugin.LOGGER.warn("Invalid value '{}' encountered for configuration key '{}', ignoring", value, key);
                 continue;
             }
 
@@ -125,7 +126,7 @@ public class PotatoMixinConfig {
         try {
             config.writeConfig(file, props);
         } catch (IOException e) {
-            Opotato.LOGGER.warn("Could not write configuration file", e);
+            PotatoMixinPlugin.LOGGER.warn("Could not write configuration file", e);
         }
 
         return config;
