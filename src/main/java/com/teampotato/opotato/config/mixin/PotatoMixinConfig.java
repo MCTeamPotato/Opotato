@@ -51,7 +51,6 @@ public class PotatoMixinConfig {
         this.addMixinRule("alternatecurrent", !isLoaded("potatocurrent"));
         this.addMixinRule("mixintrace", !isLoaded("mixininheaven"));
         this.addMixinRule("api", true);
-        this.addMixinRule("api.cataclysm", isLoaded("cataclysm"));
         this.addMixinRule("smoothmenu", !isLoaded("konkrete") && !isLoaded("forgery"));
     }
 

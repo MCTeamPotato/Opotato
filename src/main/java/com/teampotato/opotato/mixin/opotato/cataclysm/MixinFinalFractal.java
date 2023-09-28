@@ -37,8 +37,7 @@ public class MixinFinalFractal extends SwordItem {
      */
     @Overwrite
     public boolean isValidRepairItem(@NotNull ItemStack itemStack, ItemStack itemStackMaterial) {
-        return CataclysmExtraConfig.finalFractalValidRepairItem.get().contains(Objects.requireNonNull(itemStack.getItem().getRegistryName()).toString()) ||
-                CataclysmExtraConfig.finalFractalValidRepairItem.get().contains(Objects.requireNonNull(itemStackMaterial.getItem().getRegistryName()).toString());
+        return CataclysmExtraConfig.finalFractalValidRepairItem.get().contains(Objects.requireNonNull(itemStack.getItem().getRegistryName()).toString()) || CataclysmExtraConfig.finalFractalValidRepairItem.get().contains(Objects.requireNonNull(itemStackMaterial.getItem().getRegistryName()).toString());
     }
 
     @Inject(method = "canApplyAtEnchantingTable", at = @At("HEAD"), cancellable = true, remap = false)

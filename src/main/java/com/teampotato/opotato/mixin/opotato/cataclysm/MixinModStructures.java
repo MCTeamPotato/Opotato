@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ModStructures.class)
 public abstract class MixinModStructures {
-    @Shadow public static  <F extends StructureFeature<?>> void setupMapSpacingAndLand(F structure, StructureFeatureConfiguration structureSeparationSettings, boolean transformSurroundingLand) {}
+    @Shadow public static <F extends StructureFeature<?>> void setupMapSpacingAndLand(F structure, StructureFeatureConfiguration structureSeparationSettings, boolean transformSurroundingLand) {}
     @Shadow(remap = false) @Final public static RegistryObject<StructureFeature<NoneFeatureConfiguration>> SOUL_BLACK_SMITH;
     @Shadow(remap = false) @Final public static RegistryObject<StructureFeature<NoneFeatureConfiguration>> RUINED_CITADEL;
     @Shadow(remap = false) @Final public static RegistryObject<StructureFeature<NoneFeatureConfiguration>> BURNING_ARENA;

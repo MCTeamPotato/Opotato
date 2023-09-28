@@ -17,11 +17,11 @@ public class PotatoJsonConfig {
     public static boolean initFailed;
 
     public PotatoJsonConfig() {
-        EarlySetupInitializer.LOGGER.warn("Why does the json config file exist?");
+        EarlySetupInitializer.LOGGER.warn("Why does the Opotato json config file exist?");
         EarlySetupInitializer.LOGGER.warn("Because Forge Config API sucks, which cannot load into the game as soon as the game get launched.");
         File configDir = new File(FMLLoader.getGamePath().toFile(), "config");
         configDir.mkdirs();
-        File configFile = new File(configDir, Opotato.MOD_ID + ".json");
+        File configFile = new File(configDir, Opotato.MOD_ID + "-common.json");
         if (!configFile.exists()) {
             try {
                 FileWriter writer = writeFile(configFile);

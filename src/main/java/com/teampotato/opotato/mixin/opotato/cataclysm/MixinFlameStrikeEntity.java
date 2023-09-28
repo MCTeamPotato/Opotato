@@ -3,7 +3,6 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import com.teampotato.opotato.api.entity.LightestEntity;
-import com.teampotato.opotato.api.entity.UnupdatableInWaterEntity;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,21 +19,14 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Mixin(Flame_Strike_Entity.class)
-public abstract class MixinFlameStrikeEntity extends Entity implements LightestEntity, UnupdatableInWaterEntity {
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;", shift = At.Shift.BEFORE), cancellable = true)
-    private void onTick(@NotNull CallbackInfo ci) {
-        ci.cancel();
-    }
-
+public abstract class MixinFlameStrikeEntity extends Entity implements LightestEntity {
     @Unique
     private static final ThreadLocalRandom opotato$random = ThreadLocalRandom.current();
 
@@ -66,9 +58,7 @@ public abstract class MixinFlameStrikeEntity extends Entity implements LightestE
         LivingEntity owner = this.getOwner();
         final MobEffect blazingBrand = ModEffect.EFFECTBLAZING_BRAND.get();
         if (!hitEntity.isAlive() || hitEntity.isInvulnerable() || hitEntity == owner || tickCount % 2 != 0) return;
-        float entityDamage = this.isSoul() ?
-                CataclysmExtraConfig.flameStrikeSoulDamage.get().floatValue() :
-                CataclysmExtraConfig.flameStrikeNormalDamage.get().floatValue();
+        float entityDamage = this.isSoul() ? CataclysmExtraConfig.flameStrikeSoulDamage.get().floatValue() : CataclysmExtraConfig.flameStrikeNormalDamage.get().floatValue();
         if (owner == null) {
             boolean flag = hitEntity.hurt(DamageSource.MAGIC, entityDamage + hitEntity.getMaxHealth() * CataclysmExtraConfig.flameStrikeNormalPercentageDamage.get().floatValue());
             if (flag) {
