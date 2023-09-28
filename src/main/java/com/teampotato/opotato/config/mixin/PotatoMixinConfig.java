@@ -1,6 +1,6 @@
 package com.teampotato.opotato.config.mixin;
 
-import com.teampotato.opotato.mixin.PotatoMixinPlugin;
+import com.teampotato.opotato.mixin.EarlySetupInitializer;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.Contract;
@@ -69,7 +69,7 @@ public class PotatoMixinConfig {
             Option option = this.options.get(key);
 
             if (option == null) {
-                PotatoMixinPlugin.LOGGER.warn("No configuration key exists with name '{}', ignoring", key);
+                EarlySetupInitializer.LOGGER.warn("No configuration key exists with name '{}', ignoring", key);
                 continue;
             }
 
@@ -80,7 +80,7 @@ public class PotatoMixinConfig {
             } else if (value.equalsIgnoreCase("false")) {
                 enabled = false;
             } else {
-                PotatoMixinPlugin.LOGGER.warn("Invalid value '{}' encountered for configuration key '{}', ignoring", value, key);
+                EarlySetupInitializer.LOGGER.warn("Invalid value '{}' encountered for configuration key '{}', ignoring", value, key);
                 continue;
             }
 
@@ -126,7 +126,7 @@ public class PotatoMixinConfig {
         try {
             config.writeConfig(file, props);
         } catch (IOException e) {
-            PotatoMixinPlugin.LOGGER.warn("Could not write configuration file", e);
+            EarlySetupInitializer.LOGGER.warn("Could not write configuration file", e);
         }
 
         return config;

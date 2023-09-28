@@ -18,14 +18,23 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 
-public class PotatoMixinPlugin implements IMixinConfigPlugin {
+public class EarlySetupInitializer implements IMixinConfigPlugin {
     public static final Logger LOGGER = LogManager.getLogger(Opotato.MOD_ID);
     private static final String MIXIN_PACKAGE_ROOT = "com.teampotato.opotato.mixin.";
     public static PotatoMixinConfig config;
-    public static PotatoMixinPlugin instance;
+    public static EarlySetupInitializer instance;
     public static PotatoJsonConfig potatoJsonConfig;
+    public static boolean isRubidiumLoaded;
+    public static boolean isWitherStormModLoaded;
+    public static boolean isCataclysmLoaded;
+    public static boolean isNotEnoughRecipeBookLoaded;
 
-    public PotatoMixinPlugin() {
+    public EarlySetupInitializer() {
+        isNotEnoughRecipeBookLoaded = isLoaded("nerb");
+        isRubidiumLoaded = isLoaded("rubidium");
+        isWitherStormModLoaded = isLoaded("witherstormmod");
+        isCataclysmLoaded = isLoaded("cataclysm");
+
         if (potatoJsonConfig == null) potatoJsonConfig = new PotatoJsonConfig();
         if (potatoJsonConfig.printModListWhenLaunching) {
             FMLLoader.getLoadingModList().getModFiles().stream()
@@ -37,6 +46,10 @@ public class PotatoMixinPlugin implements IMixinConfigPlugin {
         instance = this;
         this.onLoad(MIXIN_PACKAGE_ROOT);
         LOGGER.info("Loaded configuration file for Opotato: {} options available, {} override(s) found", config.getOptionCount(), config.getOptionOverrideCount());
+    }
+
+    public static boolean isLoaded(String mod) {
+        return FMLLoader.getLoadingModList().getModFileById(mod) != null;
     }
 
     @Override

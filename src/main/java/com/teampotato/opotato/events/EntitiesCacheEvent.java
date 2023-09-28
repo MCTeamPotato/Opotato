@@ -1,8 +1,8 @@
 package com.teampotato.opotato.events;
 
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
-import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.mods.WitherStormExtraConfig;
+import com.teampotato.opotato.mixin.EarlySetupInitializer;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceKey;
@@ -41,7 +41,7 @@ public class EntitiesCacheEvent {
             itemEntities.remove(uuid);
             return;
         }
-        if (Opotato.isWitherStormModLoaded) {
+        if (EarlySetupInitializer.isWitherStormModLoaded) {
             if (entity instanceof IEntitySyncableData) {
                 dataSyncableEntities.remove(uuid);
                 if (entity instanceof WitherStormEntity) {
@@ -53,7 +53,7 @@ public class EntitiesCacheEvent {
                 return;
             }
         }
-        if (Opotato.isCataclysmLoaded) {
+        if (EarlySetupInitializer.isCataclysmLoaded) {
             if (entity instanceof Flame_Strike_Entity) flameStrikes.remove(uuid);
         }
     }
@@ -69,14 +69,14 @@ public class EntitiesCacheEvent {
                 itemEntities.add(uuid);
                 return;
             }
-            if (Opotato.isWitherStormModLoaded) {
+            if (EarlySetupInitializer.isWitherStormModLoaded) {
                 if (entity instanceof IEntitySyncableData) {
                     if (entity instanceof WitherStormEntity) witherStorms.put(uuid, entity.level.dimension());
                     dataSyncableEntities.add(uuid);
                     return;
                 }
             }
-            if (Opotato.isCataclysmLoaded) {
+            if (EarlySetupInitializer.isCataclysmLoaded) {
                 if (entity instanceof Flame_Strike_Entity) flameStrikes.add(uuid);
             }
         }

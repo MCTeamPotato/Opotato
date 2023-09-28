@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.charm;
 
-import com.teampotato.opotato.Opotato;
+import com.teampotato.opotato.mixin.EarlySetupInitializer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,6 +12,6 @@ import svenhjol.charm.module.AutomaticRecipeUnlock;
 public abstract class AutomaticRecipeUnlockMixin {
     @Inject(method = "onPlayerLoggedIn", at = @At("HEAD"), cancellable = true)
     private void onLogIn(PlayerEvent.PlayerLoggedInEvent event, CallbackInfo ci) {
-        if (Opotato.isNotEnoughRecipeBookLoaded) ci.cancel();
+        if (EarlySetupInitializer.isNotEnoughRecipeBookLoaded) ci.cancel();
     }
 }

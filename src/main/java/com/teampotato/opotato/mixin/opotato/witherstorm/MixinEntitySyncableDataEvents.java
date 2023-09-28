@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.witherstorm;
 
 import com.teampotato.opotato.events.EntitiesCacheEvent;
-import com.teampotato.opotato.mixin.PotatoMixinPlugin;
+import com.teampotato.opotato.mixin.EarlySetupInitializer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -31,7 +31,7 @@ public abstract class MixinEntitySyncableDataEvents {
                 EntitySyncableDataMessage message = new EntitySyncableDataMessage(entity.getId(), (IEntitySyncableData) entity);
                 WitherStormModPacketHandlers.MAIN.send(PacketDistributor.PLAYER.with(() -> player), message);
             } else {
-                PotatoMixinPlugin.LOGGER.error("What's up? dataSyncableEntities contains entities that is not in the world!");
+                EarlySetupInitializer.LOGGER.error("What's up? dataSyncableEntities contains entities that is not in the world!");
                 EntitiesCacheEvent.dataSyncableEntities.remove(uuid);
             }
         }

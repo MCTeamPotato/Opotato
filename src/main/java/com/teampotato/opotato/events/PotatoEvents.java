@@ -1,13 +1,13 @@
 package com.teampotato.opotato.events;
 
-import com.teampotato.opotato.Opotato;
+import com.teampotato.opotato.mixin.EarlySetupInitializer;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.versions.forge.ForgeVersion;
 import org.jetbrains.annotations.NotNull;
 
-import static com.teampotato.opotato.Opotato.isLoaded;
+import static com.teampotato.opotato.mixin.EarlySetupInitializer.isLoaded;
 
 public class PotatoEvents {
     @SubscribeEvent
@@ -15,7 +15,7 @@ public class PotatoEvents {
         if (isLoaded("epicfight") && !ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4")) {
             addIncompatibleWarn(event, "opotato.epicfight.wrong_forge_version");
         }
-        if (Opotato.isRubidiumLoaded) {
+        if (EarlySetupInitializer.isRubidiumLoaded) {
             if (isLoaded("betterfpsdist")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterfpsdist");
             if (isLoaded("immersive_portals")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.immersive_portals");
             if (isLoaded("chunkanimator")) addIncompatibleWarn(event, "opotato.incompatible.rubidium.chunkanimator");
@@ -23,7 +23,7 @@ public class PotatoEvents {
         }
         if (isLoaded("mcdoom") && !isLoaded("mcdoomfix")) addIncompatibleWarn(event, "opotato.mcdoom.without_fix");
         if (isLoaded("magnesium")) {
-            if (Opotato.isRubidiumLoaded) {
+            if (EarlySetupInitializer.isRubidiumLoaded) {
                 addIncompatibleWarn(event, "opotato.incompatible.magnesium.rubidium");
             } else {
                 addIncompatibleWarn(event, "opotato.magnesium");

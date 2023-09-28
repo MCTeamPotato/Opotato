@@ -1,9 +1,11 @@
 package com.teampotato.opotato.config.json;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.teampotato.opotato.Opotato;
-import com.teampotato.opotato.mixin.PotatoMixinPlugin;
+import com.teampotato.opotato.mixin.EarlySetupInitializer;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,8 +17,8 @@ public class PotatoJsonConfig {
     public static boolean initFailed;
 
     public PotatoJsonConfig() {
-        PotatoMixinPlugin.LOGGER.warn("Why does the json config file exist?");
-        PotatoMixinPlugin.LOGGER.warn("Because Forge Config API sucks, which cannot load into the game as soon as the game get launched.");
+        EarlySetupInitializer.LOGGER.warn("Why does the json config file exist?");
+        EarlySetupInitializer.LOGGER.warn("Because Forge Config API sucks, which cannot load into the game as soon as the game get launched.");
         File configDir = new File(FMLLoader.getGamePath().toFile(), "config");
         configDir.mkdirs();
         File configFile = new File(configDir, Opotato.MOD_ID + ".json");
@@ -42,7 +44,8 @@ public class PotatoJsonConfig {
         JsonObject defaultConfig = new JsonObject();
         defaultConfig.addProperty("printModListWhenLaunching", true);
         FileWriter writer = new FileWriter(configFile);
-        writer.write(defaultConfig.toString());
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        gson.toJson(defaultConfig, writer);
         return writer;
     }
 }

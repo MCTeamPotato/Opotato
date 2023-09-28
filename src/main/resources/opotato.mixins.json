@@ -3,7 +3,7 @@
   "package": "com.teampotato.opotato.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "opotato.refmap.json",
-  "plugin": "com.teampotato.opotato.mixin.PotatoMixinPlugin",
+  "plugin": "com.teampotato.opotato.mixin.EarlySetupInitializer",
   "minVersion": "0.8",
   "injectors": {
     "defaultRequire": 1
