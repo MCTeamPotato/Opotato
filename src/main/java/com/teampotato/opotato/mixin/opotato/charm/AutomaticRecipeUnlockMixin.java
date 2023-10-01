@@ -1,6 +1,6 @@
 package com.teampotato.opotato.mixin.opotato.charm;
 
-import com.teampotato.opotato.mixin.EarlySetupInitializer;
+import com.teampotato.opotato.EarlySetupInitializer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -8,16 +8,14 @@ import com.teampotato.opotato.events.DuplicateUUIDFix;
 import com.teampotato.opotato.events.PotatoEvents;
 import com.teampotato.opotato.events.WitherStormCleaner;
 import com.teampotato.opotato.events.client.KeybindEvents;
-import com.teampotato.opotato.mixin.EarlySetupInitializer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
-@Mod(Opotato.MOD_ID)
+@Mod(EarlySetupInitializer.MOD_ID)
 public class Opotato {
-    public static final String MOD_ID = "opotato";
 
     public Opotato() {
         if (PotatoJsonConfig.initFailed) throw new RuntimeException("Failed to create json config");
@@ -36,12 +34,12 @@ public class Opotato {
 
     private static void initConfigs(ModLoadingContext ctx) {
         ModConfig.Type common = ModConfig.Type.COMMON;
-        if (EarlySetupInitializer.isLoaded("ars_nouveau")) ctx.registerConfig(common, ArsNouveauLootConfig.arsNouveauConfig, MOD_ID + "/mods/arsNouveau-loot.toml");
-        if (EarlySetupInitializer.isLoaded("blue_skies")) ctx.registerConfig(common, BlueSkiesExtraConfig.blueSkiesExtraConfig, MOD_ID + "/mods/blueSkies-extra.toml");
-        if (EarlySetupInitializer.isCataclysmLoaded) ctx.registerConfig(common, CataclysmExtraConfig.cataclysmExtraConfig, MOD_ID + "/mods/cataclysm-extra.toml");
-        if (EarlySetupInitializer.isLoaded("headshot")) ctx.registerConfig(common, HeadshotExtraConfig.headshotConfig, MOD_ID + "/mods/headshot-extra.toml");
-        if (EarlySetupInitializer.isLoaded("undergarden")) ctx.registerConfig(common, UndergardenExtraConfig.undergardenConfig, MOD_ID + "/mods/undergarden-extra.toml");
-        if (EarlySetupInitializer.isWitherStormModLoaded) ctx.registerConfig(common, WitherStormExtraConfig.witherStormConfig, MOD_ID + "/mods/witherStormMod-extra.toml");
-        ctx.registerConfig(common, PotatoCommonConfig.potatoConfig, MOD_ID + "/opotato-common.toml");
+        if (EarlySetupInitializer.isLoaded("ars_nouveau")) ctx.registerConfig(common, ArsNouveauLootConfig.arsNouveauConfig, EarlySetupInitializer.MOD_ID + "/mods/arsNouveau-loot.toml");
+        if (EarlySetupInitializer.isLoaded("blue_skies")) ctx.registerConfig(common, BlueSkiesExtraConfig.blueSkiesExtraConfig, EarlySetupInitializer.MOD_ID + "/mods/blueSkies-extra.toml");
+        if (EarlySetupInitializer.isCataclysmLoaded) ctx.registerConfig(common, CataclysmExtraConfig.cataclysmExtraConfig, EarlySetupInitializer.MOD_ID + "/mods/cataclysm-extra.toml");
+        if (EarlySetupInitializer.isLoaded("headshot")) ctx.registerConfig(common, HeadshotExtraConfig.headshotConfig, EarlySetupInitializer.MOD_ID + "/mods/headshot-extra.toml");
+        if (EarlySetupInitializer.isLoaded("undergarden")) ctx.registerConfig(common, UndergardenExtraConfig.undergardenConfig, EarlySetupInitializer.MOD_ID + "/mods/undergarden-extra.toml");
+        if (EarlySetupInitializer.isWitherStormModLoaded) ctx.registerConfig(common, WitherStormExtraConfig.witherStormConfig, EarlySetupInitializer.MOD_ID + "/mods/witherStormMod-extra.toml");
+        ctx.registerConfig(common, PotatoCommonConfig.potatoConfig, EarlySetupInitializer.MOD_ID + "/opotato-common.toml");
     }
 }

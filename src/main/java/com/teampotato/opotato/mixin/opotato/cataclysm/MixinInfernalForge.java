@@ -69,7 +69,6 @@ public abstract class MixinInfernalForge extends PickaxeItem {
     private void onCheckEnchant(ItemStack stack, Enchantment enchantment, CallbackInfoReturnable<Boolean> cir) {
         if (CataclysmExtraConfig.infernalForgeCanBeDamaged.get()) {
             cir.setReturnValue((enchantment.category == EnchantmentCategory.BREAKABLE || enchantment.category == EnchantmentCategory.WEAPON || enchantment.category == EnchantmentCategory.DIGGER) && !(enchantment == Enchantments.SWEEPING_EDGE));
-            cir.cancel();
         }
     }
 

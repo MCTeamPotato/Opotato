@@ -15,7 +15,6 @@ public abstract class MixinEntityLighter {
     private static <T extends Entity> void onGetLight(EntityLightSampler<T> lighter, T entity, float tickDelta, CallbackInfoReturnable<Integer> cir) {
         if (entity instanceof LightestEntity) {
             cir.setReturnValue(LightestEntity.MAX_LIGHT);
-            cir.cancel();
         }
     }
 }

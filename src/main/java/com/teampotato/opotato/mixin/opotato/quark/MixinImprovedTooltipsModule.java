@@ -18,11 +18,9 @@ public abstract class MixinImprovedTooltipsModule {
             String mod = regName.getNamespace();
             if (mod.equals("apotheosis") || mod.equals("immersive_armors")) {
                 cir.setReturnValue(true);
-                cir.cancel();
             }
         } else {
             cir.setReturnValue(true);
-            cir.cancel();
         }
     }
 }

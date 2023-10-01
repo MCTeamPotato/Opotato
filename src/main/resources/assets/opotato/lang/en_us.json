@@ -39,8 +39,6 @@
   "opotato.catatclysm.incinerator.fogHint": "If you encounter texture rendering issues with Flame Strike, please try going to the VideoSettings → Render and disable Single Fog. This reminder will only appear for you once in this world.",
   "opotato.catatclysm.incinerator.ready": "Flame Strike: ready",
   "opotato.cataclysm.incinerator.desc": "Full charge takes %d ticks, and if you stop holding right click after this",
-  "opotato.key.cataclysm.voidCore": "Trigger Void Core",
-  "opotato.key.cataclysm": "Cataclysm",
 
   "opotato.epicfight.wrong_forge_version": "Warn throwed by Opotato: You are using a out-dated forge version! Epic Fight are incompatible with any Forge version except for 36.2.39!",
   "opotato.incompatible.rubidium.betterfpsdist": "Warn throwed by Opotato: Better Fps - Render Distance is not compatible with Rubidium, pls remove betterfpsdist!",

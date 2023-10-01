@@ -14,13 +14,11 @@ public class MixinSkiesEntityHooks {
     private static void disableNerf(DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
         if (BlueSkiesExtraConfig.enableDimensionalNerf.get()) return;
         cir.setReturnValue(amount);
-        cir.cancel();
     }
 
     @Inject(method = "nerfIndirectDamage", at = @At("HEAD"), cancellable = true)
     private static void disableIndirectNerf(DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
         if (BlueSkiesExtraConfig.enableDimensionalNerf.get()) return;
         cir.setReturnValue(Math.min(5.0F, amount));
-        cir.cancel();
     }
 }

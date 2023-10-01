@@ -45,7 +45,6 @@ public abstract class MixinIgnitiumArmor extends ArmorItem {
             } else {
                 cir.setReturnValue(super.canApplyAtEnchantingTable(stack, enchantment));
             }
-            cir.cancel();
         }
     }
 }

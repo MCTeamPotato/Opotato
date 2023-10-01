@@ -44,7 +44,6 @@ public class MixinFinalFractal extends SwordItem {
     private void onCheckEnchant(ItemStack stack, Enchantment enchantment, CallbackInfoReturnable<Boolean> cir) {
         if (CataclysmExtraConfig.finalFractalCanBeDamaged.get()) {
             cir.setReturnValue(enchantment.category == EnchantmentCategory.BREAKABLE || enchantment.category == EnchantmentCategory.WEAPON);
-            cir.cancel();
         }
     }
 }

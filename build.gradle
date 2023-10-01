@@ -9,12 +9,9 @@ version = project.mod_version
 group = project.maven_group
 
 loom {
-    accessWidenerPath = file("src/main/resources/opotato.accesswidener")
-
     silentMojangMappingsLicense()
 
     forge {
-        convertAccessWideners = true
         mixinConfigs = [
             "opotato.mixins.json"
         ]

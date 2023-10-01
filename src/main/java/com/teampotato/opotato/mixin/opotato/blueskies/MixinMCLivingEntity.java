@@ -19,6 +19,5 @@ public abstract class MixinMCLivingEntity {
     private void onGetArmorValue(CallbackInfoReturnable<Integer> cir) {
         if (BlueSkiesExtraConfig.enableDimensionalNerf.get()) return;
         cir.setReturnValue(Mth.floor(this.getAttributeValue(Attributes.ARMOR)));
-        cir.cancel();
     }
 }

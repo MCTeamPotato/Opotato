@@ -20,7 +20,6 @@ public abstract class MixinBlockClusterRenderer {
     private void reduceRendering(BlockClusterEntity entity, Frustum frustum, double p_225626_3_, double p_225626_5_, double p_225626_7_, CallbackInfoReturnable<Boolean> cir) {
         if (WitherStormExtraConfig.shouldRandomlyReduceBlockClusterRendering.get() && opotato$random.nextInt(4) <= 2) {
             cir.setReturnValue(false);
-            cir.cancel();
         }
     }
 }

@@ -16,6 +16,5 @@ public class MixinSkiesHooks {
     private static void disableNerf(float speed, BlockState state, BlockPos pos, Player player, CallbackInfoReturnable<Float> cir) {
         if (BlueSkiesExtraConfig.enableDimensionalNerf.get()) return;
         cir.setReturnValue(speed);
-        cir.cancel();
     }
 }

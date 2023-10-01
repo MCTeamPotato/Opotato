@@ -12,6 +12,5 @@ public class MixinJsonRewardProvider {
     @Inject(method = "load", at = @At("HEAD"), cancellable = true)
     private void onLoad(String url, @NotNull CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(false);
-        cir.cancel();
     }
 }

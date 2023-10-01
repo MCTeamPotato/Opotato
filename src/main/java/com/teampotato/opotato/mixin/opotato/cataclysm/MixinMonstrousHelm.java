@@ -60,7 +60,6 @@ public abstract class MixinMonstrousHelm extends ArmorItem {
     private void onCheckEnchant(ItemStack stack, Enchantment enchantment, CallbackInfoReturnable<Boolean> cir) {
         if (CataclysmExtraConfig.monstrousHelmetCanBeDamaged.get()) {
             cir.setReturnValue(enchantment.category == EnchantmentCategory.BREAKABLE || enchantment.category == EnchantmentCategory.ARMOR || enchantment.category == EnchantmentCategory.ARMOR_HEAD);
-            cir.cancel();
         }
     }
 

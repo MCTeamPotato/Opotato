@@ -1,6 +1,5 @@
-package com.teampotato.opotato.mixin;
+package com.teampotato.opotato;
 
-import com.teampotato.opotato.Opotato;
 import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mixin.Option;
 import com.teampotato.opotato.config.mixin.PotatoMixinConfig;
@@ -19,7 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 public class EarlySetupInitializer implements IMixinConfigPlugin {
-    public static final Logger LOGGER = LogManager.getLogger(Opotato.MOD_ID);
+    public static final String MOD_ID = "opotato";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     private static final String MIXIN_PACKAGE_ROOT = "com.teampotato.opotato.mixin.";
     public static PotatoMixinConfig config;
     public static EarlySetupInitializer instance;

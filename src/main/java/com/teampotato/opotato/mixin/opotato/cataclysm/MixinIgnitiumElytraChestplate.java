@@ -32,7 +32,6 @@ public class MixinIgnitiumElytraChestplate extends ArmorItem {
     private void onEnchantCheck(ItemStack stack, Enchantment enchantment, CallbackInfoReturnable<Boolean> cir) {
         if (CataclysmExtraConfig.ignitiumArmorCanBeDamaged.get()) {
             cir.setReturnValue(enchantment.category == EnchantmentCategory.BREAKABLE || enchantment.category == EnchantmentCategory.ARMOR || enchantment.category == EnchantmentCategory.ARMOR_CHEST);
-            cir.cancel();
         }
     }
 }

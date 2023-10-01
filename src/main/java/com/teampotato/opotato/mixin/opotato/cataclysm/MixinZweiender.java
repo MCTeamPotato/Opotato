@@ -35,7 +35,6 @@ public abstract class MixinZweiender extends SwordItem {
     private void onCheckEnchant(ItemStack stack, Enchantment enchantment, CallbackInfoReturnable<Boolean> cir) {
         if (CataclysmExtraConfig.zweienderCanBeDamaged.get()) {
             cir.setReturnValue(enchantment.category == EnchantmentCategory.BREAKABLE || enchantment.category == EnchantmentCategory.WEAPON);
-            cir.cancel();
         }
     }
 

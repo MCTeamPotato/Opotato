@@ -1,13 +1,13 @@
 package com.teampotato.opotato.events;
 
-import com.teampotato.opotato.mixin.EarlySetupInitializer;
+import com.teampotato.opotato.EarlySetupInitializer;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.versions.forge.ForgeVersion;
 import org.jetbrains.annotations.NotNull;
 
-import static com.teampotato.opotato.mixin.EarlySetupInitializer.isLoaded;
+import static com.teampotato.opotato.EarlySetupInitializer.isLoaded;
 
 public class PotatoEvents {
     @SubscribeEvent

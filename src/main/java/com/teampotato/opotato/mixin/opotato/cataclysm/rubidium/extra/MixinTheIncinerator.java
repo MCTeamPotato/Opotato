@@ -1,7 +1,7 @@
 package com.teampotato.opotato.mixin.opotato.cataclysm.rubidium.extra;
 
 import L_Ender.cataclysm.items.The_Incinerator;
-import com.teampotato.opotato.Opotato;
+import com.teampotato.opotato.EarlySetupInitializer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,9 +19,9 @@ public abstract class MixinTheIncinerator {
     @Inject(method = "onUsingTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", shift = At.Shift.AFTER))
     private void fogHint(ItemStack stack, @NotNull LivingEntity livingEntity, int count, CallbackInfo ci) {
         ServerPlayer serverPlayer = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayer(livingEntity.getUUID());
-        if (livingEntity instanceof LocalPlayer && serverPlayer != null && !serverPlayer.getTags().contains(Opotato.MOD_ID + ".sodiumExtra.fogHint")) {
+        if (livingEntity instanceof LocalPlayer && serverPlayer != null && !serverPlayer.getTags().contains(EarlySetupInitializer.MOD_ID + ".sodiumExtra.fogHint")) {
             ((LocalPlayer)livingEntity).displayClientMessage(new TranslatableComponent("opotato.catatclysm.incinerator.fogHint"), false);
-            serverPlayer.addTag(Opotato.MOD_ID + ".sodiumExtra.fogHint");
+            serverPlayer.addTag(EarlySetupInitializer.MOD_ID + ".sodiumExtra.fogHint");
         }
     }
 }

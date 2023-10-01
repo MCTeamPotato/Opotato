@@ -4,13 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.teampotato.opotato.Opotato;
-import com.teampotato.opotato.mixin.EarlySetupInitializer;
+import com.teampotato.opotato.EarlySetupInitializer;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class PotatoJsonConfig {
     public boolean printModListWhenLaunching;
 
@@ -21,7 +21,7 @@ public class PotatoJsonConfig {
         EarlySetupInitializer.LOGGER.warn("Because Forge Config API sucks, which cannot load into the game as soon as the game get launched.");
         File configDir = new File(FMLLoader.getGamePath().toFile(), "config");
         configDir.mkdirs();
-        File configFile = new File(configDir, Opotato.MOD_ID + "-common.json");
+        File configFile = new File(configDir, EarlySetupInitializer.MOD_ID + "-common.json");
         if (!configFile.exists()) {
             try {
                 FileWriter writer = writeFile(configFile);

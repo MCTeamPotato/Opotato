@@ -17,6 +17,5 @@ public abstract class MixinReward {
     @Inject(method = "getPlayers(Ljava/net/URL;)Ljava/util/List;", at = @At("HEAD"), cancellable = true)
     private static void onGetPlayers(URL url, @NotNull CallbackInfoReturnable<List<UUID>> cir) {
         cir.setReturnValue(Lists.newArrayList());
-        cir.cancel();
     }
 }

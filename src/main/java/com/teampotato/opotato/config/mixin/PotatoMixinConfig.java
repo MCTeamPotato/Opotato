@@ -1,6 +1,6 @@
 package com.teampotato.opotato.config.mixin;
 
-import com.teampotato.opotato.mixin.EarlySetupInitializer;
+import com.teampotato.opotato.EarlySetupInitializer;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.Contract;

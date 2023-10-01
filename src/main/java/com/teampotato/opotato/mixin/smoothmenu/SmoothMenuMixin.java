@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@SuppressWarnings("SpellCheckingInspection")
 @Mixin(Minecraft.class)
 public abstract class SmoothMenuMixin {
     @Shadow @Final private Window window;
@@ -18,6 +17,5 @@ public abstract class SmoothMenuMixin {
     @Inject(method = "getFramerateLimit", at = @At("HEAD"), cancellable = true)
     private void onGetFramerateLimit(@NotNull CallbackInfoReturnable<Integer> ci) {
         ci.setReturnValue(this.window.getFramerateLimit());
-        ci.cancel();
     }
 }
