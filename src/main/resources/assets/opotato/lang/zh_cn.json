@@ -47,6 +47,6 @@
   "opotato.incompatible.rubidium.betterbiomeblend": "Opotato 抛出警告：Better Biome Blend 与铷不兼容，会造成负优化，请删除 Better Biome Blend！",
   "opotato.mcdoom.without_fix": "Opotato 抛出警告：你安装了 MC Doom 但没有安装 MCDoom Hotfixes，游戏将会在渲染 Dread Knight 时崩溃！",
   "opotato.incompatible.magnesium.rubidium": "Opotato 抛出警告：镁与铷同为钠的非官方移植，两者无法兼容，请删除镁！",
-  "opotato.magnesium": "Opotato 抛出警告：检测到你安装了镁：原作者已经停止更新镁，开源模组的兼容性都是随更新时间提高的，镁移植的对应钠版本也已经落后很多，如果你想获得更好的优化，请转用依然活跃更新的铷！",
+  "opotato.magnesium": "Opotato 抛出警告：检测到你安装了镁：原作者已经停止更新镁，开源模组的兼容性都是随更新时间提高的，镁移植的对应钠版本也已经落后很多，如果你想获得更好的优化，请转用依然活跃更新的 Embeddium！",
   "opotato.helium.dangerous": "Opotato 抛出警告：Helium 已经停更 & 严重过时，且兼容不佳，不推荐再使用，如果你想获得更好的内存优化，请尝试 FerriteCore。"
 }

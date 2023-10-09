@@ -65,6 +65,7 @@
     "opotato.xaeroworldmap.MixinPatreon"
   ],
   "client": [
+    "api.RenderTypeMixin",
     "opotato.blueprint.MixinRewardHandler",
     "opotato.cataclysm.MixinTheIncinerator$Client",
     "opotato.cataclysm.rubidium.MixinEntityLighter",

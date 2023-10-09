@@ -68,6 +68,10 @@ public class EarlySetupInitializer implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
+        if (mixinClassName.endsWith("RenderTypeMixin") && !isLoaded("rubidium") && !isLoaded("embeddium")) {
+            return true;
+        }
+
         if (!mixinClassName.startsWith(MIXIN_PACKAGE_ROOT)) {
             LOGGER.error("Expected mixin '{}' to start with package root '{}', treating as foreign and " + "disabling!", mixinClassName, MIXIN_PACKAGE_ROOT);
             return false;

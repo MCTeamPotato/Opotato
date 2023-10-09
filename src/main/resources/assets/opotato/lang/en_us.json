@@ -47,6 +47,6 @@
   "opotato.incompatible.rubidium.betterbiomeblend": "Warn throwed by Opotato: Better Biome Blend is not compatible with Rubidium which will cause a negative optimization, pls remove BBB!",
   "opotato.mcdoom.without_fix": "Warn throwed by Opotato: You install MCDoom but don't install MCDoom Hotfixes, game will crash when rendering the Dread Knight!",
   "opotato.incompatible.magnesium.rubidium": "Warn throwed by Opotato: Magnesium and Rubidium are unofficial ports of Sodium and they are not compatible, pls remove Magnesium!",
-  "opotato.magnesium": "Magnesium detected! SomeoneElseWasTaken has stopped updating it, the compatibility of open-source mods are improved with the update time, if you want to get better rendering optimization, pls try Rubidium!",
+  "opotato.magnesium": "Magnesium detected! SomeoneElseWasTaken has stopped updating it, the compatibility of open-source mods are improved with the update time, if you want to get better rendering optimization, pls try Embeddium!",
   "opotato.helium.dangerous": "Warn thrown by Opotato: Helium has been discontinued and is severely outdated, with poor compatibility. It is not recommended to continue using it. If you are looking for better memory optimization, please try FerriteCore."
 }

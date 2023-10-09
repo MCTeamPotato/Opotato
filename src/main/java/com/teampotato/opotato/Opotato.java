@@ -28,7 +28,7 @@ public class Opotato {
         bus.register(KeybindEvents.class);
         bus.register(CreativeOnePunch.class);
         bus.register(DuplicateUUIDFix.class);
-        bus.register(PotatoEvents.class);
+        if (EarlySetupInitializer.potatoJsonConfig.showModCompatibilityWarning) bus.register(PotatoEvents.class);
         if (EarlySetupInitializer.isWitherStormModLoaded) bus.register(WitherStormCleaner.class);
     }
 

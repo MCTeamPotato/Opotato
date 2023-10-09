@@ -13,6 +13,7 @@ import java.io.*;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class PotatoJsonConfig {
     public boolean printModListWhenLaunching;
+    public boolean showModCompatibilityWarning;
 
     public static boolean initFailed;
 
@@ -34,6 +35,7 @@ public class PotatoJsonConfig {
         try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
             JsonObject config = new JsonParser().parse(reader).getAsJsonObject();
             printModListWhenLaunching = config.get("printModListWhenLaunching").getAsBoolean();
+            showModCompatibilityWarning = config.get("showModCompatibilityWarning").getAsBoolean();
         } catch (Exception e) {
             initFailed = true;
         }
@@ -43,6 +45,7 @@ public class PotatoJsonConfig {
     private static FileWriter writeFile(File configFile) throws IOException {
         JsonObject defaultConfig = new JsonObject();
         defaultConfig.addProperty("printModListWhenLaunching", true);
+        defaultConfig.addProperty("showModCompatibilityWarning", true);
         FileWriter writer = new FileWriter(configFile);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(defaultConfig, writer);

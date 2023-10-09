@@ -6,7 +6,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import nonamecrackers2.witherstormmod.common.entity.CommandBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,11 +14,11 @@ public class WitherStormCleaner {
 
     @SubscribeEvent
     public static void onLivingDeath(@NotNull LivingDeathEvent event) {
-        if (!WitherStormExtraConfig.killAllWitherStormModEntitiesWhenTheCommandBlockDies.get()) return;
+        if (!WitherStormExtraConfig.killAllWitherStormModEntitiesWhenTheCommandBlockDies.get() || event.isCanceled()) return;
         LivingEntity entity = event.getEntityLiving();
-        if (entity instanceof CommandBlockEntity && !event.isCanceled() && entity.level instanceof ServerLevel) {
+        if (entity instanceof CommandBlockEntity && entity.level instanceof ServerLevel) {
+            MinecraftServer server = ((ServerLevel) entity.level).getServer();
             for (String target : targets) {
-                MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
                 server.getCommands().performCommand(
                         server.createCommandSourceStack().withSuppressedOutput(),
                         "/kill @e[type=witherstormmod:" + target + "]"
