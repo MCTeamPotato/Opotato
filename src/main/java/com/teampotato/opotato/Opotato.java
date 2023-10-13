@@ -13,6 +13,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(EarlySetupInitializer.MOD_ID)
 public class Opotato {
@@ -26,8 +27,11 @@ public class Opotato {
     private static void initEvents() {
         IEventBus bus = MinecraftForge.EVENT_BUS;
         bus.register(KeybindEvents.class);
+        bus.addListener(KeybindEvents::onClientTick);
         bus.register(CreativeOnePunch.class);
         bus.register(DuplicateUUIDFix.class);
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(KeybindEvents::onClientSetup);
         if (EarlySetupInitializer.potatoJsonConfig.showModCompatibilityWarning) bus.register(PotatoEvents.class);
         if (EarlySetupInitializer.isWitherStormModLoaded) bus.register(WitherStormCleaner.class);
     }

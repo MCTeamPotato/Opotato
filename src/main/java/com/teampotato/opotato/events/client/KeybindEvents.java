@@ -17,7 +17,6 @@ import org.lwjgl.glfw.GLFW;
 public class KeybindEvents {
     public static final KeyMapping switchOnePunchKey = new KeyMapping("opotato.key.one_punch", GLFW.GLFW_KEY_UNKNOWN, "opotato.key.category");
 
-    @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
@@ -27,7 +26,6 @@ public class KeybindEvents {
         }
     }
 
-    @SubscribeEvent
     public static void onClientSetup(@NotNull FMLClientSetupEvent event) {
         CreativeOnePunch.creativeOnePunch = PotatoCommonConfig.enableCreativeOnePouch.get();
         event.enqueueWork(() -> ClientRegistry.registerKeyBinding(switchOnePunchKey));
