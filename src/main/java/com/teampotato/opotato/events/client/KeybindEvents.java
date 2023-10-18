@@ -8,7 +8,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +18,7 @@ public class KeybindEvents {
 
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         LocalPlayer player = Minecraft.getInstance().player;
-        if (player == null) return;
+        if (player == null || !PotatoCommonConfig.enableCreativeOnePouch.get() || !event.phase.equals(TickEvent.Phase.END)) return;
         if (switchOnePunchKey.consumeClick()) {
             CreativeOnePunch.creativeOnePunch = !CreativeOnePunch.creativeOnePunch;
             player.displayClientMessage(new TextComponent(I18n.get("opotato.creativeOnePunch") + (CreativeOnePunch.creativeOnePunch ? I18n.get("opotato.creativeOnePunch.true") : I18n.get("opotato.creativeOnePunch.false"))), true);
