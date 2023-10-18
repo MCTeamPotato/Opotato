@@ -24,8 +24,8 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.blueskies", isLoaded("blue_skies"));
         this.addMixinRule("opotato.byg", isLoaded("byg"));
         this.addMixinRule("opotato.cataclysm", isLoaded("cataclysm"));
-        this.addMixinRule("opotato.cataclysm.rubidium", isLoaded("cataclysm") && isLoaded("rubidium"));
-        this.addMixinRule("opotato.cataclysm.rubidium.extra", isLoaded("cataclysm") && isLoaded("rubidium") && isLoaded("sodiumextra"));
+        this.addMixinRule("opotato.cataclysm.rubidium", isLoaded("cataclysm") && isLoaded("embeddium"));
+        this.addMixinRule("opotato.cataclysm.rubidium.extra", isLoaded("cataclysm") && isLoaded("embeddium") && isLoaded("embeddiumextension"));
         this.addMixinRule("opotato.charm", isLoaded("charm"));
         this.addMixinRule("opotato.citadel", isLoaded("citadel"));
         this.addMixinRule("opotato.deuf", isLoaded("deuf"));

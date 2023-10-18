@@ -70,10 +70,10 @@ dependencies {
     modCompileOnly("curse.maven:xaeros-minimap-263420:4716688")
     modCompileOnly("curse.maven:industrial-foregoing-266515:3525789")
     modCompileOnly("curse.maven:titanium-287342:3525770")
-    modCompileOnly("curse.maven:rubidium-574856:4568759")
+    modCompileOnly("curse.maven:embeddium-908741:4803825")
     modCompileOnly("curse.maven:modern-ui-352491:3765938")
     modCompileOnly("curse.maven:spark-361579:3767277")
-    modCompileOnly("curse.maven:rubidium-extra-654373:4442564")
+    modCompileOnly("curse.maven:embeddium-extension-920353:4798284")
     modCompileOnly("curse.maven:charm-reforged-430988:3214651")
 }
 
