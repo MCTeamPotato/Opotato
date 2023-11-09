@@ -1,5 +1,5 @@
 plugins {
-    id "dev.architectury.loom" version "1.1-SNAPSHOT"
+    id "dev.architectury.loom" version "1.3-SNAPSHOT"
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
@@ -75,6 +75,7 @@ dependencies {
     modCompileOnly("curse.maven:spark-361579:3767277")
     modCompileOnly("curse.maven:embeddium-extension-920353:4798284")
     modCompileOnly("curse.maven:charm-reforged-430988:3214651")
+    modCompileOnly("curse.maven:neat-238372:3182258")
 }
 
 processResources {

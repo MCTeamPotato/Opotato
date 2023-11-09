@@ -1,21 +1,18 @@
 package com.teampotato.opotato.config.mixin;
 
 import com.teampotato.opotato.EarlySetupInitializer;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class PotatoMixinConfig {
-    private final Map<String, Option> options = new Object2ObjectOpenHashMap<>();
+import static com.teampotato.opotato.EarlySetupInitializer.isLoaded;
 
-    private static boolean isLoaded(String mod) {
-        return FMLLoader.getLoadingModList().getModFileById(mod) != null;
-    }
+public class PotatoMixinConfig {
+    private final Map<String, Option> options = new HashMap<>();
 
     private PotatoMixinConfig() {
         this.addMixinRule("opotato", true);
@@ -38,6 +35,8 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.kiwi", isLoaded("kiwi"));
         this.addMixinRule("opotato.ldlib", isLoaded("ldlib"));
         this.addMixinRule("opotato.modernui", isLoaded("modernui"));
+        this.addMixinRule("opotato.modernui.tooltip", isLoaded("modernui") && isLoaded("legendarytooltips"));
+        this.addMixinRule("opotato.neat", isLoaded("neat"));
         this.addMixinRule("opotato.placebo", isLoaded("placebo"));
         this.addMixinRule("opotato.quark", isLoaded("quark"));
         this.addMixinRule("opotato.randompatches", isLoaded("randompatches"));

@@ -15,12 +15,12 @@ public class PotatoJsonConfig {
     public boolean printModListWhenLaunching;
     public boolean showModCompatibilityWarning;
 
+    public boolean enableCreativeOnePouch;
+
     public static boolean initFailed;
 
     public PotatoJsonConfig() {
-        EarlySetupInitializer.LOGGER.warn("Why does the Opotato json config file exist?");
-        EarlySetupInitializer.LOGGER.warn("Because Forge Config API sucks, which cannot load into the game as soon as the game get launched.");
-        File configDir = new File(FMLLoader.getGamePath().toFile(), "config");
+        File configDir = new File(FMLLoader.getGamePath().resolve("config").toFile(), "opotato");
         configDir.mkdirs();
         File configFile = new File(configDir, EarlySetupInitializer.MOD_ID + "-common.json");
         if (!configFile.exists()) {
@@ -36,6 +36,7 @@ public class PotatoJsonConfig {
             JsonObject config = new JsonParser().parse(reader).getAsJsonObject();
             printModListWhenLaunching = config.get("printModListWhenLaunching").getAsBoolean();
             showModCompatibilityWarning = config.get("showModCompatibilityWarning").getAsBoolean();
+            showModCompatibilityWarning = config.get("enableCreativeOnePouch").getAsBoolean();
         } catch (Exception e) {
             initFailed = true;
         }
@@ -46,6 +47,7 @@ public class PotatoJsonConfig {
         JsonObject defaultConfig = new JsonObject();
         defaultConfig.addProperty("printModListWhenLaunching", true);
         defaultConfig.addProperty("showModCompatibilityWarning", true);
+        defaultConfig.addProperty("enableCreativeOnePouch", false);
         FileWriter writer = new FileWriter(configFile);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(defaultConfig, writer);

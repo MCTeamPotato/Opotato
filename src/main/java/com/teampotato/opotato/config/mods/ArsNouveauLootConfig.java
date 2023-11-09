@@ -6,7 +6,6 @@ public class ArsNouveauLootConfig {
     public static final ForgeConfigSpec arsNouveauConfig;
 
     public static final ForgeConfigSpec.BooleanValue manaGem;
-
     public static final ForgeConfigSpec.BooleanValue wildenHorn;
     public static final ForgeConfigSpec.BooleanValue wildenSpike;
     public static final ForgeConfigSpec.BooleanValue wildenWing;

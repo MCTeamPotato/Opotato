@@ -3,6 +3,11 @@ package com.teampotato.opotato;
 import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mixin.Option;
 import com.teampotato.opotato.config.mixin.PotatoMixinConfig;
+import net.minecraftforge.fml.ModLoader;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.ModLoadingStage;
+import net.minecraftforge.fml.ModLoadingWarning;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.moddiscovery.ModFile;
 import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
@@ -20,20 +25,25 @@ import java.util.Set;
 public class EarlySetupInitializer implements IMixinConfigPlugin {
     public static final String MOD_ID = "opotato";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final String[] WITHER_STORM_CLEANER_TARGETS = new String[]{"block_cluster", "sickened_skeleton", "sickened_creeper", "sickened_spider", "sickened_zombie", "tentacle", "withered_symbiont"};
     private static final String MIXIN_PACKAGE_ROOT = "com.teampotato.opotato.mixin.";
     public static PotatoMixinConfig config;
     public static EarlySetupInitializer instance;
     public static PotatoJsonConfig potatoJsonConfig;
+
     public static boolean isRubidiumLoaded;
     public static boolean isWitherStormModLoaded;
     public static boolean isCataclysmLoaded;
     public static boolean isNotEnoughRecipeBookLoaded;
+    public static boolean isNeatLoaded;
+    public static boolean creativeOnePunch;
 
     public EarlySetupInitializer() {
         isNotEnoughRecipeBookLoaded = isLoaded("nerb");
         isRubidiumLoaded = isLoaded("rubidium");
         isWitherStormModLoaded = isLoaded("witherstormmod");
         isCataclysmLoaded = isLoaded("cataclysm");
+        isNeatLoaded = isLoaded("neat");
 
         if (potatoJsonConfig == null) potatoJsonConfig = new PotatoJsonConfig();
         if (potatoJsonConfig.printModListWhenLaunching) {
@@ -52,10 +62,14 @@ public class EarlySetupInitializer implements IMixinConfigPlugin {
         return FMLLoader.getLoadingModList().getModFileById(mod) != null;
     }
 
+    public static void addIncompatibleWarn(@NotNull FMLCommonSetupEvent event, String translationKey) {
+        event.enqueueWork(() -> ModLoader.get().addWarning(new ModLoadingWarning(ModLoadingContext.get().getActiveContainer().getModInfo(), ModLoadingStage.COMMON_SETUP, translationKey)));
+    }
+
     @Override
     public void onLoad(String mixinPackage) {
         try {
-            config = PotatoMixinConfig.load(new File("./config/opotato-mixins.properties"));
+            config = PotatoMixinConfig.load(new File("./config/opotato/opotato-mixins.properties"));
         } catch (Exception e) {
             throw new RuntimeException("Could not load configuration file for Opotato", e);
         }

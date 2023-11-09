@@ -2,7 +2,6 @@ package com.teampotato.opotato.util.alternatecurrent.wire;
 
 import com.teampotato.opotato.util.alternatecurrent.BlockUtil;
 import com.teampotato.opotato.util.alternatecurrent.Redstone;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;

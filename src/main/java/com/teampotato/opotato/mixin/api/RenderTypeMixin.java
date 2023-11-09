@@ -10,9 +10,8 @@ import java.util.List;
 
 @Mixin(RenderType.class)
 public abstract class RenderTypeMixin {
-    @Unique
+    @Unique private static final List<RenderType> renderType_cache = ImmutableList.of(RenderType.solid(), RenderType.cutoutMipped(), RenderType.cutout(), RenderType.translucent(), RenderType.tripwire());
 
-    private static final List<RenderType> renderType_cache = ImmutableList.of(RenderType.solid(), RenderType.cutoutMipped(), RenderType.cutout(), RenderType.translucent(), RenderType.tripwire());
     /**
      * @author Kasualix
      * @reason impl cache

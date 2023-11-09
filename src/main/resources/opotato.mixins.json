@@ -10,7 +10,8 @@
   },
   "mixins": [
     "alternatecurrent.RedstoneWireBlockMixin",
-    "api.MixinServerLevel",
+    "api.EntityTypeMixin",
+    "api.ServerLevelMixin",
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
     "opotato.arsnouveau.MixinLootTables",
@@ -46,7 +47,7 @@
     "opotato.ldlib.MixinJEIClientEventHandler",
     "opotato.ldlib.MixinJEIPlugin",
     "opotato.ldlib.MixinJEIStarter",
-    "opotato.modernui.MixinRegistration",
+    "opotato.neat.HealthBarRendererMixin",
     "opotato.placebo.MixinTrailsManager",
     "opotato.placebo.MixinWingsManager",
     "opotato.quark.AutomaticRecipeUnlockModuleMixin",
@@ -66,6 +67,8 @@
   ],
   "client": [
     "api.RenderTypeMixin",
+    "opotato.modernui.MixinRegistration",
+    "opotato.modernui.tooltip.MixinConfig",
     "opotato.blueprint.MixinRewardHandler",
     "opotato.cataclysm.MixinTheIncinerator$Client",
     "opotato.cataclysm.rubidium.MixinEntityLighter",
