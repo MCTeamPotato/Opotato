@@ -1,23 +1,14 @@
 package com.teampotato.opotato;
 
-import com.teampotato.opotato.api.entity.NeatConfigChecker;
 import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mods.*;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -25,16 +16,14 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.versions.forge.ForgeVersion;
 import nonamecrackers2.witherstormmod.common.entity.CommandBlockEntity;
-import org.lwjgl.glfw.GLFW;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -44,25 +33,16 @@ import static com.teampotato.opotato.EarlySetupInitializer.isLoaded;
 @Mod(EarlySetupInitializer.MOD_ID)
 public class Opotato {
 
-    public static final KeyMapping SWITCH_ONE_PUNCH_KEY = new KeyMapping("opotato.key.one_punch", GLFW.GLFW_KEY_UNKNOWN, "opotato.key.category");
-
     public Opotato() {
         if (PotatoJsonConfig.initFailed) throw new RuntimeException("Failed to create json config");
         initConfigs(ModLoadingContext.get());
-        initEvents();
+        final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        final IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        initEvents(forgeBus, modBus);
+        if (FMLLoader.getDist().isClient()) OpotatoClient.initClientEvents(forgeBus, modBus);
     }
 
-    private static void initEvents() {
-        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-
-        forgeBus.addListener(EventPriority.HIGHEST, (TickEvent.ClientTickEvent event) -> {
-            LocalPlayer player = Minecraft.getInstance().player;
-            if (player == null || !EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch || !event.phase.equals(TickEvent.Phase.START)) return;
-            if (Opotato.SWITCH_ONE_PUNCH_KEY.consumeClick()) {
-                EarlySetupInitializer.creativeOnePunch = !EarlySetupInitializer.creativeOnePunch;
-                player.displayClientMessage(new TextComponent(I18n.get("opotato.creativeOnePunch") + (EarlySetupInitializer.creativeOnePunch ? I18n.get("opotato.creativeOnePunch.true") : I18n.get("opotato.creativeOnePunch.false"))), true);
-            }
-        });
+    private static void initEvents(@NotNull IEventBus forgeBus, IEventBus modBus) {
 
         forgeBus.addListener(EventPriority.LOWEST, (LivingHurtEvent event) -> {
             Entity source = event.getSource().getDirectEntity();
@@ -83,13 +63,6 @@ public class Opotato {
                 while (serverLevel.getEntity(newUUID) != null) newUUID = Mth.createInsecureUUID(ThreadLocalRandom.current());
                 entity.setUUID(newUUID);
             }
-        });
-
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        modBus.addListener((FMLClientSetupEvent event) -> {
-            EarlySetupInitializer.creativeOnePunch = EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch;
-            event.enqueueWork(() -> ClientRegistry.registerKeyBinding(SWITCH_ONE_PUNCH_KEY));
         });
 
         if (EarlySetupInitializer.potatoJsonConfig.showModCompatibilityWarning) {
@@ -126,15 +99,6 @@ public class Opotato {
                     }
                 }
             });
-        }
-
-        if (EarlySetupInitializer.isNeatLoaded) {
-            forgeBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
-                for (EntityType<?> entityType : ForgeRegistries.ENTITIES) {
-                    ResourceLocation id = entityType.getRegistryName();
-                    if (id != null) ((NeatConfigChecker)entityType).potato$setIsInNeatBlacklist(vazkii.neat.NeatConfig.blacklist.contains(id.toString()));
-                }
-            }));
         }
     }
 
