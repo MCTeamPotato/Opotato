@@ -34,7 +34,11 @@ import static com.teampotato.opotato.EarlySetupInitializer.isLoaded;
 public class Opotato {
 
     public Opotato() {
-        if (PotatoJsonConfig.initFailed) throw new RuntimeException("Failed to create json config");
+        if (PotatoJsonConfig.initFailed) {
+            if (PotatoJsonConfig.readException != null) EarlySetupInitializer.LOGGER.error("Failed to read Opotato json config", PotatoJsonConfig.readException);
+            if (PotatoJsonConfig.writeException != null) EarlySetupInitializer.LOGGER.error("Failed to write Opotato json config", PotatoJsonConfig.writeException);
+            throw new RuntimeException("Error occurs during Opotato json config initialization");
+        }
         initConfigs(ModLoadingContext.get());
         final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         final IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();

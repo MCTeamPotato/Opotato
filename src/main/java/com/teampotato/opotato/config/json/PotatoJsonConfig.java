@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import com.teampotato.opotato.EarlySetupInitializer;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 
@@ -19,6 +20,9 @@ public class PotatoJsonConfig {
 
     public static boolean initFailed;
 
+    @Nullable public static Exception writeException;
+    @Nullable public static Exception readException;
+
     public PotatoJsonConfig() {
         File configDir = new File(FMLLoader.getGamePath().resolve("config").toFile(), "opotato");
         configDir.mkdirs();
@@ -29,6 +33,7 @@ public class PotatoJsonConfig {
                 writer.close();
             } catch (Exception e) {
                 initFailed = true;
+                writeException = e;
             }
         }
 
@@ -39,6 +44,7 @@ public class PotatoJsonConfig {
             showModCompatibilityWarning = config.get("enableCreativeOnePouch").getAsBoolean();
         } catch (Exception e) {
             initFailed = true;
+            readException = e;
         }
     }
 
