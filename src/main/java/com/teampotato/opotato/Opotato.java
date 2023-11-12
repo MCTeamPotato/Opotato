@@ -32,11 +32,14 @@ import static com.teampotato.opotato.EarlySetupInitializer.isLoaded;
 
 @Mod(EarlySetupInitializer.MOD_ID)
 public class Opotato {
-
     public Opotato() {
         if (PotatoJsonConfig.initFailed) {
-            if (PotatoJsonConfig.readException != null) EarlySetupInitializer.LOGGER.error("Failed to read Opotato json config", PotatoJsonConfig.readException);
-            if (PotatoJsonConfig.writeException != null) EarlySetupInitializer.LOGGER.error("Failed to write Opotato json config", PotatoJsonConfig.writeException);
+            if (PotatoJsonConfig.readException != null) {
+                EarlySetupInitializer.LOGGER.error("Failed to read Opotato json config", PotatoJsonConfig.readException);
+            }
+            if (PotatoJsonConfig.writeException != null) {
+                EarlySetupInitializer.LOGGER.error("Failed to write Opotato json config", PotatoJsonConfig.writeException);
+            }
             throw new RuntimeException("Error occurs during Opotato json config initialization");
         }
         initConfigs(ModLoadingContext.get());
