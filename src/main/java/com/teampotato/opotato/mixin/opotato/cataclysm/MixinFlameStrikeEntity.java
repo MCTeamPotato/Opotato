@@ -27,21 +27,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Mixin(Flame_Strike_Entity.class)
 public abstract class MixinFlameStrikeEntity extends Entity implements LightestEntity {
-    @Unique
-    private static final ThreadLocalRandom opotato$random = ThreadLocalRandom.current();
-
-    @Unique
-    private static final double NO_PARTICLE = 0D;
-
-    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/Random;nextGaussian()D", remap = false))
-    private double onGetGaussian(Random instance) {
-        if (this.getRadius() > 10) return NO_PARTICLE;
-        return opotato$random.nextGaussian();
-    }
 
     @Shadow @Nullable public abstract LivingEntity getOwner();
-
-    @Shadow(remap = false) public abstract float getRadius();
 
     @Shadow(remap = false) public abstract boolean isSoul();
 

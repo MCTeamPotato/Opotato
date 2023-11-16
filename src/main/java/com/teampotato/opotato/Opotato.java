@@ -74,13 +74,8 @@ public class Opotato {
 
         if (EarlySetupInitializer.potatoJsonConfig.showModCompatibilityWarning) {
             modBus.addListener((FMLCommonSetupEvent event) -> {
-                if (isLoaded("epicfight") && !ForgeVersion.getVersion().equals("36.2.39") && ModList.get().getModFileById("epicfight").getFile().getFileName().contains("16.6.4")) {
-                    EarlySetupInitializer.addIncompatibleWarn(event, "opotato.epicfight.wrong_forge_version");
-                }
                 if (EarlySetupInitializer.isRubidiumLoaded) {
-                    if (isLoaded("betterfpsdist")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterfpsdist");
                     if (isLoaded("immersive_portals")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.rubidium.immersive_portals");
-                    if (isLoaded("chunkanimator")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.rubidium.chunkanimator");
                     if (isLoaded("betterbiomeblend")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterbiomeblend");
                 }
                 if (isLoaded("mcdoom") && !isLoaded("mcdoomfix")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.mcdoom.without_fix");
