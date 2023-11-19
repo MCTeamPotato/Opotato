@@ -2,6 +2,7 @@ package com.teampotato.opotato;
 
 import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mods.*;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,14 +15,12 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.versions.forge.ForgeVersion;
 import nonamecrackers2.witherstormmod.common.entity.CommandBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,12 +33,8 @@ import static com.teampotato.opotato.EarlySetupInitializer.isLoaded;
 public class Opotato {
     public Opotato() {
         if (PotatoJsonConfig.initFailed) {
-            if (PotatoJsonConfig.readException != null) {
-                EarlySetupInitializer.LOGGER.error("Failed to read Opotato json config", PotatoJsonConfig.readException);
-            }
-            if (PotatoJsonConfig.writeException != null) {
-                EarlySetupInitializer.LOGGER.error("Failed to write Opotato json config", PotatoJsonConfig.writeException);
-            }
+            if (PotatoJsonConfig.readException != null) EarlySetupInitializer.LOGGER.error("Failed to read Opotato json config", PotatoJsonConfig.readException);
+            if (PotatoJsonConfig.writeException != null) EarlySetupInitializer.LOGGER.error("Failed to write Opotato json config", PotatoJsonConfig.writeException);
             throw new RuntimeException("Error occurs during Opotato json config initialization");
         }
         initConfigs(ModLoadingContext.get());
@@ -104,7 +99,7 @@ public class Opotato {
         }
     }
 
-    private static void initConfigs(ModLoadingContext ctx) {
+    private static void initConfigs(final ModLoadingContext ctx) {
         ModConfig.Type common = ModConfig.Type.COMMON;
         if (EarlySetupInitializer.isLoaded("ars_nouveau")) ctx.registerConfig(common, ArsNouveauLootConfig.arsNouveauConfig, EarlySetupInitializer.MOD_ID + "/mods/arsNouveau-loot.toml");
         if (EarlySetupInitializer.isLoaded("blue_skies")) ctx.registerConfig(common, BlueSkiesExtraConfig.blueSkiesExtraConfig, EarlySetupInitializer.MOD_ID + "/mods/blueSkies-extra.toml");

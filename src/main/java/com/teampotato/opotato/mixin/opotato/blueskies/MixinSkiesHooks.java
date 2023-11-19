@@ -14,7 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinSkiesHooks {
     @Inject(method = "breakSpeedHook", at = @At("HEAD"), cancellable = true)
     private static void disableNerf(float speed, BlockState state, BlockPos pos, Player player, CallbackInfoReturnable<Float> cir) {
-        if (BlueSkiesExtraConfig.enableDimensionalNerf.get()) return;
-        cir.setReturnValue(speed);
+        if (!BlueSkiesExtraConfig.enableDimensionalNerf.get()) cir.setReturnValue(speed);
+    }
+
+    @Inject(method = "breakSpeedHook", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
+    private static void enableEnhancedNerf(float speed, BlockState state, BlockPos pos, Player player, CallbackInfoReturnable<Float> cir) {
+        if (cir.getReturnValue() == 0.999F) cir.setReturnValue(0.0F);
     }
 }

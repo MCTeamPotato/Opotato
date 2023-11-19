@@ -20,6 +20,7 @@
     "opotato.blueskies.MixinMCLivingEntity",
     "opotato.blueskies.MixinMLSupporters",
     "opotato.blueskies.MixinSkiesEntityHooks",
+    "opotato.blueskies.MixinSkiesEvents",
     "opotato.blueskies.MixinSkiesHooks",
     "opotato.byg.MixinWeightedMasterLayer",
     "opotato.cataclysm.MixinFinalFractal",
@@ -67,12 +68,12 @@
   ],
   "client": [
     "api.RenderTypeMixin",
-    "opotato.modernui.MixinRegistration",
-    "opotato.modernui.tooltip.MixinConfig",
     "opotato.blueprint.MixinRewardHandler",
     "opotato.cataclysm.MixinTheIncinerator$Client",
     "opotato.cataclysm.rubidium.MixinEntityLighter",
     "opotato.gender.MixinGenderLayer",
+    "opotato.modernui.MixinRegistration",
+    "opotato.modernui.tooltip.MixinConfig",
     "opotato.quark.AutomaticRecipeUnlockModuleMixin$Client",
     "opotato.witherstorm.MixinBlockClusterRenderer",
     "smoothmenu.SmoothMenuMixin"

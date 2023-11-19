@@ -17,13 +17,8 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import javax.annotation.Nullable;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Mixin(Flame_Strike_Entity.class)
 public abstract class MixinFlameStrikeEntity extends Entity implements LightestEntity {

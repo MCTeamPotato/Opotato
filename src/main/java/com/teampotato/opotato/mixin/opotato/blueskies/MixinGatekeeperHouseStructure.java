@@ -4,15 +4,14 @@ import com.legacy.blue_skies.world.general_features.structures.GatekeeperHouseSt
 import com.teampotato.opotato.config.mods.BlueSkiesExtraConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = GatekeeperHouseStructure.class, remap = false)
 public abstract class MixinGatekeeperHouseStructure {
-    /**
-     * @author Kasualix
-     * @reason impl config
-     */
-    @Overwrite
-    public int getSpacing() {
-        return BlueSkiesExtraConfig.gateKeeperHouseSpacing.get();
+    @Inject(method = "getSpacing", at = @At("HEAD"), cancellable = true)
+    private void getSpacing(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(BlueSkiesExtraConfig.gateKeeperHouseSpacing.get());
     }
 }
