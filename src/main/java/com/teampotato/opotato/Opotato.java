@@ -2,7 +2,6 @@ package com.teampotato.opotato;
 
 import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mods.*;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
