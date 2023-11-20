@@ -3,9 +3,7 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(Ignis_Entity.class)
