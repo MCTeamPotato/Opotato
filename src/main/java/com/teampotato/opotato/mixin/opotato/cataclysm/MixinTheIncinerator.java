@@ -64,7 +64,7 @@ public abstract class MixinTheIncinerator extends Item {
      */
     @Overwrite
     public int getEnchantmentValue() {
-        return CataclysmExtraConfig.infernalForgeEnchantmentValue.get();
+        return CataclysmExtraConfig.incineratorEnchantmentValue.get();
     }
 
     @ModifyConstant(method = "releaseUsing", constant = @Constant(intValue = 400))

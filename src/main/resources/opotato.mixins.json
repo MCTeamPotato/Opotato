@@ -27,6 +27,7 @@
     "opotato.cataclysm.MixinFinalFractal",
     "opotato.cataclysm.MixinFlameStrikeEntity",
     "opotato.cataclysm.MixinGauntletOfGuard",
+    "opotato.cataclysm.MixinIgnisEntity",
     "opotato.cataclysm.MixinIgnitiumArmor",
     "opotato.cataclysm.MixinIgnitiumElytraChestplate",
     "opotato.cataclysm.MixinInfernalForge",
