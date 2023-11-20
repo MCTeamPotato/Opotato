@@ -16,6 +16,7 @@
     "mixintrace.MixinCrashReportSection",
     "opotato.arsnouveau.MixinLootTables",
     "opotato.blueskies.MixinBlueSkiesCommonConfig",
+    "opotato.blueskies.MixinGatekeeperEntity",
     "opotato.blueskies.MixinGatekeeperHouseStructure",
     "opotato.blueskies.MixinMCLivingEntity",
     "opotato.blueskies.MixinMLSupporters",
