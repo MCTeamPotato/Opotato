@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RewardGiver.class)
 public abstract class MixinRewardGiver {
-    @Inject(method = "addReward", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "addReward", remap = false, at = @At("HEAD"), cancellable = true)
     private void onAddReward(Reward reward, CallbackInfo ci) {
         ci.cancel();
     }
