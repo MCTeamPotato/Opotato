@@ -62,6 +62,7 @@
     "opotato.spark.MixinForgeServerSparkPlugin",
     "opotato.supplementaries.MixinCredits",
     "opotato.titanium.MixinReward",
+    "opotato.titanium.MixinRewardGiver",
     "opotato.undergarden.MixinUGStructures",
     "opotato.xaerominimap.MixinInternet",
     "opotato.xaerominimap.MixinPatreon",
