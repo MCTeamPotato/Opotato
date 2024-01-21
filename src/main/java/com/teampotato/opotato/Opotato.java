@@ -69,7 +69,6 @@ public class Opotato {
         if (EarlySetupInitializer.potatoJsonConfig.showModCompatibilityWarning) {
             modBus.addListener((FMLCommonSetupEvent event) -> {
                 if (EarlySetupInitializer.isRubidiumLoaded) {
-                    if (isLoaded("immersive_portals")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.rubidium.immersive_portals");
                     if (isLoaded("betterbiomeblend")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterbiomeblend");
                 }
                 if (isLoaded("mcdoom") && !isLoaded("mcdoomfix")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.mcdoom.without_fix");

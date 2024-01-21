@@ -40,7 +40,6 @@
   "opotato.catatclysm.incinerator.ready": "火焰轰击：准备完毕",
   "opotato.cataclysm.incinerator.desc": "长按鼠标右键%d刻以充能，而后若松开右键，",
 
-  "opotato.incompatible.rubidium.immersive_portals": "Opotato 抛出警告：Immersive Portals 与铷不兼容，请删除 Immersive Portals！",
   "opotato.incompatible.rubidium.betterbiomeblend": "Opotato 抛出警告：Better Biome Blend 与铷不兼容，会造成负优化，请删除 Better Biome Blend！",
   "opotato.mcdoom.without_fix": "Opotato 抛出警告：你安装了 MC Doom 但没有安装 MCDoom Hotfixes，游戏将会在渲染 Dread Knight 时崩溃！",
   "opotato.incompatible.magnesium.rubidium": "Opotato 抛出警告：镁与铷同为钠的非官方移植，两者无法兼容，请删除镁！",

@@ -40,7 +40,6 @@
   "opotato.catatclysm.incinerator.ready": "Flame Strike: ready",
   "opotato.cataclysm.incinerator.desc": "Full charge takes %d ticks, and if you stop holding right click after this",
 
-  "opotato.incompatible.rubidium.immersive_portals": "Warn throwed by Opotato: Immersive Portals is not compatible with Rubidium, pls remove Immersive Portals!",
   "opotato.incompatible.rubidium.betterbiomeblend": "Warn throwed by Opotato: Better Biome Blend is not compatible with Rubidium which will cause a negative optimization, pls remove BBB!",
   "opotato.mcdoom.without_fix": "Warn throwed by Opotato: You install MCDoom but don't install MCDoom Hotfixes, game will crash when rendering the Dread Knight!",
   "opotato.incompatible.magnesium.rubidium": "Warn throwed by Opotato: Magnesium and Rubidium are unofficial ports of Sodium and they are not compatible, pls remove Magnesium!",
