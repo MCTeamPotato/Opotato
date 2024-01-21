@@ -74,6 +74,7 @@
     "opotato.blueprint.MixinRewardHandler",
     "opotato.cataclysm.MixinTheIncinerator$Client",
     "opotato.cataclysm.rubidium.MixinEntityLighter",
+    "opotato.dynamiclights.DynamicLightsReforgedMixin",
     "opotato.gender.MixinGenderLayer",
     "opotato.modernui.MixinRegistration",
     "opotato.modernui.tooltip.MixinConfig",
