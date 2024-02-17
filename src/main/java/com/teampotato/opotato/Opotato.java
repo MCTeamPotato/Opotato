@@ -47,7 +47,7 @@ public class Opotato {
 
         forgeBus.addListener(EventPriority.LOWEST, (LivingHurtEvent event) -> {
             Entity source = event.getSource().getDirectEntity();
-            if (source instanceof ServerPlayer && EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch && EarlySetupInitializer.creativeOnePunch && !event.isCanceled()) {
+            if (source instanceof ServerPlayer && EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch && !event.isCanceled()) {
                 ServerPlayer player = (ServerPlayer) source;
                 if (player.isCreative()) event.getEntityLiving().setHealth(0.0F);
             }
@@ -66,12 +66,14 @@ public class Opotato {
             }
         });
 
-        if (EarlySetupInitializer.potatoJsonConfig.showModCompatibilityWarning) {
-            modBus.addListener((FMLCommonSetupEvent event) -> {
+        modBus.addListener((FMLCommonSetupEvent event) -> {
+            if (EarlySetupInitializer.potatoJsonConfig.showModCompatibilityWarning) {
                 if (EarlySetupInitializer.isRubidiumLoaded) {
-                    if (isLoaded("betterbiomeblend")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterbiomeblend");
+                    if (isLoaded("betterbiomeblend"))
+                        EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.rubidium.betterbiomeblend");
                 }
-                if (isLoaded("mcdoom") && !isLoaded("mcdoomfix")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.mcdoom.without_fix");
+                if (isLoaded("mcdoom") && !isLoaded("mcdoomfix"))
+                    EarlySetupInitializer.addIncompatibleWarn(event, "opotato.mcdoom.without_fix");
                 if (isLoaded("magnesium")) {
                     if (EarlySetupInitializer.isRubidiumLoaded) {
                         EarlySetupInitializer.addIncompatibleWarn(event, "opotato.incompatible.magnesium.rubidium");
@@ -79,9 +81,10 @@ public class Opotato {
                         EarlySetupInitializer.addIncompatibleWarn(event, "opotato.magnesium");
                     }
                 }
-                if (isLoaded("helium")) EarlySetupInitializer.addIncompatibleWarn(event, "opotato.helium.dangerous");
-            });
-        }
+                if (isLoaded("helium"))
+                    EarlySetupInitializer.addIncompatibleWarn(event, "opotato.helium.dangerous");
+            }
+        });
 
         if (EarlySetupInitializer.isWitherStormModLoaded) {
             forgeBus.addListener(EventPriority.LOWEST, (LivingDeathEvent event) -> {

@@ -37,11 +37,13 @@ public class PotatoJsonConfig {
             }
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
+        try  {
+            BufferedReader reader = new BufferedReader(new FileReader(configFile));
             JsonObject config = new JsonParser().parse(reader).getAsJsonObject();
             printModListWhenLaunching = config.get("printModListWhenLaunching").getAsBoolean();
             showModCompatibilityWarning = config.get("showModCompatibilityWarning").getAsBoolean();
             showModCompatibilityWarning = config.get("enableCreativeOnePouch").getAsBoolean();
+            reader.close();
         } catch (Exception e) {
             initFailed = true;
             readException = e;

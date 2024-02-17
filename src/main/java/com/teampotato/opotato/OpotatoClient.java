@@ -24,20 +24,17 @@ public class OpotatoClient {
     public static void initClientEvents(@NotNull IEventBus forgeBus, @NotNull IEventBus modBus) {
         forgeBus.addListener(EventPriority.HIGHEST, (TickEvent.ClientTickEvent event) -> {
             LocalPlayer player = Minecraft.getInstance().player;
-            if (player == null || !EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch || !event.phase.equals(TickEvent.Phase.START)) return;
+            if (player == null) return;
             if (OpotatoClient.SWITCH_ONE_PUNCH_KEY.consumeClick()) {
-                EarlySetupInitializer.creativeOnePunch = !EarlySetupInitializer.creativeOnePunch;
-                player.displayClientMessage(new TextComponent(I18n.get("opotato.creativeOnePunch") + (EarlySetupInitializer.creativeOnePunch ? I18n.get("opotato.creativeOnePunch.true") : I18n.get("opotato.creativeOnePunch.false"))), true);
+                EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch = !EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch;
+                player.displayClientMessage(new TextComponent(I18n.get("opotato.creativeOnePunch") + (EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch ? I18n.get("opotato.creativeOnePunch.true") : I18n.get("opotato.creativeOnePunch.false"))), true);
             }
         });
 
-        modBus.addListener((FMLClientSetupEvent event) -> {
-            EarlySetupInitializer.creativeOnePunch = EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch;
-            event.enqueueWork(() -> ClientRegistry.registerKeyBinding(OpotatoClient.SWITCH_ONE_PUNCH_KEY));
-        });
+        modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> ClientRegistry.registerKeyBinding(SWITCH_ONE_PUNCH_KEY)));
 
         if (EarlySetupInitializer.isNeatLoaded) {
-            forgeBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
+            modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
                 for (EntityType<?> entityType : ForgeRegistries.ENTITIES) {
                     ResourceLocation id = entityType.getRegistryName();
                     if (id != null) ((NeatConfigChecker)entityType).potato$setIsInNeatBlacklist(vazkii.neat.NeatConfig.blacklist.contains(id.toString()));

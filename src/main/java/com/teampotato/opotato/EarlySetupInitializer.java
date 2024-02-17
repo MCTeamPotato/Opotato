@@ -36,7 +36,6 @@ public class EarlySetupInitializer implements IMixinConfigPlugin {
     public static boolean isCataclysmLoaded;
     public static boolean isNotEnoughRecipeBookLoaded;
     public static boolean isNeatLoaded;
-    public static boolean creativeOnePunch;
 
     public EarlySetupInitializer() {
         isNotEnoughRecipeBookLoaded = isLoaded("nerb");
