@@ -42,7 +42,7 @@ public class PotatoJsonConfig {
             JsonObject config = new JsonParser().parse(reader).getAsJsonObject();
             printModListWhenLaunching = config.get("printModListWhenLaunching").getAsBoolean();
             showModCompatibilityWarning = config.get("showModCompatibilityWarning").getAsBoolean();
-            showModCompatibilityWarning = config.get("enableCreativeOnePouch").getAsBoolean();
+            enableCreativeOnePouch = config.get("enableCreativeOnePouch").getAsBoolean();
             reader.close();
         } catch (Exception e) {
             initFailed = true;

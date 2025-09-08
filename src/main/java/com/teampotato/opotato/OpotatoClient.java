@@ -22,16 +22,18 @@ public class OpotatoClient {
     public static final KeyMapping SWITCH_ONE_PUNCH_KEY = new KeyMapping("opotato.key.one_punch", GLFW.GLFW_KEY_UNKNOWN, "opotato.key.category");
 
     public static void initClientEvents(@NotNull IEventBus forgeBus, @NotNull IEventBus modBus) {
-        forgeBus.addListener(EventPriority.HIGHEST, (TickEvent.ClientTickEvent event) -> {
-            LocalPlayer player = Minecraft.getInstance().player;
-            if (player == null) return;
-            if (OpotatoClient.SWITCH_ONE_PUNCH_KEY.consumeClick()) {
-                EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch = !EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch;
-                player.displayClientMessage(new TextComponent(I18n.get("opotato.creativeOnePunch") + (EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch ? I18n.get("opotato.creativeOnePunch.true") : I18n.get("opotato.creativeOnePunch.false"))), true);
-            }
-        });
+        if (EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch) {
+            forgeBus.addListener(EventPriority.HIGHEST, (TickEvent.ClientTickEvent event) -> {
+                LocalPlayer player = Minecraft.getInstance().player;
+                if (player == null) return;
+                if (OpotatoClient.SWITCH_ONE_PUNCH_KEY.consumeClick()) {
+                    EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch = !EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch;
+                    player.displayClientMessage(new TextComponent(I18n.get("opotato.creativeOnePunch") + (EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch ? I18n.get("opotato.creativeOnePunch.true") : I18n.get("opotato.creativeOnePunch.false"))), true);
+                }
+            });
 
-        modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> ClientRegistry.registerKeyBinding(SWITCH_ONE_PUNCH_KEY)));
+            modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> ClientRegistry.registerKeyBinding(SWITCH_ONE_PUNCH_KEY)));
+        }
 
         if (EarlySetupInitializer.isNeatLoaded) {
             modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
