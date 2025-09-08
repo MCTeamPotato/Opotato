@@ -1,8 +1,5 @@
 package com.teampotato.opotato.config.mixin;
 
-import lombok.Getter;
-
-@Getter
 public class Option {
     private final String name;
     private boolean enabled;
@@ -21,5 +18,17 @@ public class Option {
 
     public boolean isOverridden() {
         return this.isUserDefined();
+    }
+
+    public boolean isUserDefined() {
+        return userDefined;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public String getName() {
+        return name;
     }
 }
