@@ -17,9 +17,9 @@ import java.util.Set;
 
 @Mixin(ArachnarchEntity.class)
 public abstract class MixinArachnarchEntity extends SkiesBossEntity implements RangedAttackMob, IStunnableMob {
-    @Shadow public static Set<Item> SHIELDS;
+    @Shadow(remap = false) public static Set<Item> SHIELDS;
 
-    @Shadow public abstract void setStunned(boolean stunned);
+    @Shadow(remap = false) public abstract void setStunned(boolean stunned);
 
     public MixinArachnarchEntity(EntityType<? extends SkiesBossEntity> type, net.minecraft.world.level.Level worldIn) {
         super(type, worldIn);

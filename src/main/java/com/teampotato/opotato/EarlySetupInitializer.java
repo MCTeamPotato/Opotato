@@ -3,6 +3,7 @@ package com.teampotato.opotato;
 import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mixin.Option;
 import com.teampotato.opotato.config.mixin.PotatoMixinConfig;
+import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.ModLoadingStage;
@@ -72,6 +73,8 @@ public class EarlySetupInitializer implements IMixinConfigPlugin {
         } catch (Exception e) {
             throw new RuntimeException("Could not load configuration file for Opotato", e);
         }
+
+        CataclysmExtraJsonConfig.init();
     }
 
     @Override

@@ -27,6 +27,8 @@
     "opotato.blueskies.MixinSkiesHooks",
     "opotato.blueskies.MixinSkiesPlayerEvents",
     "opotato.byg.MixinWeightedMasterLayer",
+    "opotato.cataclysm.ItemAccessor",
+    "opotato.cataclysm.MixinBulwarkOfTheFlame",
     "opotato.cataclysm.MixinFinalFractal",
     "opotato.cataclysm.MixinFlameStrikeEntity",
     "opotato.cataclysm.MixinGauntletOfGuard",

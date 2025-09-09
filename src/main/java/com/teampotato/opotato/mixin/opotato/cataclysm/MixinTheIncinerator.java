@@ -2,6 +2,7 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.items.The_Incinerator;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
+import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -27,6 +29,11 @@ public abstract class MixinTheIncinerator extends Item {
         super(arg);
     }
 
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(Properties group, CallbackInfo ci) {
+        if (CataclysmExtraJsonConfig.incineratorDamageable) ((ItemAccessor)this).setMaxDamage(CataclysmExtraJsonConfig.incineratorDurability);
+    }
+
     @Override
     public Rarity getRarity(ItemStack arg) {
         return Rarity.EPIC;
@@ -35,6 +42,17 @@ public abstract class MixinTheIncinerator extends Item {
     @ModifyConstant(method = "releaseUsing", constant = @Constant(intValue = 60))
     private int onRelease(int constant) {
         return CataclysmExtraConfig.incineratorChargeTicks.get();
+    }
+
+    @Inject(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"))
+    private void onUse(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft, CallbackInfo ci) {
+        if (CataclysmExtraJsonConfig.incineratorDamageable) this.setDamage(stack, this.getDamage(stack) + RandomUtils.nextInt(1, 3));
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (CataclysmExtraJsonConfig.incineratorDamageable) this.setDamage(stack, this.getDamage(stack) + 1);
+        return super.hurtEnemy(stack, target, attacker);
     }
 
     @ModifyConstant(method = "onUsingTick", constant = @Constant(intValue = 60))
