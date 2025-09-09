@@ -6,11 +6,11 @@ import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -46,12 +46,12 @@ public abstract class MixinTheIncinerator extends Item {
 
     @Inject(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"))
     private void onUse(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft, CallbackInfo ci) {
-        if (CataclysmExtraJsonConfig.incineratorDamageable) this.setDamage(stack, this.getDamage(stack) + RandomUtils.nextInt(1, 3));
+        if (CataclysmExtraJsonConfig.incineratorDamageable) stack.hurt(1, random, entityLiving instanceof ServerPlayer ? (ServerPlayer) entityLiving : null);
     }
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (CataclysmExtraJsonConfig.incineratorDamageable) this.setDamage(stack, this.getDamage(stack) + 1);
+        if (CataclysmExtraJsonConfig.incineratorDamageable) stack.hurt(1, random, attacker instanceof ServerPlayer ? (ServerPlayer) attacker : null);
         return super.hurtEnemy(stack, target, attacker);
     }
 

@@ -3,6 +3,7 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 import L_Ender.cataclysm.items.void_core;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -36,7 +37,7 @@ public abstract class MixinVoidCore extends Item {
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"))
     private void onUse(Level world, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         if (CataclysmExtraJsonConfig.voidCoreDamageable) {
-            this.setDamage(player.getItemInHand(hand), this.getDamage(player.getItemInHand(hand)) + 1);
+            player.getItemInHand(hand).hurt(1, random, player instanceof ServerPlayer ? (ServerPlayer) player : null);
         }
     }
 }

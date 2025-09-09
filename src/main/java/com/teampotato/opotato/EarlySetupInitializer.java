@@ -51,7 +51,7 @@ public class EarlySetupInitializer implements IMixinConfigPlugin {
                     .map(ModFileInfo::getFile)
                     .map(ModFile::getFileName)
                     .sorted()
-                    .forEach(name -> LOGGER.info("Mod " + name + " loaded!"));
+                    .forEach(name -> LOGGER.info("Mod {} loaded!", name));
         }
         instance = this;
         this.onLoad(MIXIN_PACKAGE_ROOT);

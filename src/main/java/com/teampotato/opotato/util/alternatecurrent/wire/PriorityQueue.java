@@ -100,7 +100,7 @@ public class PriorityQueue extends AbstractQueue<Node> {
 	}
 
 	@Override
-	public Iterator<Node> iterator() {
+	public @NotNull Iterator<Node> iterator() {
 		throw new UnsupportedOperationException();
 	}
 
