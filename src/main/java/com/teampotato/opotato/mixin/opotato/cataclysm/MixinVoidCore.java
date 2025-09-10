@@ -3,9 +3,9 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 import L_Ender.cataclysm.items.void_core;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +37,7 @@ public abstract class MixinVoidCore extends Item {
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"))
     private void onUse(Level world, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         if (CataclysmExtraJsonConfig.voidCoreDamageable) {
-            player.getItemInHand(hand).hurt(1, random, player instanceof ServerPlayer ? (ServerPlayer) player : null);
+            player.getItemInHand(hand).hurtAndBreak(1, player, user -> user.broadcastBreakEvent(hand.equals(InteractionHand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
         }
     }
 }

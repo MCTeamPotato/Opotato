@@ -3,7 +3,6 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 import L_Ender.cataclysm.items.Gauntlet_of_Guard;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,14 +34,14 @@ public abstract class MixinGauntletOfGuard extends Item {
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;startUsingItem(Lnet/minecraft/world/InteractionHand;)V"))
     private void onUse(Level world, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         if (CataclysmExtraJsonConfig.gauntletOfGuardDamageable) {
-            player.getItemInHand(hand).hurt(1, random, player instanceof ServerPlayer ? (ServerPlayer) player : null);
+            player.getItemInHand(hand).hurtAndBreak(1, player, user -> user.broadcastBreakEvent(hand));
         }
     }
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (CataclysmExtraJsonConfig.gauntletOfGuardDamageable) {
-            stack.hurt(1, random, attacker instanceof ServerPlayer ? (ServerPlayer) attacker : null);
+            stack.hurtAndBreak(1, attacker, user -> user.broadcastBreakEvent(attacker.getUsedItemHand()));
         }
         return super.hurtEnemy(stack, target, attacker);
     }

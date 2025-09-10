@@ -6,7 +6,6 @@ import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -46,12 +45,12 @@ public abstract class MixinTheIncinerator extends Item {
 
     @Inject(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/Item;I)V"))
     private void onUse(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft, CallbackInfo ci) {
-        if (CataclysmExtraJsonConfig.incineratorDamageable) stack.hurt(1, random, entityLiving instanceof ServerPlayer ? (ServerPlayer) entityLiving : null);
+        if (CataclysmExtraJsonConfig.incineratorDamageable) stack.hurtAndBreak(1, entityLiving, user -> user.broadcastBreakEvent(entityLiving.getUsedItemHand()));
     }
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (CataclysmExtraJsonConfig.incineratorDamageable) stack.hurt(1, random, attacker instanceof ServerPlayer ? (ServerPlayer) attacker : null);
+        if (CataclysmExtraJsonConfig.incineratorDamageable) stack.hurtAndBreak(1, attacker, user -> user.broadcastBreakEvent(attacker.getUsedItemHand()));
         return super.hurtEnemy(stack, target, attacker);
     }
 
