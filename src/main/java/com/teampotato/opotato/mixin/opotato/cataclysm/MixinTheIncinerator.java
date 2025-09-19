@@ -33,11 +33,6 @@ public abstract class MixinTheIncinerator extends Item {
         if (CataclysmExtraJsonConfig.incineratorDamageable) ((ItemAccessor)this).setMaxDamage(CataclysmExtraJsonConfig.incineratorDurability);
     }
 
-    @Override
-    public Rarity getRarity(ItemStack arg) {
-        return Rarity.EPIC;
-    }
-
     @ModifyConstant(method = "releaseUsing", constant = @Constant(intValue = 60))
     private int onRelease(int constant) {
         return CataclysmExtraConfig.incineratorChargeTicks.get();
