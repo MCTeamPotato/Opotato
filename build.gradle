@@ -1,5 +1,9 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+import net.darkhax.curseforgegradle.UploadArtifact
+
 plugins {
     id "dev.architectury.loom" version "1.10-SNAPSHOT"
+    id 'net.darkhax.curseforgegradle' version '1.1.+'
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
@@ -97,4 +101,32 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+}
+
+java {
+    withSourcesJar()
+}
+
+
+String currentChangeLog = file("CHANGELOG.md").getText("UTF-8")
+String[] javaVersions = ["Java 8", "Java 17", "Java 21", "Java 22"]
+
+def cf_project_id = "834716"
+
+tasks.register("publishCurseForge", TaskPublishCurseForge) {
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+    disableVersionDetection()
+
+    UploadArtifact mainFile = upload(cf_project_id, remapJar)
+    mainFile.displayName = "Opotato-${version}"
+    mainFile.releaseType = "release"
+    mainFile.changelog = currentChangeLog
+    mainFile.changelogType = "markdown"
+    mainFile.addModLoader("Forge")
+    mainFile.addJavaVersion(javaVersions)
+    mainFile.addGameVersion(minecraft_version)
+
+    UploadArtifact sourcesFile = mainFile.withAdditionalFile(sourcesJar)
+    sourcesFile.changelog = currentChangeLog
+    sourcesFile.changelogType = "markdown"
 }
