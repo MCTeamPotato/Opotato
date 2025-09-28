@@ -32,7 +32,7 @@ public abstract class MixinEntWallEntity extends LivingEntity{
         } else {
             if (source.getDirectEntity() instanceof LivingEntity) {
                 ItemStack stack = ((LivingEntity)source.getDirectEntity()).getMainHandItem();
-                if (BlueSkiesExtraConfig.enableEnhancedDimensionalNerf.get()) {
+                if (BlueSkiesExtraConfig.onlySkyAxeHurtEntWall.get()) {
                     if (stack.getItem() instanceof SkyAxeItem) {
                         this.playDamageEffect();
                         cir.setReturnValue(super.hurt(source, amount));

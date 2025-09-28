@@ -12,6 +12,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class MixinSkiesPlayerEvents {
     @Redirect(method = "destroyBlock", at = @At(value = "INVOKE", target = "Lcom/legacy/blue_skies/registries/SkiesDimensions;inSkyDimension(Lnet/minecraft/world/entity/Entity;)Z"))
     private static boolean onCheck(Entity entity) {
-        return BlueSkiesExtraConfig.enableEnhancedDimensionalNerf.get() && SkiesDimensions.inSkyDimension(entity);
+        return BlueSkiesExtraConfig.enableBreakNerf.get() && SkiesDimensions.inSkyDimension(entity);
     }
 }

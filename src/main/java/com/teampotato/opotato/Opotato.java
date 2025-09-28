@@ -84,6 +84,10 @@ public class Opotato {
                 if (isLoaded("helium"))
                     EarlySetupInitializer.addIncompatibleWarn(event, "opotato.helium.dangerous");
             }
+
+            if (isLoaded("blue_skies") && BlueSkiesExtraConfig.crash.get()) {
+                throw new RuntimeException("I'm just wondering who is consuming the Blue Skies shit :)");
+            }
         });
 
         if (EarlySetupInitializer.isWitherStormModLoaded) {

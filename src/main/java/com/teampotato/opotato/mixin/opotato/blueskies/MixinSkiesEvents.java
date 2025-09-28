@@ -14,11 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinSkiesEvents {
     @Inject(method = "onLivingHurt", at = @At("HEAD"), cancellable = true)
     private static void makeNerfConfigurable(LivingDamageEvent event, CallbackInfo ci) {
-        if (!BlueSkiesExtraConfig.enableDimensionalNerf.get()) ci.cancel();
+        if (!BlueSkiesExtraConfig.enableDamageNerf.get()) ci.cancel();
     }
 
     @ModifyConstant(method = "onLivingHurt", constant = @Constant(floatValue = 5.0F))
-    private static float enableEnhancedNerf(float constant) {
-        return BlueSkiesExtraConfig.enableEnhancedDimensionalNerf.get() ? 0.0F : constant;
+    private static float damageNerfMixin(float constant) {
+        return BlueSkiesExtraConfig.enableDamageNerf.get() ? constant : Float.MAX_VALUE;
     }
 }

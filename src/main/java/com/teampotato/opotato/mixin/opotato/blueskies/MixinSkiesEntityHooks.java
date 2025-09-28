@@ -14,11 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinSkiesEntityHooks {
     @Inject(method = "nerfDamage", at = @At(value = "RETURN", ordinal = 0), cancellable = true)
     private static void enableEnhancedNerf(DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
-        if (cir.getReturnValue() == amount * 0.3F && BlueSkiesExtraConfig.enableEnhancedDimensionalNerf.get()) cir.setReturnValue(0.0F);
+        if (cir.getReturnValue() == amount * 0.3F && BlueSkiesExtraConfig.enableDamageNerf.get()) cir.setReturnValue(0.0F);
     }
 
     @ModifyConstant(method = {"nerfIndirectDamage" , "lambda$nerfIndirectDamage$1"}, constant = @Constant(floatValue = 5.0F))
     private static float enableEnhancedNerf(float constant) {
-        return BlueSkiesExtraConfig.enableEnhancedDimensionalNerf.get() ? 0.0F : constant;
+        return BlueSkiesExtraConfig.enableDamageNerf.get() ? 0.0F : constant;
     }
 }
