@@ -58,6 +58,7 @@
     "opotato.neat.HealthBarRendererMixin",
     "opotato.placebo.MixinTrailsManager",
     "opotato.placebo.MixinWingsManager",
+    "opotato.quark.AncientTomesModuleMixin",
     "opotato.quark.AutomaticRecipeUnlockModuleMixin",
     "opotato.quark.MixinContributorRewardHandler",
     "opotato.quark.MixinImprovedTooltipsModule",
