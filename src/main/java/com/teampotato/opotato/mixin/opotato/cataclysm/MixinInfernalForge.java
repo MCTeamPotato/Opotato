@@ -29,6 +29,11 @@ public abstract class MixinInfernalForge extends PickaxeItem {
         return CataclysmExtraConfig.infernalForgeCoolDown.get();
     }
 
+    @Inject(method = "hurtEnemy", at = @At("RETURN"))
+    private void onHurtEnemy(ItemStack heldItemStack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> cir) {
+        super.hurtEnemy(heldItemStack, target, attacker);
+    }
+
     @Inject(method = "setDamage", at = @At("HEAD"), cancellable = true, remap = false)
     private void onSetDamage(ItemStack stack, int damage, CallbackInfo ci) {
         if (CataclysmExtraConfig.infernalForgeCanBeDamaged.get()) {

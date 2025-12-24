@@ -103,7 +103,7 @@ public class CataclysmExtraConfig {
         infernalForgeEnchantmentValue = builder.comment("Take a look at Minecraft Wiki to learn more about EnchantmentValue (aka Enchantability) based on item tiers (Pay attention to that table.): https://minecraft.fandom.com/wiki/Tiers").defineInRange("infernalForgeEnchantmentValue", 16, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("FinalFractal");
-        finalFractalCanBeDamaged = builder.define("finalFractalCanBeDamage", false);
+        finalFractalCanBeDamaged = builder.define("finalFractalCanBeDamaged", false);
         finalFractalValidRepairItem = builder.comment("If you want one item to repair Final Fractal, then write it here.").defineList("finalFractalValidRepairItem", new ObjectArrayList<>(), o -> true);
         builder.pop();
         builder.push("IgnitiumArmor");

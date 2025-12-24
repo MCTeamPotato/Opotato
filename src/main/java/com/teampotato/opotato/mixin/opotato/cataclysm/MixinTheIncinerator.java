@@ -95,7 +95,6 @@ public abstract class MixinTheIncinerator extends Item {
     }
 
 
-
     @Mixin(The_Incinerator.class)
     public static class Client {
         /**
