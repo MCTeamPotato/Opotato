@@ -3,14 +3,17 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 import L_Ender.cataclysm.items.Gauntlet_of_Guard;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,6 +47,15 @@ public abstract class MixinGauntletOfGuard extends Item {
             stack.hurtAndBreak(1, attacker, user -> user.broadcastBreakEvent(attacker.getUsedItemHand()));
         }
         return super.hurtEnemy(stack, target, attacker);
+    }
+
+    @Override
+    public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miningEntity) {
+        if (state.getDestroySpeed(level, pos) != 0.0F) {
+            stack.hurtAndBreak(2, miningEntity, arg -> arg.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        }
+
+        return true;
     }
 
     /**

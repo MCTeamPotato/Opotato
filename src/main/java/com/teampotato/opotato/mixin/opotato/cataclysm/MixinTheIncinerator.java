@@ -4,12 +4,15 @@ import L_Ender.cataclysm.items.The_Incinerator;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -47,6 +50,15 @@ public abstract class MixinTheIncinerator extends Item {
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (CataclysmExtraJsonConfig.incineratorDamageable) stack.hurtAndBreak(1, attacker, user -> user.broadcastBreakEvent(attacker.getUsedItemHand()));
         return super.hurtEnemy(stack, target, attacker);
+    }
+
+    @Override
+    public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miningEntity) {
+        if (state.getDestroySpeed(level, pos) != 0.0F) {
+            stack.hurtAndBreak(2, miningEntity, arg -> arg.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        }
+
+        return true;
     }
 
     @ModifyConstant(method = "onUsingTick", constant = @Constant(intValue = 60))
