@@ -78,6 +78,7 @@ dependencies {
     modCompileOnly("curse.maven:charm-reforged-430988:3214651")
     modCompileOnly("curse.maven:neat-238372:3182258")
     modCompileOnly("curse.maven:dynamiclights-reforged-551736:3574974")
+    modCompileOnly("curse.maven:brutal-bosses-dungeon-557999:3773958")
 }
 
 processResources {

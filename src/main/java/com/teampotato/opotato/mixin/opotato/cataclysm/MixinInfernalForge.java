@@ -2,13 +2,18 @@ package com.teampotato.opotato.mixin.opotato.cataclysm;
 
 import L_Ender.cataclysm.items.infernal_forge;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
@@ -80,5 +85,15 @@ public abstract class MixinInfernalForge extends PickaxeItem {
     @ModifyConstant(method = "hurtEnemy", constant = @Constant(floatValue = 1.0F))
     private float onGetKnockBackStrength(float constant) {
         return CataclysmExtraConfig.infernalForgeAttackKnockBack.get().floatValue();
+    }
+
+    @Inject(method = "useOn", at = @At("RETURN"))
+    private void onRightClick(UseOnContext context, @NotNull CallbackInfoReturnable<InteractionResult> cir) {
+        if (cir.getReturnValue().equals(InteractionResult.SUCCESS) && CataclysmExtraConfig.infernalForgeCanBeDamaged.get()) {
+            Player player = context.getPlayer();
+            if (player == null) return;
+            InteractionHand hand = context.getHand();
+            player.getItemInHand(hand).hurtAndBreak(1, player, user -> user.broadcastBreakEvent(hand));
+        }
     }
 }

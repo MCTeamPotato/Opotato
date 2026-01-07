@@ -4,11 +4,8 @@ import L_Ender.cataclysm.items.Gauntlet_of_Guard;
 import com.teampotato.opotato.config.mods.CataclysmExtraConfig;
 import com.teampotato.opotato.config.mods.CataclysmExtraJsonConfig;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
@@ -21,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Gauntlet_of_Guard.class)
 public abstract class MixinGauntletOfGuard extends Item {
@@ -32,13 +28,6 @@ public abstract class MixinGauntletOfGuard extends Item {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(Properties group, CallbackInfo ci) {
         if (CataclysmExtraJsonConfig.gauntletOfGuardDamageable) ((ItemAccessor)this).setMaxDamage(CataclysmExtraJsonConfig.gauntletOfGuardDurability);
-    }
-
-    @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;startUsingItem(Lnet/minecraft/world/InteractionHand;)V"))
-    private void onUse(Level world, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
-        if (CataclysmExtraJsonConfig.gauntletOfGuardDamageable) {
-            player.getItemInHand(hand).hurtAndBreak(1, player, user -> user.broadcastBreakEvent(hand));
-        }
     }
 
     @Override

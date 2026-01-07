@@ -26,6 +26,7 @@
     "opotato.blueskies.MixinSkiesEvents",
     "opotato.blueskies.MixinSkiesHooks",
     "opotato.blueskies.MixinSkiesPlayerEvents",
+    "opotato.brutalbosses.MixinProjectile",
     "opotato.byg.MixinWeightedMasterLayer",
     "opotato.cataclysm.ItemAccessor",
     "opotato.cataclysm.MixinBulwarkOfTheFlame",
