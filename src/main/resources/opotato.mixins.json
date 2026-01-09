@@ -15,6 +15,7 @@
     "mixintrace.MixinCrashReport",
     "mixintrace.MixinCrashReportSection",
     "opotato.arsnouveau.MixinLootTables",
+    "opotato.astralsorcery.MixinCacheEventBus",
     "opotato.blueskies.MixinArachnarchEntity",
     "opotato.blueskies.MixinBlueSkiesCommonConfig",
     "opotato.blueskies.MixinEntWallEntity",

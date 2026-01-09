@@ -17,6 +17,7 @@ public class PotatoMixinConfig {
     private PotatoMixinConfig() {
         this.addMixinRule("opotato", true);
         this.addMixinRule("opotato.arsnouveau", isLoaded("arsnouveau"));
+        this.addMixinRule("opotato.astralsorcery", isLoaded("astralsorcery"));
         this.addMixinRule("opotato.blueprint", isLoaded("abnormals_core"));
         this.addMixinRule("opotato.blueskies", isLoaded("blue_skies"));
         this.addMixinRule("opotato.brutalbosses", isLoaded("brutalbosses"));
