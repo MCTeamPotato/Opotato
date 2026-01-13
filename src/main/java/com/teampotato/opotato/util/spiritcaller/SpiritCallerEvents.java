@@ -5,6 +5,7 @@ import com.yellowbrossproductions.spiritcallerbackport.entities.IllagerSoulEntit
 import com.yellowbrossproductions.spiritcallerbackport.entities.SpiritcallerEntity;
 import com.yellowbrossproductions.spiritcallerbackport.entities.goal.LoseAIGoal;
 import com.yellowbrossproductions.spiritcallerbackport.init.ModEntityTypes;
+import com.yellowbrossproductions.spiritcallerbackport.init.RaidWaveMembers;
 import com.yellowbrossproductions.spiritcallerbackport.util.EffectRegisterer;
 import com.yellowbrossproductions.spiritcallerbackport.util.EntityUtil;
 import net.minecraft.core.BlockPos;
@@ -64,8 +65,8 @@ public class SpiritCallerEvents {
     }
 
     private static void addRaidMembers(FMLCommonSetupEvent event) {
-        List<? extends Integer> raidCountList = BackportConfig.spiritcaller_raidcount.get();
-        Raid.RaiderType.create("spiritcaller_backport:spiritcaller", ModEntityTypes.Spiritcaller.get(), new int[]{raidCountList.get(0), raidCountList.get(1), raidCountList.get(2), raidCountList.get(3), raidCountList.get(4), raidCountList.get(5), raidCountList.get(6), raidCountList.get(7)});
+        RaidWaveMembers.SPIRITCALLER = Raid.RaiderType.create("spiritcaller_backport:spiritcaller", ModEntityTypes.Spiritcaller.get(), BackportConfig.spiritcaller_raidcount.get().stream().mapToInt(Integer::intValue).toArray());
+        RaidWaveMembers.CUSTOM_RAID_MEMBERS.add(RaidWaveMembers.SPIRITCALLER);
     }
 
     private static void misconductionAttack1(PlayerInteractEvent.@NotNull RightClickBlock event) {
