@@ -104,7 +104,7 @@ public class Opotato {
         }
 
         if (EarlySetupInitializer.isSpiritCallerLoaded) {
-            SpiritCallerEvents.register(forgeBus);
+            SpiritCallerEvents.register(forgeBus, modBus);
         }
     }
 

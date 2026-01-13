@@ -1,5 +1,6 @@
 package com.teampotato.opotato.util.spiritcaller;
 
+import com.yellowbrossproductions.spiritcallerbackport.config.BackportConfig;
 import com.yellowbrossproductions.spiritcallerbackport.entities.IllagerSoulEntity;
 import com.yellowbrossproductions.spiritcallerbackport.entities.SpiritcallerEntity;
 import com.yellowbrossproductions.spiritcallerbackport.entities.goal.LoseAIGoal;
@@ -16,20 +17,23 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Random;
 
 public class SpiritCallerEvents {
-    public static void register(@NotNull IEventBus forgeBus) {
+    public static void register(@NotNull IEventBus forgeBus, @NotNull IEventBus modBus) {
         forgeBus.addListener(SpiritCallerEvents::scareVillagersAway);
         forgeBus.addListener(SpiritCallerEvents::stopMobs);
+        modBus.addListener(SpiritCallerEvents::addRaidMembers);
         forgeBus.addListener(SpiritCallerEvents::misconductionAttack1);
         forgeBus.addListener(SpiritCallerEvents::misconductionAttack2);
         forgeBus.addListener(SpiritCallerEvents::preventGettingHurt);
@@ -57,6 +61,11 @@ public class SpiritCallerEvents {
             ((PathfinderMob)entity).goalSelector.addGoal(0, new LoseAIGoal((PathfinderMob)entity));
         }
 
+    }
+
+    private static void addRaidMembers(FMLCommonSetupEvent event) {
+        List<? extends Integer> raidCountList = BackportConfig.spiritcaller_raidcount.get();
+        Raid.RaiderType.create("spiritcaller_backport:spiritcaller", ModEntityTypes.Spiritcaller.get(), new int[]{raidCountList.get(0), raidCountList.get(1), raidCountList.get(2), raidCountList.get(3), raidCountList.get(4), raidCountList.get(5), raidCountList.get(6), raidCountList.get(7)});
     }
 
     private static void misconductionAttack1(PlayerInteractEvent.@NotNull RightClickBlock event) {
