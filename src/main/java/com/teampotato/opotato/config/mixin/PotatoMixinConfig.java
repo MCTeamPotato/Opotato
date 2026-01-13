@@ -44,6 +44,7 @@ public class PotatoMixinConfig {
         this.addMixinRule("opotato.quark", isLoaded("quark"));
         this.addMixinRule("opotato.randompatches", isLoaded("randompatches"));
         this.addMixinRule("opotato.spark", isLoaded("spark"));
+        this.addMixinRule("opotato.spiritcallerbackport", EarlySetupInitializer.isSpiritCallerLoaded);
         this.addMixinRule("opotato.supplementaries", isLoaded("supplementaries"));
         this.addMixinRule("opotato.titanium", isLoaded("titanium"));
         this.addMixinRule("opotato.undergarden", isLoaded("undergarden"));

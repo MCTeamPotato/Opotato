@@ -37,6 +37,7 @@ public class EarlySetupInitializer implements IMixinConfigPlugin {
     public static boolean isCataclysmLoaded;
     public static boolean isNotEnoughRecipeBookLoaded;
     public static boolean isNeatLoaded;
+    public static boolean isSpiritCallerLoaded;
 
     public EarlySetupInitializer() {
         isNotEnoughRecipeBookLoaded = isLoaded("nerb");
@@ -44,6 +45,7 @@ public class EarlySetupInitializer implements IMixinConfigPlugin {
         isWitherStormModLoaded = isLoaded("witherstormmod");
         isCataclysmLoaded = isLoaded("cataclysm");
         isNeatLoaded = isLoaded("neat");
+        isSpiritCallerLoaded = isLoaded("spiritcaller_backport");
 
         if (potatoJsonConfig == null) potatoJsonConfig = new PotatoJsonConfig();
         if (potatoJsonConfig.printModListWhenLaunching) {

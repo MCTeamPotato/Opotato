@@ -2,6 +2,7 @@ package com.teampotato.opotato;
 
 import com.teampotato.opotato.config.json.PotatoJsonConfig;
 import com.teampotato.opotato.config.mods.*;
+import com.teampotato.opotato.util.spiritcaller.SpiritCallerEvents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -43,8 +44,7 @@ public class Opotato {
         if (FMLLoader.getDist().isClient()) OpotatoClient.initClientEvents(forgeBus, modBus);
     }
 
-    private static void initEvents(@NotNull IEventBus forgeBus, IEventBus modBus) {
-
+    private static void initEvents(@NotNull IEventBus forgeBus, @NotNull IEventBus modBus) {
         forgeBus.addListener(EventPriority.LOWEST, (LivingHurtEvent event) -> {
             Entity source = event.getSource().getDirectEntity();
             if (source instanceof ServerPlayer && EarlySetupInitializer.potatoJsonConfig.enableCreativeOnePouch && !event.isCanceled()) {
@@ -101,6 +101,10 @@ public class Opotato {
                     }
                 }
             });
+        }
+
+        if (EarlySetupInitializer.isSpiritCallerLoaded) {
+            SpiritCallerEvents.register(forgeBus);
         }
     }
 

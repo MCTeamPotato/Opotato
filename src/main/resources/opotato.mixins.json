@@ -70,6 +70,7 @@
     "opotato.randompatches.MixinDuplicateEntityUUIDFixHandler",
     "opotato.randompatches.MixinRPContributorCapeHandler",
     "opotato.spark.MixinForgeServerSparkPlugin",
+    "opotato.spiritcallerbackport.ModClientEventsMixin",
     "opotato.supplementaries.MixinCredits",
     "opotato.titanium.MixinReward",
     "opotato.titanium.MixinRewardGiver",

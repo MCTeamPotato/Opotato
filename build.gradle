@@ -80,6 +80,7 @@ dependencies {
     modImplementation("curse.maven:dynamiclights-reforged-551736:3574974")
     modImplementation("curse.maven:brutal-bosses-dungeon-557999:3773958")
     modImplementation("curse.maven:astral-sorcery-241721:3813365")
+    modImplementation("curse.maven:spiritcaller-backport-676129:3987105")
 }
 
 processResources {
